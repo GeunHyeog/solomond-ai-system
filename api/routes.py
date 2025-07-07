@@ -199,17 +199,5 @@ async def list_available_models():
         "recommendation": "base 모델이 속도와 정확도의 균형이 좋습니다."
     })
 
-# 에러 핸들러
-@router.exception_handler(HTTPException)
-async def http_exception_handler(request, exc):
-    return JSONResponse(
-        status_code=exc.status_code,
-        content={"success": False, "error": exc.detail}
-    )
-
-@router.exception_handler(Exception)
-async def general_exception_handler(request, exc):
-    return JSONResponse(
-        status_code=500,
-        content={"success": False, "error": "내부 서버 오류가 발생했습니다."}
-    )
+# 오류 처리는 FastAPI 앱 레벨에서 처리하도록 변경
+# (APIRouter에서는 exception_handler 사용 불가)
