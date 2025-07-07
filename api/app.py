@@ -8,17 +8,40 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 import uvicorn
 
-# 상대 import
+# Import 처리 (개발 환경 호환)
 try:
+    # 상대 import 시도
     from .routes import router
     from ..ui.templates import get_main_template
 except ImportError:
-    # 개발 중 절대 import
-    import sys
-    from pathlib import Path
-    sys.path.append(str(Path(__file__).parent.parent))
-    from api.routes import router
-    from ui.templates import get_main_template
+    try:
+        # 절대 import 시도
+        import sys
+        from pathlib import Path
+        sys.path.append(str(Path(__file__).parent.parent))
+        from api.routes import router
+        from ui.templates import get_main_template
+    except ImportError:
+        print("⚠️ 모듈 import 실패. 기본 라우터를 사용합니다.")
+        from fastapi import APIRouter
+        router = APIRouter()
+        
+        @router.get("/test")
+        async def fallback_test():
+            return {"status": "fallback_mode", "message": "모듈화 시스템을 로드할 수 없습니다."}
+        
+        def get_main_template():
+            return """
+            <!DOCTYPE html>
+            <html>
+            <head><title>시스템 로딩 중</title></head>
+            <body>
+                <h1>🔄 시스템 초기화 중...</h1>
+                <p>모듈화된 시스템을 로드하는 중입니다.</p>
+                <p>잠시 후 다시 시도하거나 <a href="/api/test">시스템 상태</a>를 확인해주세요.</p>
+            </body>
+            </html>
+            """
 
 def create_app() -> FastAPI:
     """
@@ -57,14 +80,23 @@ def create_app() -> FastAPI:
     
     # 레거시 호환성을 위한 라우트 (기존 minimal_stt_test.py와 동일)
     @app.post("/process_audio")
-    async def legacy_process_audio(*args, **kwargs):
+    async def legacy_process_audio(audio_file):
         """레거시 호환성을 위한 라우트"""
-        return await router.url_path_for("process_audio")(*args, **kwargs)
+        # API 라우터의 process_audio를 직접 호출
+        from api.routes import process_audio
+        return await process_audio(audio_file)
     
     @app.get("/test")
     async def legacy_test():
         """레거시 호환성을 위한 테스트 라우트"""
-        return await router.url_path_for("system_test")()
+        from api.routes import system_test
+        return await system_test()
+    
+    # 헬스체크 라우트
+    @app.get("/health")
+    async def health():
+        """간단한 헬스체크"""
+        return {"status": "ok", "version": "3.0"}
     
     return app
 
@@ -87,13 +119,17 @@ def run_app(host: str = "0.0.0.0", port: int = 8080, debug: bool = False):
     print(f"🧪 테스트: http://{host}:{port}/test")
     print("=" * 60)
     
-    uvicorn.run(
-        app, 
-        host=host, 
-        port=port, 
-        reload=debug,
-        log_level="info" if debug else "warning"
-    )
+    try:
+        uvicorn.run(
+            app, 
+            host=host, 
+            port=port, 
+            reload=debug,
+            log_level="info" if debug else "warning"
+        )
+    except Exception as e:
+        print(f"❌ 서버 실행 오류: {e}")
+        print("🔄 레거시 모드로 전환을 고려해주세요.")
 
 if __name__ == "__main__":
     run_app(debug=True)
