@@ -1,0 +1,20 @@
+# 필수 패키지
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+aiofiles>=23.2.1
+
+# AI 분석 패키지 (선택적)
+openai-whisper>=20231117
+PyPDF2>=3.0.1
+python-docx>=1.1.0
+easyocr>=1.7.0
+yt-dlp>=2023.11.16
+
+# 시스템 모니터링
+psutil>=5.9.6
+
+# 개발 도구 (선택적)
+pytest>=7.4.3
+black>=23.11.0
+isort>=5.12.0

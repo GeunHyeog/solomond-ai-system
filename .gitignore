@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 프로젝트 특화
+logs/
+temp/
+uploads/
+*.log
+*.tmp
+
+# AI 모델 파일
+models/
+*.pt
+*.bin
+*.onnx
+
+# 환경설정
+.env
+.env.local
+.env.production
+
+# 테스트
+.pytest_cache/
+coverage/
+.coverage
+
+# 백업
+*.bak
+*.backup
+*.orig
