@@ -1,6 +1,6 @@
 """
 솔로몬드 AI 시스템 - API 라우트
-FastAPI 기반 REST API 엔드포인트 (Phase 3.2 다국어 지원)
+FastAPI 기반 REST API 엔드포인트 (Phase 3.3 AI 고도화)
 """
 
 from fastapi import APIRouter, File, UploadFile, HTTPException, Query
@@ -13,6 +13,7 @@ try:
     # 상대 import 시도
     from ..core.analyzer import get_analyzer, check_whisper_status, get_language_support
     from ..core.video_processor import get_video_processor, check_video_support
+    from ..core.speaker_analyzer import get_speaker_analyzer, check_speaker_analysis_support
 except ImportError:
     try:
         # 절대 import 시도
@@ -21,6 +22,7 @@ except ImportError:
         sys.path.append(str(Path(__file__).parent.parent))
         from core.analyzer import get_analyzer, check_whisper_status, get_language_support
         from core.video_processor import get_video_processor, check_video_support
+        from core.speaker_analyzer import get_speaker_analyzer, check_speaker_analysis_support
     except ImportError:
         # 최후의 수단: 함수 정의
         print("⚠️ core 모듈들을 import할 수 없습니다. 대체 함수를 사용합니다.")
@@ -51,6 +53,17 @@ except ImportError:
         
         def check_video_support():
             return {"supported_formats": [".mp4", ".avi", ".mov"], "ffmpeg_available": False}
+        
+        def get_speaker_analyzer():
+            class DummySpeakerAnalyzer:
+                async def analyze_uploaded_file(self, file_content, filename, use_advanced=True):
+                    return {"success": False, "error": "Speaker analyzer not available"}
+                def get_capabilities(self):
+                    return {"supported_formats": [".mp3", ".wav"], "pyannote_available": False}
+            return DummySpeakerAnalyzer()
+        
+        def check_speaker_analysis_support():
+            return {"pyannote_available": False, "algorithms": {}}
 
 # API 라우터 생성
 router = APIRouter()
@@ -129,6 +142,114 @@ async def process_audio(
             "error": error_msg,
             "processing_time": processing_time,
             "requested_language": language
+        })
+
+@router.post("/analyze_speakers")
+async def analyze_speakers(
+    audio_file: UploadFile = File(...),
+    use_advanced: bool = Query(True, description="고급 분석 사용 여부 (PyAnnote AI)")
+):
+    """
+    🎭 화자 구분 분석 API (Phase 3.3 신규)
+    
+    업로드된 음성 파일에서 여러 화자를 구분하고 발언 시간을 분석
+    
+    Args:
+        audio_file: 업로드할 음성 파일
+        use_advanced: 고급 AI 분석 사용 여부 (기본: True)
+    """
+    start_time = time.time()
+    
+    try:
+        # 파일 기본 정보 수집
+        filename = audio_file.filename
+        file_content = await audio_file.read()
+        file_size_mb = round(len(file_content) / (1024 * 1024), 2)
+        
+        print(f"🎭 화자 구분 파일 수신: {filename} ({file_size_mb} MB)")
+        
+        # 화자 분석기 가져오기
+        speaker_analyzer = get_speaker_analyzer()
+        
+        # 화자 구분 분석 실행
+        result = await speaker_analyzer.analyze_uploaded_file(
+            file_content=file_content,
+            filename=filename,
+            use_advanced=use_advanced
+        )
+        
+        # 응답 형식
+        if result["success"]:
+            return JSONResponse({
+                "success": True,
+                "filename": result["filename"],
+                "file_size": result["file_size"],
+                "processing_time": result["processing_time"],
+                "analysis_method": result["method"],
+                "total_duration": result["total_duration"],
+                "num_speakers": result["num_speakers"],
+                "segments": result["segments"],
+                "speaker_statistics": result["speaker_statistics"],
+                "analysis_info": result.get("analysis_info", {}),
+                "feature_type": "speaker_diarization"
+            })
+        else:
+            return JSONResponse({
+                "success": False,
+                "error": result["error"],
+                "processing_time": result.get("processing_time", round(time.time() - start_time, 2)),
+                "fallback_available": result.get("fallback") is not None,
+                "feature_type": "speaker_diarization"
+            })
+            
+    except Exception as e:
+        processing_time = round(time.time() - start_time, 2)
+        error_msg = str(e)
+        
+        print(f"❌ 화자 구분 API 오류: {error_msg}")
+        
+        return JSONResponse({
+            "success": False,
+            "error": error_msg,
+            "processing_time": processing_time,
+            "feature_type": "speaker_diarization"
+        })
+
+@router.get("/speaker_support")
+async def get_speaker_support_info():
+    """
+    🎭 화자 구분 지원 정보 API (Phase 3.3 신규)
+    
+    시스템의 화자 구분 기능 지원 상태를 확인
+    """
+    try:
+        support_info = check_speaker_analysis_support()
+        speaker_analyzer = get_speaker_analyzer()
+        capabilities = speaker_analyzer.get_capabilities()
+        
+        return JSONResponse({
+            "success": True,
+            "speaker_diarization": {
+                "supported_formats": capabilities["supported_formats"],
+                "pyannote_available": capabilities["pyannote_available"],
+                "max_speakers": capabilities["max_speakers"],
+                "min_segment_duration": capabilities["min_segment_duration"],
+                "algorithms": capabilities["algorithms"]
+            },
+            "recommendations": {
+                "pyannote_installation": not capabilities["pyannote_available"],
+                "install_guide": {
+                    "command": "pip install pyannote.audio torch",
+                    "note": "고급 AI 기반 화자 구분을 위해 권장"
+                } if not capabilities["pyannote_available"] else None
+            },
+            "phase": capabilities["phase"]
+        })
+        
+    except Exception as e:
+        return JSONResponse({
+            "success": False,
+            "error": str(e)
         })
 
 @router.post("/process_video")
@@ -239,7 +360,7 @@ async def process_video(
 @router.get("/language_support")
 async def get_language_support_info():
     """
-    🌍 언어 지원 정보 API (Phase 3.2 신규)
+    🌍 언어 지원 정보 API (Phase 3.2)
     
     시스템에서 지원하는 언어 목록과 기능을 확인
     """
@@ -271,7 +392,7 @@ async def get_language_support_info():
 @router.post("/detect_language")
 async def detect_language(audio_file: UploadFile = File(...)):
     """
-    🔍 언어 감지 전용 API (Phase 3.2 신규)
+    🔍 언어 감지 전용 API (Phase 3.2)
     
     음성 파일의 언어만 감지하고 STT는 실행하지 않음
     """
@@ -369,7 +490,7 @@ async def check_video_support_status():
 @router.get("/test")
 async def system_test():
     """
-    시스템 상태 테스트 API (Phase 3.2 업데이트)
+    시스템 상태 테스트 API (Phase 3.3 업데이트)
     
     시스템의 현재 상태와 사용 가능한 기능들을 확인
     """
@@ -378,10 +499,11 @@ async def system_test():
     model_info = analyzer.get_model_info()
     video_support = check_video_support()
     language_support = get_language_support()
+    speaker_support = check_speaker_analysis_support()
     
     return JSONResponse({
         "status": "OK",
-        "version": "3.2",
+        "version": "3.3",
         "python_version": "3.13+",
         "whisper_available": whisper_status["whisper_available"],
         "model_info": model_info,
@@ -394,6 +516,10 @@ async def system_test():
             "auto_detection": language_support["auto_detection"],
             "supported_languages": list(language_support["supported_languages"].keys())
         },
+        "ai_features": {
+            "speaker_diarization": speaker_support.get("pyannote_available", False),
+            "advanced_algorithms": len(speaker_support.get("algorithms", {}))
+        },
         "features": {
             "stt": whisper_status["whisper_available"],
             "translation": True,
@@ -401,15 +527,18 @@ async def system_test():
             "modular_architecture": True,
             "video_processing": video_support["ffmpeg_available"],
             "batch_processing": True,
-            "multilingual_support": True,  # 🆕 다국어 지원
-            "auto_language_detection": True,  # 🆕 자동 언어 감지
-            "confidence_scoring": True  # 🆕 신뢰도 점수
+            "multilingual_support": True,
+            "auto_language_detection": True,
+            "confidence_scoring": True,
+            "speaker_diarization": True,  # 🆕 화자 구분
+            "ai_enhancement": True  # 🆕 AI 고도화
         },
         "phase_status": {
             "phase_3_1": "completed - 동영상 지원",
-            "phase_3_2": "in_progress - 다국어 확장",
-            "current_milestone": "다국어 STT 완성",
-            "next_goals": ["UI 언어 선택", "고급 AI 기능", "클라우드 배포"]
+            "phase_3_2": "completed - 다국어 확장",
+            "phase_3_3": "in_progress - AI 고도화",
+            "current_milestone": "화자 구분 기능 개발",
+            "next_goals": ["감정 분석", "자동 요약", "주얼리 특화"]
         }
     })
 
@@ -420,7 +549,7 @@ async def health_check():
     
     서버가 정상적으로 동작하는지 확인
     """
-    return {"status": "healthy", "timestamp": time.time(), "phase": "3.2"}
+    return {"status": "healthy", "timestamp": time.time(), "phase": "3.3"}
 
 @router.post("/analyze_batch")
 async def analyze_batch_files(
