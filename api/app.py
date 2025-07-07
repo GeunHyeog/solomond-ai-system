@@ -3,9 +3,9 @@
 FastAPI 애플리케이션 생성 및 설정
 """
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 import uvicorn
 
 # Import 처리 (개발 환경 호환)
@@ -83,20 +83,47 @@ def create_app() -> FastAPI:
     async def legacy_process_audio(audio_file):
         """레거시 호환성을 위한 라우트"""
         # API 라우터의 process_audio를 직접 호출
-        from api.routes import process_audio
-        return await process_audio(audio_file)
+        try:
+            from api.routes import process_audio
+            return await process_audio(audio_file)
+        except Exception as e:
+            return JSONResponse({
+                "success": False,
+                "error": f"레거시 라우트 오류: {str(e)}"
+            })
     
     @app.get("/test")
     async def legacy_test():
         """레거시 호환성을 위한 테스트 라우트"""
-        from api.routes import system_test
-        return await system_test()
+        try:
+            from api.routes import system_test
+            return await system_test()
+        except Exception as e:
+            return JSONResponse({
+                "status": "error",
+                "message": f"테스트 라우트 오류: {str(e)}"
+            })
     
     # 헬스체크 라우트
     @app.get("/health")
     async def health():
         """간단한 헬스체크"""
         return {"status": "ok", "version": "3.0"}
+    
+    # 전역 오류 처리 (앱 레벨에서만 가능)
+    @app.exception_handler(HTTPException)
+    async def http_exception_handler(request: Request, exc: HTTPException):
+        return JSONResponse(
+            status_code=exc.status_code,
+            content={"success": False, "error": exc.detail}
+        )
+    
+    @app.exception_handler(Exception)
+    async def general_exception_handler(request: Request, exc: Exception):
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "error": "내부 서버 오류가 발생했습니다."}
+        )
     
     return app
 
