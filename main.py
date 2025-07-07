@@ -22,7 +22,7 @@ def print_banner():
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 실제 내용을 읽고 분석하는 차세대 AI 플랫폼
 
-📍 상태: ✅ 모듈화 구조 완성 (Phase 2 진행 중)
+📍 상태: ✅ 오류 수정 완료 (모듈화 시스템 안정화)
 🏗️ 아키텍처: config/ + core/ + api/ + ui/ + utils/
 🎯 새로운 기능: RESTful API + 배치 처리 + 모델 선택
 👤 개발자: 전근혁 (솔로몬드 대표)
@@ -67,9 +67,30 @@ def check_dependencies():
 def run_modular_version():
     """새로운 모듈화 버전 실행"""
     try:
-        from api.app import run_app
         print("🎯 모듈화된 FastAPI 앱 시작...")
+        
+        # 단계별 import 시도
+        try:
+            from api.app import run_app
+            print("✅ API 모듈 로드 성공")
+        except Exception as e:
+            print(f"⚠️ API 모듈 로드 실패: {e}")
+            print("🔄 대체 실행 방식 시도...")
+            
+            # 대체 실행 방식
+            from api.app import create_app
+            import uvicorn
+            
+            app = create_app()
+            print("✅ FastAPI 앱 생성 성공")
+            
+            print("🚀 서버 시작 중...")
+            uvicorn.run(app, host="0.0.0.0", port=8080, log_level="info")
+            return
+        
+        # 정상 실행
         run_app(host="0.0.0.0", port=8080, debug=True)
+        
     except ImportError as e:
         print(f"❌ 모듈 import 오류: {e}")
         print("🔄 minimal_stt_test.py로 대체 실행...")
@@ -114,6 +135,11 @@ def show_usage_guide():
    • 실시간 진행률 표시
    • 모바일 친화적 인터페이스
    • RESTful API 지원
+
+🔧 문제 해결:
+   • 오류 발생 시 자동으로 안정 버전으로 전환
+   • python test_imports.py로 사전 진단 가능
+   • python test_api.py로 API 상태 확인 가능
 """
     print(guide)
 
@@ -124,6 +150,7 @@ def main():
     # 의존성 확인
     if not check_dependencies():
         print("\n🛠️ 의존성을 설치한 후 다시 실행해주세요.")
+        print("📦 빠른 설치: pip install fastapi uvicorn openai-whisper python-multipart psutil")
         sys.exit(1)
     
     # 모듈화 버전 실행 시도
