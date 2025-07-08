@@ -1,0 +1,217 @@
+{
+  "jewelry_terms_db": {
+    "version": "1.0",
+    "last_updated": "2025-07-08",
+    "description": "주얼리 업계 STT 정확도 향상을 위한 전문 용어 데이터베이스",
+    
+    "precious_stones": {
+      "diamond": {
+        "korean": ["다이아몬드", "다이몬드", "디아몬드", "다이야몬드"],
+        "english": ["diamond", "brilliant", "stone"],
+        "chinese": ["钻石", "金刚石"],
+        "common_mistakes": ["다이몬", "디아"],
+        "context_keywords": ["4C", "캐럿", "컷", "투명도"]
+      },
+      "ruby": {
+        "korean": ["루비", "홍옥", "적색보석"],
+        "english": ["ruby", "red corundum"],
+        "chinese": ["红宝石", "红玉"],
+        "common_mistakes": ["루비아", "루비"],
+        "context_keywords": ["미얀마", "가열처리", "비둘기피"]
+      },
+      "sapphire": {
+        "korean": ["사파이어", "사파이야", "청옥"],
+        "english": ["sapphire", "blue sapphire", "fancy sapphire"],
+        "chinese": ["蓝宝石", "蓝玉"],
+        "common_mistakes": ["새파이어", "사파이"],
+        "context_keywords": ["코른플라워", "스타", "파드파라자"]
+      },
+      "emerald": {
+        "korean": ["에메랄드", "에머랄드", "에메럴드", "취옥"],
+        "english": ["emerald", "green beryl"],
+        "chinese": ["祖母绿", "翡翠"],
+        "common_mistakes": ["에머럴", "에메"],
+        "context_keywords": ["자르딘", "오일링", "콜롬비아"]
+      }
+    },
+
+    "grading_4c": {
+      "cut": {
+        "korean": ["컷", "커팅", "연마", "커트"],
+        "english": ["cut", "cutting", "polish"],
+        "chinese": ["切工"],
+        "grades": ["Excellent", "Very Good", "Good", "Fair", "Poor"],
+        "korean_grades": ["최고", "매우좋음", "좋음", "보통", "나쁨"],
+        "cuts": ["라운드", "프린세스", "에메랄드", "마키즈", "페어", "오벌", "하트", "쿠션"]
+      },
+      "color": {
+        "korean": ["컬러", "색상", "색등급", "색깔"],
+        "english": ["color", "colour", "grade"],
+        "chinese": ["颜色"],
+        "grades": ["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"],
+        "korean_descriptions": ["무색", "거의무색", "약간노랑", "노랑"],
+        "fancy_colors": ["팬시옐로우", "팬시핑크", "팬시블루", "팬시브라운"]
+      },
+      "clarity": {
+        "korean": ["클래리티", "투명도", "내포물", "순도"],
+        "english": ["clarity", "inclusion", "purity"],
+        "chinese": ["净度"],
+        "grades": ["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "I1", "I2", "I3"],
+        "korean_descriptions": ["플로리스", "인터날리플로리스", "베리베리슬라이틀리", "베리슬라이틀리", "슬라이틀리", "임퍼펙트"]
+      },
+      "carat": {
+        "korean": ["캐럿", "카랏", "무게", "중량"],
+        "english": ["carat", "ct", "weight"],
+        "chinese": ["克拉"],
+        "common_weights": ["0.5", "1.0", "2.0", "3.0", "5.0"],
+        "units": ["포인트", "point", "ct", "캐럿"]
+      }
+    },
+
+    "grading_institutes": {
+      "gia": {
+        "korean": ["지아이에이", "지아", "쥐아이에이"],
+        "english": ["GIA", "Gemological Institute of America"],
+        "chinese": ["美国宝石学院"],
+        "services": ["감정서", "그레이딩", "다이아몬드리포트"]
+      },
+      "ags": {
+        "korean": ["에이지에스", "아메리칸젬소사이어티"],
+        "english": ["AGS", "American Gem Society"],
+        "chinese": ["美国宝石协会"],
+        "special": ["0등급", "트리플제로"]
+      },
+      "ssef": {
+        "korean": ["에스에스이에프", "스위스겜랩"],
+        "english": ["SSEF", "Swiss Gemmological Institute"],
+        "chinese": ["瑞士宝石研究院"]
+      }
+    },
+
+    "business_terms": {
+      "pricing": {
+        "korean": ["도매가", "소매가", "시중가", "감정가", "보험가"],
+        "english": ["wholesale", "retail", "market price", "appraisal", "insurance value"],
+        "chinese": ["批发价", "零售价", "市场价", "评估价"],
+        "discount_terms": ["할인", "세일", "특가", "이벤트", "프로모션"]
+      },
+      "inventory": {
+        "korean": ["재고", "입고", "출고", "재고회전율", "데드스톡"],
+        "english": ["inventory", "stock in", "stock out", "turnover", "dead stock"],
+        "chinese": ["库存", "进货", "出货", "周转率"],
+        "status": ["신상품", "중고", "리퍼브", "데미지"]
+      },
+      "trade": {
+        "incoterms": ["FOB", "CIF", "EXW", "DDP", "CPT", "FCA"],
+        "korean": ["본선인도", "운임보험료포함", "공장인도", "관세지급인도"],
+        "documents": ["인보이스", "패킹리스트", "원산지증명서", "보험증권"],
+        "customs": ["관세", "부가세", "특소세", "통관"]
+      }
+    },
+
+    "technical_terms": {
+      "settings": {
+        "korean": ["프롱세팅", "베젤세팅", "채널세팅", "파베세팅", "텐션세팅"],
+        "english": ["prong setting", "bezel setting", "channel setting", "pave setting", "tension setting"],
+        "chinese": ["爪镶", "包镶", "槽镶", "密镶", "张力镶"],
+        "characteristics": ["고정력", "안정성", "미적효과", "착용감"]
+      },
+      "metals": {
+        "gold": {
+          "korean": ["금", "골드", "옐로우골드", "화이트골드", "로즈골드"],
+          "english": ["gold", "yellow gold", "white gold", "rose gold"],
+          "chinese": ["黄金", "白金", "玫瑰金"],
+          "purity": ["24K", "18K", "14K", "10K"]
+        },
+        "platinum": {
+          "korean": ["플래티넘", "백금", "팔라듐"],
+          "english": ["platinum", "palladium"],
+          "chinese": ["铂金", "钯金"],
+          "purity": ["PT950", "PT900", "PT850"]
+        },
+        "silver": {
+          "korean": ["은", "실버", "스털링실버", "925실버"],
+          "english": ["silver", "sterling silver"],
+          "chinese": ["银", "纯银"],
+          "purity": ["925", "999", "fine silver"]
+        }
+      },
+      "surface_treatments": {
+        "korean": ["폴리싱", "매트", "해머드", "브러시드", "샌드블라스팅"],
+        "english": ["polishing", "matte", "hammered", "brushed", "sandblasting"],
+        "chinese": ["抛光", "哑光", "锤纹", "拉丝", "喷砂"],
+        "effects": ["광택", "무광", "질감", "패턴"]
+      }
+    },
+
+    "market_analysis": {
+      "trends": {
+        "korean": ["트렌드", "유행", "인기", "신상", "베스트셀러"],
+        "english": ["trend", "fashion", "popular", "new arrival", "bestseller"],
+        "chinese": ["趋势", "流行", "热门", "新品", "畅销"],
+        "seasonal": ["봄여름", "가을겨울", "홀리데이", "웨딩시즌"]
+      },
+      "demographics": {
+        "age_groups": ["20대", "30대", "40대", "50대", "시니어"],
+        "gender": ["남성", "여성", "유니섹스"],
+        "purpose": ["일상착용", "특별한날", "선물", "투자", "컬렉션"],
+        "occasions": ["발렌타인", "화이트데이", "어버이날", "크리스마스"]
+      }
+    },
+
+    "education_terms": {
+      "courses": {
+        "korean": ["기초과정", "심화과정", "전문가과정", "감정사과정"],
+        "english": ["basic course", "advanced course", "expert course", "appraiser course"],
+        "certificates": ["GIA GG", "GIA AJP", "FGA", "보석감정사", "귀금속가공기능사"]
+      },
+      "seminar_topics": {
+        "technical": ["신제품", "가공기술", "세팅기법", "표면처리"],
+        "market": ["트렌드분석", "소비자행동", "마케팅전략", "브랜딩"],
+        "investment": ["투자가치", "시장전망", "리스크관리", "포트폴리오"]
+      }
+    },
+
+    "common_corrections": {
+      "pronunciation_fixes": {
+        "다이몬드": "다이아몬드",
+        "디아몬드": "다이아몬드", 
+        "새파이어": "사파이어",
+        "에머랄드": "에메랄드",
+        "캐럿": "캐럿",
+        "지아이에이": "GIA",
+        "포씨": "4C"
+      },
+      "common_mistakes": {
+        "4씨": "4C",
+        "쥐아이에이": "GIA",
+        "버서스": "VS",
+        "브이에스": "VS",
+        "에이지에스": "AGS"
+      }
+    },
+
+    "context_patterns": {
+      "diamond_context": [
+        "다이아몬드 4C",
+        "GIA 감정서",
+        "캐럿 무게",
+        "컷 등급",
+        "컬러 등급",
+        "클래리티 등급"
+      ],
+      "pricing_context": [
+        "도매가 문의",
+        "할인 가능",
+        "시중가 대비",
+        "감정가 기준"
+      ],
+      "trading_context": [
+        "FOB 가격",
+        "통관 절차",
+        "원산지 증명",
+        "품질 보증"
+      ]
+    }
+  }
+}
