@@ -1,6 +1,6 @@
 """
-솔로몬드 AI 시스템 - STT 분석 엔진 (주얼리 특화 v1.1)
-OpenAI Whisper 기반 음성 인식 모듈 + 주얼리 업계 특화 후처리
+솔로몬드 AI 시스템 - 통합 STT 분석 엔진 (주얼리 특화 v2.0)
+OpenAI Whisper 기반 음성 인식 모듈 + 주얼리 업계 특화 후처리 + 다국어 번역
 """
 
 import os
@@ -22,31 +22,67 @@ try:
     JEWELRY_ENHANCER_AVAILABLE = True
 except ImportError:
     JEWELRY_ENHANCER_AVAILABLE = False
-    print("⚠️ 주얼리 특화 모듈 로드 실패 - 기본 STT 기능만 사용")
+    print("⚠️ 기존 주얼리 특화 모듈 로드 실패 - 기본 STT 기능만 사용")
 
-class AudioAnalyzer:
-    """음성 분석 엔진 클래스 (주얼리 특화 지원)"""
+# 새로운 확장 모듈 임포트
+try:
+    from .multilingual_translator import JewelryMultilingualTranslator
+    MULTILINGUAL_AVAILABLE = True
+except ImportError:
+    MULTILINGUAL_AVAILABLE = False
+    print("⚠️ 다국어 번역 모듈 로드 실패")
+
+try:
+    from .jewelry_database import JewelryTerminologyDB
+    DATABASE_AVAILABLE = True
+except ImportError:
+    DATABASE_AVAILABLE = False
+    print("⚠️ 주얼리 데이터베이스 모듈 로드 실패")
+
+try:
+    from .audio_processor import JewelryAudioProcessor
+    AUDIO_PROCESSOR_AVAILABLE = True
+except ImportError:
+    AUDIO_PROCESSOR_AVAILABLE = False
+    print("⚠️ 고급 오디오 처리 모듈 로드 실패")
+
+class EnhancedAudioAnalyzer:
+    """통합 음성 분석 엔진 클래스 (주얼리 특화 + 다국어 + 고급 오디오 처리)"""
     
-    def __init__(self, model_size: str = "base", enable_jewelry_enhancement: bool = True):
+    def __init__(self, 
+                 model_size: str = "base", 
+                 enable_jewelry_enhancement: bool = True,
+                 enable_multilingual: bool = True,
+                 enable_audio_preprocessing: bool = True,
+                 enable_database: bool = True):
         """
         초기화
         
         Args:
             model_size: Whisper 모델 크기 (tiny, base, small, medium, large)
             enable_jewelry_enhancement: 주얼리 특화 기능 활성화 여부
+            enable_multilingual: 다국어 번역 기능 활성화 여부
+            enable_audio_preprocessing: 고급 오디오 전처리 활성화 여부
+            enable_database: 주얼리 데이터베이스 활성화 여부
         """
         self.model_size = model_size
         self.model = None
-        self.supported_formats = ['.mp3', '.wav', '.m4a']
-        self.enable_jewelry_enhancement = enable_jewelry_enhancement and JEWELRY_ENHANCER_AVAILABLE
+        self.supported_formats = ['.mp3', '.wav', '.m4a', '.aac', '.ogg', '.flac']
         
-        # 🌍 지원하는 언어 목록
+        # 기능 활성화 플래그
+        self.enable_jewelry_enhancement = enable_jewelry_enhancement and JEWELRY_ENHANCER_AVAILABLE
+        self.enable_multilingual = enable_multilingual and MULTILINGUAL_AVAILABLE
+        self.enable_audio_preprocessing = enable_audio_preprocessing and AUDIO_PROCESSOR_AVAILABLE
+        self.enable_database = enable_database and DATABASE_AVAILABLE
+        
+        # 🌍 지원하는 언어 목록 (확장됨)
         self.supported_languages = {
             "auto": {"name": "자동 감지", "code": None, "flag": "🌐"},
             "ko": {"name": "한국어", "code": "ko", "flag": "🇰🇷"},
             "en": {"name": "English", "code": "en", "flag": "🇺🇸"},
             "zh": {"name": "中文", "code": "zh", "flag": "🇨🇳"},
             "ja": {"name": "日本語", "code": "ja", "flag": "🇯🇵"},
+            "th": {"name": "ไทย", "code": "th", "flag": "🇹🇭"},
             "es": {"name": "Español", "code": "es", "flag": "🇪🇸"},
             "fr": {"name": "Français", "code": "fr", "flag": "🇫🇷"},
             "de": {"name": "Deutsch", "code": "de", "flag": "🇩🇪"},
@@ -55,7 +91,12 @@ class AudioAnalyzer:
             "it": {"name": "Italiano", "code": "it", "flag": "🇮🇹"}
         }
         
-        # 💎 주얼리 특화 기능 초기화
+        # 확장 모듈 초기화
+        self._init_enhanced_modules()
+        
+    def _init_enhanced_modules(self):
+        """확장 모듈들 초기화"""
+        # 💎 기존 주얼리 특화 기능
         if self.enable_jewelry_enhancement:
             try:
                 self.jewelry_enhancer = get_jewelry_enhancer()
@@ -63,8 +104,45 @@ class AudioAnalyzer:
             except Exception as e:
                 print(f"⚠️ 주얼리 특화 기능 비활성화: {e}")
                 self.enable_jewelry_enhancement = False
+                self.jewelry_enhancer = None
         else:
             self.jewelry_enhancer = None
+        
+        # 🌍 다국어 번역 모듈
+        if self.enable_multilingual:
+            try:
+                self.translator = JewelryMultilingualTranslator()
+                print("🌍 다국어 번역 모듈 활성화")
+            except Exception as e:
+                print(f"⚠️ 다국어 번역 모듈 비활성화: {e}")
+                self.enable_multilingual = False
+                self.translator = None
+        else:
+            self.translator = None
+        
+        # 🎵 고급 오디오 전처리 모듈
+        if self.enable_audio_preprocessing:
+            try:
+                self.audio_processor = JewelryAudioProcessor()
+                print("🎵 고급 오디오 전처리 모듈 활성화")
+            except Exception as e:
+                print(f"⚠️ 오디오 전처리 모듈 비활성화: {e}")
+                self.enable_audio_preprocessing = False
+                self.audio_processor = None
+        else:
+            self.audio_processor = None
+        
+        # 💾 주얼리 데이터베이스 모듈
+        if self.enable_database:
+            try:
+                self.jewelry_db = JewelryTerminologyDB()
+                print("💾 주얼리 데이터베이스 모듈 활성화")
+            except Exception as e:
+                print(f"⚠️ 데이터베이스 모듈 비활성화: {e}")
+                self.enable_database = False
+                self.jewelry_db = None
+        else:
+            self.jewelry_db = None
         
     def load_model(self) -> bool:
         """Whisper 모델 로드"""
@@ -76,8 +154,15 @@ class AudioAnalyzer:
             self.model = whisper.load_model(self.model_size)
             print(f"✅ 모델 로드 성공: {self.model_size}")
             
-            if self.enable_jewelry_enhancement:
-                print("💎 주얼리 특화 모드 활성화됨")
+            # 활성화된 기능들 출력
+            enabled_features = []
+            if self.enable_jewelry_enhancement: enabled_features.append("💎 주얼리 특화")
+            if self.enable_multilingual: enabled_features.append("🌍 다국어 번역")
+            if self.enable_audio_preprocessing: enabled_features.append("🎵 오디오 전처리")
+            if self.enable_database: enabled_features.append("💾 데이터베이스")
+            
+            if enabled_features:
+                print(f"🚀 활성화된 기능: {', '.join(enabled_features)}")
             
             return True
         except Exception as e:
@@ -92,6 +177,249 @@ class AudioAnalyzer:
     def get_supported_languages(self) -> Dict:
         """지원하는 언어 목록 반환"""
         return self.supported_languages
+    
+    async def preprocess_audio_if_enabled(self, audio_path: str) -> str:
+        """오디오 전처리 (활성화된 경우)"""
+        if not self.enable_audio_preprocessing or not self.audio_processor:
+            return audio_path
+        
+        try:
+            print("🎵 고급 오디오 전처리 시작...")
+            
+            # 오디오 환경 분석
+            analysis = self.audio_processor.analyze_jewelry_audio_environment(audio_path)
+            env_type = analysis.get('jewelry_environment', {}).get('environment_type', 'auto')
+            
+            print(f"🏢 감지된 환경: {env_type}")
+            
+            # 환경에 맞는 전처리 적용
+            processed_path = self.audio_processor.preprocess_jewelry_audio(
+                audio_path, 
+                environment_type=env_type,
+                enhancement_level='medium'
+            )
+            
+            print("✅ 오디오 전처리 완료")
+            return processed_path
+            
+        except Exception as e:
+            print(f"⚠️ 오디오 전처리 오류: {e}")
+            return audio_path  # 실패 시 원본 사용
+    
+    async def analyze_audio_file(self, 
+                                file_path: str, 
+                                language: str = "auto",
+                                enable_jewelry_features: bool = None,
+                                enable_translation: bool = None,
+                                target_languages: List[str] = None) -> Dict:
+        """
+        음성 파일 분석 (통합 버전)
+        
+        Args:
+            file_path: 분석할 음성 파일 경로
+            language: 인식할 언어 코드 (auto, ko, en, zh, ja 등)
+            enable_jewelry_features: 주얼리 특화 기능 사용 여부
+            enable_translation: 번역 기능 사용 여부
+            target_languages: 번역할 언어 목록 (예: ['ko', 'en', 'zh'])
+            
+        Returns:
+            분석 결과 딕셔너리 (주얼리 특화 정보 + 번역 + 오디오 분석 포함)
+        """
+        start_time = time.time()
+        
+        # 기능 사용 여부 결정
+        use_jewelry_features = (enable_jewelry_features if enable_jewelry_features is not None 
+                               else self.enable_jewelry_enhancement)
+        use_translation = (enable_translation if enable_translation is not None 
+                          else self.enable_multilingual)
+        
+        # 기본 번역 대상 언어 설정
+        if target_languages is None and use_translation:
+            target_languages = ['ko', 'en', 'zh']  # 기본값
+        
+        try:
+            # 모델이 로드되지 않았으면 로드
+            if self.model is None:
+                if not self.load_model():
+                    return {
+                        "success": False,
+                        "error": "Whisper 모델을 로드할 수 없습니다.",
+                        "whisper_available": WHISPER_AVAILABLE
+                    }
+            
+            # 파일 존재 확인
+            if not os.path.exists(file_path):
+                return {
+                    "success": False,
+                    "error": f"파일이 존재하지 않습니다: {file_path}"
+                }
+            
+            # 파일 정보 수집
+            file_size_bytes = os.path.getsize(file_path)
+            file_size_mb = round(file_size_bytes / (1024 * 1024), 2)
+            
+            print(f"🔍 음성 인식 시작: {Path(file_path).name}")
+            
+            # 1️⃣ 오디오 전처리 (필요한 경우)
+            processed_file_path = await self.preprocess_audio_if_enabled(file_path)
+            temp_files = [processed_file_path] if processed_file_path != file_path else []
+            
+            # 2️⃣ 언어 감지 (auto인 경우)
+            target_language = language
+            if language == "auto":
+                detection_result = self.detect_language(processed_file_path)
+                if detection_result["success"]:
+                    target_language = detection_result["detected_language"]
+                    print(f"🌐 자동 감지된 언어: {target_language}")
+                else:
+                    target_language = "ko"  # 기본값
+                    print("⚠️ 언어 감지 실패, 한국어로 설정")
+            
+            # 3️⃣ Whisper STT 실행
+            whisper_options = {
+                "verbose": False,
+                "task": "transcribe"
+            }
+            
+            if target_language != "auto" and target_language in self.supported_languages:
+                lang_code = self.supported_languages[target_language]["code"]
+                if lang_code:
+                    whisper_options["language"] = lang_code
+            
+            result = self.model.transcribe(processed_file_path, **whisper_options)
+            
+            transcribed_text = result["text"].strip()
+            processing_time = round(time.time() - start_time, 2)
+            detected_language = result.get("language", target_language)
+            
+            print(f"✅ 기본 인식 완료: {processing_time}초")
+            print(f"📝 원본 결과: {transcribed_text[:100]}...")
+            
+            # 언어 정보 추가
+            lang_info = self.supported_languages.get(detected_language, {
+                "name": f"Unknown ({detected_language})", 
+                "code": detected_language, 
+                "flag": "❓"
+            })
+            
+            # 기본 결과 구성
+            result_data = {
+                "success": True,
+                "transcribed_text": transcribed_text,
+                "processing_time": processing_time,
+                "file_size_mb": file_size_mb,
+                "detected_language": detected_language,
+                "language_info": lang_info,
+                "requested_language": language,
+                "confidence": result.get("confidence", 0.0),
+                "segments": result.get("segments", [])
+            }
+            
+            # 4️⃣ 주얼리 특화 처리
+            if use_jewelry_features and transcribed_text.strip():
+                print("💎 주얼리 특화 후처리 시작...")
+                jewelry_start_time = time.time()
+                
+                try:
+                    # 기존 주얼리 enhancer 사용
+                    if self.jewelry_enhancer:
+                        jewelry_result = enhance_jewelry_transcription(
+                            transcribed_text, 
+                            detected_language,
+                            include_analysis=True
+                        )
+                        
+                        result_data.update({
+                            "enhanced_text": jewelry_result.get("enhanced_text", transcribed_text),
+                            "jewelry_corrections": jewelry_result.get("corrections", []),
+                            "detected_jewelry_terms": jewelry_result.get("detected_terms", []),
+                            "jewelry_analysis": jewelry_result.get("analysis", {}),
+                            "jewelry_summary": jewelry_result.get("summary", "")
+                        })
+                    
+                    # 데이터베이스 검색 (새로운 기능)
+                    if self.jewelry_db and transcribed_text.strip():
+                        # 주요 단어들로 용어 검색
+                        words = transcribed_text.split()[:10]  # 처음 10개 단어만
+                        db_terms = []
+                        for word in words:
+                            if len(word) > 2:  # 2글자 이상만
+                                terms = self.jewelry_db.search_terms(word, detected_language, limit=3)
+                                db_terms.extend(terms)
+                        
+                        result_data["database_terms"] = db_terms[:10]  # 최대 10개
+                        
+                        # 사용 통계 업데이트
+                        for term in db_terms:
+                            self.jewelry_db.update_usage_stats(term['term_key'])
+                    
+                    jewelry_processing_time = round(time.time() - jewelry_start_time, 2)
+                    result_data["jewelry_processing_time"] = jewelry_processing_time
+                    
+                    print(f"💎 주얼리 특화 처리 완료: {jewelry_processing_time}초")
+                    
+                except Exception as e:
+                    print(f"⚠️ 주얼리 특화 처리 오류: {e}")
+                    result_data["jewelry_enhancement_error"] = str(e)
+            
+            # 5️⃣ 다국어 번역 처리
+            if use_translation and self.translator and target_languages:
+                print("🌍 다국어 번역 시작...")
+                translation_start_time = time.time()
+                
+                try:
+                    # 향상된 텍스트가 있으면 그것을 번역, 없으면 원본 번역
+                    text_to_translate = result_data.get("enhanced_text", transcribed_text)
+                    
+                    translations = self.translator.translate_multiple(
+                        text_to_translate,
+                        target_languages,
+                        detected_language
+                    )
+                    
+                    result_data["translations"] = translations
+                    result_data["translation_count"] = len(translations)
+                    
+                    translation_processing_time = round(time.time() - translation_start_time, 2)
+                    result_data["translation_processing_time"] = translation_processing_time
+                    
+                    print(f"🌍 번역 완료: {len(translations)}개 언어, {translation_processing_time}초")
+                    
+                except Exception as e:
+                    print(f"⚠️ 번역 오류: {e}")
+                    result_data["translation_error"] = str(e)
+            
+            # 6️⃣ 최종 정리
+            result_data["total_processing_time"] = round(time.time() - start_time, 2)
+            result_data["enabled_features"] = {
+                "jewelry_enhancement": use_jewelry_features,
+                "multilingual_translation": use_translation,
+                "audio_preprocessing": self.enable_audio_preprocessing,
+                "database_lookup": self.enable_database
+            }
+            
+            # 임시 파일 정리
+            for temp_file in temp_files:
+                try:
+                    if os.path.exists(temp_file):
+                        os.unlink(temp_file)
+                except:
+                    pass
+            
+            return result_data
+            
+        except Exception as e:
+            processing_time = round(time.time() - start_time, 2)
+            error_msg = str(e)
+            
+            print(f"❌ 분석 오류: {error_msg}")
+            
+            return {
+                "success": False,
+                "error": error_msg,
+                "processing_time": processing_time,
+                "requested_language": language
+            }
     
     def detect_language(self, audio_path: str) -> Dict:
         """자동 언어 감지 기능"""
@@ -136,179 +464,15 @@ class AudioAnalyzer:
                 "confidence": 0.0
             }
     
-    async def analyze_audio_file(self, 
-                                file_path: str, 
-                                language: str = "auto",
-                                enable_jewelry_features: bool = None) -> Dict:
-        """
-        음성 파일 분석 (주얼리 특화 지원)
-        
-        Args:
-            file_path: 분석할 음성 파일 경로
-            language: 인식할 언어 코드 (auto, ko, en, zh, ja 등)
-            enable_jewelry_features: 주얼리 특화 기능 사용 여부 (None이면 기본값 사용)
-            
-        Returns:
-            분석 결과 딕셔너리 (주얼리 특화 정보 포함)
-        """
-        start_time = time.time()
-        
-        # 주얼리 특화 기능 사용 여부 결정
-        use_jewelry_features = (enable_jewelry_features if enable_jewelry_features is not None 
-                               else self.enable_jewelry_enhancement)
-        
-        try:
-            # 모델이 로드되지 않았으면 로드
-            if self.model is None:
-                if not self.load_model():
-                    return {
-                        "success": False,
-                        "error": "Whisper 모델을 로드할 수 없습니다.",
-                        "whisper_available": WHISPER_AVAILABLE,
-                        "jewelry_enhancement": False
-                    }
-            
-            # 파일 존재 확인
-            if not os.path.exists(file_path):
-                return {
-                    "success": False,
-                    "error": f"파일이 존재하지 않습니다: {file_path}"
-                }
-            
-            # 파일 정보 수집
-            file_size_bytes = os.path.getsize(file_path)
-            file_size_mb = round(file_size_bytes / (1024 * 1024), 2)
-            
-            print(f"🔍 음성 인식 시작: {Path(file_path).name}")
-            if use_jewelry_features:
-                print("💎 주얼리 특화 분석 모드")
-            
-            # 자동 언어 감지
-            target_language = language
-            if language == "auto":
-                detection_result = self.detect_language(file_path)
-                if detection_result["success"]:
-                    target_language = detection_result["detected_language"]
-                    print(f"🌐 자동 감지된 언어: {target_language}")
-                else:
-                    target_language = "ko"  # 기본값
-                    print("⚠️ 언어 감지 실패, 한국어로 설정")
-            
-            # Whisper로 음성 인식 실행
-            whisper_options = {
-                "verbose": False,
-                "task": "transcribe"
-            }
-            
-            # 자동 감지가 아닌 경우에만 언어 지정
-            if target_language != "auto" and target_language in self.supported_languages:
-                lang_code = self.supported_languages[target_language]["code"]
-                if lang_code:
-                    whisper_options["language"] = lang_code
-            
-            result = self.model.transcribe(file_path, **whisper_options)
-            
-            transcribed_text = result["text"].strip()
-            processing_time = round(time.time() - start_time, 2)
-            detected_language = result.get("language", target_language)
-            
-            print(f"✅ 기본 인식 완료: {processing_time}초")
-            print(f"📝 원본 결과: {transcribed_text[:100]}...")
-            
-            # 언어 정보 추가
-            lang_info = self.supported_languages.get(detected_language, {
-                "name": f"Unknown ({detected_language})", 
-                "code": detected_language, 
-                "flag": "❓"
-            })
-            
-            # 기본 결과 구성
-            basic_result = {
-                "success": True,
-                "transcribed_text": transcribed_text,
-                "processing_time": processing_time,
-                "file_size_mb": file_size_mb,
-                "detected_language": detected_language,
-                "language_info": lang_info,
-                "requested_language": language,
-                "confidence": result.get("confidence", 0.0),
-                "segments": result.get("segments", []),
-                "jewelry_enhancement": use_jewelry_features
-            }
-            
-            # 💎 주얼리 특화 처리
-            if use_jewelry_features and transcribed_text.strip():
-                try:
-                    print("💎 주얼리 특화 후처리 시작...")
-                    jewelry_start_time = time.time()
-                    
-                    # 주얼리 특화 분석 실행
-                    jewelry_result = enhance_jewelry_transcription(
-                        transcribed_text, 
-                        detected_language,
-                        include_analysis=True
-                    )
-                    
-                    jewelry_processing_time = round(time.time() - jewelry_start_time, 2)
-                    
-                    # 결과 통합
-                    basic_result.update({
-                        "enhanced_text": jewelry_result.get("enhanced_text", transcribed_text),
-                        "jewelry_corrections": jewelry_result.get("corrections", []),
-                        "detected_jewelry_terms": jewelry_result.get("detected_terms", []),
-                        "jewelry_analysis": jewelry_result.get("analysis", {}),
-                        "jewelry_summary": jewelry_result.get("summary", ""),
-                        "enhancement_confidence": jewelry_result.get("confidence", 1.0),
-                        "jewelry_processing_time": jewelry_processing_time
-                    })
-                    
-                    print(f"💎 주얼리 특화 처리 완료: {jewelry_processing_time}초")
-                    print(f"🔧 {len(jewelry_result.get('corrections', []))}개 수정사항")
-                    print(f"📚 {len(jewelry_result.get('detected_terms', []))}개 주얼리 용어 발견")
-                    
-                    if jewelry_result.get("enhanced_text") != transcribed_text:
-                        print(f"✨ 개선된 결과: {jewelry_result.get('enhanced_text', '')[:100]}...")
-                    
-                except Exception as e:
-                    print(f"⚠️ 주얼리 특화 처리 오류: {e}")
-                    # 오류가 발생해도 기본 STT 결과는 반환
-                    basic_result["jewelry_enhancement_error"] = str(e)
-            
-            # 총 처리 시간 업데이트
-            basic_result["total_processing_time"] = round(time.time() - start_time, 2)
-            
-            return basic_result
-            
-        except Exception as e:
-            processing_time = round(time.time() - start_time, 2)
-            error_msg = str(e)
-            
-            print(f"❌ 분석 오류: {error_msg}")
-            
-            return {
-                "success": False,
-                "error": error_msg,
-                "processing_time": processing_time,
-                "requested_language": language,
-                "jewelry_enhancement": use_jewelry_features
-            }
-    
     async def analyze_uploaded_file(self, 
                                    file_content: bytes,
                                    filename: str,
                                    language: str = "auto",
-                                   enable_jewelry_features: bool = None) -> Dict:
+                                   enable_jewelry_features: bool = None,
+                                   enable_translation: bool = None,
+                                   target_languages: List[str] = None) -> Dict:
         """
-        업로드된 파일 분석 (주얼리 특화 지원)
-        
-        Args:
-            file_content: 파일 바이너리 데이터
-            filename: 원본 파일명
-            language: 인식할 언어 코드
-            enable_jewelry_features: 주얼리 특화 기능 사용 여부
-            
-        Returns:
-            분석 결과 딕셔너리
+        업로드된 파일 분석 (통합 버전)
         """
         if not self.is_supported_format(filename):
             return {
@@ -327,7 +491,9 @@ class AudioAnalyzer:
             result = await self.analyze_audio_file(
                 temp_path, 
                 language, 
-                enable_jewelry_features
+                enable_jewelry_features,
+                enable_translation,
+                target_languages
             )
             
             # 성공한 경우 파일 정보 추가
@@ -345,7 +511,7 @@ class AudioAnalyzer:
                 pass
     
     def get_model_info(self) -> Dict:
-        """모델 정보 반환 (주얼리 특화 정보 포함)"""
+        """모델 정보 반환 (확장된 정보 포함)"""
         info = {
             "model_size": self.model_size,
             "model_loaded": self.model is not None,
@@ -353,102 +519,86 @@ class AudioAnalyzer:
             "supported_formats": self.supported_formats,
             "supported_languages": self.supported_languages,
             "default_language": "auto",
-            "phase": "3.3 - Jewelry Industry Specialized",
-            "jewelry_enhancement": self.enable_jewelry_enhancement
-        }
-        
-        # 주얼리 특화 기능 정보 추가
-        if self.enable_jewelry_enhancement and self.jewelry_enhancer:
-            try:
-                jewelry_stats = self.jewelry_enhancer.get_enhancement_stats()
-                info["jewelry_features"] = jewelry_stats
-            except:
-                info["jewelry_features"] = {"status": "available", "details": "loaded"}
-        
-        return info
-    
-    def translate_to_korean(self, text: str, source_lang: str = "en") -> str:
-        """다른 언어 텍스트를 한국어로 번역 (확장된 구현)"""
-        # 임시 구현: 확장된 키워드 번역
-        translations = {
-            "en": {
-                "hello": "안녕하세요",
-                "thank you": "감사합니다",
-                "yes": "네",
-                "no": "아니오",
-                "good morning": "좋은 아침",
-                "good evening": "좋은 저녁",
-                "how are you": "안녕하세요",
-                "nice to meet you": "만나서 반갑습니다",
-                # 주얼리 관련 번역 추가
-                "diamond": "다이아몬드",
-                "ruby": "루비", 
-                "sapphire": "사파이어",
-                "emerald": "에메랄드",
-                "carat": "캐럿",
-                "cut": "컷",
-                "color": "컬러",
-                "clarity": "클래리티",
-                "certification": "감정서"
-            },
-            "zh": {
-                "你好": "안녕하세요",
-                "谢谢": "감사합니다",
-                "是": "네",
-                "不是": "아니오",
-                # 주얼리 관련 번역 추가
-                "钻石": "다이아몬드",
-                "红宝石": "루비",
-                "蓝宝石": "사파이어",
-                "祖母绿": "에메랄드",
-                "克拉": "캐럿"
-            },
-            "ja": {
-                "こんにちは": "안녕하세요",
-                "ありがとう": "감사합니다",
-                "はい": "네",
-                "いいえ": "아니오",
-                # 주얼리 관련 번역 추가
-                "ダイヤモンド": "다이아몬드",
-                "ルビー": "루비",
-                "サファイア": "사파이어",
-                "エメラルド": "에메랄드"
+            "version": "2.0 - Enhanced with Multilingual & Advanced Audio Processing",
+            "enabled_features": {
+                "jewelry_enhancement": self.enable_jewelry_enhancement,
+                "multilingual_translation": self.enable_multilingual,
+                "audio_preprocessing": self.enable_audio_preprocessing,
+                "database_lookup": self.enable_database
             }
         }
         
-        if source_lang in translations:
-            result = text
-            for foreign, korean in translations[source_lang].items():
-                result = result.replace(foreign, korean)
-            return result
+        # 각 모듈별 상세 정보
+        if self.enable_multilingual and self.translator:
+            info["translation_languages"] = self.translator.get_supported_languages()
         
-        return text  # 번역 사전에 없으면 원문 반환
+        if self.enable_database and self.jewelry_db:
+            info["database_stats"] = self.jewelry_db.get_stats()
+        
+        return info
+    
+    def get_jewelry_terminology_suggestions(self, query: str, language: str = "ko") -> List[Dict]:
+        """주얼리 용어 제안 (자동완성용)"""
+        if not self.enable_database or not self.jewelry_db:
+            return []
+        
+        try:
+            return self.jewelry_db.search_terms(query, language, limit=10)
+        except Exception as e:
+            print(f"⚠️ 용어 검색 오류: {e}")
+            return []
+
+# 하위 호환성을 위한 AudioAnalyzer 클래스 (기존 클래스 별칭)
+class AudioAnalyzer(EnhancedAudioAnalyzer):
+    """하위 호환성을 위한 기존 클래스 별칭"""
+    def __init__(self, model_size: str = "base", enable_jewelry_enhancement: bool = True):
+        super().__init__(model_size, enable_jewelry_enhancement)
 
 # 전역 분석기 인스턴스 (싱글톤 패턴)
 _analyzer_instance = None
 
-def get_analyzer(model_size: str = "base", enable_jewelry_enhancement: bool = True) -> AudioAnalyzer:
+def get_analyzer(model_size: str = "base", 
+                enable_jewelry_enhancement: bool = True,
+                enable_all_features: bool = True) -> EnhancedAudioAnalyzer:
     """전역 분석기 인스턴스 반환 (싱글톤)"""
     global _analyzer_instance
     if _analyzer_instance is None:
-        _analyzer_instance = AudioAnalyzer(model_size, enable_jewelry_enhancement)
+        if enable_all_features:
+            _analyzer_instance = EnhancedAudioAnalyzer(
+                model_size, 
+                enable_jewelry_enhancement,
+                enable_multilingual=True,
+                enable_audio_preprocessing=True,
+                enable_database=True
+            )
+        else:
+            _analyzer_instance = EnhancedAudioAnalyzer(model_size, enable_jewelry_enhancement)
     return _analyzer_instance
 
 # 편의 함수들
 async def quick_analyze(file_path: str, 
                        language: str = "auto",
-                       enable_jewelry_features: bool = True) -> Dict:
-    """빠른 분석 함수 (주얼리 특화 지원)"""
+                       enable_jewelry_features: bool = True,
+                       enable_translation: bool = True) -> Dict:
+    """빠른 분석 함수 (통합 버전)"""
     analyzer = get_analyzer(enable_jewelry_enhancement=enable_jewelry_features)
-    return await analyzer.analyze_audio_file(file_path, language, enable_jewelry_features)
+    return await analyzer.analyze_audio_file(
+        file_path, 
+        language, 
+        enable_jewelry_features,
+        enable_translation
+    )
 
-def check_whisper_status() -> Dict:
-    """Whisper 및 주얼리 특화 기능 상태 확인"""
+def check_system_status() -> Dict:
+    """시스템 전체 상태 확인"""
     return {
         "whisper_available": WHISPER_AVAILABLE,
         "jewelry_enhancement_available": JEWELRY_ENHANCER_AVAILABLE,
-        "import_error": None if WHISPER_AVAILABLE else "openai-whisper 패키지를 설치해주세요: pip install openai-whisper",
-        "jewelry_enhancement_error": None if JEWELRY_ENHANCER_AVAILABLE else "주얼리 특화 모듈 로드 실패"
+        "multilingual_available": MULTILINGUAL_AVAILABLE,
+        "database_available": DATABASE_AVAILABLE,
+        "audio_processor_available": AUDIO_PROCESSOR_AVAILABLE,
+        "version": "2.0",
+        "ready": WHISPER_AVAILABLE
     }
 
 def get_language_support() -> Dict:
@@ -458,27 +608,27 @@ def get_language_support() -> Dict:
         "supported_languages": analyzer.get_supported_languages(),
         "auto_detection": True,
         "default_language": "auto",
-        "jewelry_enhancement": analyzer.enable_jewelry_enhancement,
-        "phase": "3.3 - Jewelry Industry Specialized"
+        "translation_support": analyzer.enable_multilingual,
+        "version": "2.0 - Enhanced Multilingual Support"
     }
 
-def get_jewelry_features_info() -> Dict:
-    """주얼리 특화 기능 정보 반환"""
-    if not JEWELRY_ENHANCER_AVAILABLE:
-        return {
-            "available": False,
-            "error": "주얼리 특화 모듈을 로드할 수 없습니다"
+def get_enhanced_features_info() -> Dict:
+    """확장된 기능 정보 반환"""
+    return {
+        "jewelry_enhancement": {
+            "available": JEWELRY_ENHANCER_AVAILABLE,
+            "description": "주얼리 업계 전문 용어 인식 및 분석"
+        },
+        "multilingual_translation": {
+            "available": MULTILINGUAL_AVAILABLE,
+            "description": "실시간 다국어 번역 (한/영/중/일/태 등)"
+        },
+        "advanced_audio_processing": {
+            "available": AUDIO_PROCESSOR_AVAILABLE,
+            "description": "주얼리 업계 환경 특화 오디오 전처리"
+        },
+        "terminology_database": {
+            "available": DATABASE_AVAILABLE,
+            "description": "SQLite 기반 주얼리 전문 용어 데이터베이스"
         }
-    
-    try:
-        enhancer = get_jewelry_enhancer()
-        return {
-            "available": True,
-            "features": enhancer.get_enhancement_stats(),
-            "description": "주얼리 업계 전문 용어 인식 및 분석 기능"
-        }
-    except Exception as e:
-        return {
-            "available": False,
-            "error": str(e)
-        }
+    }
