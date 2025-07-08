@@ -1,0 +1,169 @@
+# 🐳 Solomond AI System - Development Environment
+# 완전한 개발 환경을 한 번에 구성
+
+version: '3.8'
+
+services:
+  # 🤖 Main Application
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: solomond-ai-app
+    ports:
+      - "8000:8000"
+      - "8501:8501"  # Streamlit
+    volumes:
+      - .:/app
+      - ./data:/app/data
+      - /tmp/solomond-cache:/tmp/cache
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgresql://solomond:password@db:5432/solomond_ai
+      - REDIS_URL=redis://redis:6379/0
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - solomond-network
+    restart: unless-stopped
+    command: >
+      sh -c "uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload &
+             streamlit run ui/streamlit/app.py --server.port 8501 --server.address 0.0.0.0"
+
+  # 🗄️ PostgreSQL Database
+  db:
+    image: postgres:15-alpine
+    container_name: solomond-ai-db
+    environment:
+      POSTGRES_DB: solomond_ai
+      POSTGRES_USER: solomond
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./deploy/sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solomond -d solomond_ai"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - solomond-network
+    restart: unless-stopped
+
+  # 🚀 Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: solomond-ai-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - solomond-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru
+
+  # 📊 Grafana (Monitoring)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: solomond-ai-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./deploy/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./deploy/grafana/datasources:/etc/grafana/provisioning/datasources
+    networks:
+      - solomond-network
+    restart: unless-stopped
+
+  # 📈 Prometheus (Metrics)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: solomond-ai-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./deploy/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - solomond-network
+    restart: unless-stopped
+
+  # 🧪 Test Runner (Optional)
+  test:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: solomond-ai-test
+    volumes:
+      - .:/app
+    environment:
+      - ENVIRONMENT=test
+      - DATABASE_URL=postgresql://solomond:password@db:5432/solomond_ai_test
+    depends_on:
+      - db
+    networks:
+      - solomond-network
+    profiles:
+      - testing
+    command: pytest tests/ -v --cov=core --cov=api
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  grafana_data:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  solomond-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+# 🚀 Quick Start Commands
+# 개발 환경 시작: docker-compose up -d
+# 로그 확인: docker-compose logs -f app
+# 테스트 실행: docker-compose --profile testing run --rm test
+# 환경 정리: docker-compose down -v
+
+# 📊 Services Access
+# Main App: http://localhost:8000
+# Streamlit UI: http://localhost:8501
+# Database: localhost:5432
+# Redis: localhost:6379
+# Grafana: http://localhost:3000 (admin/admin)
+# Prometheus: http://localhost:9090
+
+# 💾 Data Persistence
+# PostgreSQL: postgres_data volume
+# Redis: redis_data volume  
+# Grafana: grafana_data volume
+# App Data: ./data directory mount
