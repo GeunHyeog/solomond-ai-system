@@ -1,0 +1,76 @@
+# 기존 필수 패키지 (호환성 유지)
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+aiofiles>=23.2.1
+
+# AI 분석 패키지
+openai-whisper>=20231117
+PyPDF2>=3.0.1
+python-docx>=1.1.0
+easyocr>=1.7.0
+yt-dlp>=2023.11.16
+
+# 새로운 확장 기능 패키지
+# 다국어 번역
+googletrans==4.0.0rc1
+langdetect>=1.0.9
+
+# 오디오 처리 (고급)
+pydub>=0.25.1
+scipy>=1.11.4
+numpy>=1.24.3
+librosa>=0.10.1
+soundfile>=0.12.1
+
+# 데이터베이스 (SQLite 확장)
+sqlalchemy>=2.0.23
+alembic>=1.13.0
+
+# 웹 프레임워크 확장
+flask>=3.0.0
+flask-cors>=4.0.0
+flask-socketio>=5.3.6
+websockets>=12.0
+
+# 시스템 모니터링
+psutil>=5.9.6
+watchdog>=3.0.0
+
+# 로깅 및 디버깅
+loguru>=0.7.2
+rich>=13.7.0
+
+# 데이터 처리
+pandas>=2.1.0
+openpyxl>=3.1.0
+
+# 네트워킹
+requests>=2.31.0
+httpx>=0.25.0
+
+# 암호화 및 보안
+cryptography>=41.0.0
+passlib>=1.7.4
+
+# 환경 관리
+python-dotenv>=1.0.0
+click>=8.1.0
+
+# 개발 도구
+pytest>=7.4.3
+pytest-cov>=4.1.0
+pytest-asyncio>=0.21.1
+black>=23.11.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.7.0
+
+# 배포 및 프로덕션
+gunicorn>=21.2.0
+gevent>=23.9.1
+
+# 선택적 패키지 (GPU 지원)
+# torch>=2.1.0
+# torchaudio>=2.1.0
+# torchvision>=0.16.0
