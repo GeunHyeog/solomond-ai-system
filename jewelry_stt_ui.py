@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-솔로몬드 주얼리 특화 STT 시스템 - 웹 UI
+솔로몬드 주얼리 특화 STT 시스템 - 웹 UI (고용량 지원)
 Jewelry Industry Specialized Speech-to-Text System
 
 개발자: 전근혁 (솔로몬드 대표, 주얼리 전문가)
-목적: 주얼리 업계 회의, 강의, 세미나 음성을 정확하게 분석
+목적: 주얼리 업계 회의, 강의, 세미나 음성을 정확하게 분석 (최대 5GB, 50개 파일)
 """
 
 import os
@@ -24,9 +24,21 @@ project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
 # 시스템 정보 출력
-print(f"💎 솔로몬드 주얼리 특화 STT 시스템")
+print(f"💎 솔로몬드 주얼리 특화 STT 시스템 v3.1 (고용량 지원)")
 print(f"🐍 Python 버전: {sys.version}")
 print(f"📁 현재 디렉토리: {os.getcwd()}")
+
+# 설정 파일 로드
+try:
+    from config.settings import FILE_CONFIG, SYSTEM_INFO
+    MAX_FILE_SIZE = FILE_CONFIG["max_file_size"]
+    MAX_FILES = FILE_CONFIG["max_files"]
+    print(f"⚙️ 설정 로드 성공 - 최대 파일: {MAX_FILE_SIZE // (1024*1024*1024)}GB, 최대 파일 수: {MAX_FILES}개")
+except ImportError:
+    # 기본 설정 (fallback)
+    MAX_FILE_SIZE = 5 * 1024 * 1024 * 1024  # 5GB
+    MAX_FILES = 50
+    print(f"⚠️ 설정 파일 로드 실패 - 기본값 사용: {MAX_FILE_SIZE // (1024*1024*1024)}GB")
 
 # Whisper 및 주얼리 모듈 확인
 try:
@@ -48,9 +60,9 @@ except ImportError as e:
 
 # FastAPI 앱 생성
 app = FastAPI(
-    title="솔로몬드 주얼리 특화 STT 시스템",
-    description="주얼리 업계 전문가를 위한 AI 음성 분석 플랫폼",
-    version="1.0"
+    title="솔로몬드 주얼리 특화 STT 시스템 (고용량 지원)",
+    description="주얼리 업계 전문가를 위한 AI 음성 분석 플랫폼 - 최대 5GB, 50개 파일 지원",
+    version="3.1"
 )
 
 # CORS 미들웨어 추가
@@ -62,15 +74,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 파일 크기 제한 설정 (100MB)
-MAX_FILE_SIZE = 100 * 1024 * 1024
-
-# 주얼리 특화 HTML 템플릿
+# 주얼리 특화 HTML 템플릿 (고용량 지원)
 HTML_TEMPLATE = f"""
 <!DOCTYPE html>
 <html>
 <head>
-    <title>💎 솔로몬드 주얼리 AI 시스템</title>
+    <title>💎 솔로몬드 주얼리 AI 시스템 v3.1</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -348,6 +357,20 @@ HTML_TEMPLATE = f"""
             margin-top: 5px;
         }}
         
+        .high-volume-info {{
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+        }}
+        
+        .high-volume-info h3 {{
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+        }}
+        
         @media (max-width: 768px) {{
             .container {{ padding: 20px; margin: 10px; }}
             .header h1 {{ font-size: 2em; }}
@@ -357,14 +380,20 @@ HTML_TEMPLATE = f"""
 </head>
 <body>
     <div class="header">
-        <h1>💎 솔로몬드 주얼리 AI 시스템</h1>
-        <div class="subtitle">주얼리 업계 전문가를 위한 음성 분석 플랫폼</div>
+        <h1>💎 솔로몬드 주얼리 AI 시스템 v3.1</h1>
+        <div class="subtitle">주얼리 업계 전문가를 위한 고용량 음성 분석 플랫폼</div>
         <div style="margin-top: 15px; font-size: 0.9em;">
             개발: 전근혁 대표 (솔로몬드, 한국보석협회 사무국장)
         </div>
     </div>
     
     <div class="container">
+        <div class="high-volume-info">
+            <h3>🚀 고용량 지원 업그레이드</h3>
+            <p>최대 파일 크기: <strong>{MAX_FILE_SIZE // (1024*1024*1024)}GB</strong> | 최대 파일 수: <strong>{MAX_FILES}개</strong></p>
+            <p>동영상(MOV), 음성(M4A), 이미지(JPG/PNG) 완전 지원</p>
+        </div>
+        
         <div class="system-status">
             <div class="status-card {'active' if WHISPER_AVAILABLE else 'warning'}">
                 <h3>🎤 음성 인식</h3>
@@ -376,11 +405,11 @@ HTML_TEMPLATE = f"""
             </div>
             <div class="status-card active">
                 <h3>🌍 다국어 지원</h3>
-                <div>✅ 한/영/중</div>
+                <div>✅ 한/영/중/일</div>
             </div>
             <div class="status-card active">
-                <h3>📁 파일 지원</h3>
-                <div>✅ MP3/WAV/M4A</div>
+                <h3>📁 고용량 지원</h3>
+                <div>✅ 최대 {MAX_FILE_SIZE // (1024*1024*1024)}GB</div>
             </div>
         </div>
         
@@ -393,14 +422,14 @@ HTML_TEMPLATE = f"""
         '''}
         
         <div class="upload-section">
-            <h2 style="margin-top: 0; text-align: center;">🎯 주얼리 세미나/회의 음성 분석</h2>
+            <h2 style="margin-top: 0; text-align: center;">🎯 고용량 주얼리 멀티미디어 분석</h2>
             
             <form id="uploadForm" enctype="multipart/form-data">
                 <div class="upload-area">
-                    <div style="font-size: 48px; margin-bottom: 20px;">🎤💎</div>
-                    <h3>주얼리 관련 음성 파일을 선택하세요</h3>
-                    <p>세미나, 강의, 고객 상담, 무역 협상 등</p>
-                    <input type="file" name="audio_file" accept=".mp3,.wav,.m4a,.aac,.flac" required>
+                    <div style="font-size: 48px; margin-bottom: 20px;">🎤💎🎬</div>
+                    <h3>주얼리 관련 미디어 파일을 선택하세요</h3>
+                    <p>음성(M4A), 동영상(MOV), 이미지(JPG/PNG) - 최대 {MAX_FILE_SIZE // (1024*1024*1024)}GB</p>
+                    <input type="file" name="audio_file" accept=".mp3,.wav,.m4a,.aac,.flac,.mov,.mp4,.avi,.mkv,.jpg,.jpeg,.png" required>
                 </div>
                 
                 <div class="options">
@@ -427,7 +456,7 @@ HTML_TEMPLATE = f"""
                 </div>
                 
                 <button type="submit" id="submitBtn">
-                    🚀 주얼리 특화 음성 분석 시작
+                    🚀 고용량 주얼리 특화 분석 시작
                 </button>
                 
                 <div class="progress" id="progressContainer">
@@ -451,12 +480,12 @@ HTML_TEMPLATE = f"""
             let progress = 0;
             
             const interval = setInterval(() => {{
-                progress += Math.random() * 10;
+                progress += Math.random() * 5; // 고용량 파일로 인한 느린 진행률
                 if (progress > 85) progress = 85;
                 
                 progressBar.style.width = progress + '%';
                 progressBar.textContent = Math.round(progress) + '%';
-            }}, 800);
+            }}, 1500); // 고용량 처리로 인한 더 긴 간격
             
             return interval;
         }}
@@ -592,17 +621,18 @@ HTML_TEMPLATE = f"""
             }}
             
             const file = fileInput.files[0];
-            const fileSize = (file.size / (1024 * 1024)).toFixed(2);
+            const fileSizeGB = (file.size / (1024 * 1024 * 1024)).toFixed(2);
+            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
             
-            // 파일 크기 검사
-            if (file.size > 100 * 1024 * 1024) {{
-                alert('파일 크기가 100MB를 초과합니다.');
+            // 파일 크기 검사 (5GB 제한)
+            if (file.size > {MAX_FILE_SIZE}) {{
+                alert(`파일 크기가 {MAX_FILE_SIZE // (1024*1024*1024)}GB를 초과합니다. (현재: ${{fileSizeGB}}GB)`);
                 return;
             }}
             
             // UI 상태 변경
             submitBtn.disabled = true;
-            submitBtn.textContent = '🔄 주얼리 특화 분석 중...';
+            submitBtn.textContent = '🔄 고용량 주얼리 분석 중...';
             resultDiv.style.display = 'block';
             
             // 진행률 시작
@@ -611,14 +641,14 @@ HTML_TEMPLATE = f"""
             resultContent.innerHTML = `
                 <div class="result-section">
                     <div class="status info">
-                        <strong>📁 파일 정보</strong><br>
+                        <strong>📁 고용량 파일 정보</strong><br>
                         파일명: ${{file.name}}<br>
-                        크기: ${{fileSize}} MB<br>
+                        크기: ${{fileSizeGB}}GB (${{fileSizeMB}}MB)<br>
                         언어: ${{languageSelect.options[languageSelect.selectedIndex].text}}<br>
                         주얼리 특화: ${{jewelryEnhancement.checked ? '✅ 활성화' : '❌ 비활성화'}}
                     </div>
                     <div class="status info">
-                        🔄 서버로 업로드 중... 주얼리 용어 분석 준비 중입니다.
+                        🔄 고용량 파일 서버 업로드 중... 주얼리 전문 분석 준비 중입니다.
                     </div>
                 </div>
             `;
@@ -630,7 +660,7 @@ HTML_TEMPLATE = f"""
                 formData.append('language', languageSelect.value);
                 formData.append('enable_jewelry', jewelryEnhancement.checked);
                 
-                console.log('📤 주얼리 특화 분석 시작:', file.name);
+                console.log('📤 고용량 주얼리 특화 분석 시작:', file.name, fileSizeGB + 'GB');
                 
                 // 서버로 전송
                 const response = await fetch('/jewelry_analyze', {{
@@ -656,8 +686,9 @@ HTML_TEMPLATE = f"""
                     let resultHtml = `
                         <div class="result-section">
                             <div class="status success">
-                                <strong>✅ 주얼리 특화 음성 분석 완료!</strong><br>
-                                처리 시간: ${{result.total_processing_time || result.processing_time}}초
+                                <strong>✅ 고용량 주얼리 특화 분석 완료!</strong><br>
+                                처리 시간: ${{result.total_processing_time || result.processing_time}}초<br>
+                                파일 크기: ${{fileSizeGB}}GB
                             </div>
                         </div>
                     `;
@@ -709,11 +740,11 @@ HTML_TEMPLATE = f"""
                     resultHtml += `
                         <div class="result-section">
                             <div class="status info">
-                                <strong>📊 분석 상세 정보</strong><br>
+                                <strong>📊 고용량 분석 정보</strong><br>
                                 감지 언어: ${{result.language_info?.name || result.detected_language || '자동 감지'}}<br>
-                                파일 크기: ${{result.file_size || fileSize + ' MB'}}<br>
+                                파일 크기: ${{fileSizeGB}}GB (${{fileSizeMB}}MB)<br>
                                 주얼리 특화: ${{result.jewelry_enhancement ? '✅ 적용됨' : '❌ 미적용'}}<br>
-                                처리 방식: Whisper + 주얼리 도메인 AI
+                                처리 방식: Whisper + 주얼리 도메인 AI v3.1
                             </div>
                         </div>
                     `;
@@ -724,45 +755,47 @@ HTML_TEMPLATE = f"""
                     resultContent.innerHTML = `
                         <div class="result-section">
                             <div class="status error">
-                                <strong>❌ 분석 실패</strong><br>
+                                <strong>❌ 고용량 분석 실패</strong><br>
                                 오류: ${{result.error}}<br>
                                 처리 시간: ${{result.processing_time || 0}}초
                             </div>
                             <div class="status warning">
-                                <strong>💡 해결 방법:</strong><br>
-                                • 파일 형식 확인 (MP3, WAV, M4A)<br>
-                                • 파일 크기 확인 (100MB 이하)<br>
-                                • Whisper 설치 확인<br>
-                                • 주얼리 특화 모듈 상태 확인
+                                <strong>💡 고용량 파일 처리 해결 방법:</strong><br>
+                                • 파일 형식 확인 (MP3, WAV, M4A, MOV, JPG, PNG)<br>
+                                • 파일 크기 확인 ({MAX_FILE_SIZE // (1024*1024*1024)}GB 이하)<br>
+                                • 메모리 충분성 확인 (8GB 이상 권장)<br>
+                                • 네트워크 연결 안정성 확인<br>
+                                • 서버 디스크 공간 확인
                             </div>
                         </div>
                     `;
                 }}
                 
             }} catch (error) {{
-                console.error('❌ 업로드 오류:', error);
+                console.error('❌ 고용량 업로드 오류:', error);
                 
                 clearInterval(progressInterval);
                 
                 resultContent.innerHTML = `
                     <div class="result-section">
                         <div class="status error">
-                            <strong>❌ 네트워크 오류</strong><br>
+                            <strong>❌ 고용량 네트워크 오류</strong><br>
                             ${{error.message}}
                         </div>
                         <div class="status warning">
-                            <strong>🔧 진단 단계:</strong><br>
-                            1. 서버가 실행 중인지 확인<br>
-                            2. 방화벽 설정 확인<br>
-                            3. 주얼리 특화 모듈 상태 확인<br>
-                            4. 브라우저 콘솔(F12) 확인
+                            <strong>🔧 고용량 파일 진단 단계:</strong><br>
+                            1. 서버 메모리 충분성 확인 (8GB 이상)<br>
+                            2. 네트워크 타임아웃 설정 확인<br>
+                            3. 프록시/방화벽 설정 확인<br>
+                            4. 서버 디스크 공간 확인<br>
+                            5. 브라우저 콘솔(F12) 상세 오류 확인
                         </div>
                     </div>
                 `;
             }} finally {{
                 // UI 복원
                 submitBtn.disabled = false;
-                submitBtn.textContent = '🚀 주얼리 특화 음성 분석 시작';
+                submitBtn.textContent = '🚀 고용량 주얼리 특화 분석 시작';
                 
                 setTimeout(() => {{
                     document.getElementById('progressContainer').style.display = 'none';
@@ -780,14 +813,25 @@ HTML_TEMPLATE = f"""
                     label.title = '주얼리 특화 모듈이 로드되지 않았습니다';
                 }}
             }}
+            
+            // 고용량 파일 지원 안내
+            console.log('💎 솔로몬드 주얼리 AI v3.1 - 고용량 지원 시스템');
+            console.log(`📁 최대 파일 크기: {MAX_FILE_SIZE // (1024*1024*1024)}GB`);
+            console.log(`🔢 최대 파일 수: {MAX_FILES}개`);
         }};
         
         // 파일 선택 시 정보 표시
         document.querySelector('input[type="file"]').onchange = function(e) {{
             const file = e.target.files[0];
             if (file) {{
-                const fileSize = (file.size / (1024 * 1024)).toFixed(2);
-                console.log(`📁 주얼리 분석용 파일 선택: ${{file.name}} (${{fileSize}} MB)`);
+                const fileSizeGB = (file.size / (1024 * 1024 * 1024)).toFixed(2);
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                
+                if (file.size > 1024 * 1024 * 1024) {{ // 1GB 이상
+                    console.log(`📁 고용량 파일 선택: ${{file.name}} (${{fileSizeGB}}GB)`);
+                }} else {{
+                    console.log(`📁 파일 선택: ${{file.name}} (${{fileSizeMB}}MB)`);
+                }}
             }}
         }};
     </script>
@@ -806,27 +850,33 @@ async def jewelry_analyze(
     language: str = "ko",
     enable_jewelry: bool = True
 ):
-    """주얼리 특화 음성 분석"""
+    """주얼리 특화 음성 분석 (고용량 지원)"""
     import time
     start_time = time.time()
     
     try:
         # 1. 파일 기본 정보 확인
         filename = audio_file.filename or "unknown_file"
-        print(f"💎 주얼리 특화 분석 시작: {filename}")
+        print(f"💎 주얼리 특화 고용량 분석 시작: {filename}")
         
         # 2. 파일 내용 읽기
         try:
             content = await audio_file.read()
-            file_size_mb = len(content) / (1024 * 1024)
-            file_size_str = f"{file_size_mb:.2f} MB"
+            file_size_bytes = len(content)
+            file_size_mb = file_size_bytes / (1024 * 1024)
+            file_size_gb = file_size_bytes / (1024 * 1024 * 1024)
+            
+            if file_size_gb > 1:
+                file_size_str = f"{file_size_gb:.2f} GB"
+            else:
+                file_size_str = f"{file_size_mb:.2f} MB"
             
             print(f"📊 파일 크기: {file_size_str}")
             
-            if len(content) > MAX_FILE_SIZE:
+            if file_size_bytes > MAX_FILE_SIZE:
                 return JSONResponse({
                     "success": False,
-                    "error": f"파일 크기가 {MAX_FILE_SIZE/(1024*1024):.0f}MB를 초과합니다. (현재: {file_size_str})",
+                    "error": f"파일 크기가 {MAX_FILE_SIZE/(1024*1024*1024):.0f}GB를 초과합니다. (현재: {file_size_str})",
                     "processing_time": round(time.time() - start_time, 2)
                 })
                 
@@ -864,7 +914,7 @@ async def jewelry_analyze(
                         result["filename"] = filename
                         result["file_size"] = file_size_str
                         
-                        print(f"✅ 주얼리 특화 분석 완료: {result.get('total_processing_time', 0)}초")
+                        print(f"✅ 주얼리 특화 고용량 분석 완료: {result.get('total_processing_time', 0)}초")
                         
                         if result.get("jewelry_corrections"):
                             print(f"🔧 {len(result['jewelry_corrections'])}개 주얼리 용어 수정")
@@ -894,9 +944,9 @@ async def jewelry_analyze(
                 "processing_time": round(time.time() - start_time, 2)
             })
         
-        # 기본 Whisper 분석
+        # 기본 Whisper 분석 (고용량 지원)
         file_ext = Path(filename).suffix.lower()
-        supported_formats = ['.mp3', '.wav', '.m4a', '.aac', '.flac']
+        supported_formats = ['.mp3', '.wav', '.m4a', '.aac', '.flac', '.mov', '.mp4', '.avi', '.mkv']
         
         if file_ext not in supported_formats:
             return JSONResponse({
@@ -961,6 +1011,9 @@ async def get_status():
         status_info = {
             "whisper_available": WHISPER_AVAILABLE,
             "jewelry_enhancement_available": JEWELRY_ENHANCEMENT_AVAILABLE,
+            "max_file_size": MAX_FILE_SIZE,
+            "max_files": MAX_FILES,
+            "max_file_size_gb": MAX_FILE_SIZE // (1024*1024*1024),
             "timestamp": time.strftime("%Y-%m-%d %H:%M:%S")
         }
         
@@ -981,12 +1034,13 @@ async def get_status():
 
 if __name__ == "__main__":
     print("=" * 80)
-    print("💎 솔로몬드 주얼리 특화 STT 시스템")
+    print("💎 솔로몬드 주얼리 특화 STT 시스템 v3.1 (고용량 지원)")
     print("=" * 80)
     print(f"🐍 Python: {sys.version}")
     print(f"🎤 Whisper: {'✅ 사용 가능' if WHISPER_AVAILABLE else '❌ 설치 필요'}")
     print(f"💎 주얼리 특화: {'✅ 활성화' if JEWELRY_ENHANCEMENT_AVAILABLE else '❌ 비활성화'}")
-    print(f"📁 최대 파일 크기: {MAX_FILE_SIZE // (1024*1024)}MB")
+    print(f"📁 최대 파일 크기: {MAX_FILE_SIZE // (1024*1024*1024)}GB")
+    print(f"🔢 최대 파일 수: {MAX_FILES}개")
     print(f"🌐 접속 주소: http://localhost:8080")
     print(f"🔧 상태 확인: http://localhost:8080/status")
     print("=" * 80)
