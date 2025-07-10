@@ -1,0 +1,83 @@
+# 💎 솔로몬드 AI v2.1 - 품질 강화 요구사항
+# 주얼리 업계 특화 고용량 멀티모달 AI 분석 플랫폼
+
+# 핵심 Python 패키지
+streamlit>=1.28.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pandas>=2.0.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# AI/ML 라이브러리
+openai>=1.3.0
+openai-whisper>=20231117
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+transformers>=4.35.0
+sentence-transformers>=2.2.0
+
+# 음성 처리
+librosa>=0.10.0
+soundfile>=0.12.0
+pyaudio>=0.2.11
+webrtcvad>=2.0.10
+
+# 이미지/OCR 처리
+opencv-python>=4.8.0
+pytesseract>=0.3.10
+easyocr>=1.7.0
+pdf2image>=1.16.0
+
+# 문서 처리
+python-docx>=1.1.0
+PyPDF2>=3.0.0
+openpyxl>=3.1.0
+python-pptx>=0.6.22
+
+# 다국어 처리
+googletrans==4.0.0rc1
+langdetect>=1.0.9
+polyglot>=16.7.4
+
+# 웹 및 API
+requests>=2.31.0
+aiohttp>=3.9.0
+websockets>=12.0
+httpx>=0.25.0
+
+# 데이터 시각화
+plotly>=5.17.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# 유틸리티
+tqdm>=4.66.0
+rich>=13.6.0
+click>=8.1.0
+python-dotenv>=1.0.0
+pydantic>=2.4.0
+
+# 파일 처리
+ffmpeg-python>=0.2.0
+moviepy>=1.0.3
+
+# 품질 분석 (v2.1 신규)
+scikit-learn>=1.3.0
+scipy>=1.11.0
+spectral>=0.23.1
+
+# 시스템 모니터링
+psutil>=5.9.0
+memory-profiler>=0.61.0
+
+# 개발 도구
+pytest>=7.4.0
+black>=23.9.0
+flake8>=6.1.0
+mypy>=1.6.0
+
+# 주얼리 특화 (v2.1 신규)
+gemmi>=0.6.0  # 결정학 데이터 처리
+pymatgen>=2023.9.25  # 재료 과학
