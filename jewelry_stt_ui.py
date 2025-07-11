@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-솔로몬드 AI v2.1.1 - 품질 모니터링 통합 Streamlit UI
-실시간 품질 확인 + 다국어 처리 + 현장 최적화
+솔로몬드 AI v2.1.1 - 멀티모달 일괄 분석 UI
+여러 파일(이미지+영상+음성+유튜브)을 한번에 업로드하여 통합 분석
 
 작성자: 전근혁 (솔로몬드 대표)
 생성일: 2025.07.11
-목적: 현장에서 즉시 사용 가능한 완전한 UI
+목적: 진정한 멀티모달 통합 분석 플랫폼
 """
 
 import streamlit as st
@@ -43,6 +43,31 @@ st.markdown("""
         margin-bottom: 2rem;
     }
     
+    .upload-zone {
+        border: 2px dashed #007bff;
+        border-radius: 10px;
+        padding: 2rem;
+        text-align: center;
+        background-color: #f8f9fa;
+        margin: 1rem 0;
+    }
+    
+    .file-list {
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .result-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin: 2rem 0;
+    }
+    
     .quality-excellent {
         background-color: #d4edda;
         border-left: 5px solid #28a745;
@@ -66,21 +91,6 @@ st.markdown("""
         border-radius: 5px;
         margin: 1rem 0;
     }
-    
-    .real-time-monitor {
-        border: 2px solid #007bff;
-        border-radius: 10px;
-        padding: 1rem;
-        background-color: #f8f9fa;
-    }
-    
-    .metric-card {
-        background: white;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        margin: 0.5rem 0;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -88,381 +98,320 @@ st.markdown("""
 st.markdown("""
 <div class="main-header">
     <h1>💎 솔로몬드 AI v2.1.1</h1>
-    <h3>주얼리 업계 멀티모달 AI 분석 플랫폼 - 품질 혁신</h3>
-    <p>실시간 품질 모니터링 + 다국어 처리 + 한국어 통합 분석</p>
+    <h3>멀티모달 통합 분석 플랫폼</h3>
+    <p>🎬 영상 + 🎤 음성 + 📸 이미지 + 🌐 유튜브 → 📊 하나의 통합 결과</p>
 </div>
 """, unsafe_allow_html=True)
 
-# 사이드바 - 모드 선택
+# 사이드바 - 분석 모드 선택
 st.sidebar.title("🎯 분석 모드")
 analysis_mode = st.sidebar.selectbox(
     "원하는 분석을 선택하세요:",
     [
-        "🔬 실시간 품질 모니터", 
+        "🚀 멀티모달 일괄 분석", 
+        "🔬 실시간 품질 모니터",
         "🌍 다국어 회의 분석",
         "📊 통합 분석 대시보드",
         "🧪 베타 테스트 피드백"
     ]
 )
 
-# 품질 상태를 위한 세션 상태 초기화
-if 'quality_history' not in st.session_state:
-    st.session_state.quality_history = []
-
-if 'current_quality' not in st.session_state:
-    st.session_state.current_quality = {
-        'audio': {'score': 0.85, 'status': '양호'},
-        'image': {'score': 0.92, 'status': '우수'},
-        'overall': {'score': 0.88, 'status': '양호'}
+# 세션 상태 초기화
+if 'uploaded_files' not in st.session_state:
+    st.session_state.uploaded_files = {
+        'images': [],
+        'videos': [],
+        'audios': [],
+        'documents': [],
+        'youtube_urls': []
     }
 
-# 모드별 UI 구성
-if analysis_mode == "🔬 실시간 품질 모니터":
-    st.header("🔬 실시간 품질 모니터링")
+if 'analysis_results' not in st.session_state:
+    st.session_state.analysis_results = None
+
+# 메인 기능: 멀티모달 일괄 분석
+if analysis_mode == "🚀 멀티모달 일괄 분석":
+    st.header("🚀 멀티모달 일괄 분석")
+    st.write("**모든 유형의 파일을 한번에 업로드하여 통합 분석 결과를 얻으세요!**")
     
-    # 실시간 품질 표시 영역
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-        <div class="metric-card">
-            <h4>🎤 음성 품질</h4>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        audio_score = st.session_state.current_quality['audio']['score']
-        st.metric(
-            label="종합 점수", 
-            value=f"{audio_score:.1%}",
-            delta=f"+{np.random.uniform(-0.05, 0.05):.1%}"
-        )
-        
-        # 음성 품질 세부 지표
-        st.write("**세부 지표:**")
-        st.progress(0.82, text="SNR: 24.5dB ✅")
-        st.progress(0.91, text="명료도: 91% ✅") 
-        st.progress(0.75, text="노이즈 레벨: 낮음 ✅")
-    
-    with col2:
-        st.markdown("""
-        <div class="metric-card">
-            <h4>📸 이미지 품질</h4>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        image_score = st.session_state.current_quality['image']['score']
-        st.metric(
-            label="종합 점수", 
-            value=f"{image_score:.1%}",
-            delta=f"+{np.random.uniform(-0.03, 0.07):.1%}"
-        )
-        
-        # 이미지 품질 세부 지표
-        st.write("**세부 지표:**")
-        st.progress(0.95, text="해상도: 1920x1080 ✅")
-        st.progress(0.88, text="선명도: 88% ✅")
-        st.progress(0.93, text="대비: 93% ✅")
-        st.progress(0.85, text="조명: 85% ✅")
-    
-    with col3:
-        st.markdown("""
-        <div class="metric-card">
-            <h4>⭐ 전체 품질</h4>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        overall_score = st.session_state.current_quality['overall']['score']
-        st.metric(
-            label="종합 점수", 
-            value=f"{overall_score:.1%}",
-            delta=f"+{np.random.uniform(-0.02, 0.05):.1%}"
-        )
-        
-        # 처리 준비도
-        if overall_score >= 0.8:
-            st.success("🟢 처리 준비 완료!")
-        elif overall_score >= 0.6:
-            st.warning("🟡 주의 필요")
-        else:
-            st.error("🔴 품질 개선 필요")
-    
-    # 실시간 권장사항
-    st.subheader("💡 실시간 권장사항")
-    
-    recommendations = [
-        "🟢 현재 음성 품질이 우수합니다. 현재 설정을 유지하세요.",
-        "🟡 이미지 조명을 조금 더 균일하게 조정해보세요.",
-        "🟢 전체적으로 분석 진행에 적합한 품질입니다."
-    ]
-    
-    for rec in recommendations:
-        if "🟢" in rec:
-            st.success(rec)
-        elif "🟡" in rec:
-            st.warning(rec)
-        else:
-            st.error(rec)
-    
-    # 파일 업로드 영역
-    st.subheader("📁 파일 업로드 & 즉시 분석")
-    
+    # 파일 업로드 영역들
     col1, col2 = st.columns(2)
     
     with col1:
-        st.write("**🎤 음성 파일**")
-        audio_file = st.file_uploader(
-            "음성 파일을 선택하세요", 
-            type=['wav', 'mp3', 'm4a'],
-            key="audio_upload"
+        st.subheader("📁 파일 업로드")
+        
+        # 이미지 업로드
+        st.write("**📸 이미지 파일**")
+        uploaded_images = st.file_uploader(
+            "이미지를 선택하세요 (여러 개 가능)",
+            type=['jpg', 'jpeg', 'png', 'gif', 'bmp'],
+            accept_multiple_files=True,
+            key="images"
         )
         
-        if audio_file:
-            st.audio(audio_file)
-            
-            if st.button("🔍 음성 품질 분석", key="analyze_audio"):
-                with st.spinner("음성 품질 분석 중..."):
-                    time.sleep(2)  # 시뮬레이션
-                    
-                    # 시뮬레이션된 분석 결과
-                    analysis_result = {
-                        "snr_db": np.random.uniform(18, 30),
-                        "clarity_score": np.random.uniform(0.7, 0.95),
-                        "noise_level": np.random.uniform(0.05, 0.25),
-                        "overall_quality": np.random.uniform(0.6, 0.95)
-                    }
-                    
-                    st.success("✅ 분석 완료!")
-                    
-                    col_a, col_b, col_c = st.columns(3)
-                    with col_a:
-                        st.metric("SNR", f"{analysis_result['snr_db']:.1f}dB")
-                    with col_b:
-                        st.metric("명료도", f"{analysis_result['clarity_score']:.1%}")
-                    with col_c:
-                        st.metric("품질", f"{analysis_result['overall_quality']:.1%}")
+        # 영상 업로드
+        st.write("**🎬 영상 파일**")
+        uploaded_videos = st.file_uploader(
+            "영상을 선택하세요 (여러 개 가능)",
+            type=['mp4', 'avi', 'mov', 'mkv', 'wmv'],
+            accept_multiple_files=True,
+            key="videos"
+        )
+        
+        # 음성 업로드
+        st.write("**🎤 음성 파일**")
+        uploaded_audios = st.file_uploader(
+            "음성을 선택하세요 (여러 개 가능)",
+            type=['wav', 'mp3', 'm4a', 'flac', 'aac'],
+            accept_multiple_files=True,
+            key="audios"
+        )
+        
+        # 문서 업로드
+        st.write("**📄 문서 파일**")
+        uploaded_documents = st.file_uploader(
+            "문서를 선택하세요 (여러 개 가능)",
+            type=['pdf', 'docx', 'pptx', 'txt'],
+            accept_multiple_files=True,
+            key="documents"
+        )
     
     with col2:
-        st.write("**📸 이미지 파일**")
-        image_file = st.file_uploader(
-            "이미지 파일을 선택하세요", 
-            type=['jpg', 'jpeg', 'png', 'pdf'],
-            key="image_upload"
+        st.subheader("🌐 온라인 콘텐츠")
+        
+        # 유튜브 URL 입력
+        st.write("**📺 유튜브 동영상**")
+        youtube_url = st.text_input(
+            "유튜브 URL을 입력하세요:",
+            placeholder="https://www.youtube.com/watch?v=..."
         )
         
-        if image_file:
-            st.image(image_file, caption="업로드된 이미지", use_column_width=True)
-            
-            if st.button("🔍 이미지 품질 분석", key="analyze_image"):
-                with st.spinner("이미지 품질 분석 중..."):
-                    time.sleep(2)  # 시뮬레이션
-                    
-                    # 시뮬레이션된 분석 결과
-                    analysis_result = {
-                        "resolution_score": np.random.uniform(0.7, 1.0),
-                        "sharpness_score": np.random.uniform(0.6, 0.95),
-                        "contrast_score": np.random.uniform(0.7, 0.95),
-                        "overall_quality": np.random.uniform(0.6, 0.95)
+        if st.button("📺 유튜브 추가") and youtube_url:
+            st.session_state.uploaded_files['youtube_urls'].append(youtube_url)
+            st.success(f"✅ 유튜브 추가됨: {youtube_url[:50]}...")
+        
+        # 추가된 유튜브 URL 목록
+        if st.session_state.uploaded_files['youtube_urls']:
+            st.write("**추가된 유튜브 동영상:**")
+            for i, url in enumerate(st.session_state.uploaded_files['youtube_urls']):
+                col_a, col_b = st.columns([4, 1])
+                with col_a:
+                    st.text(f"{i+1}. {url[:50]}...")
+                with col_b:
+                    if st.button("🗑️", key=f"del_yt_{i}"):
+                        st.session_state.uploaded_files['youtube_urls'].pop(i)
+                        st.rerun()
+    
+    # 업로드된 파일 현황
+    st.subheader("📋 업로드된 파일 현황")
+    
+    # 파일 카운트 업데이트
+    file_counts = {
+        'images': len(uploaded_images) if uploaded_images else 0,
+        'videos': len(uploaded_videos) if uploaded_videos else 0,
+        'audios': len(uploaded_audios) if uploaded_audios else 0,
+        'documents': len(uploaded_documents) if uploaded_documents else 0,
+        'youtube_urls': len(st.session_state.uploaded_files['youtube_urls'])
+    }
+    
+    # 파일 현황 표시
+    col1, col2, col3, col4, col5 = st.columns(5)
+    with col1:
+        st.metric("📸 이미지", file_counts['images'])
+    with col2:
+        st.metric("🎬 영상", file_counts['videos'])
+    with col3:
+        st.metric("🎤 음성", file_counts['audios'])
+    with col4:
+        st.metric("📄 문서", file_counts['documents'])
+    with col5:
+        st.metric("📺 유튜브", file_counts['youtube_urls'])
+    
+    # 총 파일 수 계산
+    total_files = sum(file_counts.values())
+    
+    if total_files > 0:
+        st.success(f"🎯 **총 {total_files}개 파일 업로드 완료!** 통합 분석 준비됨")
+        
+        # 통합 분석 시작 버튼
+        if st.button("🚀 멀티모달 통합 분석 시작", type="primary", use_container_width=True):
+            with st.spinner("🔄 멀티모달 통합 분석 진행 중... (모든 파일을 동시 처리 중)"):
+                progress_bar = st.progress(0)
+                status_text = st.empty()
+                
+                # 분석 시뮬레이션
+                steps = [
+                    "📸 이미지 품질 분석 중...",
+                    "🎬 영상 내용 추출 중...",
+                    "🎤 음성 텍스트 변환 중...",
+                    "📄 문서 내용 분석 중...",
+                    "📺 유튜브 콘텐츠 다운로드 중...",
+                    "🌍 다국어 언어 감지 중...",
+                    "💎 주얼리 전문용어 추출 중...",
+                    "🧠 AI 통합 분석 중...",
+                    "📊 최종 결과 생성 중..."
+                ]
+                
+                for i, step in enumerate(steps):
+                    status_text.text(step)
+                    time.sleep(0.8)
+                    progress_bar.progress((i + 1) / len(steps))
+                
+                status_text.text("✅ 분석 완료!")
+                
+                # 시뮬레이션된 분석 결과 생성
+                analysis_result = {
+                    "timestamp": datetime.now().isoformat(),
+                    "total_files": total_files,
+                    "processing_time": "7.2초",
+                    "overall_quality": np.random.uniform(0.75, 0.95),
+                    "detected_languages": ["korean", "english", "chinese"],
+                    "key_topics": ["다이아몬드 품질", "가격 협상", "국제 무역", "감정서 발급"],
+                    "jewelry_terms": ["다이아몬드", "캐럿", "감정서", "VVS1", "GIA"],
+                    "summary": "홍콩 주얼리쇼에서 진행된 다이아몬드 거래 협상 내용입니다. 1-3캐럿 VVS1 등급 다이아몬드에 대한 가격 문의와 품질 확인 과정이 주요 내용입니다.",
+                    "action_items": [
+                        "1캐럿 VVS1 다이아몬드 가격 재확인",
+                        "GIA 감정서 진위 확인",
+                        "납기일정 협의",
+                        "결제조건 최종 확정"
+                    ],
+                    "quality_scores": {
+                        "audio": np.random.uniform(0.8, 0.95),
+                        "video": np.random.uniform(0.75, 0.9),
+                        "image": np.random.uniform(0.85, 0.95),
+                        "text": np.random.uniform(0.9, 0.98)
                     }
-                    
-                    st.success("✅ 분석 완료!")
-                    
-                    col_a, col_b, col_c = st.columns(3)
-                    with col_a:
-                        st.metric("해상도", f"{analysis_result['resolution_score']:.1%}")
-                    with col_b:
-                        st.metric("선명도", f"{analysis_result['sharpness_score']:.1%}")
-                    with col_c:
-                        st.metric("품질", f"{analysis_result['overall_quality']:.1%}")
+                }
+                
+                st.session_state.analysis_results = analysis_result
+        
+        # 분석 결과 표시
+        if st.session_state.analysis_results:
+            result = st.session_state.analysis_results
+            
+            st.markdown("""
+            <div class="result-container">
+                <h2>🎉 멀티모달 통합 분석 결과</h2>
+                <p>모든 파일이 성공적으로 분석되어 하나의 통합 결과를 생성했습니다!</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # 핵심 메트릭
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("🎯 전체 품질", f"{result['overall_quality']:.1%}", "+5%")
+            with col2:
+                st.metric("⏱️ 처리 시간", result['processing_time'], "-30%")
+            with col3:
+                st.metric("🌍 감지 언어", f"{len(result['detected_languages'])}개", "+1")
+            with col4:
+                st.metric("💎 전문용어", f"{len(result['jewelry_terms'])}개", "+8")
+            
+            # 주요 내용 요약
+            st.subheader("📋 통합 분석 요약")
+            st.info(result['summary'])
+            
+            # 액션 아이템
+            st.subheader("✅ 주요 액션 아이템")
+            for item in result['action_items']:
+                st.write(f"• {item}")
+            
+            # 품질별 세부 분석
+            st.subheader("📊 파일 유형별 품질 분석")
+            quality_data = result['quality_scores']
+            
+            col1, col2 = st.columns(2)
+            with col1:
+                for file_type, score in quality_data.items():
+                    if file_type == 'audio':
+                        st.progress(score, text=f"🎤 음성: {score:.1%}")
+                    elif file_type == 'video':
+                        st.progress(score, text=f"🎬 영상: {score:.1%}")
+                    elif file_type == 'image':
+                        st.progress(score, text=f"📸 이미지: {score:.1%}")
+                    elif file_type == 'text':
+                        st.progress(score, text=f"📄 텍스트: {score:.1%}")
+            
+            with col2:
+                st.write("**🌍 감지된 언어:**")
+                for lang in result['detected_languages']:
+                    st.success(f"• {lang}")
+                
+                st.write("**💎 주요 전문용어:**")
+                for term in result['jewelry_terms']:
+                    st.success(f"• {term}")
+            
+            # 결과 다운로드
+            st.subheader("💾 결과 다운로드")
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                if st.button("📄 PDF 리포트", use_container_width=True):
+                    st.success("PDF 리포트 생성 중...")
+            
+            with col2:
+                if st.button("📊 Excel 분석", use_container_width=True):
+                    st.success("Excel 파일 생성 중...")
+            
+            with col3:
+                if st.button("🔗 링크 공유", use_container_width=True):
+                    st.success("공유 링크 생성 중...")
+    
+    else:
+        st.info("📁 분석할 파일을 업로드해주세요. 이미지, 영상, 음성, 문서, 유튜브 등 모든 형태의 파일을 지원합니다.")
+
+elif analysis_mode == "🔬 실시간 품질 모니터":
+    st.header("🔬 실시간 품질 모니터링")
+    st.info("개별 파일의 품질을 실시간으로 확인할 수 있습니다.")
+    
+    # 기본 품질 모니터링 UI (기존 코드 간소화)
+    col1, col2, col3 = st.columns(3)
+    
+    with col1:
+        st.metric("🎤 음성 품질", "85%", "+4%")
+    with col2:
+        st.metric("📸 이미지 품질", "92%", "+2%")
+    with col3:
+        st.metric("⭐ 전체 품질", "88%", "+3%")
 
 elif analysis_mode == "🌍 다국어 회의 분석":
     st.header("🌍 다국어 회의 분석")
     
-    # 언어 감지 데모
-    st.subheader("🔍 자동 언어 감지 테스트")
-    
-    sample_texts = [
-        "안녕하세요, 다이아몬드 price를 문의드립니다. What's the carat?",
-        "这个钻石戒指多少钱？ Quality는 어떤가요?",
-        "18K gold ring with 1 carat diamond, 가격은 얼마인가요?",
-        "주문하고 싶습니다. certificate는 GIA 감정서인가요?"
-    ]
-    
-    selected_text = st.selectbox(
-        "테스트할 텍스트를 선택하거나 직접 입력하세요:",
-        ["직접 입력"] + sample_texts
+    # 간단한 언어 감지 테스트
+    sample_text = st.text_area(
+        "다국어 텍스트를 입력하세요:",
+        value="안녕하세요, 다이아몬드 price를 문의드립니다. What's the carat?",
+        height=100
     )
     
-    if selected_text == "직접 입력":
-        user_text = st.text_area(
-            "다국어 텍스트를 입력하세요:",
-            placeholder="예: Hello, 다이아몬드 가격 문의합니다. 钻石 quality怎么样？",
-            height=100
-        )
-    else:
-        user_text = selected_text
-        st.text_area("선택된 텍스트:", value=user_text, height=100, disabled=True)
-    
-    if user_text and st.button("🌍 언어 분석 시작"):
-        with st.spinner("다국어 분석 중..."):
-            time.sleep(1.5)  # 시뮬레이션
-            
-            # 시뮬레이션된 언어 감지 결과
-            languages = ['korean', 'english', 'chinese', 'japanese']
-            primary_lang = np.random.choice(languages)
-            confidence = np.random.uniform(0.6, 0.95)
-            
-            # 언어 분포 시뮬레이션
-            lang_dist = {
-                'korean': np.random.uniform(0.2, 0.6),
-                'english': np.random.uniform(0.1, 0.4),
-                'chinese': np.random.uniform(0.0, 0.3),
-                'japanese': np.random.uniform(0.0, 0.2)
-            }
-            
-            # 정규화
-            total = sum(lang_dist.values())
-            lang_dist = {k: v/total for k, v in lang_dist.items()}
-            
-            col1, col2 = st.columns(2)
-            
-            with col1:
-                st.subheader("🔍 언어 감지 결과")
-                st.metric("주요 언어", primary_lang, f"신뢰도: {confidence:.1%}")
-                
-                st.write("**언어 분포:**")
-                for lang, ratio in lang_dist.items():
-                    if ratio > 0.05:  # 5% 이상만 표시
-                        st.progress(ratio, text=f"{lang}: {ratio:.1%}")
-            
-            with col2:
-                st.subheader("🔄 한국어 번역 결과")
-                
-                # 시뮬레이션된 번역
-                translated_text = user_text.replace("price", "가격").replace("carat", "캐럿").replace("quality", "품질").replace("certificate", "감정서")
-                
-                st.text_area(
-                    "번역된 내용:",
-                    value=translated_text,
-                    height=100,
-                    disabled=True
-                )
-                
-                st.write("**발견된 전문용어:**")
-                terms = ["다이아몬드", "가격", "캐럿", "품질", "감정서"]
-                found_terms = [term for term in terms if term in user_text or any(eng in user_text.lower() for eng in ["diamond", "price", "carat", "quality", "certificate"])]
-                
-                for term in found_terms[:3]:  # 최대 3개만 표시
-                    st.success(f"💎 {term}")
-    
-    # 추천 STT 모델
-    st.subheader("🤖 추천 STT 모델")
-    
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown("""
-        **🇰🇷 Whisper-Korean**
-        - 한국어 특화 모델
-        - 정확도: 95%
-        - 권장: 한국어 단일 환경
-        """)
-    
-    with col2:
-        st.markdown("""
-        **🌍 Whisper-Multilingual**
-        - 다국어 혼용 모델
-        - 정확도: 85%
-        - 권장: 국제 회의
-        """)
-    
-    with col3:
-        st.markdown("""
-        **🇺🇸 Whisper-English**
-        - 영어 특화 모델
-        - 정확도: 92%
-        - 권장: 영어 단일 환경
-        """)
+    if st.button("🌍 언어 분석"):
+        st.success("🇰🇷 주요 언어: Korean (65%)")
+        st.info("🔄 번역: 안녕하세요, 다이아몬드 가격을 문의드립니다. 캐럿은 얼마인가요?")
 
 elif analysis_mode == "📊 통합 분석 대시보드":
     st.header("📊 통합 분석 대시보드")
     
-    # 오늘의 분석 통계
+    # 시뮬레이션 데이터
     col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.metric(
-            label="📁 처리된 파일",
-            value="24",
-            delta="+3"
-        )
-    
+        st.metric("📁 처리된 파일", "24", "+3")
     with col2:
-        st.metric(
-            label="🌍 감지된 언어",
-            value="4개국",
-            delta="+1"
-        )
-    
+        st.metric("🌍 감지된 언어", "4개국", "+1")
     with col3:
-        st.metric(
-            label="⭐ 평균 품질",
-            value="87%",
-            delta="+5%"
-        )
-    
+        st.metric("⭐ 평균 품질", "87%", "+5%")
     with col4:
-        st.metric(
-            label="💎 인식된 전문용어",
-            value="156개",
-            delta="+22"
-        )
+        st.metric("💎 인식된 전문용어", "156개", "+22")
     
-    # 품질 트렌드 차트
+    # 품질 트렌드 차트 (line_chart만 사용)
     st.subheader("📈 품질 트렌드")
-    
-    # 시뮬레이션 데이터
     dates = pd.date_range(start='2025-07-01', end='2025-07-11', freq='D')
-    audio_quality = np.random.uniform(0.7, 0.95, len(dates))
-    image_quality = np.random.uniform(0.75, 0.95, len(dates))
-    
     chart_data = pd.DataFrame({
-        '날짜': dates,
-        '음성 품질': audio_quality,
-        '이미지 품질': image_quality
-    })
+        '음성 품질': np.random.uniform(0.7, 0.95, len(dates)),
+        '이미지 품질': np.random.uniform(0.75, 0.95, len(dates))
+    }, index=dates)
     
-    st.line_chart(chart_data.set_index('날짜'))
-    
-    # 언어 분포 파이차트
-    col1, col2 = st.columns(2)
-    
-    with col1:
-        st.subheader("🌍 언어 분포")
-        lang_data = {
-            '한국어': 45,
-            '영어': 30,
-            '중국어': 15,
-            '일본어': 10
-        }
-        
-        lang_df = pd.DataFrame(list(lang_data.items()), columns=['언어', '비율'])
-        st.pie_chart(lang_df.set_index('언어'))
-    
-    with col2:
-        st.subheader("💎 주요 전문용어")
-        terms_data = {
-            '다이아몬드': 45,
-            '가격': 38,
-            '품질': 32,
-            '캐럿': 28,
-            '감정서': 22,
-            '반지': 18,
-            '목걸이': 15,
-            '귀걸이': 12
-        }
-        
-        terms_df = pd.DataFrame(list(terms_data.items()), columns=['용어', '빈도'])
-        st.bar_chart(terms_df.set_index('용어'))
+    st.line_chart(chart_data)
 
 else:  # 베타 테스트 피드백
     st.header("🧪 베타 테스트 피드백")
@@ -492,61 +441,32 @@ else:  # 베타 테스트 피드백
         
         with col2:
             overall_rating = st.slider("전체 만족도", 1, 5, 4)
+            multimodal_rating = st.slider("멀티모달 분석", 1, 5, 4)
             quality_rating = st.slider("품질 모니터링", 1, 5, 4)
-            multilang_rating = st.slider("다국어 처리", 1, 5, 4)
             ease_rating = st.slider("사용 편의성", 1, 5, 4)
         
         st.subheader("💭 상세 피드백")
         
         good_points = st.text_area(
             "🟢 좋았던 점:",
-            placeholder="예: 실시간 품질 확인이 매우 유용했습니다..."
+            placeholder="예: 여러 파일을 한번에 분석할 수 있어서 매우 편리했습니다..."
         )
         
         improvements = st.text_area(
             "🟡 개선이 필요한 점:",
-            placeholder="예: 처리 속도를 더 빠르게 해주세요..."
+            placeholder="예: 유튜브 영상 처리 속도를 더 빠르게 해주세요..."
         )
         
         suggestions = st.text_area(
             "💡 추가 기능 제안:",
-            placeholder="예: 자동 요약 기능을 추가해주세요..."
+            placeholder="예: 실시간 화상회의 분석 기능을 추가해주세요..."
         )
         
         submitted = st.form_submit_button("📤 피드백 제출")
         
         if submitted:
-            # 피드백 저장 시뮬레이션
-            feedback_data = {
-                "timestamp": datetime.now().isoformat(),
-                "company_type": company_type,
-                "main_use": main_use,
-                "ratings": {
-                    "overall": overall_rating,
-                    "quality": quality_rating,
-                    "multilang": multilang_rating,
-                    "ease": ease_rating
-                },
-                "feedback": {
-                    "good_points": good_points,
-                    "improvements": improvements,
-                    "suggestions": suggestions
-                }
-            }
-            
             st.success("✅ 피드백이 성공적으로 제출되었습니다!")
             st.balloons()
-            
-            # 감사 메시지
-            st.info("""
-            🙏 **감사합니다!**
-            
-            귀하의 피드백은 솔로몬드 AI 개발팀에게 전달되어 
-            제품 개선에 직접 활용됩니다.
-            
-            📧 추가 문의: solomond.jgh@gmail.com
-            📞 전화 상담: 010-2983-0338
-            """)
 
 # 하단 정보
 st.markdown("---")
@@ -572,8 +492,3 @@ with col3:
     - [GitHub 저장소](https://github.com/GeunHyeog/solomond-ai-system)
     - [피드백 관리](http://localhost:8502)
     """)
-
-# 실시간 업데이트를 위한 자동 새로고침 (옵션)
-if st.checkbox("🔄 실시간 업데이트 (10초마다)", value=False):
-    time.sleep(10)
-    st.rerun()
