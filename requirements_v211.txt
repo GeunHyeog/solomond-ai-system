@@ -1,0 +1,56 @@
+# 솔로몬드 AI v2.1.1 - 품질 혁신 버전 의존성
+# 최적화된 패키지 목록 (2025.07.11)
+
+# 핵심 프레임워크
+streamlit>=1.28.0
+pandas>=1.5.0
+numpy>=1.24.0
+
+# AI/ML 모델
+whisper==1.1.10
+torch>=2.0.0
+transformers>=4.21.0
+
+# 품질 분석을 위한 새로운 의존성 ⭐
+librosa>=0.10.0          # 음성 품질 분석 (SNR, 명료도, 노이즈)
+opencv-python>=4.8.0     # 이미지 품질 분석 (해상도, 선명도, 대비)
+scipy>=1.10.0           # 신호 처리 및 수학 연산
+
+# 다국어 처리 강화
+langdetect>=1.0.9       # 언어 감지
+nltk>=3.8              # 자연어 처리
+
+# 웹 및 UI
+fastapi>=0.95.0
+uvicorn[standard]>=0.20.0
+Pillow>=9.5.0
+matplotlib>=3.6.0
+plotly>=5.15.0
+
+# 유틸리티
+python-multipart>=0.0.6
+requests>=2.28.0
+aiofiles>=23.0.0
+python-dotenv>=1.0.0
+
+# 멀티미디어 처리
+moviepy>=1.0.3
+ffmpeg-python>=0.2.0
+
+# 데이터베이스 (옵션)
+sqlite3
+
+# 로깅 및 모니터링
+loguru>=0.7.0
+
+# Windows 특화 패키지
+pywin32>=306; sys_platform == "win32"
+
+# 선택적 고급 기능 (설치 시 주의)
+# openai>=1.0.0         # OpenAI API (폴백 시스템으로 선택사항)
+# tensorflow>=2.13.0    # 고급 AI 모델 (리소스 집약적)
+
+# 개발 및 테스트 (개발 환경에서만)
+# pytest>=7.0.0
+# black>=23.0.0
+# flake8>=6.0.0
