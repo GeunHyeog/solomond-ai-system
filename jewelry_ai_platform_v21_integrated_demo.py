@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-💎 주얼리 AI 플랫폼 v2.1 통합 데모
+💎 주얼리 AI 플랫폼 v2.1 통합 데모 - 수정된 버전
 품질 혁신 + 다국어 처리 + 다중파일 통합 + 한국어 분석 완전 버전
 
 작성자: 전근혁 (솔로몬드 대표)
@@ -22,19 +22,70 @@ import tempfile
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
 
-# 핵심 모듈 임포트
-from core.quality_analyzer_v21 import QualityAnalyzerV21
-from core.multilingual_processor_v21 import MultilingualProcessorV21
-from core.multi_file_integrator_v21 import MultiFileIntegratorV21
-from core.korean_summary_engine_v21 import KoreanSummaryEngineV21
-from core.mobile_quality_monitor_v21 import MobileQualityMonitorV21
-from core.smart_content_merger_v21 import SmartContentMergerV21
+# 더미 클래스 정의 (누락된 클래스들에 대한 기본 구현)
+class DummyComponent:
+    """기본 더미 컴포넌트"""
+    def __init__(self):
+        self.version = "2.1.0"
+        self.status = "initialized"
+    
+    def process(self, *args, **kwargs):
+        return {"status": "success", "result": "demo_mode"}
 
-# 품질 검증 모듈
-from quality.audio_quality_checker import AudioQualityChecker
-from quality.ocr_quality_validator import OCRQualityValidator
-from quality.image_quality_assessor import ImageQualityAssessor
-from quality.content_consistency_checker import ContentConsistencyChecker
+# 핵심 모듈 안전한 임포트
+try:
+    from core.quality_analyzer_v21 import QualityAnalyzerV21
+except ImportError:
+    QualityAnalyzerV21 = DummyComponent
+
+try:
+    from core.multilingual_processor_v21_wrapper import MultilingualProcessorV21
+except ImportError:
+    try:
+        from core.multilingual_processor_v21 import MultilingualProcessor as MultilingualProcessorV21
+    except ImportError:
+        MultilingualProcessorV21 = DummyComponent
+
+try:
+    from core.multi_file_integrator_v21 import MultiFileIntegratorV21
+except ImportError:
+    MultiFileIntegratorV21 = DummyComponent
+
+try:
+    from core.korean_summary_engine_v21 import KoreanSummaryEngineV21
+except ImportError:
+    KoreanSummaryEngineV21 = DummyComponent
+
+try:
+    from core.mobile_quality_monitor_v21 import MobileQualityMonitorV21
+except ImportError:
+    MobileQualityMonitorV21 = DummyComponent
+
+try:
+    from core.smart_content_merger_v21 import SmartContentMergerV21
+except ImportError:
+    SmartContentMergerV21 = DummyComponent
+
+# 품질 검증 모듈 안전한 임포트
+try:
+    from quality.audio_quality_checker import AudioQualityChecker
+except ImportError:
+    AudioQualityChecker = DummyComponent
+
+try:
+    from quality.ocr_quality_validator import OCRQualityValidator
+except ImportError:
+    OCRQualityValidator = DummyComponent
+
+try:
+    from quality.image_quality_assessor import ImageQualityAssessor
+except ImportError:
+    ImageQualityAssessor = DummyComponent
+
+try:
+    from quality.content_consistency_checker import ContentConsistencyChecker
+except ImportError:
+    ContentConsistencyChecker = DummyComponent
 
 class JewelryAIPlatformV21:
     """주얼리 AI 플랫폼 v2.1 통합 시스템"""
@@ -58,7 +109,7 @@ class JewelryAIPlatformV21:
         try:
             st.info("🔧 시스템 구성 요소 초기화 중...")
             
-            # 핵심 엔진 초기화
+            # 핵심 엔진 초기화 (안전한 초기화)
             self.components['quality_analyzer'] = QualityAnalyzerV21()
             self.components['multilingual_processor'] = MultilingualProcessorV21()
             self.components['file_integrator'] = MultiFileIntegratorV21()
@@ -74,11 +125,37 @@ class JewelryAIPlatformV21:
             
             self.initialized = True
             st.success("✅ 모든 구성 요소 초기화 완료!")
+            
+            # 초기화된 컴포넌트 상태 표시
+            self._display_component_status()
+            
             return True
             
         except Exception as e:
             st.error(f"❌ 초기화 실패: {str(e)}")
-            return False
+            st.info("⚠️ 일부 기능이 데모 모드로 실행됩니다.")
+            self.initialized = True  # 데모 모드로라도 계속 진행
+            return True
+    
+    def _display_component_status(self):
+        """컴포넌트 상태 표시"""
+        st.markdown("### 🔧 시스템 구성 요소 상태")
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**핵심 엔진**")
+            for name, component in self.components.items():
+                if 'analyzer' in name or 'processor' in name or 'engine' in name:
+                    status = "✅ 정상" if not isinstance(component, DummyComponent) else "⚠️ 데모모드"
+                    st.text(f"{name}: {status}")
+        
+        with col2:
+            st.markdown("**품질 검증**")
+            for name, component in self.components.items():
+                if 'checker' in name or 'validator' in name or 'assessor' in name:
+                    status = "✅ 정상" if not isinstance(component, DummyComponent) else "⚠️ 데모모드"
+                    st.text(f"{name}: {status}")
     
     def display_quality_dashboard(self):
         """실시간 품질 대시보드"""
@@ -109,6 +186,14 @@ class JewelryAIPlatformV21:
             - **내용 연결성**: 89% ✅
             - **번역 정확도**: 93% ✅
             """)
+        
+        # 실시간 품질 지표 (데모용)
+        if hasattr(self.components.get('quality_analyzer'), 'get_real_time_quality_metrics'):
+            try:
+                metrics = self.components['quality_analyzer'].get_real_time_quality_metrics()
+                st.json(metrics)
+            except:
+                pass
     
     def process_scenario_1_hongkong_jewelry_show(self):
         """시나리오 1: 홍콩 주얼리쇼 현장"""
@@ -172,31 +257,32 @@ class JewelryAIPlatformV21:
             # 1단계: 품질 사전 검증 (20%)
             status_text.text("🔍 품질 사전 검증 중...")
             progress_bar.progress(20)
+            time.sleep(1)
             
             for file in files:
                 file_type = file.name.split('.')[-1].lower()
-                quality_score = self._check_file_quality(file, file_type)
+                quality_score = self._simulate_quality_check(file.name)
                 results['quality_scores'][file.name] = quality_score
             
             # 2단계: 언어 감지 및 처리 (40%)
             status_text.text("🌍 언어 감지 및 다국어 처리 중...")
             progress_bar.progress(40)
+            time.sleep(1)
             
-            detected_languages = self._detect_languages(files)
+            detected_languages = ['영어(60%)', '중국어(30%)', '한국어(10%)']
             results['languages_detected'] = detected_languages
             
             # 3단계: 파일 통합 분석 (60%)
             status_text.text("📊 다중 파일 통합 분석 중...")
             progress_bar.progress(60)
-            
-            integrated_content = self._integrate_files(files)
+            time.sleep(1)
             
             # 4단계: 한국어 통합 요약 (80%)
             status_text.text("🇰🇷 한국어 통합 요약 생성 중...")
             progress_bar.progress(80)
+            time.sleep(1)
             
-            korean_summary = self._generate_korean_summary(integrated_content, "jewelry_show")
-            results['final_summary'] = korean_summary
+            results['final_summary'] = "홍콩 주얼리쇼 현장 분석 완료 - 주요 트렌드 및 비즈니스 인사이트 도출"
             
             # 5단계: 완료 (100%)
             status_text.text("✅ 분석 완료!")
@@ -374,35 +460,15 @@ class JewelryAIPlatformV21:
         
         return demo_data
     
-    def _check_file_quality(self, file, file_type):
-        """파일 품질 검사"""
-        # 실제 구현에서는 각 파일 타입별 품질 검사
-        if file_type in ['wav', 'mp3', 'mp4']:
-            return 90 + (hash(file.name) % 10)  # 90-99% 시뮬레이션
-        elif file_type in ['jpg', 'png']:
-            return 85 + (hash(file.name) % 15)  # 85-99% 시뮬레이션
-        elif file_type in ['pdf', 'pptx']:
-            return 88 + (hash(file.name) % 12)  # 88-99% 시뮬레이션
-        else:
-            return 75 + (hash(file.name) % 20)  # 75-94% 시뮬레이션
+    def _process_conference_files(self, files):
+        """화상회의 파일 처리 (실제 파일용)"""
+        # 실제 파일 처리를 위한 플레이스홀더
+        return self._run_demo_conference()
     
-    def _detect_languages(self, files):
-        """언어 감지"""
-        # 실제 구현에서는 multilingual_processor 사용
-        return ['한국어', '영어', '중국어', '일본어']
-    
-    def _integrate_files(self, files):
-        """파일 통합"""
-        # 실제 구현에서는 file_integrator 사용
-        return {"integrated": True, "file_count": len(files)}
-    
-    def _generate_korean_summary(self, content, scenario_type):
-        """한국어 요약 생성"""
-        # 실제 구현에서는 korean_summarizer 사용
-        if scenario_type == "jewelry_show":
-            return "주얼리쇼 한국어 요약 완료"
-        else:
-            return "화상회의 한국어 요약 완료"
+    def _simulate_quality_check(self, filename):
+        """품질 검사 시뮬레이션"""
+        # 파일명 해시를 이용한 일관된 점수 생성
+        return 85 + (hash(filename) % 15)
     
     def _display_jewelry_show_results(self, results):
         """주얼리쇼 결과 표시"""
@@ -413,7 +479,7 @@ class JewelryAIPlatformV21:
         with col1:
             st.metric("처리된 파일", results['files_processed'])
         with col2:
-            avg_quality = sum(results['quality_scores'].values()) / len(results['quality_scores'])
+            avg_quality = sum(results['quality_scores'].values()) / max(len(results['quality_scores']), 1)
             st.metric("평균 품질", f"{avg_quality:.1f}%")
         with col3:
             st.metric("처리 시간", f"{results['processing_time']:.1f}초")
@@ -428,9 +494,13 @@ class JewelryAIPlatformV21:
         # 구성 요소 상태
         st.sidebar.markdown("### 🔧 구성 요소 상태")
         if self.initialized:
-            for name, component in self.components.items():
-                status = "✅" if component else "❌"
-                st.sidebar.markdown(f"{status} {name}")
+            component_count = len(self.components)
+            demo_count = sum(1 for comp in self.components.values() if isinstance(comp, DummyComponent))
+            normal_count = component_count - demo_count
+            
+            st.sidebar.markdown(f"✅ 정상: {normal_count}개")
+            if demo_count > 0:
+                st.sidebar.markdown(f"⚠️ 데모모드: {demo_count}개")
         else:
             st.sidebar.markdown("⏳ 초기화 대기 중...")
     
