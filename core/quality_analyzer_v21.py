@@ -375,9 +375,111 @@ class QualityManager:
         return summary
 
 
+class QualityAnalyzerV21:
+    """주얼리 AI 플랫폼 v2.1 통합 품질 분석기"""
+    
+    def __init__(self):
+        """초기화"""
+        self.audio_analyzer = AudioQualityAnalyzer()
+        self.ocr_analyzer = OCRQualityAnalyzer()
+        self.quality_manager = QualityManager()
+        self.version = "2.1.0"
+        
+        logger.info(f"🔬 QualityAnalyzerV21 v{self.version} 초기화 완료")
+    
+    def analyze_quality(self, file_path: str, file_type: str = "auto") -> Dict:
+        """단일 파일 품질 분석"""
+        try:
+            if file_type == "auto":
+                file_type = self._detect_file_type(file_path)
+            
+            if file_type in ["audio", "wav", "mp3", "mp4"]:
+                return self.audio_analyzer.analyze_audio_quality(file_path)
+            elif file_type in ["image", "jpg", "png", "jpeg"]:
+                return self.ocr_analyzer.analyze_image_quality(file_path)
+            else:
+                return {"error": f"지원하지 않는 파일 타입: {file_type}", "quality_status": "분석 실패"}
+                
+        except Exception as e:
+            logger.error(f"품질 분석 오류: {e}")
+            return {"error": str(e), "quality_status": "분석 실패"}
+    
+    def batch_analyze(self, files: Dict[str, str]) -> Dict:
+        """다중 파일 일괄 품질 분석"""
+        return self.quality_manager.comprehensive_quality_check(files)
+    
+    def get_real_time_quality_metrics(self) -> Dict:
+        """실시간 품질 지표 반환 (데모용)"""
+        return {
+            "audio_quality": {
+                "snr_db": 24.5,
+                "clarity": 92,
+                "background_noise": "낮음",
+                "status": "✅"
+            },
+            "ocr_quality": {
+                "accuracy": 97,
+                "ppt_recognition": 98,
+                "table_chart": 94,
+                "status": "✅"
+            },
+            "integration_analysis": {
+                "language_consistency": 95,
+                "content_connectivity": 89,
+                "translation_accuracy": 93,
+                "status": "✅"
+            },
+            "overall_status": "우수",
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    def get_quality_recommendations(self, quality_scores: Dict) -> List[str]:
+        """품질 기반 권장사항 생성"""
+        recommendations = []
+        
+        # 오디오 품질 권장사항
+        audio_score = quality_scores.get("audio_quality", {}).get("snr_db", 0)
+        if audio_score < 20:
+            recommendations.append("🔴 노이즈 높음: 조용한 곳으로 이동 권장")
+        elif audio_score < 25:
+            recommendations.append("🟡 OCR 낮음: 카메라 각도 조정 필요")
+        else:
+            recommendations.append("🟢 품질 우수: 현재 설정 유지")
+        
+        return recommendations
+    
+    def _detect_file_type(self, file_path: str) -> str:
+        """파일 확장자로 타입 감지"""
+        extension = Path(file_path).suffix.lower()
+        
+        if extension in ['.wav', '.mp3', '.mp4', '.m4a']:
+            return "audio"
+        elif extension in ['.jpg', '.jpeg', '.png', '.bmp']:
+            return "image"
+        else:
+            return "unknown"
+    
+    def get_version_info(self) -> Dict:
+        """버전 정보 반환"""
+        return {
+            "version": self.version,
+            "components": {
+                "audio_analyzer": "AudioQualityAnalyzer",
+                "ocr_analyzer": "OCRQualityAnalyzer", 
+                "quality_manager": "QualityManager"
+            },
+            "features": [
+                "실시간 음성 품질 분석",
+                "OCR 이미지 품질 검증",
+                "통합 품질 관리",
+                "자동 개선 권장사항"
+            ]
+        }
+
+
 # 사용 예시
 if __name__ == "__main__":
-    quality_manager = QualityManager()
+    quality_analyzer = QualityAnalyzerV21()
     
     # 테스트용 더미 데이터
     test_files = {
@@ -388,9 +490,12 @@ if __name__ == "__main__":
     print("🔍 품질 검증 시스템 테스트")
     print("=" * 50)
     
-    # 실제 파일이 있다면 분석 실행
-    # results = quality_manager.comprehensive_quality_check(test_files)
-    # print(json.dumps(results, indent=2, ensure_ascii=False))
+    # 실시간 품질 지표 확인
+    metrics = quality_analyzer.get_real_time_quality_metrics()
+    print("📊 실시간 품질 지표:")
+    print(json.dumps(metrics, indent=2, ensure_ascii=False))
     
-    print("✅ 품질 검증 엔진 로드 완료")
+    # 버전 정보 확인
+    version_info = quality_analyzer.get_version_info()
+    print(f"\n✅ QualityAnalyzerV21 v{version_info['version']} 로드 완료")
     print("📊 실제 파일로 테스트하려면 파일 경로를 수정하세요")
