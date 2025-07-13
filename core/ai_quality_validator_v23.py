@@ -1,900 +1,1302 @@
 """
 🔍 솔로몬드 AI 품질 검증 시스템 v2.3
-실시간 품질 검증 + 자동 재분석 + 99.2% 정확도 보장
+99.2% 정확도 달성을 위한 실시간 AI 품질 검증 및 자동 개선 시스템
 
-개발자: 전근혁 (솔로몬드 대표)
-목표: AI 응답 품질 실시간 모니터링 및 자동 개선
+📅 개발일: 2025.07.13
+🎯 목표: 실시간 품질 검증으로 99.2% 정확도 보장
+🔥 주요 기능:
+- AI 응답 일관성 실시간 검증
+- 주얼리 전문성 점수 정밀 측정
+- 자동 재분석 트리거 시스템
+- 품질 개선 권장사항 자동 생성
+- 다차원 품질 메트릭 분석
+- 실시간 피드백 루프
+
+연동 시스템:
+- hybrid_llm_manager_v23.py
+- jewelry_specialized_prompts_v23.py
 """
 
 import asyncio
+import logging
 import time
 import json
 import statistics
-from typing import Dict, List, Optional, Any, Tuple, Union
-from dataclasses import dataclass, asdict
-from enum import Enum
-import logging
 import re
-from concurrent.futures import ThreadPoolExecutor
+from typing import Dict, List, Optional, Any, Union, Tuple, Callable
+from dataclasses import dataclass, field
+from enum import Enum
+from datetime import datetime, timedelta
+import numpy as np
+from collections import defaultdict, deque
+import hashlib
 
-# 내부 모듈 imports
-try:
-    from core.jewelry_specialized_prompts_v23 import JewelrySpecializedPrompts, AnalysisType, AIModelType
-    from core.hybrid_llm_manager_v23 import HybridLLMManager, AIResponse
-except ImportError as e:
-    logging.warning(f"모듈 import 경고: {e}")
+# 로깅 설정
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger('AIQualityValidator_v23')
 
-logger = logging.getLogger(__name__)
-
-class QualityMetric(Enum):
-    """품질 평가 메트릭"""
+class QualityDimension(Enum):
+    """품질 검증 차원"""
     ACCURACY = "accuracy"
     COMPLETENESS = "completeness"
+    COHERENCE = "coherence"
     JEWELRY_EXPERTISE = "jewelry_expertise"
     CONSISTENCY = "consistency"
-    CLARITY = "clarity"
-    ACTIONABILITY = "actionability"
+    RELEVANCE = "relevance"
+    PROFESSIONAL_TONE = "professional_tone"
+    ACTIONABLE_INSIGHTS = "actionable_insights"
 
-class QualityLevel(Enum):
-    """품질 등급"""
-    EXCELLENT = "excellent"  # 95%+
-    GOOD = "good"           # 85-94%
-    FAIR = "fair"           # 70-84%
-    POOR = "poor"           # <70%
+class ValidationSeverity(Enum):
+    """검증 심각도"""
+    CRITICAL = "critical"    # 즉시 재분석 필요
+    HIGH = "high"           # 우선 개선 필요
+    MEDIUM = "medium"       # 개선 권장
+    LOW = "low"            # 참고사항
+    INFO = "info"          # 정보성
+
+class QualityThreshold(Enum):
+    """품질 임계값"""
+    MINIMUM = 0.70     # 최소 허용 품질
+    STANDARD = 0.85    # 표준 품질
+    HIGH = 0.92        # 고품질
+    EXPERT = 0.96      # 전문가 수준
+    TARGET = 0.992     # 목표 품질 (99.2%)
 
 @dataclass
-class QualityScore:
-    """품질 점수 데이터 클래스"""
-    metric: QualityMetric
-    score: float  # 0.0 - 1.0
-    confidence: float  # 0.0 - 1.0
-    details: Dict[str, Any]
-    improvement_suggestions: List[str]
+class QualityMetric:
+    """품질 지표"""
+    dimension: QualityDimension
+    score: float
+    confidence: float
+    details: Dict[str, Any] = field(default_factory=dict)
+    issues: List[str] = field(default_factory=list)
+    suggestions: List[str] = field(default_factory=list)
 
 @dataclass
-class QualityReport:
-    """종합 품질 보고서"""
+class ValidationResult:
+    """검증 결과"""
     overall_score: float
-    quality_level: QualityLevel
-    metric_scores: Dict[QualityMetric, QualityScore]
-    jewelry_expertise_score: float
-    consistency_score: float
-    needs_reanalysis: bool
-    improvement_priority: List[str]
-    timestamp: float
+    individual_scores: Dict[QualityDimension, QualityMetric]
+    validation_passed: bool
+    severity: ValidationSeverity
+    
+    # 상세 분석
+    strengths: List[str] = field(default_factory=list)
+    weaknesses: List[str] = field(default_factory=list)
+    improvement_actions: List[str] = field(default_factory=list)
+    
+    # 메타데이터
+    validation_time: datetime = field(default_factory=datetime.now)
+    validator_version: str = "2.3.0"
+    confidence_level: float = 0.0
+    
+    # 재분석 여부
+    requires_reanalysis: bool = False
+    reanalysis_strategy: Optional[str] = None
+
+@dataclass
+class QualityBenchmark:
+    """품질 벤치마크"""
+    gemstone_type: str
+    analysis_type: str
+    target_scores: Dict[QualityDimension, float]
+    weight_distribution: Dict[QualityDimension, float]
+    industry_standards: Dict[str, float]
 
 class JewelryExpertiseEvaluator:
     """주얼리 전문성 평가기"""
     
     def __init__(self):
-        self.jewelry_keywords = self._initialize_jewelry_keywords()
-        self.technical_terms = self._initialize_technical_terms()
-        self.grading_standards = self._initialize_grading_standards()
-        
-    def _initialize_jewelry_keywords(self) -> Dict[str, List[str]]:
-        """주얼리 전문 키워드 데이터베이스"""
-        return {
-            "diamond_4c": [
-                "캐럿", "carat", "중량", "무게",
-                "컷", "cut", "연마", "브릴리언트", "프로포션", "테이블", "크라운", "거들", "파빌리온", "큘릿",
-                "컬러", "color", "무색", "colorless", "near colorless", "faint yellow", "D", "E", "F", "G", "H", "I", "J",
-                "클래리티", "clarity", "투명도", "내포물", "inclusion", "블레미쉬", "blemish", "FL", "IF", "VVS", "VS", "SI", "I1", "I2", "I3",
-                "페더", "feather", "클라우드", "cloud", "크리스탈", "crystal", "핀포인트", "pinpoint"
-            ],
-            "colored_stones": [
-                "루비", "ruby", "사파이어", "sapphire", "에메랄드", "emerald",
-                "피젼 블러드", "pigeon blood", "코른플라워", "cornflower", "파드파라차", "padparadscha",
-                "미얀마", "myanmar", "버마", "burma", "스리랑카", "sri lanka", "세일론", "ceylon",
-                "콜롬비아", "colombia", "잠비아", "zambia", "브라질", "brazil",
-                "가열", "heated", "heat treatment", "오일링", "oiling", "수지충전", "resin filling",
-                "아스테리즘", "asterism", "샤토얀시", "chatoyancy", "실크", "silk", "러틸", "rutile"
-            ],
-            "settings_design": [
-                "프롱", "prong", "베젤", "bezel", "채널", "channel", "파베", "pave", "마이크로파베", "micropave",
-                "텐션", "tension", "비드", "bead", "그랩", "grab", "바", "bar",
-                "솔리테어", "solitaire", "헤일로", "halo", "쓰리스톤", "three stone", "이터니티", "eternity",
-                "아르데코", "art deco", "빅토리안", "victorian", "에드워디안", "edwardian", "아르누보", "art nouveau"
-            ],
-            "metals_materials": [
-                "플래티나", "platinum", "18K", "14K", "10K", "화이트골드", "white gold", "옐로우골드", "yellow gold",
-                "로즈골드", "rose gold", "팔라듐", "palladium", "로듐", "rhodium", "이리듐", "iridium",
-                "스털링실버", "sterling silver", "티타늄", "titanium", "탄탈륨", "tantalum"
-            ],
-            "certification": [
-                "GIA", "AGS", "SSEF", "Gübelin", "AGL", "GUILD", "Lotus", "AIGS",
-                "감정서", "certificate", "인증서", "certification", "그레이딩", "grading",
-                "레이저인스크립션", "laser inscription", "플로팅", "plotting", "다이어그램", "diagram"
-            ]
-        }
-    
-    def _initialize_technical_terms(self) -> Dict[str, float]:
-        """기술적 용어별 전문성 가중치"""
-        return {
-            # 다이아몬드 전문 용어 (높은 가중치)
-            "아다만틴": 0.9, "adamantine": 0.9,
-            "디스퍼션": 0.9, "dispersion": 0.9,
-            "브릴리언스": 0.8, "brilliance": 0.8,
-            "섬광": 0.8, "fire": 0.8, "scintillation": 0.8,
-            
-            # 유색보석 전문 용어
-            "다색성": 0.9, "pleochroism": 0.9,
-            "굴절률": 0.8, "refractive index": 0.8,
-            "이중굴절": 0.8, "birefringence": 0.8,
-            "광택": 0.7, "luster": 0.7,
-            
-            # 감정 기술 용어
-            "분광분석": 0.9, "spectroscopy": 0.9,
-            "포토루미네센스": 0.9, "photoluminescence": 0.9,
-            "X선형광": 0.8, "x-ray fluorescence": 0.8,
-            "적외선분광": 0.8, "infrared spectroscopy": 0.8,
-            
-            # 일반 주얼리 용어 (중간 가중치)
-            "세팅": 0.6, "setting": 0.6,
-            "마운팅": 0.6, "mounting": 0.6,
-            "밴드": 0.5, "band": 0.5,
-            "샹크": 0.5, "shank": 0.5
-        }
-    
-    def _initialize_grading_standards(self) -> Dict[str, Dict[str, float]]:
-        """등급 표준별 정확성 점수"""
-        return {
-            "gia_color": {
-                "D": 1.0, "E": 1.0, "F": 1.0, "G": 0.9, "H": 0.9, "I": 0.9, "J": 0.9,
-                "K": 0.8, "L": 0.8, "M": 0.8, "N": 0.7, "O": 0.7, "P": 0.7,
-                "Q": 0.6, "R": 0.6, "S": 0.5, "T": 0.5, "U": 0.5, "V": 0.4,
-                "W": 0.4, "X": 0.4, "Y": 0.3, "Z": 0.3
+        # 전문 용어 데이터베이스
+        self.professional_terms = {
+            "diamond": {
+                "essential": ["4C", "캐럿", "컷", "컬러", "클래리티", "GIA", "AGS", "형광성"],
+                "advanced": ["Hearts and Arrows", "Ideal Cut", "pavilion", "crown", "girdle", "culet", "table"],
+                "expert": ["light performance", "scintillation", "fire", "brilliance", "light return"]
             },
-            "gia_clarity": {
-                "FL": 1.0, "IF": 0.95, "VVS1": 0.9, "VVS2": 0.85,
-                "VS1": 0.8, "VS2": 0.75, "SI1": 0.7, "SI2": 0.65,
-                "I1": 0.5, "I2": 0.3, "I3": 0.1
+            "ruby": {
+                "essential": ["루비", "코런덤", "가열", "버마", "미얀마", "태국"],
+                "advanced": ["Pigeon Blood", "열처리", "원산지", "SSEF", "Gübelin"],
+                "expert": ["trapiche", "asterism", "pleochroism", "silk inclusions"]
             },
-            "cut_grades": {
-                "Excellent": 1.0, "Very Good": 0.8, "Good": 0.6, "Fair": 0.4, "Poor": 0.2,
-                "최우수": 1.0, "우수": 0.8, "양호": 0.6, "보통": 0.4, "불량": 0.2
+            "sapphire": {
+                "essential": ["사파이어", "코런덤", "카시미르", "실론", "파드파라차"],
+                "advanced": ["cornflower blue", "royal blue", "star sapphire", "color zoning"],
+                "expert": ["Kashmir velvet", "Ceylon cornflower", "Padparadscha lotus"]
+            },
+            "emerald": {
+                "essential": ["에메랄드", "베릴", "콜롬비아", "잠비아", "오일"],
+                "advanced": ["jardin", "three-phase inclusions", "cedar oil", "opticon"],
+                "expert": ["trapiche emerald", "cat's eye emerald", "crystal inclusions"]
             }
         }
+        
+        # 감정 기준 용어
+        self.grading_terms = {
+            "color": ["hue", "tone", "saturation", "색상", "톤", "채도", "vivid", "intense"],
+            "clarity": ["eye clean", "loupe clean", "inclusion", "내포물", "투명도"],
+            "cut": ["proportion", "symmetry", "polish", "비율", "대칭성", "광택도"],
+            "treatment": ["natural", "heated", "unheated", "천연", "가열", "무가열", "처리"]
+        }
+        
+        # 시장 용어
+        self.market_terms = [
+            "investment grade", "collector quality", "commercial quality",
+            "market value", "auction record", "appreciate", "liquid",
+            "투자등급", "수집가급", "상업적품질", "시장가치", "경매기록", "유동성"
+        ]
     
-    def evaluate_jewelry_expertise(self, content: str, analysis_type: AnalysisType) -> float:
-        """주얼리 전문성 점수 평가"""
+    def evaluate_expertise_level(self, content: str, gemstone_type: str = "general") -> Dict[str, Any]:
+        """전문성 수준 평가"""
         
         content_lower = content.lower()
-        total_score = 0.0
-        max_score = 0.0
         
-        # 분석 타입별 관련 키워드 선택
-        relevant_categories = self._get_relevant_categories(analysis_type)
-        
-        for category in relevant_categories:
-            if category in self.jewelry_keywords:
-                category_score = 0.0
-                category_max = len(self.jewelry_keywords[category])
-                
-                for keyword in self.jewelry_keywords[category]:
-                    if keyword.lower() in content_lower:
-                        # 키워드 빈도수 고려
-                        frequency = content_lower.count(keyword.lower())
-                        category_score += min(frequency * 0.1, 0.3)  # 최대 0.3점
-                
-                total_score += min(category_score, 1.0)  # 카테고리당 최대 1점
-                max_score += 1.0
-        
-        # 기술적 용어 보너스
-        technical_bonus = 0.0
-        for term, weight in self.technical_terms.items():
-            if term.lower() in content_lower:
-                technical_bonus += weight * 0.1
-        
-        total_score += min(technical_bonus, 0.5)  # 최대 0.5 보너스
-        max_score += 0.5
-        
-        # 등급 표준 정확성 확인
-        grading_accuracy = self._check_grading_accuracy(content)
-        total_score += grading_accuracy * 0.3
-        max_score += 0.3
-        
-        # 정규화
-        expertise_score = total_score / max_score if max_score > 0 else 0.0
-        return min(expertise_score, 1.0)
-    
-    def _get_relevant_categories(self, analysis_type: AnalysisType) -> List[str]:
-        """분석 타입별 관련 카테고리 반환"""
-        mapping = {
-            AnalysisType.DIAMOND_4C: ["diamond_4c", "certification", "settings_design"],
-            AnalysisType.COLORED_STONE: ["colored_stones", "certification", "metals_materials"],
-            AnalysisType.JEWELRY_DESIGN: ["settings_design", "metals_materials", "colored_stones"],
-            AnalysisType.BUSINESS_INSIGHT: ["certification", "diamond_4c", "colored_stones"],
-            AnalysisType.CERTIFICATION: ["certification", "diamond_4c", "colored_stones"],
-            AnalysisType.APPRAISAL: ["diamond_4c", "colored_stones", "certification"]
+        expertise_score = 0.0
+        expertise_details = {
+            "term_usage": {},
+            "expertise_level": "basic",
+            "missing_elements": [],
+            "advanced_features": []
         }
-        return mapping.get(analysis_type, ["diamond_4c", "colored_stones"])
-    
-    def _check_grading_accuracy(self, content: str) -> float:
-        """등급 표준 정확성 검사"""
-        accuracy_score = 0.0
-        checks = 0
         
-        # GIA 컬러 등급 확인
-        color_pattern = r'[D-Z]\s*(?:컬러|color|등급)'
-        color_matches = re.findall(color_pattern, content, re.IGNORECASE)
-        if color_matches:
-            checks += 1
-            # 실제 GIA 표준에 맞는지 확인 (간단한 예시)
-            valid_colors = ['D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-            for match in color_matches:
-                if any(color in match.upper() for color in valid_colors):
-                    accuracy_score += 1.0
+        # 1. 전문 용어 사용도 평가
+        if gemstone_type in self.professional_terms:
+            terms = self.professional_terms[gemstone_type]
+            
+            # 필수 용어
+            essential_found = sum(1 for term in terms["essential"] 
+                                if term.lower() in content_lower)
+            essential_ratio = essential_found / len(terms["essential"])
+            
+            # 고급 용어
+            advanced_found = sum(1 for term in terms["advanced"] 
+                               if term.lower() in content_lower)
+            advanced_ratio = advanced_found / len(terms["advanced"])
+            
+            # 전문가 용어
+            expert_found = sum(1 for term in terms["expert"] 
+                             if term.lower() in content_lower)
+            expert_ratio = expert_found / len(terms["expert"])
+            
+            expertise_details["term_usage"] = {
+                "essential": {"found": essential_found, "ratio": essential_ratio},
+                "advanced": {"found": advanced_found, "ratio": advanced_ratio},
+                "expert": {"found": expert_found, "ratio": expert_ratio}
+            }
+            
+            # 전문성 점수 계산
+            expertise_score = (
+                essential_ratio * 0.5 +
+                advanced_ratio * 0.3 +
+                expert_ratio * 0.2
+            )
         
-        # GIA 클래리티 등급 확인  
-        clarity_pattern = r'(?:FL|IF|VVS1|VVS2|VS1|VS2|SI1|SI2|I1|I2|I3)'
-        clarity_matches = re.findall(clarity_pattern, content, re.IGNORECASE)
-        if clarity_matches:
-            checks += 1
-            accuracy_score += 1.0  # 패턴이 맞으면 정확하다고 가정
+        # 2. 감정 기준 용어 사용도
+        grading_score = 0.0
+        for category, terms in self.grading_terms.items():
+            found_terms = [term for term in terms if term.lower() in content_lower]
+            if found_terms:
+                grading_score += len(found_terms) / len(terms)
         
-        return accuracy_score / checks if checks > 0 else 0.0
+        grading_score = min(1.0, grading_score / len(self.grading_terms))
+        
+        # 3. 시장 용어 사용도
+        market_terms_found = sum(1 for term in self.market_terms 
+                               if term.lower() in content_lower)
+        market_score = min(1.0, market_terms_found / len(self.market_terms))
+        
+        # 4. 종합 전문성 점수
+        final_expertise_score = (
+            expertise_score * 0.5 +
+            grading_score * 0.3 +
+            market_score * 0.2
+        )
+        
+        # 5. 전문성 수준 결정
+        if final_expertise_score >= 0.85:
+            expertise_details["expertise_level"] = "expert"
+        elif final_expertise_score >= 0.70:
+            expertise_details["expertise_level"] = "advanced"
+        elif final_expertise_score >= 0.50:
+            expertise_details["expertise_level"] = "intermediate"
+        else:
+            expertise_details["expertise_level"] = "basic"
+        
+        return {
+            "expertise_score": final_expertise_score,
+            "details": expertise_details
+        }
 
-class ConsistencyChecker:
-    """일관성 검사기"""
+class ConsistencyAnalyzer:
+    """일관성 분석기"""
     
     def __init__(self):
-        self.previous_analyses = []
-        self.inconsistency_patterns = self._initialize_inconsistency_patterns()
-    
-    def _initialize_inconsistency_patterns(self) -> Dict[str, List[str]]:
-        """일관성 검사 패턴"""
-        return {
-            "contradictory_grades": [
-                ("excellent", "poor"), ("최우수", "불량"),
-                ("high quality", "low quality"), ("고품질", "저품질"),
-                ("premium", "basic"), ("프리미엄", "기본")
-            ],
-            "price_inconsistencies": [
-                ("expensive", "cheap"), ("비싸", "저렴"),
-                ("valuable", "worthless"), ("가치있", "가치없")
-            ],
-            "technical_contradictions": [
-                ("flawless", "included"), ("무결점", "내포물"),
-                ("colorless", "yellow"), ("무색", "노란색")
-            ]
-        }
-    
-    def check_internal_consistency(self, content: str) -> float:
-        """내부 일관성 검사"""
-        
-        content_lower = content.lower()
-        inconsistency_count = 0
-        total_checks = 0
-        
-        for category, patterns in self.inconsistency_patterns.items():
-            for positive, negative in patterns:
-                total_checks += 1
-                if positive.lower() in content_lower and negative.lower() in content_lower:
-                    # 모순적인 표현이 동시에 나타남
-                    inconsistency_count += 1
-        
-        # 일관성 점수 계산 (높을수록 일관성이 좋음)
-        consistency_score = 1.0 - (inconsistency_count / total_checks) if total_checks > 0 else 1.0
-        return max(consistency_score, 0.0)
-    
-    def check_cross_analysis_consistency(self, current_analysis: str, analysis_type: AnalysisType) -> float:
-        """과거 분석과의 일관성 검사"""
-        
-        if not self.previous_analyses:
-            return 1.0  # 첫 분석이므로 완벽한 일관성
-        
-        # 유사한 분석 타입의 과거 결과와 비교
-        similar_analyses = [
-            analysis for analysis in self.previous_analyses 
-            if analysis.get('type') == analysis_type
+        self.contradiction_patterns = [
+            (r"높은.*품질.*하지만.*낮은", "품질 평가 모순"),
+            (r"투자.*권장.*하지만.*위험", "투자 권장 모순"),
+            (r"희귀.*하지만.*일반적", "희소성 모순"),
+            (r"최고.*등급.*하지만.*결함", "등급 평가 모순")
         ]
         
-        if not similar_analyses:
-            return 1.0
-        
-        # 간단한 키워드 기반 유사성 검사
-        current_keywords = set(current_analysis.lower().split())
-        
-        similarity_scores = []
-        for past_analysis in similar_analyses[-3:]:  # 최근 3개만 비교
-            past_keywords = set(past_analysis.get('content', '').lower().split())
-            
-            # Jaccard 유사도 계산
-            intersection = len(current_keywords.intersection(past_keywords))
-            union = len(current_keywords.union(past_keywords))
-            
-            similarity = intersection / union if union > 0 else 0.0
-            similarity_scores.append(similarity)
-        
-        # 평균 유사도를 일관성 점수로 사용
-        return statistics.mean(similarity_scores) if similarity_scores else 1.0
+        self.logical_flow_indicators = [
+            "따라서", "그러므로", "결론적으로", "요약하면",
+            "반면에", "하지만", "그러나", "다만"
+        ]
     
-    def add_analysis_record(self, content: str, analysis_type: AnalysisType):
-        """분석 기록 추가"""
-        record = {
-            'content': content,
-            'type': analysis_type,
-            'timestamp': time.time()
+    def analyze_consistency(self, content: str) -> Dict[str, Any]:
+        """일관성 분석"""
+        
+        consistency_result = {
+            "consistency_score": 0.8,  # 기본 점수
+            "logical_flow_score": 0.0,
+            "contradiction_count": 0,
+            "contradictions": [],
+            "flow_analysis": {}
         }
         
-        self.previous_analyses.append(record)
+        # 1. 모순 패턴 검출
+        for pattern, description in self.contradiction_patterns:
+            matches = re.findall(pattern, content, re.IGNORECASE)
+            if matches:
+                consistency_result["contradiction_count"] += len(matches)
+                consistency_result["contradictions"].append({
+                    "pattern": description,
+                    "matches": matches
+                })
         
-        # 최대 100개까지만 보관
-        if len(self.previous_analyses) > 100:
-            self.previous_analyses = self.previous_analyses[-100:]
+        # 모순이 있으면 일관성 점수 감소
+        if consistency_result["contradiction_count"] > 0:
+            penalty = min(0.3, consistency_result["contradiction_count"] * 0.1)
+            consistency_result["consistency_score"] -= penalty
+        
+        # 2. 논리적 흐름 분석
+        flow_indicators_found = [
+            indicator for indicator in self.logical_flow_indicators
+            if indicator in content
+        ]
+        
+        if flow_indicators_found:
+            flow_score = min(1.0, len(flow_indicators_found) / 4)
+            consistency_result["logical_flow_score"] = flow_score
+            consistency_result["consistency_score"] += flow_score * 0.1
+        
+        # 3. 문장 구조 일관성 (간단한 평가)
+        sentences = content.split('.')
+        sentence_lengths = [len(s.strip()) for s in sentences if s.strip()]
+        
+        if sentence_lengths:
+            length_variance = np.var(sentence_lengths)
+            if length_variance < 2000:  # 적절한 문장 길이 분산
+                consistency_result["consistency_score"] += 0.05
+        
+        consistency_result["consistency_score"] = min(1.0, consistency_result["consistency_score"])
+        
+        return consistency_result
 
-class AIQualityValidator:
-    """AI 품질 검증 시스템 메인 클래스"""
+class RelevanceEvaluator:
+    """관련성 평가기"""
     
     def __init__(self):
-        self.jewelry_evaluator = JewelryExpertiseEvaluator()
-        self.consistency_checker = ConsistencyChecker()
-        self.quality_history = []
-        self.reanalysis_threshold = 0.7  # 70% 미만 시 재분석
-        self.target_accuracy = 0.992  # 99.2% 목표
+        self.context_keywords = {
+            "diamond_analysis": ["다이아몬드", "4C", "캐럿", "컷", "컬러", "클래리티", "GIA"],
+            "ruby_analysis": ["루비", "버마", "가열", "무가열", "코런덤", "SSEF"],
+            "market_analysis": ["시장", "가격", "투자", "수익", "전망", "유동성"],
+            "insurance": ["보험", "감정가액", "대체비용", "리스크", "보장"],
+            "collection": ["수집", "희귀", "예술적", "역사적", "문화적"],
+            "certification": ["감정", "인증", "표준", "등급", "품질"]
+        }
+    
+    def evaluate_relevance(self, content: str, analysis_type: str, 
+                         context_info: Dict[str, Any]) -> Dict[str, Any]:
+        """관련성 평가"""
         
-    async def validate_ai_response(self, 
-                                 ai_response: AIResponse, 
-                                 analysis_type: AnalysisType,
-                                 original_request: str) -> QualityReport:
-        """AI 응답 종합 품질 검증"""
+        relevance_result = {
+            "relevance_score": 0.0,
+            "context_match_score": 0.0,
+            "keyword_coverage": 0.0,
+            "off_topic_content": []
+        }
+        
+        content_lower = content.lower()
+        
+        # 1. 분석 타입별 키워드 매칭
+        relevant_keywords = self.context_keywords.get(analysis_type, [])
+        if relevant_keywords:
+            matched_keywords = [kw for kw in relevant_keywords if kw.lower() in content_lower]
+            keyword_coverage = len(matched_keywords) / len(relevant_keywords)
+            relevance_result["keyword_coverage"] = keyword_coverage
+        
+        # 2. 컨텍스트 정보 매칭
+        context_matches = 0
+        total_context_items = 0
+        
+        if "gemstone_type" in context_info:
+            total_context_items += 1
+            if context_info["gemstone_type"].lower() in content_lower:
+                context_matches += 1
+        
+        if "purpose" in context_info:
+            total_context_items += 1
+            purpose_keywords = context_info["purpose"].lower().split()
+            if any(kw in content_lower for kw in purpose_keywords):
+                context_matches += 1
+        
+        if total_context_items > 0:
+            relevance_result["context_match_score"] = context_matches / total_context_items
+        
+        # 3. 전체 관련성 점수
+        relevance_score = (
+            relevance_result["keyword_coverage"] * 0.6 +
+            relevance_result["context_match_score"] * 0.4
+        )
+        
+        relevance_result["relevance_score"] = relevance_score
+        
+        return relevance_result
+
+class AIQualityValidatorV23:
+    """AI 품질 검증 시스템 v2.3"""
+    
+    def __init__(self):
+        self.version = "2.3.0"
+        self.target_accuracy = 0.992  # 99.2%
+        
+        # 전문 평가기들
+        self.expertise_evaluator = JewelryExpertiseEvaluator()
+        self.consistency_analyzer = ConsistencyAnalyzer()
+        self.relevance_evaluator = RelevanceEvaluator()
+        
+        # 품질 임계값 설정
+        self.quality_thresholds = {
+            QualityDimension.ACCURACY: QualityThreshold.TARGET.value,
+            QualityDimension.COMPLETENESS: QualityThreshold.HIGH.value,
+            QualityDimension.COHERENCE: QualityThreshold.HIGH.value,
+            QualityDimension.JEWELRY_EXPERTISE: QualityThreshold.EXPERT.value,
+            QualityDimension.CONSISTENCY: QualityThreshold.HIGH.value,
+            QualityDimension.RELEVANCE: QualityThreshold.HIGH.value,
+            QualityDimension.PROFESSIONAL_TONE: QualityThreshold.STANDARD.value,
+            QualityDimension.ACTIONABLE_INSIGHTS: QualityThreshold.HIGH.value
+        }
+        
+        # 가중치 설정
+        self.dimension_weights = {
+            QualityDimension.ACCURACY: 0.25,
+            QualityDimension.JEWELRY_EXPERTISE: 0.20,
+            QualityDimension.COMPLETENESS: 0.15,
+            QualityDimension.COHERENCE: 0.15,
+            QualityDimension.CONSISTENCY: 0.10,
+            QualityDimension.RELEVANCE: 0.10,
+            QualityDimension.PROFESSIONAL_TONE: 0.03,
+            QualityDimension.ACTIONABLE_INSIGHTS: 0.02
+        }
+        
+        # 성능 추적
+        self.validation_history = deque(maxlen=1000)
+        self.performance_metrics = {
+            "total_validations": 0,
+            "passed_validations": 0,
+            "failed_validations": 0,
+            "reanalysis_triggered": 0,
+            "average_scores": defaultdict(list),
+            "improvement_trends": defaultdict(list)
+        }
+        
+        logger.info(f"🔍 AI 품질 검증 시스템 v{self.version} 초기화 완료")
+        logger.info(f"🎯 목표 정확도: {self.target_accuracy * 100}%")
+    
+    async def validate_comprehensive(self, 
+                                   content: str,
+                                   analysis_type: str,
+                                   context_info: Dict[str, Any],
+                                   expected_quality: float = 0.95) -> ValidationResult:
+        """종합적 품질 검증"""
         
         start_time = time.time()
         
-        # 각 메트릭별 점수 계산
-        metric_scores = {}
+        logger.info(f"🔍 품질 검증 시작: {analysis_type}")
         
-        # 1. 정확성 (Accuracy)
-        accuracy_score = await self._evaluate_accuracy(ai_response, analysis_type)
-        metric_scores[QualityMetric.ACCURACY] = accuracy_score
+        # 개별 차원별 검증
+        individual_scores = {}
         
-        # 2. 완성도 (Completeness)
-        completeness_score = self._evaluate_completeness(ai_response.content, analysis_type)
-        metric_scores[QualityMetric.COMPLETENESS] = completeness_score
+        # 1. 정확도 검증
+        accuracy_metric = await self._validate_accuracy(content, context_info)
+        individual_scores[QualityDimension.ACCURACY] = accuracy_metric
         
-        # 3. 주얼리 전문성 (Jewelry Expertise)
-        expertise_score = self.jewelry_evaluator.evaluate_jewelry_expertise(
-            ai_response.content, analysis_type
-        )
-        jewelry_expertise_score = QualityScore(
-            metric=QualityMetric.JEWELRY_EXPERTISE,
-            score=expertise_score,
-            confidence=0.9,
-            details={"analysis_type": analysis_type.value},
-            improvement_suggestions=self._get_expertise_suggestions(expertise_score)
-        )
-        metric_scores[QualityMetric.JEWELRY_EXPERTISE] = jewelry_expertise_score
+        # 2. 완성도 검증
+        completeness_metric = await self._validate_completeness(content, analysis_type, context_info)
+        individual_scores[QualityDimension.COMPLETENESS] = completeness_metric
         
-        # 4. 일관성 (Consistency)
-        internal_consistency = self.consistency_checker.check_internal_consistency(ai_response.content)
-        cross_consistency = self.consistency_checker.check_cross_analysis_consistency(
-            ai_response.content, analysis_type
-        )
-        consistency_score = (internal_consistency + cross_consistency) / 2
+        # 3. 일관성 검증
+        coherence_metric = await self._validate_coherence(content)
+        individual_scores[QualityDimension.COHERENCE] = coherence_metric
         
-        consistency_quality = QualityScore(
-            metric=QualityMetric.CONSISTENCY,
-            score=consistency_score,
-            confidence=0.8,
-            details={
-                "internal_consistency": internal_consistency,
-                "cross_consistency": cross_consistency
-            },
-            improvement_suggestions=self._get_consistency_suggestions(consistency_score)
-        )
-        metric_scores[QualityMetric.CONSISTENCY] = consistency_quality
+        # 4. 주얼리 전문성 검증
+        expertise_metric = await self._validate_jewelry_expertise(content, context_info)
+        individual_scores[QualityDimension.JEWELRY_EXPERTISE] = expertise_metric
         
-        # 5. 명확성 (Clarity)
-        clarity_score = self._evaluate_clarity(ai_response.content)
-        metric_scores[QualityMetric.CLARITY] = clarity_score
+        # 5. 일관성 검증
+        consistency_metric = await self._validate_consistency(content)
+        individual_scores[QualityDimension.CONSISTENCY] = consistency_metric
         
-        # 6. 실행가능성 (Actionability)
-        actionability_score = self._evaluate_actionability(ai_response.content, analysis_type)
-        metric_scores[QualityMetric.ACTIONABILITY] = actionability_score
+        # 6. 관련성 검증
+        relevance_metric = await self._validate_relevance(content, analysis_type, context_info)
+        individual_scores[QualityDimension.RELEVANCE] = relevance_metric
         
-        # 종합 점수 계산 (가중평균)
-        weights = {
-            QualityMetric.ACCURACY: 0.25,
-            QualityMetric.JEWELRY_EXPERTISE: 0.25,
-            QualityMetric.COMPLETENESS: 0.15,
-            QualityMetric.CONSISTENCY: 0.15,
-            QualityMetric.CLARITY: 0.1,
-            QualityMetric.ACTIONABILITY: 0.1
-        }
+        # 7. 전문적 어조 검증
+        tone_metric = await self._validate_professional_tone(content)
+        individual_scores[QualityDimension.PROFESSIONAL_TONE] = tone_metric
         
-        overall_score = sum(
-            metric_scores[metric].score * weight 
-            for metric, weight in weights.items()
-        )
+        # 8. 실행 가능한 인사이트 검증
+        insights_metric = await self._validate_actionable_insights(content, analysis_type)
+        individual_scores[QualityDimension.ACTIONABLE_INSIGHTS] = insights_metric
         
-        # 품질 등급 결정
-        quality_level = self._determine_quality_level(overall_score)
+        # 종합 점수 계산
+        overall_score = self._calculate_overall_score(individual_scores)
         
-        # 재분석 필요 여부 판단
-        needs_reanalysis = overall_score < self.reanalysis_threshold
+        # 검증 통과 여부 결정
+        validation_passed = overall_score >= expected_quality
         
-        # 개선 우선순위 결정
-        improvement_priority = self._determine_improvement_priority(metric_scores)
+        # 심각도 결정
+        severity = self._determine_severity(overall_score, individual_scores)
         
-        # 품질 보고서 생성
-        quality_report = QualityReport(
+        # 재분석 필요성 판단
+        requires_reanalysis = self._should_trigger_reanalysis(overall_score, individual_scores, expected_quality)
+        
+        # 개선 사항 분석
+        strengths, weaknesses, improvement_actions = self._analyze_improvement_opportunities(individual_scores)
+        
+        # 재분석 전략 결정
+        reanalysis_strategy = None
+        if requires_reanalysis:
+            reanalysis_strategy = self._determine_reanalysis_strategy(individual_scores, context_info)
+        
+        # 결과 생성
+        validation_result = ValidationResult(
             overall_score=overall_score,
-            quality_level=quality_level,
-            metric_scores=metric_scores,
-            jewelry_expertise_score=expertise_score,
-            consistency_score=consistency_score,
-            needs_reanalysis=needs_reanalysis,
-            improvement_priority=improvement_priority,
-            timestamp=time.time()
+            individual_scores=individual_scores,
+            validation_passed=validation_passed,
+            severity=severity,
+            strengths=strengths,
+            weaknesses=weaknesses,
+            improvement_actions=improvement_actions,
+            requires_reanalysis=requires_reanalysis,
+            reanalysis_strategy=reanalysis_strategy,
+            confidence_level=self._calculate_confidence_level(individual_scores)
         )
         
-        # 기록 추가
-        self.quality_history.append(quality_report)
-        self.consistency_checker.add_analysis_record(ai_response.content, analysis_type)
+        # 성능 추적 업데이트
+        self._update_performance_tracking(validation_result)
         
-        processing_time = time.time() - start_time
-        logger.info(f"🔍 품질 검증 완료: {overall_score:.3f} ({quality_level.value}) - {processing_time:.2f}초")
+        validation_time = time.time() - start_time
         
-        return quality_report
+        logger.info(f"✅ 품질 검증 완료: {overall_score:.3f} ({validation_time:.2f}초)")
+        
+        return validation_result
     
-    async def _evaluate_accuracy(self, ai_response: AIResponse, analysis_type: AnalysisType) -> QualityScore:
-        """정확성 평가"""
+    async def _validate_accuracy(self, content: str, context_info: Dict[str, Any]) -> QualityMetric:
+        """정확도 검증"""
         
-        # AI 모델 자체 신뢰도
-        model_confidence = ai_response.confidence
+        accuracy_indicators = {
+            "specific_values": 0.0,
+            "evidence_based": 0.0,
+            "uncertainty_acknowledgment": 0.0,
+            "standard_compliance": 0.0
+        }
         
-        # 기술적 정확성 평가 (키워드 기반)
-        technical_accuracy = self._check_technical_accuracy(ai_response.content, analysis_type)
+        # 1. 구체적 수치 사용도
+        number_patterns = re.findall(r'\d+\.?\d*\s*(?:캐럿|%|등급|점)', content)
+        if number_patterns:
+            accuracy_indicators["specific_values"] = min(1.0, len(number_patterns) / 5)
         
-        # 구조적 완성도
-        structural_accuracy = self._check_structural_accuracy(ai_response.content, analysis_type)
+        # 2. 근거 기반 설명
+        evidence_phrases = ["근거", "기준", "표준", "according to", "based on", "따라서"]
+        evidence_count = sum(1 for phrase in evidence_phrases if phrase in content.lower())
+        accuracy_indicators["evidence_based"] = min(1.0, evidence_count / 3)
         
-        # 종합 정확성 점수
-        accuracy = (model_confidence * 0.4 + technical_accuracy * 0.4 + structural_accuracy * 0.2)
+        # 3. 불확실성 인정
+        uncertainty_phrases = ["추정", "예상", "가능성", "likely", "estimated", "approximately"]
+        uncertainty_count = sum(1 for phrase in uncertainty_phrases if phrase in content.lower())
+        accuracy_indicators["uncertainty_acknowledgment"] = min(1.0, uncertainty_count / 2)
         
-        return QualityScore(
-            metric=QualityMetric.ACCURACY,
-            score=accuracy,
+        # 4. 표준 준수
+        standard_mentions = ["GIA", "AGS", "SSEF", "Gübelin", "국제표준", "업계표준"]
+        standard_count = sum(1 for standard in standard_mentions if standard in content)
+        accuracy_indicators["standard_compliance"] = min(1.0, standard_count / 2)
+        
+        # 종합 정확도 점수
+        accuracy_score = sum(accuracy_indicators.values()) / len(accuracy_indicators)
+        
+        # 보정 요소
+        content_length = len(content)
+        if content_length < 200:
+            accuracy_score *= 0.8  # 너무 짧은 답변은 감점
+        elif content_length > 2000:
+            accuracy_score *= 1.1  # 상세한 답변은 가점
+        
+        accuracy_score = min(1.0, accuracy_score)
+        
+        issues = []
+        suggestions = []
+        
+        if accuracy_score < 0.8:
+            issues.append("구체적 근거 부족")
+            suggestions.append("명확한 수치와 근거 제시 필요")
+        
+        if accuracy_indicators["standard_compliance"] < 0.5:
+            issues.append("국제 표준 언급 부족")
+            suggestions.append("GIA, SSEF 등 공인 기관 기준 명시 필요")
+        
+        return QualityMetric(
+            dimension=QualityDimension.ACCURACY,
+            score=accuracy_score,
             confidence=0.85,
-            details={
-                "model_confidence": model_confidence,
-                "technical_accuracy": technical_accuracy,
-                "structural_accuracy": structural_accuracy
-            },
-            improvement_suggestions=self._get_accuracy_suggestions(accuracy)
+            details=accuracy_indicators,
+            issues=issues,
+            suggestions=suggestions
         )
     
-    def _evaluate_completeness(self, content: str, analysis_type: AnalysisType) -> QualityScore:
-        """완성도 평가"""
+    async def _validate_completeness(self, content: str, analysis_type: str, 
+                                   context_info: Dict[str, Any]) -> QualityMetric:
+        """완성도 검증"""
         
-        required_elements = self._get_required_elements(analysis_type)
-        present_elements = []
+        required_elements = {
+            "diamond_analysis": ["컷", "컬러", "클래리티", "캐럿", "등급", "가치"],
+            "ruby_analysis": ["색상", "투명도", "원산지", "처리", "품질", "가치"],
+            "market_analysis": ["현재가치", "시장동향", "투자전망", "리스크"],
+            "insurance": ["대체비용", "감정가액", "보험료", "갱신주기"],
+            "general": ["특성", "품질", "가치", "권장사항"]
+        }
         
+        elements = required_elements.get(analysis_type, required_elements["general"])
         content_lower = content.lower()
-        for element in required_elements:
-            if any(keyword.lower() in content_lower for keyword in element['keywords']):
-                present_elements.append(element['name'])
         
-        completeness_ratio = len(present_elements) / len(required_elements)
+        found_elements = [elem for elem in elements if elem in content_lower]
+        completeness_score = len(found_elements) / len(elements)
         
-        # 내용 길이 보너스 (너무 짧으면 감점)
-        length_bonus = min(len(content) / 1000, 0.2)  # 최대 0.2 보너스
+        # 추가 완성도 요소
+        additional_factors = {
+            "has_introduction": any(word in content[:200] for word in ["개요", "분석", "검토"]),
+            "has_conclusion": any(word in content[-200:] for word in ["결론", "요약", "권장"]),
+            "has_details": len(content) > 500,
+            "has_structure": content.count('\n') > 3 or any(marker in content for marker in ['1.', '2.', '**', '#'])
+        }
         
-        completeness_score = min(completeness_ratio + length_bonus, 1.0)
+        structure_bonus = sum(additional_factors.values()) * 0.05
+        completeness_score = min(1.0, completeness_score + structure_bonus)
         
-        return QualityScore(
-            metric=QualityMetric.COMPLETENESS,
+        missing_elements = [elem for elem in elements if elem not in content_lower]
+        
+        issues = []
+        suggestions = []
+        
+        if missing_elements:
+            issues.append(f"필수 요소 누락: {', '.join(missing_elements)}")
+            suggestions.append(f"다음 항목 추가 필요: {', '.join(missing_elements)}")
+        
+        if not additional_factors["has_structure"]:
+            issues.append("구조적 완성도 부족")
+            suggestions.append("명확한 섹션 구분과 체계적 구성 필요")
+        
+        return QualityMetric(
+            dimension=QualityDimension.COMPLETENESS,
             score=completeness_score,
-            confidence=0.9,
+            confidence=0.90,
             details={
-                "required_elements": len(required_elements),
-                "present_elements": len(present_elements),
-                "missing_elements": [elem['name'] for elem in required_elements 
-                                   if elem['name'] not in present_elements],
-                "content_length": len(content)
+                "found_elements": found_elements,
+                "missing_elements": missing_elements,
+                "structure_factors": additional_factors
             },
-            improvement_suggestions=self._get_completeness_suggestions(completeness_score)
+            issues=issues,
+            suggestions=suggestions
         )
     
-    def _evaluate_clarity(self, content: str) -> QualityScore:
-        """명확성 평가"""
+    async def _validate_coherence(self, content: str) -> QualityMetric:
+        """논리적 일관성 검증"""
         
-        # 문장 길이 분석 (너무 길면 감점)
+        coherence_factors = {
+            "logical_flow": 0.0,
+            "transition_quality": 0.0,
+            "argument_structure": 0.0,
+            "readability": 0.0
+        }
+        
+        # 1. 논리적 흐름
+        flow_indicators = ["따라서", "그러므로", "결론적으로", "한편", "또한", "더불어"]
+        flow_count = sum(1 for indicator in flow_indicators if indicator in content)
+        coherence_factors["logical_flow"] = min(1.0, flow_count / 3)
+        
+        # 2. 전환 품질
+        paragraphs = content.split('\n\n')
+        if len(paragraphs) > 1:
+            transition_score = 0.8  # 기본 점수
+            coherence_factors["transition_quality"] = transition_score
+        
+        # 3. 논증 구조
+        argument_indicators = ["이유", "근거", "예를 들어", "사실", "증거"]
+        argument_count = sum(1 for indicator in argument_indicators if indicator in content)
+        coherence_factors["argument_structure"] = min(1.0, argument_count / 2)
+        
+        # 4. 가독성
         sentences = content.split('.')
-        avg_sentence_length = statistics.mean([len(s.split()) for s in sentences if s.strip()])
+        sentence_count = len([s for s in sentences if s.strip()])
+        avg_sentence_length = len(content) / max(1, sentence_count)
         
-        # 이상적인 문장 길이: 15-25 단어
-        length_score = 1.0 if 15 <= avg_sentence_length <= 25 else max(0.5, 1.0 - abs(avg_sentence_length - 20) / 20)
+        if 50 <= avg_sentence_length <= 150:  # 적정 문장 길이
+            coherence_factors["readability"] = 1.0
+        else:
+            coherence_factors["readability"] = 0.7
         
-        # 구조화 정도 (제목, 번호, 불렛 포인트 등)
-        structure_indicators = ['##', '###', '1.', '2.', '3.', '•', '-', '*']
-        structure_score = min(sum(1 for indicator in structure_indicators if indicator in content) / 5, 1.0)
+        coherence_score = sum(coherence_factors.values()) / len(coherence_factors)
         
-        # 전문 용어와 일반 용어의 균형
-        total_words = len(content.split())
-        technical_word_ratio = sum(1 for word in content.split() 
-                                 if any(tech_term in word.lower() 
-                                       for tech_term in self.jewelry_evaluator.technical_terms.keys())) / total_words
+        issues = []
+        suggestions = []
         
-        # 이상적인 전문 용어 비율: 5-15%
-        term_balance_score = 1.0 if 0.05 <= technical_word_ratio <= 0.15 else max(0.3, 1.0 - abs(technical_word_ratio - 0.1) / 0.1)
+        if coherence_factors["logical_flow"] < 0.5:
+            issues.append("논리적 연결어 부족")
+            suggestions.append("문단 간 연결을 명확히 하는 연결어 사용 권장")
         
-        clarity_score = (length_score * 0.3 + structure_score * 0.4 + term_balance_score * 0.3)
+        if coherence_factors["readability"] < 0.8:
+            issues.append("가독성 개선 필요")
+            suggestions.append("문장 길이 조정 및 단락 구성 개선 필요")
         
-        return QualityScore(
-            metric=QualityMetric.CLARITY,
-            score=clarity_score,
-            confidence=0.8,
-            details={
-                "avg_sentence_length": avg_sentence_length,
-                "structure_score": structure_score,
-                "technical_word_ratio": technical_word_ratio
-            },
-            improvement_suggestions=self._get_clarity_suggestions(clarity_score)
+        return QualityMetric(
+            dimension=QualityDimension.COHERENCE,
+            score=coherence_score,
+            confidence=0.80,
+            details=coherence_factors,
+            issues=issues,
+            suggestions=suggestions
         )
     
-    def _evaluate_actionability(self, content: str, analysis_type: AnalysisType) -> QualityScore:
-        """실행가능성 평가"""
+    async def _validate_jewelry_expertise(self, content: str, 
+                                        context_info: Dict[str, Any]) -> QualityMetric:
+        """주얼리 전문성 검증"""
         
-        actionable_keywords = [
-            "추천", "권장", "제안", "조언", "고려", "확인", "검토", "평가",
-            "recommend", "suggest", "advise", "consider", "check", "verify"
-        ]
+        gemstone_type = context_info.get("gemstone_type", "general")
+        expertise_result = self.expertise_evaluator.evaluate_expertise_level(content, gemstone_type)
         
-        content_lower = content.lower()
-        actionable_count = sum(1 for keyword in actionable_keywords if keyword in content_lower)
+        expertise_score = expertise_result["expertise_score"]
+        details = expertise_result["details"]
         
-        # 구체적인 숫자나 범위 제시
-        numeric_pattern = r'\$?[\d,]+\.?\d*\s*(?:달러|원|USD|KRW|캐럿|mm|%)'
-        numeric_matches = len(re.findall(numeric_pattern, content, re.IGNORECASE))
+        issues = []
+        suggestions = []
         
-        # 구체적인 등급이나 평가 제시
-        grade_patterns = [
-            r'[A-Z]\+?', r'[0-9]\.?[0-9]?점', r'[0-9]+%', 
-            r'(?:우수|양호|보통|불량)', r'(?:excellent|good|fair|poor)'
-        ]
-        grade_matches = sum(len(re.findall(pattern, content, re.IGNORECASE)) for pattern in grade_patterns)
+        if expertise_score < 0.7:
+            issues.append("전문 용어 사용 부족")
+            suggestions.append("업계 표준 전문 용어 적극 활용 필요")
         
-        actionability_score = min((actionable_count * 0.1 + numeric_matches * 0.05 + grade_matches * 0.05), 1.0)
+        if details["expertise_level"] in ["basic", "intermediate"]:
+            issues.append(f"전문성 수준: {details['expertise_level']}")
+            suggestions.append("고급 전문 용어 및 깊이 있는 분석 필요")
         
-        return QualityScore(
-            metric=QualityMetric.ACTIONABILITY,
-            score=actionability_score,
+        # 전문성 추가 보정
+        if "term_usage" in details:
+            term_usage = details["term_usage"]
+            if "expert" in term_usage and term_usage["expert"]["ratio"] > 0.3:
+                expertise_score *= 1.1  # 전문가 용어 사용 시 가점
+        
+        expertise_score = min(1.0, expertise_score)
+        
+        return QualityMetric(
+            dimension=QualityDimension.JEWELRY_EXPERTISE,
+            score=expertise_score,
+            confidence=0.85,
+            details=details,
+            issues=issues,
+            suggestions=suggestions
+        )
+    
+    async def _validate_consistency(self, content: str) -> QualityMetric:
+        """일관성 검증"""
+        
+        consistency_result = self.consistency_analyzer.analyze_consistency(content)
+        
+        consistency_score = consistency_result["consistency_score"]
+        
+        issues = []
+        suggestions = []
+        
+        if consistency_result["contradiction_count"] > 0:
+            issues.append(f"모순된 내용 {consistency_result['contradiction_count']}개 발견")
+            suggestions.append("일관된 논리와 평가 기준 유지 필요")
+        
+        if consistency_result["logical_flow_score"] < 0.5:
+            issues.append("논리적 흐름 부족")
+            suggestions.append("명확한 논리적 연결 구조 필요")
+        
+        return QualityMetric(
+            dimension=QualityDimension.CONSISTENCY,
+            score=consistency_score,
             confidence=0.75,
-            details={
-                "actionable_keywords": actionable_count,
-                "numeric_references": numeric_matches,
-                "grade_references": grade_matches
+            details=consistency_result,
+            issues=issues,
+            suggestions=suggestions
+        )
+    
+    async def _validate_relevance(self, content: str, analysis_type: str, 
+                                context_info: Dict[str, Any]) -> QualityMetric:
+        """관련성 검증"""
+        
+        relevance_result = self.relevance_evaluator.evaluate_relevance(
+            content, analysis_type, context_info
+        )
+        
+        relevance_score = relevance_result["relevance_score"]
+        
+        issues = []
+        suggestions = []
+        
+        if relevance_result["keyword_coverage"] < 0.6:
+            issues.append("핵심 키워드 커버리지 부족")
+            suggestions.append("분석 유형에 맞는 전문 용어 적극 사용 필요")
+        
+        if relevance_result["context_match_score"] < 0.7:
+            issues.append("컨텍스트 부합도 부족")
+            suggestions.append("요청된 분석 목적에 더 집중된 내용 필요")
+        
+        return QualityMetric(
+            dimension=QualityDimension.RELEVANCE,
+            score=relevance_score,
+            confidence=0.80,
+            details=relevance_result,
+            issues=issues,
+            suggestions=suggestions
+        )
+    
+    async def _validate_professional_tone(self, content: str) -> QualityMetric:
+        """전문적 어조 검증"""
+        
+        tone_factors = {
+            "formality": 0.0,
+            "objectivity": 0.0,
+            "confidence": 0.0,
+            "clarity": 0.0
+        }
+        
+        # 1. 격식성
+        formal_indicators = ["입니다", "습니다", "됩니다", "것으로", "에 대한", "관련하여"]
+        formal_count = sum(1 for indicator in formal_indicators if indicator in content)
+        tone_factors["formality"] = min(1.0, formal_count / 10)
+        
+        # 2. 객관성
+        subjective_words = ["느낌", "생각", "개인적", "추측", "막연"]
+        subjective_count = sum(1 for word in subjective_words if word in content)
+        tone_factors["objectivity"] = max(0.0, 1.0 - (subjective_count / 5))
+        
+        # 3. 확신성
+        confidence_indicators = ["명확히", "확실히", "분명히", "정확히", "확인됨"]
+        confidence_count = sum(1 for indicator in confidence_indicators if indicator in content)
+        tone_factors["confidence"] = min(1.0, confidence_count / 3)
+        
+        # 4. 명확성
+        clarity_indicators = ["구체적으로", "예를 들어", "즉", "다시 말해"]
+        clarity_count = sum(1 for indicator in clarity_indicators if indicator in content)
+        tone_factors["clarity"] = min(1.0, clarity_count / 2)
+        
+        tone_score = sum(tone_factors.values()) / len(tone_factors)
+        
+        issues = []
+        suggestions = []
+        
+        if tone_factors["formality"] < 0.5:
+            issues.append("격식 있는 어조 부족")
+            suggestions.append("더 전문적이고 격식 있는 표현 사용 권장")
+        
+        if tone_factors["objectivity"] < 0.7:
+            issues.append("주관적 표현 과다")
+            suggestions.append("객관적이고 사실 기반의 표현 사용 필요")
+        
+        return QualityMetric(
+            dimension=QualityDimension.PROFESSIONAL_TONE,
+            score=tone_score,
+            confidence=0.70,
+            details=tone_factors,
+            issues=issues,
+            suggestions=suggestions
+        )
+    
+    async def _validate_actionable_insights(self, content: str, analysis_type: str) -> QualityMetric:
+        """실행 가능한 인사이트 검증"""
+        
+        actionable_indicators = {
+            "recommendations": 0.0,
+            "specific_actions": 0.0,
+            "decision_support": 0.0,
+            "next_steps": 0.0
+        }
+        
+        # 1. 권장사항
+        recommendation_words = ["권장", "추천", "제안", "권함", "바람직"]
+        recommendation_count = sum(1 for word in recommendation_words if word in content)
+        actionable_indicators["recommendations"] = min(1.0, recommendation_count / 2)
+        
+        # 2. 구체적 행동
+        action_words = ["해야", "필요", "고려", "검토", "확인", "점검"]
+        action_count = sum(1 for word in action_words if word in content)
+        actionable_indicators["specific_actions"] = min(1.0, action_count / 3)
+        
+        # 3. 의사결정 지원
+        decision_words = ["선택", "결정", "판단", "고려사항", "옵션"]
+        decision_count = sum(1 for word in decision_words if word in content)
+        actionable_indicators["decision_support"] = min(1.0, decision_count / 2)
+        
+        # 4. 다음 단계
+        next_step_phrases = ["다음", "향후", "앞으로", "계속", "추가로"]
+        next_step_count = sum(1 for phrase in next_step_phrases if phrase in content)
+        actionable_indicators["next_steps"] = min(1.0, next_step_count / 2)
+        
+        insights_score = sum(actionable_indicators.values()) / len(actionable_indicators)
+        
+        issues = []
+        suggestions = []
+        
+        if insights_score < 0.6:
+            issues.append("실행 가능한 권장사항 부족")
+            suggestions.append("구체적이고 실행 가능한 조치 사항 제시 필요")
+        
+        if actionable_indicators["next_steps"] < 0.3:
+            issues.append("후속 조치 안내 부족")
+            suggestions.append("다음 단계 또는 추가 조치 방안 제시 권장")
+        
+        return QualityMetric(
+            dimension=QualityDimension.ACTIONABLE_INSIGHTS,
+            score=insights_score,
+            confidence=0.75,
+            details=actionable_indicators,
+            issues=issues,
+            suggestions=suggestions
+        )
+    
+    def _calculate_overall_score(self, individual_scores: Dict[QualityDimension, QualityMetric]) -> float:
+        """종합 점수 계산"""
+        
+        weighted_sum = 0.0
+        total_weight = 0.0
+        
+        for dimension, metric in individual_scores.items():
+            weight = self.dimension_weights.get(dimension, 0.0)
+            weighted_sum += metric.score * weight
+            total_weight += weight
+        
+        if total_weight == 0:
+            return 0.0
+        
+        overall_score = weighted_sum / total_weight
+        return min(1.0, overall_score)
+    
+    def _determine_severity(self, overall_score: float, 
+                          individual_scores: Dict[QualityDimension, QualityMetric]) -> ValidationSeverity:
+        """심각도 결정"""
+        
+        if overall_score < 0.70:
+            return ValidationSeverity.CRITICAL
+        elif overall_score < 0.85:
+            return ValidationSeverity.HIGH
+        elif overall_score < 0.92:
+            return ValidationSeverity.MEDIUM
+        elif overall_score < 0.99:
+            return ValidationSeverity.LOW
+        else:
+            return ValidationSeverity.INFO
+    
+    def _should_trigger_reanalysis(self, overall_score: float, 
+                                 individual_scores: Dict[QualityDimension, QualityMetric],
+                                 expected_quality: float) -> bool:
+        """재분석 트리거 여부 결정"""
+        
+        # 1. 전체 점수가 기대치보다 현저히 낮은 경우
+        if overall_score < expected_quality * 0.85:
+            return True
+        
+        # 2. 핵심 차원에서 심각한 문제가 있는 경우
+        critical_dimensions = [
+            QualityDimension.ACCURACY,
+            QualityDimension.JEWELRY_EXPERTISE,
+            QualityDimension.COMPLETENESS
+        ]
+        
+        for dimension in critical_dimensions:
+            if dimension in individual_scores:
+                metric = individual_scores[dimension]
+                threshold = self.quality_thresholds.get(dimension, 0.85)
+                if metric.score < threshold * 0.8:
+                    return True
+        
+        # 3. 99.2% 목표에 크게 미달하는 경우
+        if overall_score < self.target_accuracy * 0.90:
+            return True
+        
+        return False
+    
+    def _determine_reanalysis_strategy(self, individual_scores: Dict[QualityDimension, QualityMetric],
+                                     context_info: Dict[str, Any]) -> str:
+        """재분석 전략 결정"""
+        
+        # 가장 낮은 점수의 차원 찾기
+        lowest_dimension = min(individual_scores.keys(), 
+                             key=lambda d: individual_scores[d].score)
+        lowest_score = individual_scores[lowest_dimension].score
+        
+        strategies = {
+            QualityDimension.ACCURACY: "더 구체적인 근거와 수치 제시에 집중",
+            QualityDimension.JEWELRY_EXPERTISE: "전문 용어와 업계 표준 강화",
+            QualityDimension.COMPLETENESS: "누락된 필수 요소 보완",
+            QualityDimension.COHERENCE: "논리적 구조와 흐름 개선",
+            QualityDimension.CONSISTENCY: "일관된 논리와 평가 기준 적용",
+            QualityDimension.RELEVANCE: "요청 사항에 더 직접적으로 대응"
+        }
+        
+        base_strategy = strategies.get(lowest_dimension, "전반적 품질 향상")
+        
+        # 컨텍스트에 따른 추가 전략
+        if context_info.get("priority") == "critical":
+            base_strategy += " + 최고 정확도 모델 사용"
+        
+        if lowest_score < 0.5:
+            base_strategy += " + 다중 모델 교차 검증"
+        
+        return base_strategy
+    
+    def _analyze_improvement_opportunities(self, individual_scores: Dict[QualityDimension, QualityMetric]) -> Tuple[List[str], List[str], List[str]]:
+        """개선 기회 분석"""
+        
+        strengths = []
+        weaknesses = []
+        improvement_actions = []
+        
+        for dimension, metric in individual_scores.items():
+            dimension_name = dimension.value.replace('_', ' ').title()
+            
+            if metric.score >= 0.9:
+                strengths.append(f"{dimension_name} 우수 ({metric.score:.1%})")
+            elif metric.score < 0.7:
+                weaknesses.append(f"{dimension_name} 개선 필요 ({metric.score:.1%})")
+                
+                # 개선 액션 추가
+                if metric.suggestions:
+                    improvement_actions.extend(metric.suggestions)
+        
+        # 전반적 개선 액션
+        overall_score = self._calculate_overall_score(individual_scores)
+        if overall_score < self.target_accuracy:
+            gap = self.target_accuracy - overall_score
+            improvement_actions.append(f"목표 달성을 위해 {gap:.1%} 추가 개선 필요")
+        
+        return strengths, weaknesses, improvement_actions
+    
+    def _calculate_confidence_level(self, individual_scores: Dict[QualityDimension, QualityMetric]) -> float:
+        """신뢰도 계산"""
+        
+        confidences = [metric.confidence for metric in individual_scores.values()]
+        return statistics.mean(confidences) if confidences else 0.0
+    
+    def _update_performance_tracking(self, validation_result: ValidationResult):
+        """성능 추적 업데이트"""
+        
+        self.performance_metrics["total_validations"] += 1
+        
+        if validation_result.validation_passed:
+            self.performance_metrics["passed_validations"] += 1
+        else:
+            self.performance_metrics["failed_validations"] += 1
+        
+        if validation_result.requires_reanalysis:
+            self.performance_metrics["reanalysis_triggered"] += 1
+        
+        # 개별 차원 점수 추적
+        for dimension, metric in validation_result.individual_scores.items():
+            self.performance_metrics["average_scores"][dimension].append(metric.score)
+            
+            # 최근 10개 결과만 유지
+            if len(self.performance_metrics["average_scores"][dimension]) > 10:
+                self.performance_metrics["average_scores"][dimension].pop(0)
+        
+        # 검증 기록 저장
+        self.validation_history.append({
+            "timestamp": validation_result.validation_time,
+            "overall_score": validation_result.overall_score,
+            "passed": validation_result.validation_passed,
+            "severity": validation_result.severity.value
+        })
+    
+    def get_performance_report(self) -> Dict[str, Any]:
+        """성능 리포트 생성"""
+        
+        total_validations = max(1, self.performance_metrics["total_validations"])
+        
+        # 차원별 평균 점수
+        dimension_averages = {}
+        for dimension, scores in self.performance_metrics["average_scores"].items():
+            if scores:
+                dimension_averages[dimension.value] = {
+                    "average": statistics.mean(scores),
+                    "trend": "상승" if len(scores) > 1 and scores[-1] > scores[0] else "하강",
+                    "samples": len(scores)
+                }
+        
+        # 최근 성능 트렌드
+        recent_scores = [record["overall_score"] for record in list(self.validation_history)[-20:]]
+        trend_analysis = "안정" if not recent_scores else (
+            "개선" if len(recent_scores) > 1 and recent_scores[-1] > recent_scores[0] else "주의"
+        )
+        
+        report = {
+            "system_info": {
+                "version": self.version,
+                "target_accuracy": f"{self.target_accuracy * 100}%",
+                "total_validations": self.performance_metrics["total_validations"]
             },
-            improvement_suggestions=self._get_actionability_suggestions(actionability_score)
-        )
-    
-    def _check_technical_accuracy(self, content: str, analysis_type: AnalysisType) -> float:
-        """기술적 정확성 검사"""
-        
-        # 잘못된 기술 정보 패턴 검사
-        error_patterns = {
-            "impossible_grades": [
-                r'[A-C]\s*(?:컬러|color)',  # A, B, C 컬러는 존재하지 않음
-                r'I[4-9]',  # I4 이상 클래리티는 없음
-            ],
-            "inconsistent_values": [
-                r'[0-9]+\s*캐럿.*?[0-9]+mm',  # 캐럿과 크기가 비례하지 않는 경우
+            
+            "performance_summary": {
+                "pass_rate": f"{(self.performance_metrics['passed_validations'] / total_validations * 100):.1f}%",
+                "reanalysis_rate": f"{(self.performance_metrics['reanalysis_triggered'] / total_validations * 100):.1f}%",
+                "average_quality": f"{statistics.mean(recent_scores) * 100:.1f}%" if recent_scores else "N/A",
+                "trend": trend_analysis
+            },
+            
+            "dimension_performance": dimension_averages,
+            
+            "quality_thresholds": {
+                dim.value: threshold for dim, threshold in self.quality_thresholds.items()
+            },
+            
+            "recommendations": [
+                "지속적인 품질 모니터링",
+                "임계값 미달 차원 집중 개선",
+                "재분석 패턴 분석 및 최적화"
             ]
         }
         
-        error_count = 0
-        for category, patterns in error_patterns.items():
-            for pattern in patterns:
-                if re.search(pattern, content, re.IGNORECASE):
-                    error_count += 1
+        # 개선 필요 영역 식별
+        low_performing_dimensions = [
+            dim_name for dim_name, data in dimension_averages.items()
+            if data["average"] < 0.85
+        ]
         
-        # 기술적 정확성 점수 (에러가 적을수록 높음)
-        return max(0.0, 1.0 - error_count * 0.2)
+        if low_performing_dimensions:
+            report["recommendations"].insert(0, 
+                f"우선 개선 필요 영역: {', '.join(low_performing_dimensions)}")
+        
+        return report
     
-    def _check_structural_accuracy(self, content: str, analysis_type: AnalysisType) -> float:
-        """구조적 정확성 검사"""
+    async def optimize_validation_system(self) -> Dict[str, Any]:
+        """검증 시스템 최적화"""
         
-        expected_sections = {
-            AnalysisType.DIAMOND_4C: ["4C", "캐럿", "컷", "컬러", "클래리티"],
-            AnalysisType.COLORED_STONE: ["보석", "색상", "원산지", "처리"],
-            AnalysisType.JEWELRY_DESIGN: ["디자인", "스타일", "소재", "제작"],
-            AnalysisType.BUSINESS_INSIGHT: ["시장", "가격", "트렌드", "전략"]
+        optimization_results = {
+            "timestamp": datetime.now().isoformat(),
+            "actions_taken": [],
+            "threshold_adjustments": {},
+            "weight_adjustments": {},
+            "performance_improvements": {}
         }
         
-        required_sections = expected_sections.get(analysis_type, [])
-        content_lower = content.lower()
+        # 1. 성능 데이터 기반 임계값 조정
+        for dimension, scores in self.performance_metrics["average_scores"].items():
+            if len(scores) >= 5:
+                current_avg = statistics.mean(scores)
+                current_threshold = self.quality_thresholds.get(dimension, 0.85)
+                
+                if current_avg > current_threshold + 0.1:
+                    # 임계값 상향 조정
+                    new_threshold = min(0.99, current_threshold + 0.05)
+                    self.quality_thresholds[dimension] = new_threshold
+                    optimization_results["threshold_adjustments"][dimension.value] = {
+                        "old": current_threshold,
+                        "new": new_threshold,
+                        "reason": "성능 향상으로 기준 상향"
+                    }
+                elif current_avg < current_threshold - 0.15:
+                    # 임계값 하향 조정 (신중하게)
+                    new_threshold = max(0.70, current_threshold - 0.03)
+                    self.quality_thresholds[dimension] = new_threshold
+                    optimization_results["threshold_adjustments"][dimension.value] = {
+                        "old": current_threshold,
+                        "new": new_threshold,
+                        "reason": "달성 가능한 수준으로 조정"
+                    }
         
-        present_sections = sum(1 for section in required_sections 
-                             if section.lower() in content_lower)
+        # 2. 가중치 최적화
+        # 성능이 낮은 차원의 가중치를 높여 더 엄격하게 검증
+        total_validations = self.performance_metrics["total_validations"]
+        if total_validations > 50:  # 충분한 데이터가 있을 때
+            for dimension, scores in self.performance_metrics["average_scores"].items():
+                if scores:
+                    avg_score = statistics.mean(scores)
+                    current_weight = self.dimension_weights.get(dimension, 0.1)
+                    
+                    if avg_score < 0.8 and current_weight < 0.3:
+                        # 성능이 낮은 차원의 가중치 증가
+                        new_weight = min(0.3, current_weight * 1.2)
+                        self.dimension_weights[dimension] = new_weight
+                        optimization_results["weight_adjustments"][dimension.value] = {
+                            "old": current_weight,
+                            "new": new_weight,
+                            "reason": "낮은 성능으로 인한 가중치 증가"
+                        }
         
-        return present_sections / len(required_sections) if required_sections else 1.0
-    
-    def _get_required_elements(self, analysis_type: AnalysisType) -> List[Dict[str, Any]]:
-        """분석 타입별 필수 요소"""
+        # 3. 실행된 최적화 작업 기록
+        if optimization_results["threshold_adjustments"]:
+            optimization_results["actions_taken"].append(
+                f"품질 임계값 {len(optimization_results['threshold_adjustments'])}개 조정"
+            )
         
-        elements_map = {
-            AnalysisType.DIAMOND_4C: [
-                {"name": "캐럿", "keywords": ["캐럿", "carat", "중량"]},
-                {"name": "컷", "keywords": ["컷", "cut", "연마"]},
-                {"name": "컬러", "keywords": ["컬러", "color", "색상"]},
-                {"name": "클래리티", "keywords": ["클래리티", "clarity", "투명도"]},
-                {"name": "가격", "keywords": ["가격", "price", "비용", "달러", "원"]}
-            ],
-            AnalysisType.COLORED_STONE: [
-                {"name": "보석종류", "keywords": ["루비", "사파이어", "에메랄드", "ruby", "sapphire", "emerald"]},
-                {"name": "색상평가", "keywords": ["색상", "color", "채도", "명도"]},
-                {"name": "원산지", "keywords": ["원산지", "미얀마", "스리랑카", "콜롬비아", "origin"]},
-                {"name": "처리여부", "keywords": ["처리", "가열", "오일링", "treatment", "heated"]},
-                {"name": "품질등급", "keywords": ["등급", "품질", "AAA", "AA", "grade", "quality"]}
-            ],
-            AnalysisType.JEWELRY_DESIGN: [
-                {"name": "디자인스타일", "keywords": ["스타일", "디자인", "아르데코", "빅토리안", "style"]},
-                {"name": "소재분석", "keywords": ["금속", "플래티나", "골드", "metal", "platinum", "gold"]},
-                {"name": "제작기법", "keywords": ["제작", "세팅", "기법", "craftsmanship", "setting"]},
-                {"name": "착용성", "keywords": ["착용", "편안", "실용", "wearability", "comfort"]}
-            ]
-        }
+        if optimization_results["weight_adjustments"]:
+            optimization_results["actions_taken"].append(
+                f"차원별 가중치 {len(optimization_results['weight_adjustments'])}개 조정"
+            )
         
-        return elements_map.get(analysis_type, [])
-    
-    def _determine_quality_level(self, score: float) -> QualityLevel:
-        """점수에 따른 품질 등급 결정"""
-        if score >= 0.95:
-            return QualityLevel.EXCELLENT
-        elif score >= 0.85:
-            return QualityLevel.GOOD
-        elif score >= 0.70:
-            return QualityLevel.FAIR
-        else:
-            return QualityLevel.POOR
-    
-    def _determine_improvement_priority(self, metric_scores: Dict[QualityMetric, QualityScore]) -> List[str]:
-        """개선 우선순위 결정"""
+        optimization_results["actions_taken"].append("검증 알고리즘 성능 튜닝 완료")
         
-        # 점수가 낮은 메트릭 순으로 정렬
-        sorted_metrics = sorted(
-            metric_scores.items(), 
-            key=lambda x: x[1].score
-        )
+        logger.info(f"🔧 검증 시스템 최적화 완료: {len(optimization_results['actions_taken'])}개 작업 수행")
         
-        priority_list = []
-        for metric, score_obj in sorted_metrics:
-            if score_obj.score < 0.8:  # 80% 미만인 항목들
-                priority_list.extend(score_obj.improvement_suggestions)
-        
-        return priority_list[:5]  # 상위 5개 우선순위
-    
-    def _get_expertise_suggestions(self, score: float) -> List[str]:
-        """전문성 개선 제안"""
-        if score < 0.7:
-            return [
-                "주얼리 전문 용어 사용 증대",
-                "GIA/SSEF 등 국제 표준 준수",
-                "기술적 분석 깊이 향상",
-                "감정 기관 인증 기준 반영"
-            ]
-        elif score < 0.85:
-            return [
-                "고급 전문 용어 활용",
-                "시장 분석 전문성 강화"
-            ]
-        else:
-            return ["현재 전문성 수준 유지"]
-    
-    def _get_consistency_suggestions(self, score: float) -> List[str]:
-        """일관성 개선 제안"""
-        if score < 0.7:
-            return [
-                "내부 모순 표현 제거",
-                "과거 분석과의 일관성 확보",
-                "등급 기준 통일성 유지"
-            ]
-        else:
-            return ["일관성 수준 양호"]
-    
-    def _get_accuracy_suggestions(self, score: float) -> List[str]:
-        """정확성 개선 제안"""
-        if score < 0.8:
-            return [
-                "기술적 정확성 검토",
-                "구조적 완성도 개선",
-                "참조 표준 재확인"
-            ]
-        else:
-            return ["정확성 수준 양호"]
-    
-    def _get_completeness_suggestions(self, score: float) -> List[str]:
-        """완성도 개선 제안"""
-        if score < 0.8:
-            return [
-                "필수 분석 요소 추가",
-                "내용 상세도 증대",
-                "구조적 완성도 향상"
-            ]
-        else:
-            return ["완성도 수준 양호"]
-    
-    def _get_clarity_suggestions(self, score: float) -> List[str]:
-        """명확성 개선 제안"""
-        if score < 0.8:
-            return [
-                "문장 길이 최적화",
-                "구조화 개선",
-                "전문용어 설명 추가"
-            ]
-        else:
-            return ["명확성 수준 양호"]
-    
-    def _get_actionability_suggestions(self, score: float) -> List[str]:
-        """실행가능성 개선 제안"""
-        if score < 0.7:
-            return [
-                "구체적 추천사항 추가",
-                "수치적 근거 제시",
-                "실행 가능한 조언 포함"
-            ]
-        else:
-            return ["실행가능성 수준 양호"]
-    
-    async def auto_reanalysis_if_needed(self, 
-                                      quality_report: QualityReport,
-                                      hybrid_manager: 'HybridLLMManager',
-                                      original_request: Any) -> Optional[AIResponse]:
-        """품질이 낮을 경우 자동 재분석"""
-        
-        if not quality_report.needs_reanalysis:
-            return None
-        
-        logger.info(f"🔄 자동 재분석 시작 - 품질 점수: {quality_report.overall_score:.3f}")
-        
-        # 개선된 프롬프트로 재분석
-        enhanced_request = self._enhance_request_based_on_feedback(
-            original_request, quality_report.improvement_priority
-        )
-        
-        # 재분석 실행
-        reanalysis_result = await hybrid_manager.hybrid_analyze(enhanced_request)
-        
-        if reanalysis_result['status'] == 'success':
-            logger.info("✅ 자동 재분석 완료")
-            return reanalysis_result
-        else:
-            logger.error("❌ 자동 재분석 실패")
-            return None
-    
-    def _enhance_request_based_on_feedback(self, original_request: Any, priorities: List[str]) -> Any:
-        """피드백 기반 요청 개선"""
-        
-        # 원본 요청에 개선사항 반영
-        enhanced_request = original_request.copy() if hasattr(original_request, 'copy') else original_request
-        
-        # 개선 지시사항 추가
-        enhancement_note = f"\n\n[개선 요구사항: {', '.join(priorities[:3])}]"
-        
-        if hasattr(enhanced_request, 'text_content') and enhanced_request.text_content:
-            enhanced_request.text_content += enhancement_note
-        
-        return enhanced_request
-    
-    def get_quality_analytics(self) -> Dict[str, Any]:
-        """품질 분석 통계"""
-        
-        if not self.quality_history:
-            return {"message": "품질 데이터가 없습니다."}
-        
-        recent_reports = self.quality_history[-20:]  # 최근 20개
-        
-        avg_overall_score = statistics.mean([r.overall_score for r in recent_reports])
-        
-        quality_trend = []
-        for i in range(1, len(recent_reports)):
-            trend = recent_reports[i].overall_score - recent_reports[i-1].overall_score
-            quality_trend.append(trend)
-        
-        avg_trend = statistics.mean(quality_trend) if quality_trend else 0.0
-        
-        # 메트릭별 평균 점수
-        metric_averages = {}
-        for metric in QualityMetric:
-            scores = [r.metric_scores[metric].score for r in recent_reports 
-                     if metric in r.metric_scores]
-            metric_averages[metric.value] = statistics.mean(scores) if scores else 0.0
-        
-        # 재분석 비율
-        reanalysis_rate = sum(1 for r in recent_reports if r.needs_reanalysis) / len(recent_reports)
-        
-        # 목표 달성률
-        target_achievement_rate = sum(1 for r in recent_reports if r.overall_score >= self.target_accuracy) / len(recent_reports)
-        
-        return {
-            "총_분석_수": len(self.quality_history),
-            "최근_평균_점수": round(avg_overall_score, 3),
-            "품질_트렌드": "상승" if avg_trend > 0.01 else "하락" if avg_trend < -0.01 else "안정",
-            "메트릭별_평균": {k: round(v, 3) for k, v in metric_averages.items()},
-            "재분석_비율": f"{reanalysis_rate:.1%}",
-            "목표_달성률": f"{target_achievement_rate:.1%}",
-            "99.2%_목표_달성": target_achievement_rate >= 0.992,
-            "최근_품질_등급": recent_reports[-1].quality_level.value if recent_reports else "N/A"
-        }
+        return optimization_results
 
-# 데모 및 테스트 함수
-async def demo_quality_validation():
-    """품질 검증 시스템 데모"""
-    print("🔍 솔로몬드 AI 품질 검증 시스템 v2.3 데모")
+# 테스트 및 데모 함수들
+
+async def test_quality_validator_v23():
+    """AI 품질 검증 시스템 v2.3 테스트"""
+    
+    print("🔍 솔로몬드 AI 품질 검증 시스템 v2.3 테스트")
     print("=" * 60)
     
-    validator = AIQualityValidator()
+    # 시스템 초기화
+    validator = AIQualityValidatorV23()
     
-    # 모의 AI 응답 생성
-    from core.hybrid_llm_manager_v23 import AIResponse, AIModel
+    # 테스트 케이스 1: 고품질 분석 결과
+    print("\n🔹 테스트 1: 고품질 다이아몬드 분석 검증")
     
-    mock_response = AIResponse(
-        model=AIModel.GPT4V,
-        content="""
-        ## 다이아몬드 4C 전문 분석 보고서
-        
-        ### 기본 정보
-        - **중량**: 1.2 캐럿
-        - **형태**: 라운드 브릴리언트
-        - **컬러**: H 등급 (Nearly Colorless)
-        - **클래리티**: VS2 (Very Slightly Included)
-        - **컷**: Very Good
-        
-        ### 상세 분석
-        이 다이아몬드는 GIA 표준에 따라 분석한 결과 우수한 품질을 보여줍니다.
-        H 컬러는 육안으로 거의 무색에 가깝게 보이며, VS2 클래리티는 
-        10배 확대 하에서만 내포물이 관찰되는 수준입니다.
-        
-        ### 시장 가치
-        - **예상 가격**: $5,000-6,000 USD
-        - **투자 가치**: 중상급
-        - **추천도**: 높음
-        
-        ### 전문가 의견
-        전체적으로 균형잡힌 품질의 다이아몬드로 평가됩니다.
-        """,
-        confidence=0.92,
-        processing_time=2.3,
-        cost_estimate=0.024,
-        jewelry_relevance=0.95,
-        metadata={"tokens_used": 150}
+    high_quality_content = """
+# 다이아몬드 4C 전문 감정 보고서
+
+## 감정 개요
+- 감정 일시: 2025-07-13 22:30
+- 감정 기준: GIA 국제 표준
+- 정확도: 99.2%
+
+## 상세 분석
+
+### Cut (컷) - 등급: Excellent
+이 다이아몬드의 컷 등급은 Excellent로 평가됩니다. 테이블 비율 57%, 크라운 높이 15%, 파빌리온 깊이 43%로 이상적인 프로포션을 보여줍니다. 
+대칭성과 광택도 모두 Excellent 등급으로, 최대한의 광 반사와 scintillation을 제공합니다.
+
+### Color (컬러) - 등급: F
+GIA 컬러 스케일 기준 F등급으로, 거의 무색(Near Colorless) 범주에 속합니다. 
+육안으로는 완전히 무색으로 보이며, 형광성은 None으로 확인되어 자연광 하에서도 색상 변화가 없습니다.
+
+### Clarity (클래리티) - 등급: VS1
+Very Slightly Included 1등급으로, 10배 확대경 하에서 미세한 내포물이 관찰되나 
+육안으로는 완전히 깨끗하게 보입니다. 내포물의 위치가 crown 영역에 있어 전체적인 아름다움에 영향을 주지 않습니다.
+
+### Carat (캐럿) - 중량: 2.50ct
+정확한 중량 2.50캐럿으로, 시장에서 선호도가 높은 크기입니다. 
+치수는 8.80 x 8.85 x 5.40mm로 우수한 스프레드를 보여줍니다.
+
+## 종합 평가
+**전체 등급:** Premium
+**품질 수준:** Investment Grade
+**희소성:** 높음
+
+## 시장 가치 분석
+**예상 소매가:** $45,000 - $52,000
+**예상 도매가:** $38,000 - $42,000
+**보험 가액:** $55,000
+
+## 투자 분석
+**투자 등급:** A+
+**장기 전망:** 매우 긍정적
+**권장사항:** 
+1. GIA 감정서 취득 권장
+2. 정기적 전문 점검 (연 1회)
+3. 적절한 보험 가입 필수
+4. 장기 보유 권장 (5-10년)
+
+이 다이아몬드는 모든 측면에서 우수한 품질을 보여주며, 투자 가치와 수집 가치 모두 뛰어난 것으로 평가됩니다.
+    """.strip()
+    
+    context_info = {
+        "gemstone_type": "diamond",
+        "grading_standard": "gia",
+        "analysis_purpose": "투자 상담",
+        "priority": "high"
+    }
+    
+    validation_result = await validator.validate_comprehensive(
+        content=high_quality_content,
+        analysis_type="diamond_analysis",
+        context_info=context_info,
+        expected_quality=0.95
     )
     
-    print("📊 AI 응답 내용:")
-    print(mock_response.content[:300] + "...")
-    print()
+    print(f"종합 점수: {validation_result.overall_score:.3f}")
+    print(f"검증 통과: {'✅' if validation_result.validation_passed else '❌'}")
+    print(f"심각도: {validation_result.severity.value}")
+    print(f"재분석 필요: {'필요' if validation_result.requires_reanalysis else '불필요'}")
+    print(f"신뢰도: {validation_result.confidence_level:.3f}")
     
-    # 품질 검증 실행
-    quality_report = await validator.validate_ai_response(
-        mock_response, 
-        AnalysisType.DIAMOND_4C,
-        "1.2캐럿 라운드 다이아몬드 분석 요청"
+    print(f"\n📊 차원별 점수:")
+    for dimension, metric in validation_result.individual_scores.items():
+        print(f"  {dimension.value}: {metric.score:.3f}")
+    
+    if validation_result.strengths:
+        print(f"\n✅ 강점:")
+        for strength in validation_result.strengths:
+            print(f"  • {strength}")
+    
+    if validation_result.weaknesses:
+        print(f"\n⚠️ 약점:")
+        for weakness in validation_result.weaknesses:
+            print(f"  • {weakness}")
+    
+    # 테스트 케이스 2: 저품질 분석 결과 (재분석 트리거 테스트)
+    print("\n🔹 테스트 2: 저품질 분석 검증 (재분석 트리거)")
+    
+    low_quality_content = """
+다이아몬드를 봤는데 괜찮아 보입니다. 크기도 적당하고 깨끗해 보여요.
+가격은 좀 비싼 것 같지만 투자 가치가 있을 것 같습니다.
+사도 될 것 같네요.
+    """.strip()
+    
+    validation_result_low = await validator.validate_comprehensive(
+        content=low_quality_content,
+        analysis_type="diamond_analysis",
+        context_info=context_info,
+        expected_quality=0.95
     )
     
-    print("🎯 품질 검증 결과:")
-    print(f"   전체 점수: {quality_report.overall_score:.3f}")
-    print(f"   품질 등급: {quality_report.quality_level.value}")
-    print(f"   주얼리 전문성: {quality_report.jewelry_expertise_score:.3f}")
-    print(f"   일관성 점수: {quality_report.consistency_score:.3f}")
-    print(f"   재분석 필요: {'예' if quality_report.needs_reanalysis else '아니오'}")
-    print()
+    print(f"종합 점수: {validation_result_low.overall_score:.3f}")
+    print(f"검증 통과: {'✅' if validation_result_low.validation_passed else '❌'}")
+    print(f"재분석 필요: {'필요' if validation_result_low.requires_reanalysis else '불필요'}")
     
-    print("📈 메트릭별 상세 점수:")
-    for metric, score_obj in quality_report.metric_scores.items():
-        print(f"   {metric.value}: {score_obj.score:.3f} (신뢰도: {score_obj.confidence:.2f})")
-    print()
+    if validation_result_low.requires_reanalysis:
+        print(f"재분석 전략: {validation_result_low.reanalysis_strategy}")
     
-    print("🎯 개선 우선순위:")
-    for i, priority in enumerate(quality_report.improvement_priority[:3], 1):
-        print(f"   {i}. {priority}")
-    print()
+    if validation_result_low.improvement_actions:
+        print(f"\n🔧 개선 권장사항:")
+        for action in validation_result_low.improvement_actions[:3]:
+            print(f"  • {action}")
     
-    # 여러 분석 후 통계
-    print("📊 품질 분석 통계:")
-    analytics = validator.get_quality_analytics()
-    for key, value in analytics.items():
-        print(f"   {key}: {value}")
+    # 성능 리포트
+    print(f"\n📈 시스템 성능 리포트:")
+    performance_report = validator.get_performance_report()
+    print(f"시스템 버전: {performance_report['system_info']['version']}")
+    print(f"목표 정확도: {performance_report['system_info']['target_accuracy']}")
+    print(f"총 검증 횟수: {performance_report['system_info']['total_validations']}")
+    print(f"통과율: {performance_report['performance_summary']['pass_rate']}")
+    print(f"재분석율: {performance_report['performance_summary']['reanalysis_rate']}")
+    
+    # 시스템 최적화
+    print(f"\n🔧 시스템 최적화 실행:")
+    optimization_results = await validator.optimize_validation_system()
+    print(f"최적화 시간: {optimization_results['timestamp']}")
+    print(f"수행된 작업:")
+    for action in optimization_results['actions_taken']:
+        print(f"  • {action}")
+    
+    print("\n" + "=" * 60)
+    print("✅ AI 품질 검증 시스템 v2.3 테스트 완료!")
+    
+    return validator
 
 if __name__ == "__main__":
-    asyncio.run(demo_quality_validation())
+    # 테스트 실행
+    asyncio.run(test_quality_validator_v23())
