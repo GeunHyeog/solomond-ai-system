@@ -1,0 +1,149 @@
+# 💎 솔로몬드 AI 엔진 v2.3 Windows 전용 Docker Compose
+# Windows 환경 최적화 및 안정성 보장
+
+version: '3.8'
+
+services:
+  # ============================================================================
+  # 솔로몬드 AI v2.3 Windows 메인 서비스
+  # ============================================================================
+  solomond-ai-v23-windows:
+    build: 
+      context: .
+      dockerfile: Dockerfile.v23.windows
+    container_name: solomond-ai-v23-windows
+    ports:
+      - "8080:8080"
+    environment:
+      # Windows 최적화 환경 변수
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - SOLOMOND_VERSION=v2.3-windows
+      - PLATFORM=windows
+      - PYTHONIOENCODING=utf-8
+      
+      # 하이브리드 LLM 설정 (기본값)
+      - HYBRID_LLM_ENABLED=false
+      - JEWELRY_SPECIALIZED_MODE=true
+      
+      # 성능 최적화 (Windows용)
+      - MAX_WORKERS=2
+      - MAX_CONCURRENT_REQUESTS=5
+      - WHISPER_MODEL_SIZE=base
+      
+      # 데이터베이스 연결 (기본값)
+      - DATABASE_URL=postgresql://solomond_user:${POSTGRES_PASSWORD:-defaultpass}@postgres:5432/solomond_ai_v23
+      - REDIS_URL=redis://redis:6379/0
+      
+      # API 키 (선택적)
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      
+    volumes:
+      - ./uploads:/app/uploads
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+    networks:
+      - solomond-windows-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 60s
+      timeout: 30s
+      retries: 3
+      start_period: 120s
+
+  # ============================================================================
+  # Redis - Windows 호환 설정
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: solomond-redis-windows
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-defaultpass}
+    volumes:
+      - redis_data_windows:/data
+    restart: unless-stopped
+    networks:
+      - solomond-windows-network
+    command: redis-server --requirepass ${REDIS_PASSWORD:-defaultpass}
+
+  # ============================================================================
+  # PostgreSQL - Windows 호환 설정
+  # ============================================================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: solomond-postgres-windows
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=solomond_ai_v23
+      - POSTGRES_USER=solomond_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-defaultpass}
+    volumes:
+      - postgres_data_windows:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - solomond-windows-network
+
+  # ============================================================================
+  # Grafana - 모니터링 (선택적)
+  # ============================================================================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: solomond-grafana-windows
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+    volumes:
+      - grafana_data_windows:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - solomond-windows-network
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # Prometheus - 메트릭 수집 (선택적)
+  # ============================================================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: solomond-prometheus-windows
+    ports:
+      - "9090:9090"
+    volumes:
+      - prometheus_data_windows:/prometheus
+    restart: unless-stopped
+    networks:
+      - solomond-windows-network
+    profiles:
+      - monitoring
+
+# ============================================================================
+# Windows 최적화 볼륨
+# ============================================================================
+volumes:
+  redis_data_windows:
+    driver: local
+  postgres_data_windows:
+    driver: local
+  grafana_data_windows:
+    driver: local
+  prometheus_data_windows:
+    driver: local
+
+# ============================================================================
+# Windows 네트워크 설정
+# ============================================================================
+networks:
+  solomond-windows-network:
+    name: solomond-ai-v23-windows-network
+    driver: bridge
