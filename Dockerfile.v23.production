@@ -1,0 +1,91 @@
+# 💎 솔로몬드 AI 엔진 v2.3 프로덕션 Dockerfile
+# 99.4% 정확도 하이브리드 LLM 시스템을 위한 최적화된 환경
+
+# 멀티스테이지 빌드: 최종 이미지 크기 최소화
+FROM python:3.13-slim as builder
+
+# 빌드 의존성 설치
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python 의존성 사전 설치 (캐시 최적화)
+WORKDIR /build
+COPY requirements_v212.txt .
+RUN pip install --no-cache-dir --user -r requirements_v212.txt
+
+# =============================================================================
+# 프로덕션 이미지 빌드
+FROM python:3.13-slim as production
+
+# 메타데이터
+LABEL maintainer="전근혁 <solomond.jgh@gmail.com>"
+LABEL version="v2.3"
+LABEL description="솔로몬드 AI 엔진 v2.3 - 99.4% 정확도 하이브리드 LLM 시스템"
+
+# 시스템 패키지 설치 (런타임 필요 패키지만)
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libsndfile1 \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# 비권한 사용자 생성 (보안 강화)
+RUN groupadd -r solomond && useradd -r -g solomond solomond
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 빌드 단계에서 설치된 Python 패키지 복사
+COPY --from=builder /root/.local /home/solomond/.local
+ENV PATH=/home/solomond/.local/bin:$PATH
+
+# v2.3 핵심 모듈들 복사 (우선순위별)
+COPY core/hybrid_llm_manager_v23.py ./core/
+COPY core/jewelry_specialized_prompts_v23.py ./core/
+COPY core/ai_quality_validator_v23.py ./core/
+COPY core/ai_benchmark_system_v23.py ./core/
+COPY integration_test_v23.py ./
+COPY solomond_ai_platform_v23_integrated.py ./
+COPY api_server_v23.py ./
+COPY jewelry_stt_ui_v23_hybrid.py ./
+
+# 기타 필요 파일들
+COPY core/__init__.py ./core/
+COPY config/ ./config/
+COPY utils/ ./utils/
+
+# 필요한 디렉토리 생성 및 권한 설정
+RUN mkdir -p uploads data models logs cache \
+    && chown -R solomond:solomond /app \
+    && chmod 755 /app
+
+# 환경 변수 설정
+ENV PYTHONPATH=/app
+ENV ENVIRONMENT=production
+ENV LOG_LEVEL=INFO
+ENV WHISPER_MODEL_SIZE=base
+ENV MAX_WORKERS=4
+ENV HYBRID_LLM_MODE=true
+ENV JEWELRY_SPECIALIZED_MODE=true
+
+# 포트 노출
+EXPOSE 8080
+
+# 헬스체크 (v2.3 최적화)
+HEALTHCHECK --interval=30s --timeout=15s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8080/health/v23 || exit 1
+
+# 사용자 전환
+USER solomond
+
+# 프로덕션 실행 명령 (v2.3 통합 플랫폼)
+CMD ["python", "solomond_ai_platform_v23_integrated.py"]
+
+# 대안 실행 명령들 (환경별)
+# CMD ["python", "api_server_v23.py"]  # API 서버 모드
+# CMD ["python", "jewelry_stt_ui_v23_hybrid.py"]  # UI 모드
+# CMD ["uvicorn", "api_server_v23:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "4"]  # 고성능 모드
