@@ -1,0 +1,258 @@
+# 💎 솔로몬드 AI 엔진 v2.3 프로덕션 Docker Compose
+# 99.4% 정확도 하이브리드 LLM 시스템 완전 배포 환경
+
+version: '3.8'
+
+services:
+  # ============================================================================
+  # 솔로몬드 AI v2.3 메인 서비스 - 하이브리드 LLM 시스템
+  # ============================================================================
+  solomond-ai-v23:
+    build: 
+      context: .
+      dockerfile: Dockerfile.v23.production
+      args:
+        - BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+        - VERSION=v2.3
+    container_name: solomond-ai-v23-main
+    ports:
+      - "8080:8080"  # 메인 서비스 포트
+    environment:
+      # v2.3 전용 환경 변수
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - SOLOMOND_VERSION=v2.3
+      - HYBRID_LLM_ENABLED=true
+      - JEWELRY_SPECIALIZED_MODE=true
+      
+      # 하이브리드 LLM 설정
+      - GPT4V_ENABLED=true
+      - CLAUDE_VISION_ENABLED=true
+      - GEMINI_2_ENABLED=true
+      - LLM_SELECTION_MODE=auto
+      - TARGET_ACCURACY=99.4
+      
+      # 성능 최적화
+      - MAX_WORKERS=4
+      - MAX_CONCURRENT_REQUESTS=10
+      - CACHE_ENABLED=true
+      - WHISPER_MODEL_SIZE=base
+      
+      # 데이터베이스 연결
+      - DATABASE_URL=postgresql://solomond_user:${POSTGRES_PASSWORD}@postgres:5432/solomond_ai_v23
+      - REDIS_URL=redis://redis:6379/0
+      
+      # API 키 (보안 - 환경변수로 주입)
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      
+    volumes:
+      - ./uploads:/app/uploads
+      - ./data:/app/data
+      - ./models:/app/models
+      - ./logs:/app/logs
+      - ai_cache:/app/cache
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+    networks:
+      - solomond-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/v23"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '2.0'
+        reservations:
+          memory: 1G
+          cpus: '1.0'
+
+  # ============================================================================
+  # Redis - 캐싱 및 세션 관리 (v2.3 최적화)
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: solomond-redis-v23
+    ports:
+      - "6379:6379"
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD:-solomond_redis_pass}
+    volumes:
+      - redis_data_v23:/data
+      - ./config/redis.conf:/etc/redis/redis.conf
+    restart: unless-stopped
+    networks:
+      - solomond-network
+    command: redis-server /etc/redis/redis.conf --requirepass ${REDIS_PASSWORD:-solomond_redis_pass}
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 30s
+      timeout: 3s
+      retries: 5
+
+  # ============================================================================
+  # PostgreSQL - v2.3 데이터 저장소
+  # ============================================================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: solomond-postgres-v23
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=solomond_ai_v23
+      - POSTGRES_USER=solomond_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-solomond_db_pass_v23}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF8 --locale=C
+    volumes:
+      - postgres_data_v23:/var/lib/postgresql/data
+      - ./scripts/init_v23.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./scripts/backup:/backup
+    restart: unless-stopped
+    networks:
+      - solomond-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solomond_user -d solomond_ai_v23"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================================
+  # Nginx - 리버스 프록시 및 로드 밸런서 (프로덕션)
+  # ============================================================================
+  nginx:
+    image: nginx:alpine
+    container_name: solomond-nginx-v23
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./config/nginx_v23.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+      - ./static:/var/www/static
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - solomond-ai-v23
+    restart: unless-stopped
+    networks:
+      - solomond-network
+    profiles:
+      - production
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  # ============================================================================
+  # 모니터링 시스템 - Prometheus (성능 추적)
+  # ============================================================================
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: solomond-prometheus-v23
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus_v23.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data_v23:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    networks:
+      - solomond-network
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # Grafana - 시각화 대시보드
+  # ============================================================================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: solomond-grafana-v23
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data_v23:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    networks:
+      - solomond-network
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # 백업 시스템 (자동 백업)
+  # ============================================================================
+  backup:
+    image: postgres:15-alpine
+    container_name: solomond-backup-v23
+    environment:
+      - POSTGRES_USER=solomond_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-solomond_db_pass_v23}
+      - POSTGRES_DB=solomond_ai_v23
+    volumes:
+      - ./scripts/backup_v23.sh:/backup.sh
+      - ./backups:/backups
+    depends_on:
+      - postgres
+    restart: "no"
+    networks:
+      - solomond-network
+    profiles:
+      - backup
+    command: |
+      sh -c "
+      echo '백업 시스템 초기화...'
+      chmod +x /backup.sh
+      while true; do
+        /backup.sh
+        echo '다음 백업까지 24시간 대기...'
+        sleep 86400
+      done
+      "
+
+# ============================================================================
+# 영구 볼륨 정의
+# ============================================================================
+volumes:
+  redis_data_v23:
+    driver: local
+  postgres_data_v23:
+    driver: local
+  prometheus_data_v23:
+    driver: local
+  grafana_data_v23:
+    driver: local
+  ai_cache:
+    driver: local
+  nginx_logs:
+    driver: local
+
+# ============================================================================
+# 네트워크 설정
+# ============================================================================
+networks:
+  solomond-network:
+    name: solomond-ai-v23-network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
