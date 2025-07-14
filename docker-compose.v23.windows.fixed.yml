@@ -1,0 +1,110 @@
+# 💎 솔로몬드 AI v2.3 Windows Docker Compose (FIXED)
+# asyncio-timeout 문제 해결된 완전 호환 버전
+
+services:
+  # 메인 AI 애플리케이션 (Windows 최적화 FIXED)
+  solomond-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile.v23.windows.fixed
+      args:
+        ENVIRONMENT: production
+        PLATFORM: windows
+    container_name: solomond-ai-v23-windows-fixed
+    ports:
+      - "8080:8080"
+    environment:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - PYTHONIOENCODING=utf-8
+      - PLATFORM=windows
+      - MAX_WORKERS=2
+      - WHISPER_MODEL_SIZE=base
+      - DATABASE_URL=postgresql://solomond:${DB_PASSWORD:-solomond123}@postgres:5432/solomond_ai
+      - REDIS_URL=redis://:${REDIS_PASSWORD:-redis123}@redis:6379/0
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+    volumes:
+      - ai_uploads:/app/uploads
+      - ai_data:/app/data
+      - ai_models:/app/models
+      - ai_logs:/app/logs
+      - ai_cache:/app/cache
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - solomond-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 15s
+      retries: 3
+      start_period: 60s
+
+  # PostgreSQL 데이터베이스 (Windows 호환)
+  postgres:
+    image: postgres:15-alpine
+    container_name: solomond-postgres-v23-windows
+    environment:
+      - POSTGRES_DB=solomond_ai
+      - POSTGRES_USER=solomond
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-solomond123}
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --locale=C
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    networks:
+      - solomond-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U solomond -d solomond_ai"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis 캐시 (Windows 호환)
+  redis:
+    image: redis:7-alpine
+    container_name: solomond-redis-v23-windows
+    command: redis-server --requirepass ${REDIS_PASSWORD:-redis123} --appendonly yes
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - solomond-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+# 네트워크 설정
+networks:
+  solomond-network:
+    driver: bridge
+
+# 볼륨 설정 (Windows 호환)
+volumes:
+  ai_uploads:
+    driver: local
+  ai_data:
+    driver: local
+  ai_models:
+    driver: local
+  ai_logs:
+    driver: local
+  ai_cache:
+    driver: local
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
