@@ -1,0 +1,96 @@
+# 💎 솔로몬드 AI 엔진 v2.3 Windows 전용 Dockerfile (PLOTLY HOTFIX)
+# Windows 환경 최적화 및 plotly 의존성 완전 해결
+# Python 3.11 + plotly 패키지 포함
+
+# 멀티스테이지 빌드: Windows 호환성 최적화
+FROM python:3.11-slim as builder
+
+# Windows 호환 빌드 의존성 설치
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python 의존성 사전 설치 (plotly 포함 HOTFIX 버전)
+WORKDIR /build
+COPY requirements_v23_windows_plotly_fix.txt .
+RUN pip install --no-cache-dir --user -r requirements_v23_windows_plotly_fix.txt
+
+# =============================================================================
+# Windows 최적화 프로덕션 이미지
+FROM python:3.11-slim as production
+
+# 메타데이터
+LABEL maintainer="전근혁 <solomond.jgh@gmail.com>"
+LABEL version="v2.3-windows-plotly-hotfix"
+LABEL description="솔로몬드 AI 엔진 v2.3 - Windows 호환 버전 (plotly 포함)"
+
+# Windows 호환 시스템 패키지 설치
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    libsndfile1 \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# 비권한 사용자 생성
+RUN groupadd -r solomond && useradd -r -g solomond solomond
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# 빌드 단계에서 설치된 Python 패키지 복사
+COPY --from=builder /root/.local /home/solomond/.local
+ENV PATH=/home/solomond/.local/bin:$PATH
+
+# Windows 호환 v2.3 핵심 모듈들 복사
+COPY core/__init__.py ./core/
+COPY core/hybrid_llm_manager_v23.py ./core/
+COPY core/jewelry_specialized_prompts_v23.py ./core/
+COPY core/ai_quality_validator_v23.py ./core/
+COPY core/ai_benchmark_system_v23.py ./core/
+COPY core/audio_processor.py ./core/
+COPY core/image_processor.py ./core/
+COPY core/video_processor.py ./core/
+
+# Windows 호환 실행 파일들
+COPY integration_test_v23.py ./
+COPY solomond_ai_platform_v23_integrated.py ./
+COPY api_server_v23.py ./
+COPY jewelry_stt_ui_v23_hybrid.py ./
+
+# 기본 파일들 (Windows 호환성 확인됨)
+COPY main.py ./
+COPY requirements_v23_windows_plotly_fix.txt ./
+
+# 필요한 디렉토리 생성 및 권한 설정
+RUN mkdir -p uploads data models logs cache \
+    && chown -R solomond:solomond /app \
+    && chmod 755 /app
+
+# Windows 최적화 환경 변수
+ENV PYTHONPATH=/app
+ENV ENVIRONMENT=production
+ENV LOG_LEVEL=INFO
+ENV WHISPER_MODEL_SIZE=base
+ENV MAX_WORKERS=2
+ENV PLATFORM=windows
+ENV PYTHONIOENCODING=utf-8
+
+# 포트 노출
+EXPOSE 8080
+
+# Windows 호환 헬스체크
+HEALTHCHECK --interval=30s --timeout=15s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8080/health || curl -f http://localhost:8080/ || exit 1
+
+# 사용자 전환
+USER solomond
+
+# Windows 호환 실행 명령 (가장 안정적인 방법)
+CMD ["python", "-u", "jewelry_stt_ui_v23_hybrid.py"]
+
+# 대안 실행 명령들
+# CMD ["python", "-u", "main.py"]
+# CMD ["python", "-u", "api_server_v23.py"]
