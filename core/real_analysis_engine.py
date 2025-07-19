@@ -12,6 +12,10 @@ from pathlib import Path
 import json
 from datetime import datetime
 
+# GPU 메모리 문제 해결을 위한 CPU 모드 강제 설정
+os.environ['CUDA_VISIBLE_DEVICES'] = ''
+os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+
 # 실제 분석 라이브러리들
 import whisper
 import easyocr

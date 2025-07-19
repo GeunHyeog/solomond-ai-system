@@ -1,0 +1,58 @@
+{
+  "report_timestamp": "2025-07-20T01:15:39.973577",
+  "error_context": {
+    "files_uploaded": {
+      "audio_files": 2,
+      "image_files": 23,
+      "total_files": 25
+    },
+    "error_description": "전체적으로 에러 발생",
+    "platform": "Windows Edge Browser"
+  },
+  "system_info": {
+    "timestamp": "2025-07-20T01:15:39.973597",
+    "python_version": "3.12.3 (main, Jun 18 2025, 17:59:45) [GCC 13.3.0]",
+    "platform": "linux",
+    "memory": "               total        used        free      shared  buff/cache   available\nMem:           6.7Gi       5.2Gi       1.4Gi        83Mi       331Mi       1.5Gi\nSwap:          2.0Gi       1.0Gi       982Mi\n",
+    "gpu_memory": "3330, 4096"
+  },
+  "dependencies": {
+    "streamlit": "1.47.0",
+    "whisper": "20250625",
+    "openai-whisper": "설치되지 않음",
+    "easyocr": "1.7.2",
+    "transformers": "4.53.2",
+    "torch": "2.7.1+cu126",
+    "torchaudio": "설치되지 않음",
+    "torchvision": "0.22.1+cu126",
+    "PIL": "11.3.0",
+    "numpy": "2.2.6",
+    "requests": "2.31.0",
+    "aiohttp": "설치되지 않음"
+  },
+  "streamlit_logs": {},
+  "av_support": {
+    "ffmpeg": "available",
+    "whisper_models": [
+      "tiny.en",
+      "tiny",
+      "base.en",
+      "base",
+      "small.en",
+      "small",
+      "medium.en",
+      "medium",
+      "large-v1",
+      "large-v2",
+      "large-v3",
+      "large",
+      "large-v3-turbo",
+      "turbo"
+    ],
+    "easyocr": "initialized"
+  },
+  "component_tests": {
+    "real_analysis_engine": "import_success",
+    "gpu_disabled": "not_set"
+  }
+}
