@@ -25,7 +25,10 @@ from enum import Enum
 import hashlib
 
 # 외부 API 클라이언트들
-import openai
+try:
+    import openai
+except ImportError:
+    openai = None
 import anthropic
 import google.generativeai as genai
 from PIL import Image, ImageEnhance, ImageFilter

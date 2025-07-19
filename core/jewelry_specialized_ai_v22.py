@@ -114,7 +114,7 @@ class JewelryDatabase:
     certifications: Dict[str, Dict[str, Any]]
     market_data: Dict[str, Dict[str, Any]]
 
-class JewelrySpecializedAIV22:
+class JewelrySpecializedAI:
     """주얼리 특화 AI 모델 v2.2"""
     
     def __init__(self):
