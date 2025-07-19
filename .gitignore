@@ -67,4 +67,4 @@ coverage/
 # 백업
 *.bak
 *.backup
-*.orig
+*.orig.mcp.json

@@ -14,7 +14,11 @@ Hybrid LLM Manager v2.3 for Solomond Jewelry AI Platform
 """
 
 import asyncio
-import aiohttp
+try:
+    import aiohttp
+except ImportError:
+    # Fallback to requests for HTTP operations
+    import requests
 import logging
 import json
 import time
@@ -296,7 +300,7 @@ class ModelPerformanceTracker:
         best_model_name = max(scores, key=scores.get)
         return AIModelType(best_model_name)
 
-class HybridLLMManagerV23:
+class HybridLLMManager:
     """하이브리드 LLM 매니저 v2.3 - 차세대 AI 통합 시스템"""
     
     def __init__(self, config_path: str = "config/hybrid_llm_v23.json"):
