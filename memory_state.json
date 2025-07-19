@@ -1,0 +1,163 @@
+{
+  "timestamp": "2025-07-20T02:18:08.198560",
+  "session_id": "20250720_021808",
+  "git_status": {
+    "recent_commits": [
+      "73521a1 🎭 브라우저 모니터링 및 디버깅 시스템 완성",
+      "7065fc3 🚀 멀티파일 배치 분석 기능 완성",
+      "e0acfb2 🚀 실제 분석 시스템 완전 구현 - 가짜 분석 완전 교체",
+      "720ccf7 🔧 주요 의존성 오류 수정 및 시스템 안정화",
+      "df9be4a 🔧 백업 다국어 번역기 - googletrans 의존성 없이 작동"
+    ],
+    "uncommitted_changes": [
+      "?? CLAUDE.md",
+      "?? auto_memory_update.py",
+      "?? demo_captures/screenshot_20250720_005112_000.png",
+      "?? demo_captures/screenshot_20250720_005112_001.png",
+      "?? demo_captures/screenshot_20250720_005112_002.png",
+      "?? demo_captures/screenshot_20250720_005112_003.png",
+      "?? demo_captures/screenshot_20250720_005112_004.png",
+      "?? demo_captures/screenshot_20250720_005112_005.png",
+      "?? demo_captures/screenshot_20250720_005112_006.png",
+      "?? demo_captures/screenshot_20250720_005112_007.png",
+      "?? demo_captures/screenshot_20250720_005112_008.png",
+      "?? demo_captures/screenshot_20250720_005112_009.png",
+      "?? demo_captures/screenshot_20250720_005112_010.png",
+      "?? demo_captures/screenshot_20250720_005112_011.png",
+      "?? demo_captures/screenshot_20250720_005112_012.png",
+      "?? demo_captures/screenshot_20250720_005112_013.png",
+      "?? demo_captures/screenshot_20250720_005112_014.png",
+      "?? demo_captures/screenshot_20250720_005112_015.png",
+      "?? demo_captures/screenshot_20250720_005112_016.png",
+      "?? demo_captures/screenshot_20250720_005112_017.png",
+      "?? demo_captures/screenshot_20250720_005112_018.png",
+      "?? demo_captures/screenshot_20250720_005112_019.png",
+      "?? demo_captures/screenshot_20250720_005112_020.png",
+      "?? demo_captures/screenshot_20250720_005112_021.png",
+      "?? demo_captures/screenshot_20250720_005112_022.png",
+      "?? demo_captures/screenshot_20250720_005112_023.png",
+      "?? demo_captures/screenshot_20250720_005112_024.png",
+      "?? demo_captures/screenshot_20250720_005112_025.png",
+      "?? demo_captures/screenshot_20250720_005112_026.png",
+      "?? demo_captures/screenshot_20250720_005112_027.png",
+      "?? demo_captures/screenshot_20250720_005112_028.png",
+      "?? demo_captures/screenshot_20250720_005112_029.png",
+      "?? demo_captures/screenshot_20250720_005112_030.png",
+      "?? demo_captures/screenshot_20250720_005112_031.png",
+      "?? demo_captures/screenshot_20250720_005112_032.png",
+      "?? demo_captures/screenshot_20250720_005112_033.png",
+      "?? demo_captures/screenshot_20250720_005112_034.png",
+      "?? demo_captures/screenshot_20250720_005112_035.png",
+      "?? demo_captures/screenshot_20250720_005112_036.png",
+      "?? demo_captures/screenshot_20250720_005112_037.png",
+      "?? demo_captures/screenshot_20250720_005112_038.png",
+      "?? demo_captures/screenshot_20250720_005112_039.png",
+      "?? demo_captures/screenshot_20250720_005112_040.png",
+      "?? demo_captures/screenshot_20250720_005112_041.png",
+      "?? demo_captures/screenshot_20250720_005112_042.png",
+      "?? demo_captures/screenshot_20250720_005112_043.png",
+      "?? demo_captures/screenshot_20250720_005112_044.png",
+      "?? demo_captures/screenshot_20250720_005112_045.png",
+      "?? demo_captures/screenshot_20250720_005112_046.png",
+      "?? demo_captures/screenshot_20250720_005112_047.png",
+      "?? demo_captures/screenshot_20250720_005112_048.png",
+      "?? demo_captures/screenshot_20250720_005112_049.png",
+      "?? demo_captures/screenshot_20250720_005955_000.png",
+      "?? demo_captures/screenshot_20250720_005955_001.png",
+      "?? demo_captures/screenshot_20250720_005955_002.png",
+      "?? demo_captures/screenshot_20250720_005955_003.png",
+      "?? demo_captures/screenshot_20250720_005955_004.png",
+      "?? demo_captures/screenshot_20250720_005955_005.png",
+      "?? demo_captures/screenshot_20250720_005955_006.png",
+      "?? demo_captures/screenshot_20250720_005955_007.png",
+      "?? demo_captures/screenshot_20250720_005955_008.png",
+      "?? demo_captures/screenshot_20250720_005955_009.png",
+      "?? demo_captures/screenshot_20250720_005955_010.png",
+      "?? demo_captures/screenshot_20250720_005955_011.png",
+      "?? demo_captures/screenshot_20250720_005955_012.png",
+      "?? demo_captures/screenshot_20250720_005955_013.png",
+      "?? demo_captures/screenshot_20250720_005955_014.png",
+      "?? demo_captures/screenshot_20250720_005955_015.png",
+      "?? demo_captures/screenshot_20250720_005955_016.png",
+      "?? demo_captures/screenshot_20250720_005955_017.png",
+      "?? demo_captures/screenshot_20250720_005955_018.png",
+      "?? demo_captures/screenshot_20250720_005955_019.png",
+      "?? demo_captures/screenshot_20250720_005955_020.png",
+      "?? demo_captures/screenshot_20250720_005955_021.png",
+      "?? demo_captures/screenshot_20250720_005955_022.png",
+      "?? demo_captures/screenshot_20250720_005955_023.png",
+      "?? demo_captures/screenshot_20250720_005955_024.png",
+      "?? demo_captures/screenshot_20250720_005955_025.png",
+      "?? demo_captures/screenshot_20250720_005955_026.png",
+      "?? demo_captures/screenshot_20250720_005955_027.png",
+      "?? demo_captures/screenshot_20250720_005955_028.png",
+      "?? demo_captures/screenshot_20250720_005955_029.png",
+      "?? demo_captures/screenshot_20250720_005955_030.png",
+      "?? demo_captures/screenshot_20250720_005955_031.png",
+      "?? demo_captures/screenshot_20250720_005955_032.png",
+      "?? demo_captures/screenshot_20250720_005955_033.png",
+      "?? demo_captures/screenshot_20250720_005955_034.png",
+      "?? demo_captures/screenshot_20250720_005955_035.png",
+      "?? demo_captures/screenshot_20250720_005955_036.png",
+      "?? demo_captures/screenshot_20250720_005955_037.png",
+      "?? memory_sync_system.py",
+      "?? test_files/"
+    ],
+    "current_branch": "main",
+    "last_commit_hash": "73521a1"
+  },
+  "file_structure": {
+    "jewelry_stt_ui_v23_real.py": {
+      "exists": true,
+      "size": 34690,
+      "modified": "2025-07-20T00:37:19.040538",
+      "lines": 889
+    },
+    "core/real_analysis_engine.py": {
+      "exists": true,
+      "size": 13762,
+      "modified": "2025-07-20T01:18:06.260483",
+      "lines": 359
+    },
+    "windows_demo_monitor.py": {
+      "exists": true,
+      "size": 15585,
+      "modified": "2025-07-20T01:08:42.228500",
+      "lines": 423
+    },
+    "demo_capture_system.py": {
+      "exists": true,
+      "size": 16836,
+      "modified": "2025-07-20T00:47:26.348526",
+      "lines": 419
+    },
+    "collect_debug_info.py": {
+      "exists": true,
+      "size": 6591,
+      "modified": "2025-07-20T01:15:34.732498",
+      "lines": 203
+    },
+    "CLAUDE.md": {
+      "exists": true,
+      "size": 6061,
+      "modified": "2025-07-20T02:16:28.316409",
+      "lines": 161
+    }
+  },
+  "running_processes": {
+    "streamlit_running": true,
+    "streamlit_pids": [
+      "16127"
+    ]
+  },
+  "recent_activities": [
+    "최근 24시간 내 수정된 Python 파일: 148",
+    "최근 커밋: 73521a1 🎭 브라우저 모니터링 및 디버깅 시스템 완성"
+  ],
+  "development_phase": "브라우저 모니터링 시스템 완성 단계",
+  "next_steps": [
+    "현재 개발 상태 재평가",
+    "미완성 기능 식별",
+    "테스트 및 디버깅 수행"
+  ]
+}
