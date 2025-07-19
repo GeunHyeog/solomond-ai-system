@@ -79,7 +79,8 @@ class SolomondRealAnalysisUI:
         self.display_system_status()
         
         # 탭 구성
-        tab1, tab2, tab3, tab4 = st.tabs([
+        tab1, tab2, tab3, tab4, tab5 = st.tabs([
+            "📁 멀티파일 분석",
             "🎤 음성 분석", 
             "🖼️ 이미지 분석", 
             "📊 분석 결과", 
@@ -87,17 +88,364 @@ class SolomondRealAnalysisUI:
         ])
         
         with tab1:
-            self.render_audio_analysis_tab()
+            self.render_multifile_analysis_tab()
         
         with tab2:
-            self.render_image_analysis_tab()
+            self.render_audio_analysis_tab()
         
         with tab3:
-            self.render_results_tab()
+            self.render_image_analysis_tab()
         
         with tab4:
+            self.render_results_tab()
+        
+        with tab5:
             self.render_settings_tab()
     
+    def render_multifile_analysis_tab(self):
+        """멀티파일 분석 탭"""
+        
+        st.markdown("## 📁 멀티파일 배치 분석")
+        st.markdown("**🚀 모든 지원 형식을 한번에 업로드하여 배치 분석**")
+        
+        if not REAL_ANALYSIS_AVAILABLE:
+            st.error("❌ 실제 분석 엔진이 로드되지 않았습니다.")
+            return
+        
+        # 지원 형식 안내
+        with st.expander("📋 지원하는 파일 형식"):
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown("**🎤 음성 파일:**")
+                st.markdown("- WAV, MP3, FLAC, M4A, MP4")
+                st.markdown("- Whisper STT로 실제 변환")
+            
+            with col2:
+                st.markdown("**🖼️ 이미지 파일:**")
+                st.markdown("- JPG, JPEG, PNG, BMP, TIFF")
+                st.markdown("- EasyOCR로 실제 텍스트 추출")
+        
+        # 멀티파일 업로드
+        uploaded_files = st.file_uploader(
+            "파일들을 선택하세요 (여러 개 동시 선택 가능)",
+            type=['wav', 'mp3', 'flac', 'm4a', 'mp4', 'jpg', 'jpeg', 'png', 'bmp', 'tiff'],
+            accept_multiple_files=True,
+            help="Ctrl/Cmd + 클릭으로 여러 파일 선택 가능"
+        )
+        
+        if uploaded_files:
+            # 업로드된 파일 정보 표시
+            st.markdown("### 📋 업로드된 파일 목록")
+            
+            audio_files = []
+            image_files = []
+            total_size = 0
+            
+            # 파일 분류
+            for file in uploaded_files:
+                file_size = len(file.getvalue()) / (1024 * 1024)
+                total_size += file_size
+                
+                file_ext = file.name.split('.')[-1].lower()
+                
+                if file_ext in ['wav', 'mp3', 'flac', 'm4a', 'mp4']:
+                    audio_files.append(file)
+                elif file_ext in ['jpg', 'jpeg', 'png', 'bmp', 'tiff']:
+                    image_files.append(file)
+            
+            # 파일 정보 표시
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                st.metric("🎤 음성 파일", f"{len(audio_files)}개")
+            
+            with col2:
+                st.metric("🖼️ 이미지 파일", f"{len(image_files)}개")
+            
+            with col3:
+                st.metric("📦 총 크기", f"{total_size:.2f} MB")
+            
+            # 파일 목록 상세 표시
+            if audio_files or image_files:
+                with st.expander("🔍 파일 상세 정보"):
+                    
+                    if audio_files:
+                        st.markdown("**🎤 음성 파일들:**")
+                        for i, file in enumerate(audio_files, 1):
+                            file_size = len(file.getvalue()) / (1024 * 1024)
+                            st.write(f"{i}. {file.name} ({file_size:.2f} MB)")
+                    
+                    if image_files:
+                        st.markdown("**🖼️ 이미지 파일들:**")
+                        for i, file in enumerate(image_files, 1):
+                            file_size = len(file.getvalue()) / (1024 * 1024)
+                            st.write(f"{i}. {file.name} ({file_size:.2f} MB)")
+            
+            # 분석 설정
+            st.markdown("### ⚙️ 배치 분석 설정")
+            
+            col1, col2, col3 = st.columns(3)
+            
+            with col1:
+                audio_language = st.selectbox(
+                    "음성 언어",
+                    ["ko", "en", "auto"],
+                    help="모든 음성 파일에 적용"
+                )
+            
+            with col2:
+                whisper_model = st.selectbox(
+                    "Whisper 모델",
+                    ["tiny", "base", "small", "medium"],
+                    index=1,
+                    help="정확도 vs 속도"
+                )
+            
+            with col3:
+                cpu_mode = st.checkbox(
+                    "CPU 모드 강제",
+                    value=True,
+                    help="GPU 메모리 부족 방지"
+                )
+            
+            # 배치 분석 시작
+            if st.button("🚀 멀티파일 배치 분석 시작", type="primary"):
+                self.process_multifile_analysis(
+                    audio_files, image_files, 
+                    audio_language, whisper_model, cpu_mode
+                )
+        
+        else:
+            st.info("📁 여러 파일을 선택하여 배치 분석을 시작하세요.")
+            st.markdown("**💡 사용법:**")
+            st.markdown("1. 위의 파일 업로드 버튼 클릭")
+            st.markdown("2. Ctrl/Cmd + 클릭으로 여러 파일 선택")
+            st.markdown("3. 음성과 이미지 파일을 함께 선택 가능")
+            st.markdown("4. 설정 확인 후 배치 분석 시작")
+    
+    def process_multifile_analysis(self, audio_files: List, image_files: List, 
+                                 language: str, model_size: str, cpu_mode: bool):
+        """멀티파일 배치 분석 처리"""
+        
+        total_files = len(audio_files) + len(image_files)
+        
+        if total_files == 0:
+            st.warning("⚠️ 분석할 파일이 없습니다.")
+            return
+        
+        # CPU 모드 설정
+        if cpu_mode:
+            os.environ['CUDA_VISIBLE_DEVICES'] = ''
+        
+        # 진행 상황 표시
+        st.markdown("### 🔄 배치 분석 진행 상황")
+        
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        results_container = st.container()
+        
+        batch_results = []
+        processed_count = 0
+        
+        # 배치 분석 시작 시간
+        batch_start_time = time.time()
+        
+        try:
+            # 음성 파일 분석
+            for i, audio_file in enumerate(audio_files):
+                
+                status_text.text(f"🎤 음성 분석 중: {audio_file.name} ({i+1}/{len(audio_files)})")
+                
+                # 임시 파일 생성
+                with tempfile.NamedTemporaryFile(
+                    delete=False, 
+                    suffix=f".{audio_file.name.split('.')[-1]}"
+                ) as tmp_file:
+                    tmp_file.write(audio_file.getvalue())
+                    tmp_file_path = tmp_file.name
+                
+                try:
+                    # 실제 분석 실행
+                    result = self.analysis_engine.analyze_audio_file(tmp_file_path, language)
+                    result['batch_index'] = processed_count + 1
+                    result['file_type'] = 'audio'
+                    batch_results.append(result)
+                    
+                    # 결과 실시간 표시
+                    with results_container:
+                        if result.get('status') == 'success':
+                            st.success(f"✅ {audio_file.name}: {result['text_length']}글자 추출 ({result['processing_time']}초)")
+                        else:
+                            st.error(f"❌ {audio_file.name}: {result.get('error', 'Unknown error')}")
+                
+                except Exception as e:
+                    error_result = {
+                        'status': 'error',
+                        'error': str(e),
+                        'file_name': audio_file.name,
+                        'batch_index': processed_count + 1,
+                        'file_type': 'audio'
+                    }
+                    batch_results.append(error_result)
+                    
+                    with results_container:
+                        st.error(f"❌ {audio_file.name}: {str(e)}")
+                
+                finally:
+                    # 임시 파일 정리
+                    try:
+                        os.unlink(tmp_file_path)
+                    except:
+                        pass
+                
+                # 진행률 업데이트
+                processed_count += 1
+                progress_bar.progress(processed_count / total_files)
+            
+            # 이미지 파일 분석
+            for i, image_file in enumerate(image_files):
+                
+                status_text.text(f"🖼️ 이미지 분석 중: {image_file.name} ({i+1}/{len(image_files)})")
+                
+                # 임시 파일 생성
+                with tempfile.NamedTemporaryFile(
+                    delete=False,
+                    suffix=f".{image_file.name.split('.')[-1]}"
+                ) as tmp_file:
+                    tmp_file.write(image_file.getvalue())
+                    tmp_file_path = tmp_file.name
+                
+                try:
+                    # 실제 분석 실행
+                    result = self.analysis_engine.analyze_image_file(tmp_file_path)
+                    result['batch_index'] = processed_count + 1
+                    result['file_type'] = 'image'
+                    batch_results.append(result)
+                    
+                    # 결과 실시간 표시
+                    with results_container:
+                        if result.get('status') == 'success':
+                            st.success(f"✅ {image_file.name}: {result['blocks_detected']}개 블록 추출 ({result['processing_time']}초)")
+                        else:
+                            st.error(f"❌ {image_file.name}: {result.get('error', 'Unknown error')}")
+                
+                except Exception as e:
+                    error_result = {
+                        'status': 'error',
+                        'error': str(e),
+                        'file_name': image_file.name,
+                        'batch_index': processed_count + 1,
+                        'file_type': 'image'
+                    }
+                    batch_results.append(error_result)
+                    
+                    with results_container:
+                        st.error(f"❌ {image_file.name}: {str(e)}")
+                
+                finally:
+                    # 임시 파일 정리
+                    try:
+                        os.unlink(tmp_file_path)
+                    except:
+                        pass
+                
+                # 진행률 업데이트
+                processed_count += 1
+                progress_bar.progress(processed_count / total_files)
+            
+            # 배치 분석 완료
+            batch_end_time = time.time()
+            total_batch_time = batch_end_time - batch_start_time
+            
+            # 최종 결과 요약
+            self.display_batch_results_summary(batch_results, total_batch_time)
+            
+            # 세션에 결과 저장
+            if 'analysis_results' not in st.session_state:
+                st.session_state.analysis_results = []
+            st.session_state.analysis_results.extend(batch_results)
+            
+            status_text.text("✅ 멀티파일 배치 분석 완료!")
+            
+        except Exception as e:
+            st.error(f"❌ 배치 분석 중 오류: {str(e)}")
+            self.logger.error(f"배치 분석 오류: {e}")
+    
+    def display_batch_results_summary(self, batch_results: List[Dict], total_time: float):
+        """배치 분석 결과 요약 표시"""
+        
+        st.markdown("### 📊 배치 분석 완료 요약")
+        
+        # 통계 계산
+        total_files = len(batch_results)
+        successful_files = len([r for r in batch_results if r.get('status') == 'success'])
+        audio_files = len([r for r in batch_results if r.get('file_type') == 'audio'])
+        image_files = len([r for r in batch_results if r.get('file_type') == 'image'])
+        
+        # 메트릭 표시
+        col1, col2, col3, col4 = st.columns(4)
+        
+        with col1:
+            st.metric("총 파일", f"{total_files}개")
+        
+        with col2:
+            st.metric("성공", f"{successful_files}개")
+        
+        with col3:
+            success_rate = (successful_files / total_files * 100) if total_files > 0 else 0
+            st.metric("성공률", f"{success_rate:.1f}%")
+        
+        with col4:
+            st.metric("총 처리시간", f"{total_time:.1f}초")
+        
+        # 파일 타입별 통계
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**🎤 음성 파일 결과:**")
+            audio_success = len([r for r in batch_results 
+                               if r.get('file_type') == 'audio' and r.get('status') == 'success'])
+            st.write(f"- 처리: {audio_files}개")
+            st.write(f"- 성공: {audio_success}개")
+            
+            if audio_success > 0:
+                total_text = sum(r.get('text_length', 0) for r in batch_results 
+                               if r.get('file_type') == 'audio' and r.get('status') == 'success')
+                st.write(f"- 총 추출 텍스트: {total_text}글자")
+        
+        with col2:
+            st.markdown("**🖼️ 이미지 파일 결과:**")
+            image_success = len([r for r in batch_results 
+                               if r.get('file_type') == 'image' and r.get('status') == 'success'])
+            st.write(f"- 처리: {image_files}개")
+            st.write(f"- 성공: {image_success}개")
+            
+            if image_success > 0:
+                total_blocks = sum(r.get('blocks_detected', 0) for r in batch_results 
+                                 if r.get('file_type') == 'image' and r.get('status') == 'success')
+                st.write(f"- 총 텍스트 블록: {total_blocks}개")
+        
+        # 전체 결과 다운로드
+        if st.button("📥 배치 분석 결과 전체 다운로드"):
+            batch_json = json.dumps({
+                'batch_summary': {
+                    'total_files': total_files,
+                    'successful_files': successful_files,
+                    'success_rate': success_rate,
+                    'total_processing_time': total_time,
+                    'audio_files': audio_files,
+                    'image_files': image_files
+                },
+                'individual_results': batch_results
+            }, indent=2, ensure_ascii=False)
+            
+            st.download_button(
+                "JSON 파일 다운로드",
+                data=batch_json,
+                file_name=f"batch_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+                mime="application/json"
+            )
+
     def display_system_status(self):
         """시스템 상태 표시"""
         
