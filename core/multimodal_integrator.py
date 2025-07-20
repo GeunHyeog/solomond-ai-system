@@ -15,7 +15,7 @@ import re
 from pathlib import Path
 
 # 각 모듈 import
-from .analyzer import STTAnalyzer, get_stt_analyzer
+from .analyzer import EnhancedAudioAnalyzer
 from .video_processor import get_video_processor, extract_audio_from_video
 from .image_processor import get_image_processor, process_image_file, process_document_file
 from .web_crawler import get_web_crawler, crawl_url, crawl_jewelry_news
@@ -68,7 +68,7 @@ class MultimodalIntegrator:
     def _get_stt_analyzer(self):
         """STT 분석기 지연 초기화"""
         if self.stt_analyzer is None:
-            self.stt_analyzer = get_stt_analyzer()
+            self.stt_analyzer = EnhancedAudioAnalyzer()
         return self.stt_analyzer
     
     async def process_multimodal_session(self, 

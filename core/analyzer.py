@@ -632,3 +632,15 @@ def get_enhanced_features_info() -> Dict:
             "description": "SQLite 기반 주얼리 전문 용어 데이터베이스"
         }
     }
+
+# 호환성을 위한 별칭들
+STTAnalyzer = EnhancedAudioAnalyzer
+JewelrySTTAnalyzer = EnhancedAudioAnalyzer
+
+def get_stt_analyzer():
+    """STT 분석기 인스턴스 반환 (호환성 함수)"""
+    return EnhancedAudioAnalyzer()
+
+def get_jewelry_stt_analyzer():
+    """주얼리 특화 STT 분석기 인스턴스 반환 (호환성 함수)"""
+    return EnhancedAudioAnalyzer(enable_jewelry_enhancement=True)
