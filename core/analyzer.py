@@ -22,7 +22,7 @@ try:
     JEWELRY_ENHANCER_AVAILABLE = True
 except ImportError:
     JEWELRY_ENHANCER_AVAILABLE = False
-    print("⚠️ 기존 주얼리 특화 모듈 로드 실패 - 기본 STT 기능만 사용")
+    print("[WARNING] 기존 주얼리 특화 모듈 로드 실패 - 기본 STT 기능만 사용")
 
 # 새로운 확장 모듈 임포트
 try:
@@ -30,21 +30,21 @@ try:
     MULTILINGUAL_AVAILABLE = True
 except ImportError:
     MULTILINGUAL_AVAILABLE = False
-    print("⚠️ 다국어 번역 모듈 로드 실패")
+    print("[WARNING] 다국어 번역 모듈 로드 실패")
 
 try:
     from .jewelry_database import JewelryTerminologyDB
     DATABASE_AVAILABLE = True
 except ImportError:
     DATABASE_AVAILABLE = False
-    print("⚠️ 주얼리 데이터베이스 모듈 로드 실패")
+    print("[WARNING] 주얼리 데이터베이스 모듈 로드 실패")
 
 try:
     from .audio_processor import JewelryAudioProcessor
     AUDIO_PROCESSOR_AVAILABLE = True
 except ImportError:
     AUDIO_PROCESSOR_AVAILABLE = False
-    print("⚠️ 고급 오디오 처리 모듈 로드 실패")
+    print("[WARNING] 고급 오디오 처리 모듈 로드 실패")
 
 class EnhancedAudioAnalyzer:
     """통합 음성 분석 엔진 클래스 (주얼리 특화 + 다국어 + 고급 오디오 처리)"""
@@ -100,9 +100,9 @@ class EnhancedAudioAnalyzer:
         if self.enable_jewelry_enhancement:
             try:
                 self.jewelry_enhancer = get_jewelry_enhancer()
-                print("💎 주얼리 특화 기능 활성화")
+                print("[JEWELRY] 주얼리 특화 기능 활성화")
             except Exception as e:
-                print(f"⚠️ 주얼리 특화 기능 비활성화: {e}")
+                print(f"[WARNING] 주얼리 특화 기능 비활성화: {e}")
                 self.enable_jewelry_enhancement = False
                 self.jewelry_enhancer = None
         else:
@@ -317,7 +317,7 @@ class EnhancedAudioAnalyzer:
             
             # 4️⃣ 주얼리 특화 처리
             if use_jewelry_features and transcribed_text.strip():
-                print("💎 주얼리 특화 후처리 시작...")
+                print("[JEWELRY] 주얼리 특화 후처리 시작...")
                 jewelry_start_time = time.time()
                 
                 try:
@@ -356,7 +356,7 @@ class EnhancedAudioAnalyzer:
                     jewelry_processing_time = round(time.time() - jewelry_start_time, 2)
                     result_data["jewelry_processing_time"] = jewelry_processing_time
                     
-                    print(f"💎 주얼리 특화 처리 완료: {jewelry_processing_time}초")
+                    print(f"[JEWELRY] 주얼리 특화 처리 완료: {jewelry_processing_time}초")
                     
                 except Exception as e:
                     print(f"⚠️ 주얼리 특화 처리 오류: {e}")
