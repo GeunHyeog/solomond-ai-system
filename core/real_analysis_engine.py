@@ -41,6 +41,24 @@ try:
 except ImportError:
     gemini_available = False
 
+try:
+    from .document_processor import document_processor
+    document_processor_available = True
+except ImportError:
+    document_processor_available = False
+
+try:
+    from .youtube_processor import youtube_processor
+    youtube_processor_available = True
+except ImportError:
+    youtube_processor_available = False
+
+try:
+    from .large_video_processor import large_video_processor
+    large_video_processor_available = True
+except ImportError:
+    large_video_processor_available = False
+
 class RealAnalysisEngine:
     """실제 파일 분석 엔진"""
     
@@ -60,7 +78,7 @@ class RealAnalysisEngine:
             "last_analysis_time": None
         }
         
-        self.logger.info("🚀 실제 분석 엔진 초기화 완료")
+        self.logger.info("[INFO] 실제 분석 엔진 초기화 완료")
     
     def _setup_logging(self) -> logging.Logger:
         """로깅 설정"""
@@ -523,6 +541,385 @@ class RealAnalysisEngine:
         
         return list(set(found_keywords))  # 중복 제거
     
+    def analyze_document_file(self, file_path: str) -> Dict[str, Any]:
+        """문서 파일 분석 (PDF, DOCX, DOC)"""
+        start_time = time.time()
+        file_name = os.path.basename(file_path)
+        
+        try:
+            self.logger.info(f"[INFO] 문서 파일 분석 시작: {file_name}")
+            
+            if not document_processor_available:
+                raise Exception("문서 처리 모듈을 사용할 수 없습니다. document_processor를 확인하세요.")
+            
+            # 문서 텍스트 추출
+            doc_result = document_processor.process_document(file_path)
+            
+            if doc_result['status'] != 'success':
+                if doc_result['status'] == 'partial_success':
+                    self.logger.warning(f"[WARNING] 문서 부분 처리: {doc_result.get('warning', '')}")
+                else:
+                    raise Exception(doc_result.get('error', '문서 처리 실패'))
+            
+            extracted_text = doc_result['extracted_text']
+            
+            if not extracted_text or len(extracted_text.strip()) < 10:
+                raise Exception("추출된 텍스트가 너무 짧거나 비어있습니다")
+            
+            # AI 요약 생성
+            summary = self._generate_summary(extracted_text)
+            
+            # 주얼리 키워드 추출
+            jewelry_keywords = self._extract_jewelry_keywords(extracted_text)
+            
+            # 텍스트 품질 평가
+            quality_score = min(100, len(extracted_text) / 10)  # 간단한 품질 점수
+            
+            processing_time = time.time() - start_time
+            
+            result = {
+                "status": "success",
+                "file_name": file_name,
+                "file_path": file_path,
+                "file_type": doc_result.get('file_type', 'unknown'),
+                "extracted_text": extracted_text,
+                "text_length": len(extracted_text),
+                "summary": summary,
+                "jewelry_keywords": jewelry_keywords,
+                "quality_score": round(quality_score, 1),
+                "processing_time": round(processing_time, 2),
+                "timestamp": datetime.now().isoformat(),
+                "document_metadata": doc_result.get('metadata', {}),
+                "document_info": {
+                    "total_characters": doc_result.get('total_characters', 0),
+                    "page_count": doc_result.get('page_count'),
+                    "paragraph_count": doc_result.get('paragraph_count')
+                }
+            }
+            
+            # 통계 업데이트
+            self._update_stats(processing_time, True)
+            self.logger.info(f"[SUCCESS] 문서 분석 완료 ({processing_time:.1f}초)")
+            
+            return result
+            
+        except Exception as e:
+            processing_time = time.time() - start_time
+            error_msg = f"문서 분석 오류: {str(e)}"
+            
+            # 통계 업데이트
+            self._update_stats(processing_time, False)
+            self.logger.error(f"[ERROR] {error_msg}")
+            
+            return {
+                "status": "error",
+                "error": error_msg,
+                "file_name": file_name,
+                "file_path": file_path,
+                "processing_time": round(processing_time, 2),
+                "timestamp": datetime.now().isoformat()
+            }
+    
+    def analyze_youtube_video(self, url: str, language: str = "ko") -> Dict[str, Any]:
+        """YouTube 영상 분석"""
+        start_time = time.time()
+        
+        try:
+            self.logger.info(f"[INFO] YouTube 영상 분석 시작: {url}")
+            
+            if not youtube_processor_available:
+                raise Exception("YouTube 처리 모듈을 사용할 수 없습니다. youtube_processor를 확인하세요.")
+            
+            if not youtube_processor.is_youtube_url(url):
+                raise Exception("유효하지 않은 YouTube URL입니다.")
+            
+            # 1. 영상 정보 가져오기
+            video_info = youtube_processor.get_video_info(url)
+            if video_info['status'] != 'success':
+                raise Exception(f"영상 정보 조회 실패: {video_info.get('error', 'Unknown')}")
+            
+            # 2. 오디오 다운로드
+            self.logger.info("[INFO] YouTube 오디오 다운로드 중...")
+            download_result = youtube_processor.download_audio(url)
+            
+            if download_result['status'] != 'success':
+                raise Exception(f"오디오 다운로드 실패: {download_result.get('error', 'Unknown')}")
+            
+            audio_file = download_result['audio_file']
+            
+            # 3. 오디오 분석 수행
+            self.logger.info("[INFO] 다운로드된 오디오 분석 중...")
+            audio_analysis = self.analyze_audio_file(audio_file, language=language)
+            
+            if audio_analysis['status'] != 'success':
+                # 오디오 분석 실패해도 기본 정보는 반환
+                self.logger.warning(f"[WARNING] 오디오 분석 실패: {audio_analysis.get('error', 'Unknown')}")
+            
+            processing_time = time.time() - start_time
+            
+            # 결과 통합
+            result = {
+                "status": "success",
+                "source_type": "youtube",
+                "url": url,
+                "video_info": video_info,
+                "download_info": {
+                    "audio_file": download_result['audio_file'],
+                    "file_size_mb": download_result.get('file_size_mb', 0),
+                    "download_time": download_result.get('processing_time', 0)
+                },
+                "audio_analysis": audio_analysis,
+                "processing_time": round(processing_time, 2),
+                "timestamp": datetime.now().isoformat()
+            }
+            
+            # STT 결과가 있으면 YouTube 특화 분석 추가
+            if audio_analysis.get('status') == 'success' and audio_analysis.get('transcription'):
+                # YouTube 영상 + STT 결과 통합 분석
+                combined_text = f"영상 제목: {video_info['title']}\n"
+                combined_text += f"설명: {video_info.get('description', '')[:500]}...\n"
+                combined_text += f"음성 내용: {audio_analysis['transcription']}"
+                
+                # 통합 요약 생성
+                combined_summary = self._generate_summary(combined_text)
+                combined_keywords = self._extract_jewelry_keywords(combined_text)
+                
+                result["combined_analysis"] = {
+                    "integrated_summary": combined_summary,
+                    "jewelry_keywords": combined_keywords,
+                    "content_type": self._analyze_content_type(video_info, audio_analysis),
+                    "engagement_metrics": {
+                        "view_count": video_info.get('view_count', 0),
+                        "like_count": video_info.get('like_count', 0),
+                        "duration": video_info.get('duration_formatted', 'N/A')
+                    }
+                }
+            
+            # 통계 업데이트
+            self._update_stats(processing_time, True)
+            self.logger.info(f"[SUCCESS] YouTube 영상 분석 완료 ({processing_time:.1f}초)")
+            
+            # 임시 파일 정리 (선택적)
+            try:
+                if os.path.exists(audio_file):
+                    os.unlink(audio_file)
+                    self.logger.info("[INFO] 임시 오디오 파일 정리됨")
+            except:
+                pass  # 정리 실패해도 무시
+            
+            return result
+            
+        except Exception as e:
+            processing_time = time.time() - start_time
+            error_msg = f"YouTube 영상 분석 오류: {str(e)}"
+            
+            # 통계 업데이트
+            self._update_stats(processing_time, False)
+            self.logger.error(f"[ERROR] {error_msg}")
+            
+            return {
+                "status": "error",
+                "error": error_msg,
+                "url": url,
+                "processing_time": round(processing_time, 2),
+                "timestamp": datetime.now().isoformat()
+            }
+    
+    def _analyze_content_type(self, video_info: Dict, audio_analysis: Dict) -> str:
+        """콘텐츠 타입 분석"""
+        title = video_info.get('title', '').lower()
+        description = video_info.get('description', '').lower()
+        transcription = audio_analysis.get('transcription', '').lower()
+        
+        # 주얼리 관련 콘텐츠 판별
+        jewelry_indicators = [
+            'jewelry', 'diamond', 'gold', 'silver', 'ring', 'necklace',
+            '주얼리', '다이아몬드', '금', '은', '반지', '목걸이', '보석'
+        ]
+        
+        combined_text = f"{title} {description} {transcription}"
+        
+        jewelry_score = sum(1 for indicator in jewelry_indicators if indicator in combined_text)
+        
+        if jewelry_score >= 3:
+            return "jewelry_focused"
+        elif jewelry_score >= 1:
+            return "jewelry_related"
+        else:
+            return "general"
+    
+    def analyze_video_file(self, video_path: str, language: str = "ko") -> Dict[str, Any]:
+        """비디오 파일 분석 (MOV, MP4, AVI 등)"""
+        start_time = time.time()
+        file_name = os.path.basename(video_path)
+        
+        try:
+            self.logger.info(f"[INFO] 비디오 파일 분석 시작: {file_name}")
+            
+            if not large_video_processor_available:
+                raise Exception("대용량 비디오 처리 모듈을 사용할 수 없습니다. large_video_processor를 확인하세요.")
+            
+            # 1. 향상된 비디오 정보 조회 (MoviePy 기능 포함)
+            video_info = large_video_processor.get_enhanced_video_info_moviepy(video_path)
+            if video_info['status'] not in ['success', 'partial_success']:
+                raise Exception(f"비디오 정보 조회 실패: {video_info.get('error', 'Unknown')}")
+            
+            # 1.5. 키프레임 추출 (MoviePy 사용 가능한 경우)
+            keyframes_info = None
+            if video_info.get('moviepy_duration') and video_info['file_size_mb'] <= 500:  # 500MB 이하만
+                try:
+                    self.logger.info("[INFO] 키프레임 추출 중...")
+                    keyframes_result = large_video_processor.extract_keyframes_moviepy(video_path, num_frames=3)
+                    if keyframes_result['status'] == 'success':
+                        keyframes_info = keyframes_result
+                        self.logger.info(f"[SUCCESS] {len(keyframes_result['keyframes'])}개 키프레임 추출 완료")
+                except Exception as e:
+                    self.logger.warning(f"[WARNING] 키프레임 추출 실패: {e}")
+                    keyframes_info = {"error": str(e)}
+            
+            # 2. 오디오 추출 (오디오 트랙이 있는 경우)
+            audio_analysis = None
+            audio_file = None
+            
+            if video_info.get('has_audio', False):
+                self.logger.info("[INFO] 비디오에서 오디오 추출 중...")
+                
+                audio_extract_result = large_video_processor.extract_audio_from_video(video_path)
+                
+                if audio_extract_result['status'] == 'success':
+                    audio_file = audio_extract_result['audio_file']
+                    
+                    # 3. 추출된 오디오 STT 분석
+                    self.logger.info("[INFO] 추출된 오디오 STT 분석 중...")
+                    audio_analysis = self.analyze_audio_file(audio_file, language=language)
+                    
+                    # 임시 오디오 파일 정리
+                    try:
+                        if os.path.exists(audio_file):
+                            os.unlink(audio_file)
+                            self.logger.info("[INFO] 임시 오디오 파일 정리됨")
+                    except:
+                        pass
+                
+                else:
+                    self.logger.warning(f"[WARNING] 오디오 추출 실패: {audio_extract_result.get('error', 'Unknown')}")
+                    audio_extract_result = None
+            
+            else:
+                self.logger.info("[INFO] 비디오에 오디오 트랙이 없음 - STT 분석 생략")
+                audio_extract_result = None
+            
+            processing_time = time.time() - start_time
+            
+            # 결과 통합
+            result = {
+                "status": "success",
+                "file_name": file_name,
+                "file_path": video_path,
+                "file_type": "video",
+                "video_info": video_info,
+                "keyframes_info": keyframes_info,
+                "audio_extraction": audio_extract_result,
+                "audio_analysis": audio_analysis,
+                "processing_time": round(processing_time, 2),
+                "timestamp": datetime.now().isoformat(),
+                "enhanced_features": {
+                    "moviepy_analysis": video_info.get('moviepy_duration') is not None,
+                    "quality_analysis": video_info.get('video_quality_analysis') is not None,
+                    "keyframe_extraction": keyframes_info is not None,
+                    "frame_analysis": video_info.get('frame_analysis') is not None
+                }
+            }
+            
+            # 비디오 + 오디오 통합 분석
+            if audio_analysis and audio_analysis.get('status') == 'success':
+                transcription = audio_analysis.get('transcription', '')
+                
+                if transcription:
+                    # 비디오 메타데이터 + STT 결과 통합
+                    combined_text = f"비디오 파일: {file_name}\n"
+                    
+                    if video_info.get('format_name'):
+                        combined_text += f"형식: {video_info['format_name']}\n"
+                    
+                    if video_info.get('duration_formatted'):
+                        combined_text += f"길이: {video_info['duration_formatted']}\n"
+                    
+                    if video_info.get('video_info', {}).get('quality'):
+                        combined_text += f"화질: {video_info['video_info']['quality']}\n"
+                    
+                    combined_text += f"음성 내용: {transcription}"
+                    
+                    # 통합 요약 및 키워드 추출
+                    summary = self._generate_summary(combined_text)
+                    keywords = self._extract_jewelry_keywords(combined_text)
+                    
+                    result["integrated_analysis"] = {
+                        "summary": summary,
+                        "jewelry_keywords": keywords,
+                        "content_analysis": {
+                            "has_speech": True,
+                            "speech_duration": video_info.get('duration', 0),
+                            "video_quality": video_info.get('video_info', {}).get('quality', 'Unknown'),
+                            "file_size_category": self._categorize_file_size(video_info.get('file_size_mb', 0))
+                        }
+                    }
+            
+            else:
+                # 오디오 없거나 STT 실패 시 비디오 정보만으로 분석
+                video_text = f"비디오 파일: {file_name} ({video_info.get('format_name', 'Unknown')})"
+                
+                result["integrated_analysis"] = {
+                    "summary": f"비디오 파일 분석 완료. 길이: {video_info.get('duration_formatted', 'Unknown')}",
+                    "jewelry_keywords": self._extract_jewelry_keywords(video_text),
+                    "content_analysis": {
+                        "has_speech": False,
+                        "video_quality": video_info.get('video_info', {}).get('quality', 'Unknown'),
+                        "file_size_category": self._categorize_file_size(video_info.get('file_size_mb', 0))
+                    }
+                }
+            
+            # 통계 업데이트
+            self._update_stats(processing_time, True)
+            self.logger.info(f"[SUCCESS] 비디오 분석 완료 ({processing_time:.1f}초)")
+            
+            return result
+            
+        except Exception as e:
+            processing_time = time.time() - start_time
+            error_msg = f"비디오 분석 오류: {str(e)}"
+            
+            # 임시 파일 정리 (오류 시에도)
+            if 'audio_file' in locals() and audio_file and os.path.exists(audio_file):
+                try:
+                    os.unlink(audio_file)
+                except:
+                    pass
+            
+            # 통계 업데이트
+            self._update_stats(processing_time, False)
+            self.logger.error(f"[ERROR] {error_msg}")
+            
+            return {
+                "status": "error",
+                "error": error_msg,
+                "file_name": file_name,
+                "file_path": video_path,
+                "processing_time": round(processing_time, 2),
+                "timestamp": datetime.now().isoformat()
+            }
+    
+    def _categorize_file_size(self, size_mb: float) -> str:
+        """파일 크기 카테고리 분류"""
+        if size_mb < 10:
+            return "small"
+        elif size_mb < 100:
+            return "medium"
+        elif size_mb < 1000:
+            return "large"
+        else:
+            return "very_large"
+    
     def _update_stats(self, processing_time: float, success: bool):
         """통계 업데이트"""
         self.analysis_stats["total_files"] += 1
@@ -556,11 +953,17 @@ def analyze_file_real(file_path: str, file_type: str, language: str = "auto") ->
         return global_analysis_engine.analyze_audio_file(file_path, language=language)
     elif file_type == "image":
         return global_analysis_engine.analyze_image_file(file_path)
+    elif file_type == "document":
+        return global_analysis_engine.analyze_document_file(file_path)
+    elif file_type == "youtube":
+        return global_analysis_engine.analyze_youtube_video(file_path, language=language)
+    elif file_type == "video":
+        return global_analysis_engine.analyze_video_file(file_path, language=language)
     else:
         return {
             "status": "error",
             "error": f"지원하지 않는 파일 타입: {file_type}",
-            "file_name": os.path.basename(file_path),
+            "file_name": os.path.basename(file_path) if os.path.exists(file_path) else file_path,
             "timestamp": datetime.now().isoformat()
         }
 

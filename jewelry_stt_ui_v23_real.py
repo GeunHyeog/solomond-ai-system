@@ -30,6 +30,21 @@ try:
 except ImportError:
     NUMPY_AVAILABLE = False
 
+# 시각화 라이브러리들 (옵션)
+try:
+    import plotly.express as px
+    import plotly.graph_objects as go
+    from plotly.subplots import make_subplots
+    PLOTLY_AVAILABLE = True
+except ImportError:
+    PLOTLY_AVAILABLE = False
+
+try:
+    import pandas as pd
+    PANDAS_AVAILABLE = True
+except ImportError:
+    PANDAS_AVAILABLE = False
+
 # 프로젝트 루트 추가
 project_root = Path(__file__).parent
 sys.path.insert(0, str(project_root))
@@ -38,19 +53,19 @@ sys.path.insert(0, str(project_root))
 try:
     from core.real_analysis_engine import global_analysis_engine, analyze_file_real
     REAL_ANALYSIS_AVAILABLE = True
-    print("✅ 실제 분석 엔진 로드 완료")
+    print("[SUCCESS] 실제 분석 엔진 로드 완료")
 except ImportError as e:
     REAL_ANALYSIS_AVAILABLE = False
-    print(f"❌ 실제 분석 엔진 로드 실패: {e}")
+    print(f"[ERROR] 실제 분석 엔진 로드 실패: {e}")
 
 # 대용량 파일 핸들러 import
 try:
     from core.large_file_handler import large_file_handler
     LARGE_FILE_HANDLER_AVAILABLE = True
-    print("✅ 대용량 파일 핸들러 로드 완료")
+    print("[SUCCESS] 대용량 파일 핸들러 로드 완료")
 except ImportError as e:
     LARGE_FILE_HANDLER_AVAILABLE = False
-    print(f"❌ 대용량 파일 핸들러 로드 실패: {e}")
+    print(f"[ERROR] 대용량 파일 핸들러 로드 실패: {e}")
 
 # 기존 모듈들
 try:
@@ -585,6 +600,10 @@ class SolomondRealAnalysisUI:
                 for i, (keyword, count) in enumerate(report['top_keywords'][:15]):
                     with [col1, col2, col3][i % 3]:
                         st.metric(keyword, f"{count}회")
+            
+            # 📊 고급 분석 대시보드
+            st.markdown("### 📊 분석 대시보드")
+            self.render_advanced_dashboard(report)
             
             # 파일별 상세 결과
             with st.expander("📄 파일별 상세 분석 결과"):
@@ -2294,6 +2313,281 @@ class SolomondRealAnalysisUI:
                 confidence_scores.append(result['average_confidence'])
         
         return sum(confidence_scores) / len(confidence_scores) if confidence_scores else 0
+    
+    def render_advanced_dashboard(self, report: Dict[str, Any]):
+        """고급 분석 대시보드 렌더링"""
+        if not PLOTLY_AVAILABLE or not PANDAS_AVAILABLE:
+            st.warning("⚠️ 고급 차트 기능을 위해 plotly와 pandas 설치가 필요합니다.")
+            st.code("pip install plotly pandas")
+            return
+        
+        try:
+            # 탭으로 대시보드 구성
+            tab1, tab2, tab3, tab4 = st.tabs(["📈 파일 분석", "⏱️ 처리 시간", "🏷️ 키워드 분석", "📊 성능 지표"])
+            
+            with tab1:
+                self._render_file_analysis_charts(report)
+            
+            with tab2:
+                self._render_processing_time_charts(report)
+            
+            with tab3:
+                self._render_keyword_analysis_charts(report)
+            
+            with tab4:
+                self._render_performance_metrics(report)
+                
+        except Exception as e:
+            st.error(f"대시보드 렌더링 오류: {str(e)}")
+    
+    def _render_file_analysis_charts(self, report: Dict[str, Any]):
+        """파일 분석 차트"""
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # 파일 타입별 분포
+            if report.get('file_type_distribution'):
+                file_types = list(report['file_type_distribution'].keys())
+                file_counts = list(report['file_type_distribution'].values())
+                
+                fig = px.pie(
+                    values=file_counts, 
+                    names=file_types,
+                    title="📁 파일 타입 분포",
+                    color_discrete_sequence=px.colors.qualitative.Set3
+                )
+                fig.update_traces(textposition='inside', textinfo='percent+label')
+                st.plotly_chart(fig, use_container_width=True)
+        
+        with col2:
+            # 분석 성공률
+            if hasattr(report, 'success_rate') and hasattr(report, 'total_files'):
+                success_count = int((report['success_rate'] / 100) * report['total_files'])
+                failed_count = report['total_files'] - success_count
+                
+                fig = go.Figure(data=[
+                    go.Bar(name='성공', x=['분석 결과'], y=[success_count], marker_color='green'),
+                    go.Bar(name='실패', x=['분석 결과'], y=[failed_count], marker_color='red')
+                ])
+                fig.update_layout(
+                    title="✅ 분석 성공률",
+                    barmode='stack',
+                    yaxis_title="파일 수"
+                )
+                st.plotly_chart(fig, use_container_width=True)
+        
+        # 파일 크기 분포
+        if st.session_state.analysis_results:
+            file_sizes = []
+            file_names = []
+            
+            for result in st.session_state.analysis_results:
+                if result.get('file_size_mb'):
+                    file_sizes.append(result['file_size_mb'])
+                    file_names.append(result.get('file_name', 'Unknown'))
+            
+            if file_sizes:
+                fig = px.histogram(
+                    x=file_sizes,
+                    nbins=10,
+                    title="📏 파일 크기 분포 (MB)",
+                    labels={'x': '파일 크기 (MB)', 'y': '파일 수'}
+                )
+                fig.update_traces(marker_color='lightblue')
+                st.plotly_chart(fig, use_container_width=True)
+    
+    def _render_processing_time_charts(self, report: Dict[str, Any]):
+        """처리 시간 차트"""
+        if not st.session_state.analysis_results:
+            st.info("처리 시간 데이터가 없습니다.")
+            return
+        
+        # 파일별 처리 시간
+        processing_times = []
+        file_names = []
+        file_types = []
+        
+        for result in st.session_state.analysis_results:
+            if result.get('processing_time'):
+                processing_times.append(result['processing_time'])
+                file_names.append(result.get('file_name', 'Unknown')[:20] + '...')
+                file_types.append(result.get('file_type', 'unknown'))
+        
+        if processing_times:
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                # 파일별 처리 시간 막대 차트
+                fig = px.bar(
+                    x=file_names,
+                    y=processing_times,
+                    title="⏱️ 파일별 처리 시간",
+                    labels={'x': '파일명', 'y': '처리 시간 (초)'},
+                    color=processing_times,
+                    color_continuous_scale='Viridis'
+                )
+                fig.update_xaxes(tickangle=45)
+                st.plotly_chart(fig, use_container_width=True)
+            
+            with col2:
+                # 파일 타입별 평균 처리 시간
+                if PANDAS_AVAILABLE:
+                    df = pd.DataFrame({
+                        'file_type': file_types,
+                        'processing_time': processing_times
+                    })
+                    avg_times = df.groupby('file_type')['processing_time'].mean().reset_index()
+                    
+                    fig = px.bar(
+                        avg_times,
+                        x='file_type',
+                        y='processing_time',
+                        title="📊 파일 타입별 평균 처리 시간",
+                        labels={'file_type': '파일 타입', 'processing_time': '평균 처리 시간 (초)'}
+                    )
+                    st.plotly_chart(fig, use_container_width=True)
+        
+        # 처리 시간 통계
+        if processing_times:
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.metric("⚡ 최단 시간", f"{min(processing_times):.1f}초")
+            with col2:
+                st.metric("🐌 최장 시간", f"{max(processing_times):.1f}초")
+            with col3:
+                st.metric("📊 평균 시간", f"{sum(processing_times)/len(processing_times):.1f}초")
+            with col4:
+                st.metric("🕐 총 처리 시간", f"{sum(processing_times):.1f}초")
+    
+    def _render_keyword_analysis_charts(self, report: Dict[str, Any]):
+        """키워드 분석 차트"""
+        if not report.get('top_keywords'):
+            st.info("키워드 데이터가 없습니다.")
+            return
+        
+        # 상위 키워드 막대 차트
+        keywords = [item[0] for item in report['top_keywords'][:20]]
+        counts = [item[1] for item in report['top_keywords'][:20]]
+        
+        fig = px.bar(
+            x=counts,
+            y=keywords,
+            orientation='h',
+            title="🏷️ 상위 키워드 빈도",
+            labels={'x': '출현 빈도', 'y': '키워드'},
+            color=counts,
+            color_continuous_scale='Blues'
+        )
+        fig.update_layout(height=600)
+        st.plotly_chart(fig, use_container_width=True)
+        
+        # 키워드 트렌드 (시간별 - 가능한 경우)
+        if len(report['top_keywords']) >= 10:
+            # 워드클라우드 스타일 시각화 (Plotly로 구현)
+            fig = go.Figure()
+            
+            for i, (keyword, count) in enumerate(report['top_keywords'][:20]):
+                fig.add_trace(go.Scatter(
+                    x=[i % 5], 
+                    y=[i // 5],
+                    text=keyword,
+                    mode='text',
+                    textfont=dict(size=min(30, 10 + count * 2)),
+                    showlegend=False
+                ))
+            
+            fig.update_layout(
+                title="☁️ 키워드 클라우드",
+                xaxis=dict(showgrid=False, showticklabels=False, zeroline=False),
+                yaxis=dict(showgrid=False, showticklabels=False, zeroline=False),
+                height=400
+            )
+            st.plotly_chart(fig, use_container_width=True)
+    
+    def _render_performance_metrics(self, report: Dict[str, Any]):
+        """성능 지표 차트"""
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            # 성능 게이지 차트
+            success_rate = report.get('success_rate', 0)
+            
+            fig = go.Figure(go.Indicator(
+                mode = "gauge+number+delta",
+                value = success_rate,
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                title = {'text': "성공률 (%)"},
+                delta = {'reference': 90},
+                gauge = {
+                    'axis': {'range': [None, 100]},
+                    'bar': {'color': "darkblue"},
+                    'steps': [
+                        {'range': [0, 50], 'color': "lightgray"},
+                        {'range': [50, 80], 'color': "yellow"},
+                        {'range': [80, 100], 'color': "lightgreen"}
+                    ],
+                    'threshold': {
+                        'line': {'color': "red", 'width': 4},
+                        'thickness': 0.75,
+                        'value': 90
+                    }
+                }
+            ))
+            st.plotly_chart(fig, use_container_width=True)
+        
+        with col2:
+            # 신뢰도 분포
+            if st.session_state.analysis_results:
+                confidences = []
+                for result in st.session_state.analysis_results:
+                    if result.get('average_confidence'):
+                        confidences.append(result['average_confidence'])
+                
+                if confidences:
+                    fig = px.histogram(
+                        x=confidences,
+                        nbins=15,
+                        title="🎯 신뢰도 분포",
+                        labels={'x': '신뢰도', 'y': '파일 수'},
+                        color_discrete_sequence=['lightcoral']
+                    )
+                    st.plotly_chart(fig, use_container_width=True)
+        
+        # 종합 성능 레이더 차트
+        if st.session_state.analysis_results:
+            categories = ['속도', '정확도', '안정성', '효율성', '사용성']
+            
+            # 성능 점수 계산 (0-100)
+            processing_times = [r.get('processing_time', 0) for r in st.session_state.analysis_results if r.get('processing_time')]
+            avg_time = sum(processing_times) / len(processing_times) if processing_times else 0
+            speed_score = max(0, 100 - min(100, avg_time * 10))  # 시간이 짧을수록 높은 점수
+            
+            accuracy_score = min(100, report.get('success_rate', 0))
+            stability_score = min(100, (report.get('success_rate', 0) + 20))  # 성공률 기반
+            efficiency_score = min(100, speed_score * 0.7 + accuracy_score * 0.3)
+            usability_score = 85  # 고정값 (UI 복잡도 등 고려)
+            
+            values = [speed_score, accuracy_score, stability_score, efficiency_score, usability_score]
+            
+            fig = go.Figure()
+            
+            fig.add_trace(go.Scatterpolar(
+                r=values,
+                theta=categories,
+                fill='toself',
+                name='성능 지표'
+            ))
+            
+            fig.update_layout(
+                polar=dict(
+                    radialaxis=dict(
+                        visible=True,
+                        range=[0, 100]
+                    )),
+                title="📊 종합 성능 평가",
+                showlegend=True
+            )
+            st.plotly_chart(fig, use_container_width=True)
 
 def main():
     """메인 실행 함수"""
