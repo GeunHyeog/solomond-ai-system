@@ -19,7 +19,9 @@
       "Bash(env)",
       "Bash(pip uninstall:*)",
       "Bash(pip show:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(curl:*)",
+      "Bash(kill:*)"
     ],
     "deny": []
   }

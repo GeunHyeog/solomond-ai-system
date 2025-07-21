@@ -89,6 +89,71 @@ class RealAnalysisEngine:
         self.logger.info("[INFO] 실제 분석 엔진 초기화 완료")
         self.logger.info(f"[INFO] 에러 복구 분석기: {'활성화' if error_recovery_available else '비활성화'}")
     
+    def _enhance_with_context(self, extracted_text: str, context: Dict[str, Any] = None) -> str:
+        """컨텍스트 정보를 활용한 텍스트 후처리"""
+        if not context or not extracted_text:
+            return extracted_text
+        
+        enhanced_text = extracted_text
+        
+        # 주제 키워드가 있으면 관련 용어 보정
+        if context.get('topic_keywords'):
+            keywords = [k.strip() for k in context['topic_keywords'].split(',')]
+            for keyword in keywords:
+                if keyword and len(keyword) > 2:
+                    # 유사한 단어 찾아서 보정 (간단한 레벤슈타인 거리 기반)
+                    import difflib
+                    words = enhanced_text.split()
+                    for i, word in enumerate(words):
+                        if difflib.SequenceMatcher(None, word.lower(), keyword.lower()).ratio() > 0.7:
+                            words[i] = keyword  # 정확한 키워드로 교체
+                    enhanced_text = ' '.join(words)
+        
+        # 참석자/발표자 정보로 인명 보정
+        if context.get('speakers') or context.get('participants'):
+            names = []
+            if context.get('speakers'):
+                names.extend([n.strip() for n in context['speakers'].split(',')])
+            if context.get('participants'):
+                # 괄호 안 내용 제거하고 이름만 추출
+                import re
+                participant_text = context['participants']
+                participant_names = re.findall(r'([가-힣a-zA-Z\s]+?)(?:\s*\([^)]*\))?(?:,|$)', participant_text)
+                names.extend([n.strip() for n in participant_names if n.strip()])
+            
+            # 인명 보정
+            for name in names:
+                if name and len(name) > 1:
+                    import difflib
+                    words = enhanced_text.split()
+                    for i, word in enumerate(words):
+                        if difflib.SequenceMatcher(None, word, name).ratio() > 0.6:
+                            words[i] = name
+                    enhanced_text = ' '.join(words)
+        
+        return enhanced_text
+    
+    def _generate_context_aware_summary(self, text: str, context: Dict[str, Any] = None) -> str:
+        """컨텍스트를 고려한 요약 생성"""
+        if not context:
+            return self._generate_summary(text)
+        
+        # 기본 요약 생성
+        base_summary = self._generate_summary(text)
+        
+        # 컨텍스트 정보 추가
+        if context.get('event_context'):
+            context_prefix = f"[{context['event_context']}] "
+        else:
+            context_prefix = ""
+        
+        if context.get('objective'):
+            objective_suffix = f" (목적: {context['objective']})"
+        else:
+            objective_suffix = ""
+        
+        return f"{context_prefix}{base_summary}{objective_suffix}"
+    
     def _setup_logging(self) -> logging.Logger:
         """로깅 설정"""
         logger = logging.getLogger(__name__)
@@ -113,11 +178,23 @@ class RealAnalysisEngine:
         return self.whisper_model
     
     def _lazy_load_ocr(self) -> easyocr.Reader:
-        """EasyOCR 모델 지연 로딩"""
+        """EasyOCR 모델 지연 로딩 (성능 최적화)"""
         if self.ocr_reader is None:
-            self.logger.info("🖼️ EasyOCR 한/영 모델 로딩...")
+            self.logger.info("🖼️ EasyOCR 한/영 모델 로딩... (CPU 최적화)")
             start_time = time.time()
-            self.ocr_reader = easyocr.Reader(['ko', 'en'])
+            
+            # CPU 모드와 성능 최적화 설정
+            self.ocr_reader = easyocr.Reader(
+                ['ko', 'en'],
+                gpu=False,  # CPU 강제 사용
+                model_storage_directory=None,  # 기본 모델 디렉토리 사용
+                user_network_directory=None,
+                recog_network='CRNN',  # 기본 recognition network
+                detector=True,
+                recognizer=True,
+                verbose=False  # 로그 최소화
+            )
+            
             load_time = time.time() - start_time
             self.logger.info(f"✅ EasyOCR 로드 완료 ({load_time:.1f}초)")
         return self.ocr_reader
@@ -308,7 +385,7 @@ class RealAnalysisEngine:
         # 원본 파일이 정상이면 그대로 사용
         return file_path
     
-    def analyze_audio_file(self, file_path: str, language: str = "ko") -> Dict[str, Any]:
+    def analyze_audio_file(self, file_path: str, language: str = "ko", context: Dict[str, Any] = None) -> Dict[str, Any]:
         """실제 음성 파일 분석"""
         self.logger.info(f"🎤 실제 음성 분석 시작: {os.path.basename(file_path)}")
         
@@ -373,11 +450,14 @@ class RealAnalysisEngine:
             segments = result["segments"]
             detected_language = result["language"]
             
-            # 텍스트 요약 (NLP 모델 사용 가능시)
-            summary = self._generate_summary(text)
+            # 컨텍스트 기반 텍스트 향상
+            enhanced_text = self._enhance_with_context(text, context)
             
-            # 주얼리 키워드 분석
-            jewelry_keywords = self._extract_jewelry_keywords(text)
+            # 컨텍스트를 고려한 요약 생성
+            summary = self._generate_context_aware_summary(enhanced_text, context)
+            
+            # 주얼리 키워드 분석 (향상된 텍스트 기반)
+            jewelry_keywords = self._extract_jewelry_keywords(enhanced_text)
             
             analysis_result = {
                 "status": "success",
@@ -387,7 +467,8 @@ class RealAnalysisEngine:
                 "detected_language": detected_language,
                 "segments_count": int(len(segments)),
                 "text_length": int(len(text)),
-                "full_text": text,
+                "full_text": enhanced_text,
+                "original_text": text,
                 "summary": summary,
                 "jewelry_keywords": jewelry_keywords,
                 "segments": segments,
@@ -450,7 +531,7 @@ class RealAnalysisEngine:
                 except Exception as e:
                     self.logger.warning(f"⚠️ 임시 파일 정리 실패: {e}")
     
-    def analyze_image_file(self, file_path: str) -> Dict[str, Any]:
+    def analyze_image_file(self, file_path: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
         """실제 이미지 파일 OCR 분석"""
         self.logger.info(f"🖼️ 실제 이미지 분석 시작: {os.path.basename(file_path)}")
         
@@ -460,9 +541,22 @@ class RealAnalysisEngine:
             # OCR 모델 로드
             reader = self._lazy_load_ocr()
             
-            # OCR 텍스트 추출
-            self.logger.info("🔄 이미지 텍스트 추출 중...")
-            results = reader.readtext(file_path)
+            # OCR 텍스트 추출 (품질과 성능 균형)
+            self.logger.info("🔄 이미지 텍스트 추출 중... (품질 우선 모드)")
+            results = reader.readtext(
+                file_path,
+                width_ths=0.5,     # 텍스트 폭 임계값 (더 민감하게)
+                height_ths=0.5,    # 텍스트 높이 임계값 (더 민감하게)
+                paragraph=False,   # 단락 모드 비활성화 (속도 향상)
+                detail=1,          # 상세 정보 포함 (bbox, text, confidence)
+                batch_size=1,      # 배치 크기 최소화
+                workers=1,         # 워커 수 최소화
+                text_threshold=0.4,   # 텍스트 감지 임계값 낮춤 (더 많은 텍스트 감지)
+                low_text=0.3,      # 낮은 텍스트 신뢰도 임계값 낮춤
+                link_threshold=0.3, # 링크 임계값 낮춤
+                canvas_size=4096,  # 캔버스 크기 증가 (고해상도 지원)
+                mag_ratio=2.0      # 확대 비율 증가 (작은 텍스트 감지)
+            )
             
             processing_time = time.time() - start_time
             
@@ -481,11 +575,14 @@ class RealAnalysisEngine:
             avg_confidence = float(total_confidence / len(results)) if results else 0.0
             full_text = ' '.join([item["text"] for item in detected_texts])
             
-            # 텍스트 요약
-            summary = self._generate_summary(full_text)
+            # 컨텍스트 기반 텍스트 향상
+            enhanced_text = self._enhance_with_context(full_text, context)
             
-            # 주얼리 키워드 분석
-            jewelry_keywords = self._extract_jewelry_keywords(full_text)
+            # 컨텍스트를 고려한 요약 생성
+            summary = self._generate_context_aware_summary(enhanced_text, context)
+            
+            # 주얼리 키워드 분석 (향상된 텍스트 기반)
+            jewelry_keywords = self._extract_jewelry_keywords(enhanced_text)
             
             analysis_result = {
                 "status": "success",
@@ -494,7 +591,8 @@ class RealAnalysisEngine:
                 "processing_time": float(round(processing_time, 1)),
                 "blocks_detected": int(len(results)),
                 "average_confidence": float(round(avg_confidence, 3)),
-                "full_text": full_text,
+                "full_text": enhanced_text,
+                "original_text": full_text,
                 "summary": summary,
                 "jewelry_keywords": jewelry_keywords,
                 "detailed_results": detected_texts,
@@ -1063,12 +1161,12 @@ class RealAnalysisEngine:
 # 전역 분석 엔진 인스턴스
 global_analysis_engine = RealAnalysisEngine()
 
-def analyze_file_real(file_path: str, file_type: str, language: str = "auto") -> Dict[str, Any]:
-    """파일 실제 분석 (간편 사용)"""
+def analyze_file_real(file_path: str, file_type: str, language: str = "auto", context: Dict[str, Any] = None) -> Dict[str, Any]:
+    """파일 실제 분석 (간편 사용, 컨텍스트 지원)"""
     if file_type == "audio":
-        return global_analysis_engine.analyze_audio_file(file_path, language=language)
+        return global_analysis_engine.analyze_audio_file(file_path, language=language, context=context)
     elif file_type == "image":
-        return global_analysis_engine.analyze_image_file(file_path)
+        return global_analysis_engine.analyze_image_file(file_path, context=context)
     elif file_type == "document":
         return global_analysis_engine.analyze_document_file(file_path)
     elif file_type == "youtube":

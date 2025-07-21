@@ -226,7 +226,7 @@ class SolomondRealAnalysisUI:
                 "분석 목적 및 목표",
                 value=st.session_state.project_info.get('objective', ''),
                 placeholder="예: 고객 음성 데이터에서 주얼리 선호도 패턴 분석",
-                height=100
+                height=80
             )
             
             target_language = st.selectbox(
@@ -236,20 +236,90 @@ class SolomondRealAnalysisUI:
                     st.session_state.project_info.get('target_language', '자동 감지')
                 )
             )
+        
+        # 새로운 섹션: 참석자 및 상황 정보
+        st.markdown("### 👥 참석자 및 상황 정보 (분석 품질 향상)")
+        
+        col3, col4 = st.columns(2)
+        
+        with col3:
+            participants = st.text_area(
+                "참석자 정보",
+                value=st.session_state.project_info.get('participants', ''),
+                placeholder="예: 김철수 (마케팅 팀장), 박영희 (디자인 실장), 고객 A, B, C",
+                height=80,
+                help="참석자 이름과 역할을 입력하면 음성 인식 정확도가 향상됩니다"
+            )
+            
+            speakers = st.text_input(
+                "주요 발표자",
+                value=st.session_state.project_info.get('speakers', ''),
+                placeholder="예: 김철수, 박영희",
+                help="주요 발표자를 명시하면 화자 구분과 내용 분석이 개선됩니다"
+            )
+        
+        with col4:
+            event_context = st.text_area(
+                "상황 및 배경",
+                value=st.session_state.project_info.get('event_context', ''),
+                placeholder="예: 2024년 Q1 주얼리 트렌드 세미나, 고객 피드백 수집 회의",
+                height=80,
+                help="상황 정보는 분석 결과의 해석과 강의 내용 생성에 활용됩니다"
+            )
+            
+            topic_keywords = st.text_input(
+                "주요 주제 키워드",
+                value=st.session_state.project_info.get('topic_keywords', ''),
+                placeholder="예: 다이아몬드, 골드, 트렌드, 브랜딩, 고객만족",
+                help="예상되는 주제 키워드를 입력하면 OCR과 STT 정확도가 향상됩니다"
+            )
+        
+        # 다각도 분석 설정
+        st.markdown("### 🔄 다각도 분석 설정")
+        
+        col5, col6 = st.columns(2)
+        
+        with col5:
+            enable_multi_angle = st.checkbox(
+                "다각도 종합 분석 활성화",
+                value=st.session_state.project_info.get('enable_multi_angle', True),
+                help="동일 상황의 여러 파일(영상, 이미지, 음성)을 종합하여 분석합니다"
+            )
             
             output_format = st.multiselect(
                 "원하는 출력 형식",
-                ["요약 텍스트", "키워드 추출", "감정 분석", "카테고리 분류", "통계 차트"],
-                default=st.session_state.project_info.get('output_format', ["요약 텍스트", "키워드 추출"])
+                ["요약 텍스트", "키워드 추출", "감정 분석", "카테고리 분류", "통계 차트", "종합 강의 자료"],
+                default=st.session_state.project_info.get('output_format', ["요약 텍스트", "키워드 추출", "종합 강의 자료"])
             )
         
-        # 기본정보 저장
+        with col6:
+            analysis_depth = st.select_slider(
+                "분석 깊이",
+                options=["기본", "상세", "심층", "전문가급"],
+                value=st.session_state.project_info.get('analysis_depth', '상세'),
+                help="깊이가 높을수록 더 상세한 분석과 인사이트를 제공합니다"
+            )
+            
+            correlation_analysis = st.checkbox(
+                "파일 간 상관관계 분석",
+                value=st.session_state.project_info.get('correlation_analysis', True),
+                help="업로드된 여러 파일 간의 연관성과 일관성을 분석합니다"
+            )
+        
+        # 확장된 기본정보 저장
         st.session_state.project_info = {
             'name': project_name,
             'type': project_type,
             'priority': priority,
             'objective': objective,
             'target_language': target_language,
+            'participants': participants,
+            'speakers': speakers,
+            'event_context': event_context,
+            'topic_keywords': topic_keywords,
+            'enable_multi_angle': enable_multi_angle,
+            'analysis_depth': analysis_depth,
+            'correlation_analysis': correlation_analysis,
             'output_format': output_format,
             'created_time': datetime.now().isoformat()
         }
@@ -2018,9 +2088,8 @@ class SolomondRealAnalysisUI:
         progress_bar = st.progress(0)
         status_text = st.empty()
         
-        # 모델 사전 로딩 단계
-        status_text.text("🔧 분석 모델 준비 중...")
-        self._preload_analysis_models()
+        # 모델은 실제 사용 시점에 lazy loading으로 로딩 (서버 시작 시간 단축)
+        status_text.text("🔧 분석 준비 중...")
         
         total_items = len(uploaded_files_data.get('files', [])) + len(uploaded_files_data.get('youtube_urls', []))
         current_item = 0
@@ -2097,7 +2166,11 @@ class SolomondRealAnalysisUI:
                 # 실제 분석 수행
                 if REAL_ANALYSIS_AVAILABLE and file_type in ["audio", "image"]:
                     language = uploaded_files_data.get('analysis_language', 'auto')
-                    result = analyze_file_real(tmp_file_path, file_type, language)
+                    
+                    # 프로젝트 컨텍스트 정보 준비
+                    context = st.session_state.get('project_info', {})
+                    
+                    result = analyze_file_real(tmp_file_path, file_type, language, context)
                     
                     # NumPy 타입을 Python 기본 타입으로 변환
                     result = convert_numpy_types(result)
