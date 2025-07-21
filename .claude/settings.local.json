@@ -4,7 +4,22 @@
       "Bash(where npx)",
       "Bash(git push:*)",
       "Bash(npm install:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(python:*)",
+      "Bash(streamlit run:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(tar:*)",
+      "Bash(rm:*)",
+      "Bash(pip install:*)",
+      "Bash(pkill:*)",
+      "Bash(taskkill:*)",
+      "Bash(env)",
+      "Bash(pip uninstall:*)",
+      "Bash(pip show:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

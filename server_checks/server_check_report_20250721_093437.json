@@ -1,0 +1,119 @@
+{
+  "session_id": "20250721_093437",
+  "timestamp": "2025-07-21T09:34:42.311857",
+  "servers_checked": 2,
+  "successful_checks": 2,
+  "failed_checks": 0,
+  "results": [
+    {
+      "server_url": "http://localhost:8503",
+      "success": true,
+      "timestamp": "2025-07-21T09:34:40.757590",
+      "page_title": "Streamlit",
+      "page_url": "http://localhost:8503/",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "network_info": {
+        "response_status": 200,
+        "response_ok": true,
+        "load_time_seconds": 1.27
+      },
+      "streamlit_info": {
+        "is_streamlit": true,
+        "file_uploaders_count": 0,
+        "buttons": [],
+        "metrics": {},
+        "messages": {
+          "success": [],
+          "error": [],
+          "warning": [],
+          "info": []
+        },
+        "progress_bars": [],
+        "sidebar_visible": false
+      },
+      "dom_info": {
+        "body_exists": true,
+        "head_exists": true,
+        "script_tags_count": 2,
+        "css_links_count": 1,
+        "images_count": 1,
+        "forms_count": 0,
+        "input_fields_count": 0,
+        "react_root": true,
+        "loading_elements": 0
+      },
+      "console_logs": [],
+      "page_errors": [],
+      "screenshot_path": "server_checks\\screenshot_http___localhost_8503_20250721_093437.png",
+      "error": null
+    },
+    {
+      "server_url": "http://localhost:8504",
+      "success": true,
+      "timestamp": "2025-07-21T09:34:42.308597",
+      "page_title": "Streamlit",
+      "page_url": "http://localhost:8504/",
+      "viewport": {
+        "width": 1920,
+        "height": 1080
+      },
+      "network_info": {
+        "response_status": 200,
+        "response_ok": true,
+        "load_time_seconds": 1.29
+      },
+      "streamlit_info": {
+        "is_streamlit": true,
+        "file_uploaders_count": 0,
+        "buttons": [],
+        "metrics": {},
+        "messages": {
+          "success": [],
+          "error": [],
+          "warning": [],
+          "info": []
+        },
+        "progress_bars": [],
+        "sidebar_visible": false
+      },
+      "dom_info": {
+        "body_exists": true,
+        "head_exists": true,
+        "script_tags_count": 2,
+        "css_links_count": 1,
+        "images_count": 1,
+        "forms_count": 0,
+        "input_fields_count": 0,
+        "react_root": true,
+        "loading_elements": 0
+      },
+      "console_logs": [],
+      "page_errors": [],
+      "screenshot_path": "server_checks\\screenshot_http___localhost_8504_20250721_093437.png",
+      "error": null
+    }
+  ],
+  "summary": {
+    "total_servers": 2,
+    "successful_servers": 2,
+    "failed_servers": 0,
+    "success_rate": "100.0%",
+    "successful_servers_info": [
+      {
+        "url": "http://localhost:8503",
+        "title": "Streamlit",
+        "load_time": 1.27,
+        "is_streamlit": true
+      },
+      {
+        "url": "http://localhost:8504",
+        "title": "Streamlit",
+        "load_time": 1.29,
+        "is_streamlit": true
+      }
+    ]
+  }
+}

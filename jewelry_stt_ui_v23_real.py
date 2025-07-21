@@ -67,6 +67,15 @@ except ImportError as e:
     LARGE_FILE_HANDLER_AVAILABLE = False
     print(f"[ERROR] 대용량 파일 핸들러 로드 실패: {e}")
 
+# 강의 내용 컴파일러 import
+try:
+    from core.lecture_content_compiler import compile_comprehensive_lecture
+    LECTURE_COMPILER_AVAILABLE = True
+    print("[SUCCESS] 강의 내용 컴파일러 로드 완료")
+except ImportError as e:
+    LECTURE_COMPILER_AVAILABLE = False
+    print(f"[ERROR] 강의 내용 컴파일러 로드 실패: {e}")
+
 # 기존 모듈들
 try:
     from core.hybrid_llm_manager_v23 import HybridLLMManager
@@ -628,6 +637,78 @@ class SolomondRealAnalysisUI:
                 for i, conclusion in enumerate(report['conclusions'], 1):
                     st.markdown(f"{i}. {conclusion}")
             
+            # 종합 강의 내용
+            if LECTURE_COMPILER_AVAILABLE:
+                st.markdown("### 🎓 종합 강의 내용")
+                
+                if not hasattr(st.session_state, 'comprehensive_lecture') or st.session_state.comprehensive_lecture is None:
+                    if st.button("📚 종합 강의 내용 생성", type="secondary"):
+                        st.session_state.comprehensive_lecture = self.generate_comprehensive_lecture()
+                        if st.session_state.comprehensive_lecture:
+                            st.success("✅ 종합 강의 내용 생성 완료!")
+                            st.rerun()
+                else:
+                    # 강의 내용 표시
+                    lecture = st.session_state.comprehensive_lecture
+                    
+                    # 강의 제목
+                    st.markdown(f"#### 📖 {lecture['title']}")
+                    
+                    # 강의 개요
+                    with st.expander("📋 강의 개요", expanded=True):
+                        st.markdown(lecture['overview'])
+                    
+                    # 주요 주제
+                    if lecture['main_topics']:
+                        with st.expander("🎯 주요 주제"):
+                            for i, topic in enumerate(lecture['main_topics'], 1):
+                                st.markdown(f"{i}. {topic}")
+                    
+                    # 핵심 인사이트
+                    if lecture['key_insights']:
+                        with st.expander("💡 핵심 인사이트"):
+                            for i, insight in enumerate(lecture['key_insights'], 1):
+                                st.markdown(f"{i}. {insight}")
+                    
+                    # 실용적 응용 방안
+                    if lecture['practical_applications']:
+                        with st.expander("🛠️ 실용적 응용 방안"):
+                            for i, application in enumerate(lecture['practical_applications'], 1):
+                                st.markdown(f"{i}. {application}")
+                    
+                    # 세부 내용 (카테고리별)
+                    if lecture['detailed_content']:
+                        with st.expander("📚 세부 내용 (카테고리별)"):
+                            for category, content in lecture['detailed_content'].items():
+                                if content['summary']:
+                                    st.markdown(f"**{category.replace('_', ' ').title()}**")
+                                    st.markdown(content['summary'])
+                                    
+                                    if content['key_points']:
+                                        st.markdown("주요 포인트:")
+                                        for point in content['key_points'][:3]:  # 상위 3개만 표시
+                                            st.markdown(f"• {point}")
+                                    st.markdown("---")
+                    
+                    # 결론
+                    if lecture['conclusion']:
+                        with st.expander("🎯 강의 결론"):
+                            st.markdown(lecture['conclusion'])
+                    
+                    # 품질 및 메타데이터
+                    col1, col2, col3 = st.columns(3)
+                    with col1:
+                        st.metric("품질 점수", f"{lecture['metadata']['quality_score']:.1f}/100")
+                    with col2:
+                        st.metric("처리 파일 수", lecture['metadata']['total_files'])
+                    with col3:
+                        st.metric("컴파일 시간", f"{lecture['metadata']['compilation_time']:.1f}초")
+                    
+                    # 강의 내용 다운로드
+                    if st.button("🔄 강의 내용 재생성", type="secondary"):
+                        st.session_state.comprehensive_lecture = None
+                        st.rerun()
+            
             # 다운로드 옵션
             st.markdown("### 📥 보고서 다운로드")
             
@@ -679,20 +760,55 @@ class SolomondRealAnalysisUI:
                 )
             
             with col3:
-                # 전체 추출 텍스트
-                all_texts = []
-                for result in st.session_state.analysis_results:
-                    if result.get('status') == 'success' and result.get('full_text'):
-                        all_texts.append(f"=== {result['file_name']} ===\n{result['full_text']}\n")
-                
-                combined_text = "\n".join(all_texts)
-                
-                st.download_button(
-                    "📝 전체 추출 텍스트",
-                    data=combined_text,
-                    file_name=f"전체텍스트_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
-                    mime="text/plain"
-                )
+                # 강의 내용 다운로드 (있는 경우)
+                if hasattr(st.session_state, 'comprehensive_lecture') and st.session_state.comprehensive_lecture:
+                    lecture = st.session_state.comprehensive_lecture
+                    
+                    # 강의 내용을 텍스트로 변환
+                    lecture_text = f"""
+# {lecture['title']}
+
+## 강의 개요
+{lecture['overview']}
+
+## 주요 주제
+{chr(10).join([f'{i}. {topic}' for i, topic in enumerate(lecture['main_topics'], 1)])}
+
+## 핵심 인사이트
+{chr(10).join([f'{i}. {insight}' for i, insight in enumerate(lecture['key_insights'], 1)])}
+
+## 실용적 응용 방안
+{chr(10).join([f'{i}. {app}' for i, app in enumerate(lecture['practical_applications'], 1)])}
+
+## 결론
+{lecture['conclusion']}
+
+---
+생성 일시: {lecture['metadata']['compilation_date']}
+품질 점수: {lecture['metadata']['quality_score']}/100
+"""
+                    
+                    st.download_button(
+                        "🎓 종합 강의 내용",
+                        data=lecture_text,
+                        file_name=f"종합강의_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
+                        mime="text/plain"
+                    )
+                else:
+                    # 전체 추출 텍스트 (강의 내용이 없는 경우)
+                    all_texts = []
+                    for result in st.session_state.analysis_results:
+                        if result.get('status') == 'success' and result.get('full_text'):
+                            all_texts.append(f"=== {result['file_name']} ===\n{result['full_text']}\n")
+                    
+                    combined_text = "\n".join(all_texts)
+                    
+                    st.download_button(
+                        "📝 전체 추출 텍스트",
+                        data=combined_text,
+                        file_name=f"전체텍스트_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
+                        mime="text/plain"
+                    )
         
         # 새 프로젝트 시작
         st.markdown("---")
@@ -2136,6 +2252,47 @@ class SolomondRealAnalysisUI:
         }
         
         return report
+    
+    def generate_comprehensive_lecture(self):
+        """종합 강의 내용 생성"""
+        if not st.session_state.analysis_results:
+            return None
+        
+        if not LECTURE_COMPILER_AVAILABLE:
+            st.error("강의 내용 컴파일러가 사용 불가능합니다.")
+            return None
+        
+        try:
+            # 분석 결과들 준비
+            analysis_results = st.session_state.analysis_results
+            
+            # 성공한 결과만 필터링 (부분 성공 포함)
+            valid_results = [
+                result for result in analysis_results 
+                if result.get('status') in ['success', 'partial_success']
+            ]
+            
+            if not valid_results:
+                st.warning("강의 내용을 생성할 유효한 분석 결과가 없습니다.")
+                return None
+            
+            # 프로젝트 정보에서 제목 가져오기
+            project_info = st.session_state.get('project_info', {})
+            custom_title = project_info.get('project_name')
+            
+            # 강의 내용 컴파일
+            with st.spinner("🎓 종합 강의 내용 생성 중..."):
+                lecture_result = compile_comprehensive_lecture(valid_results, custom_title)
+            
+            if lecture_result.get('status') == 'success':
+                return lecture_result['lecture_content']
+            else:
+                st.error(f"강의 내용 생성 실패: {lecture_result.get('error', 'Unknown error')}")
+                return None
+                
+        except Exception as e:
+            st.error(f"강의 내용 생성 중 오류: {str(e)}")
+            return None
     
     def _generate_executive_summary(self, total_files, successful, success_rate, text_length, jewelry_keywords):
         """핵심 요약 생성"""

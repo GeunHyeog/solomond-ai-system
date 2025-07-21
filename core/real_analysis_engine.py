@@ -59,6 +59,12 @@ try:
 except ImportError:
     large_video_processor_available = False
 
+try:
+    from .error_recovery_analyzer import error_recovery_analyzer
+    error_recovery_available = True
+except ImportError:
+    error_recovery_available = False
+
 class RealAnalysisEngine:
     """실제 파일 분석 엔진"""
     
@@ -74,11 +80,14 @@ class RealAnalysisEngine:
         self.analysis_stats = {
             "total_files": 0,
             "successful_analyses": 0,
+            "partial_successes": 0,
+            "failed_analyses": 0,
             "total_processing_time": 0,
             "last_analysis_time": None
         }
         
         self.logger.info("[INFO] 실제 분석 엔진 초기화 완료")
+        self.logger.info(f"[INFO] 에러 복구 분석기: {'활성화' if error_recovery_available else '비활성화'}")
     
     def _setup_logging(self) -> logging.Logger:
         """로깅 설정"""
@@ -401,6 +410,25 @@ class RealAnalysisEngine:
                 error_msg = f"음성 분석 실패: {error_str}"
             
             self.logger.error(error_msg)
+            
+            # 에러 복구 분석 시도
+            recovery_result = self._try_recovery_analysis(file_path, "audio", error_msg)
+            if recovery_result:
+                # 복구 성공시 부분 성공으로 처리
+                recovery_result.update({
+                    "file_name": os.path.basename(file_path),
+                    "file_extension": file_ext,
+                    "librosa_available": librosa_available,
+                    "analysis_type": "real_whisper_stt_recovery",
+                    "timestamp": datetime.now().isoformat(),
+                    "file_size_mb": float(round(os.path.getsize(file_path) / (1024 * 1024), 2))
+                })
+                
+                # 부분 성공으로 통계 업데이트
+                self._update_stats(time.time() - start_time, True, partial=True)
+                return recovery_result
+            
+            # 복구 실패시 원래 에러 반환
             self._update_stats(time.time() - start_time, False)
             
             return {
@@ -482,6 +510,23 @@ class RealAnalysisEngine:
         except Exception as e:
             error_msg = f"이미지 분석 실패: {str(e)}"
             self.logger.error(error_msg)
+            
+            # 에러 복구 분석 시도
+            recovery_result = self._try_recovery_analysis(file_path, "image", error_msg)
+            if recovery_result:
+                # 복구 성공시 부분 성공으로 처리
+                recovery_result.update({
+                    "file_name": os.path.basename(file_path),
+                    "analysis_type": "real_easyocr_recovery",
+                    "timestamp": datetime.now().isoformat(),
+                    "file_size_mb": float(round(os.path.getsize(file_path) / (1024 * 1024), 2))
+                })
+                
+                # 부분 성공으로 통계 업데이트
+                self._update_stats(time.time() - start_time, True, partial=True)
+                return recovery_result
+            
+            # 복구 실패시 원래 에러 반환
             self._update_stats(time.time() - start_time, False)
             
             return {
@@ -606,10 +651,26 @@ class RealAnalysisEngine:
         except Exception as e:
             processing_time = time.time() - start_time
             error_msg = f"문서 분석 오류: {str(e)}"
-            
-            # 통계 업데이트
-            self._update_stats(processing_time, False)
             self.logger.error(f"[ERROR] {error_msg}")
+            
+            # 에러 복구 분석 시도
+            recovery_result = self._try_recovery_analysis(file_path, "document", error_msg)
+            if recovery_result:
+                # 복구 성공시 부분 성공으로 처리
+                recovery_result.update({
+                    "file_name": file_name,
+                    "file_path": file_path,
+                    "processing_time": round(processing_time, 2),
+                    "timestamp": datetime.now().isoformat(),
+                    "analysis_type": "document_recovery"
+                })
+                
+                # 부분 성공으로 통계 업데이트
+                self._update_stats(processing_time, True, partial=True)
+                return recovery_result
+            
+            # 복구 실패시 원래 에러 반환
+            self._update_stats(processing_time, False)
             
             return {
                 "status": "error",
@@ -896,9 +957,26 @@ class RealAnalysisEngine:
                 except:
                     pass
             
-            # 통계 업데이트
-            self._update_stats(processing_time, False)
             self.logger.error(f"[ERROR] {error_msg}")
+            
+            # 에러 복구 분석 시도
+            recovery_result = self._try_recovery_analysis(video_path, "video", error_msg)
+            if recovery_result:
+                # 복구 성공시 부분 성공으로 처리
+                recovery_result.update({
+                    "file_name": file_name,
+                    "file_path": video_path,
+                    "processing_time": round(processing_time, 2),
+                    "timestamp": datetime.now().isoformat(),
+                    "analysis_type": "video_recovery"
+                })
+                
+                # 부분 성공으로 통계 업데이트
+                self._update_stats(processing_time, True, partial=True)
+                return recovery_result
+            
+            # 복구 실패시 원래 에러 반환
+            self._update_stats(processing_time, False)
             
             return {
                 "status": "error",
@@ -920,13 +998,38 @@ class RealAnalysisEngine:
         else:
             return "very_large"
     
-    def _update_stats(self, processing_time: float, success: bool):
+    def _update_stats(self, processing_time: float, success: bool, partial: bool = False):
         """통계 업데이트"""
         self.analysis_stats["total_files"] += 1
         self.analysis_stats["total_processing_time"] += processing_time
         if success:
-            self.analysis_stats["successful_analyses"] += 1
+            if partial:
+                self.analysis_stats["partial_successes"] += 1
+            else:
+                self.analysis_stats["successful_analyses"] += 1
+        else:
+            self.analysis_stats["failed_analyses"] += 1
         self.analysis_stats["last_analysis_time"] = datetime.now().isoformat()
+    
+    def _try_recovery_analysis(self, file_path: str, file_type: str, original_error: str) -> Dict[str, Any]:
+        """실패한 분석에 대한 복구 시도"""
+        if not error_recovery_available:
+            return None
+        
+        try:
+            self.logger.info(f"[RECOVERY] 복구 분석 시도: {os.path.basename(file_path)}")
+            recovery_result = error_recovery_analyzer.recover_failed_analysis(file_path, file_type, original_error)
+            
+            if recovery_result.get("status") == "partial_success":
+                self.logger.info(f"[RECOVERY] 부분 복구 성공: {recovery_result.get('recovery_method', 'unknown')}")
+                return recovery_result
+            else:
+                self.logger.warning(f"[RECOVERY] 복구 실패: {recovery_result.get('recovery_error', 'unknown')}")
+                return None
+                
+        except Exception as e:
+            self.logger.error(f"[RECOVERY] 복구 분석 중 오류: {e}")
+            return None
     
     def get_analysis_stats(self) -> Dict[str, Any]:
         """분석 통계 반환"""
@@ -935,12 +1038,25 @@ class RealAnalysisEngine:
             return self.analysis_stats
         
         stats = self.analysis_stats.copy()
-        stats["success_rate"] = round(
-            (stats["successful_analyses"] / total_files) * 100, 1
-        )
-        stats["average_processing_time"] = round(
-            stats["total_processing_time"] / total_files, 1
-        )
+        
+        # 전체 성공률 (완전 성공 + 부분 성공)
+        total_successes = stats["successful_analyses"] + stats["partial_successes"]
+        stats["overall_success_rate"] = round((total_successes / total_files) * 100, 1)
+        
+        # 완전 성공률만
+        stats["full_success_rate"] = round((stats["successful_analyses"] / total_files) * 100, 1)
+        
+        # 부분 성공률
+        stats["partial_success_rate"] = round((stats["partial_successes"] / total_files) * 100, 1)
+        
+        # 실패율
+        stats["failure_rate"] = round((stats["failed_analyses"] / total_files) * 100, 1)
+        
+        # 평균 처리 시간
+        stats["average_processing_time"] = round(stats["total_processing_time"] / total_files, 1)
+        
+        # 복구 효과 (부분 성공이 있으면 복구 시스템이 작동했다는 의미)
+        stats["recovery_effectiveness"] = stats["partial_successes"] > 0
         
         return stats
 

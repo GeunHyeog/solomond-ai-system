@@ -31,10 +31,10 @@ try:
     
 except ImportError as e:
     # 의존성 모듈이 없어도 패키지는 import 가능하도록
-    print(f"⚠️ 일부 의존성 모듈 누락: {e}")
-    print("📦 필요 패키지: numpy, cv2, librosa")
-    print("💡 설치 명령: pip install numpy opencv-python librosa")
+    print(f"[WARNING] 일부 의존성 모듈 누락: {e}")
+    print("[INFO] 필요 패키지: numpy, cv2, librosa")
+    print("[INFO] 설치 명령: pip install numpy opencv-python librosa")
     
     __all__ = []
 
-print(f"🚀 솔로몬드 AI v{__version__} 핵심 모듈 로드 완료")
+print(f"솔로몬드 AI v{__version__} 핵심 모듈 로드 완료")
