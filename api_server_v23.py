@@ -51,6 +51,15 @@ try:
 except ImportError:
     V21_MODULES_AVAILABLE = False
 
+# v2.3 실제 분석 엔진 통합
+try:
+    from core.real_analysis_engine import global_analysis_engine, analyze_file_real
+    from core.large_video_processor import large_video_processor
+    REAL_ANALYSIS_AVAILABLE = True
+except ImportError as e:
+    logging.warning(f"실제 분석 엔진 import 실패: {e}")
+    REAL_ANALYSIS_AVAILABLE = False
+
 # FastAPI 앱 초기화
 app = FastAPI(
     title="솔로몬드 AI API v2.3 - 하이브리드 LLM 시스템",
@@ -147,6 +156,54 @@ class BenchmarkResponse(BaseModel):
     models_tested: int
     models_achieving_target: int
     best_performing_model: str
+
+# v2.3 실제 분석 API 모델들
+class FileAnalysisRequest(BaseModel):
+    """실제 파일 분석 요청"""
+    language: str = Field("ko", description="분석 언어")
+    analysis_type: str = Field("comprehensive", description="분석 유형")
+    
+class FileAnalysisResponse(BaseModel):
+    """실제 파일 분석 응답"""
+    session_id: str
+    success: bool
+    file_name: str
+    file_type: str
+    processing_time: float
+    analysis_result: Dict[str, Any]
+    summary: str
+    keywords: List[str]
+    confidence_score: float
+    timestamp: str
+
+class VideoAnalysisRequest(BaseModel):
+    """비디오 분석 요청"""
+    language: str = Field("ko", description="분석 언어")
+    extract_keyframes: bool = Field(True, description="키프레임 추출 여부")
+    extract_audio: bool = Field(True, description="오디오 추출 여부")
+    
+class VideoAnalysisResponse(BaseModel):
+    """비디오 분석 응답"""
+    session_id: str
+    success: bool
+    file_name: str
+    video_info: Dict[str, Any]
+    audio_analysis: Optional[Dict[str, Any]]
+    keyframes_info: Optional[Dict[str, Any]]
+    enhanced_features: Dict[str, Any]
+    processing_time: float
+    timestamp: str
+
+class SystemStatusResponse(BaseModel):
+    """시스템 상태 응답"""
+    server_status: str
+    real_analysis_available: bool
+    video_processing_available: bool
+    moviepy_available: bool
+    ffmpeg_available: bool
+    supported_formats: List[str]
+    current_load: int
+    uptime: str
     overall_achievement_rate: float
     detailed_results: Dict[str, Any]
     recommendations: List[str]
@@ -748,6 +805,265 @@ async def general_exception_handler(request, exc):
             "recommendation": "시스템 관리자에게 문의하세요"
         }
     )
+
+# v2.3 실제 분석 엔진 API 엔드포인트
+
+@app.post("/api/v23/analyze/file", response_model=FileAnalysisResponse)
+async def analyze_file_endpoint(
+    file: UploadFile = File(...),
+    request: FileAnalysisRequest = FileAnalysisRequest()
+):
+    """실제 파일 분석 API - 음성, 이미지, 문서, 비디오 지원"""
+    
+    session_id = str(uuid.uuid4())
+    start_time = time.time()
+    
+    logging.info(f"[API] 실제 파일 분석 시작 - 세션: {session_id}, 파일: {file.filename}")
+    
+    try:
+        if not REAL_ANALYSIS_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="실제 분석 엔진을 사용할 수 없습니다"
+            )
+        
+        # 임시 파일 저장
+        with tempfile.NamedTemporaryFile(delete=False, suffix=f"_{file.filename}") as temp_file:
+            content = await file.read()
+            temp_file.write(content)
+            temp_file_path = temp_file.name
+        
+        try:
+            # 파일 타입 결정
+            file_ext = os.path.splitext(file.filename)[1].lower()
+            
+            if file_ext in ['.wav', '.mp3', '.m4a', '.flac', '.ogg']:
+                file_type = 'audio'
+            elif file_ext in ['.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.webp']:
+                file_type = 'image'
+            elif file_ext in ['.mp4', '.mov', '.avi', '.mkv', '.wmv', '.flv', '.webm']:
+                file_type = 'video'
+            elif file_ext in ['.pdf', '.docx', '.doc', '.txt']:
+                file_type = 'document'
+            else:
+                file_type = 'unknown'
+            
+            # 실제 분석 실행
+            analysis_result = analyze_file_real(temp_file_path, file_type, request.language)
+            
+            # 응답 데이터 구성
+            if analysis_result.get('status') == 'success':
+                # 요약 생성
+                summary = analysis_result.get('summary', '분석이 완료되었습니다.')
+                if isinstance(summary, dict):
+                    summary = summary.get('content', '분석 완료')
+                
+                # 키워드 추출
+                keywords = []
+                if analysis_result.get('keywords'):
+                    keywords = analysis_result['keywords'][:10]  # 상위 10개만
+                elif analysis_result.get('jewelry_keywords'):
+                    keywords = analysis_result['jewelry_keywords'][:10]
+                
+                # 신뢰도 점수
+                confidence_score = analysis_result.get('average_confidence', 0.85)
+                if isinstance(confidence_score, str):
+                    confidence_score = 0.85
+                
+                processing_time = time.time() - start_time
+                
+                return FileAnalysisResponse(
+                    session_id=session_id,
+                    success=True,
+                    file_name=file.filename,
+                    file_type=file_type,
+                    processing_time=round(processing_time, 2),
+                    analysis_result=analysis_result,
+                    summary=summary,
+                    keywords=keywords,
+                    confidence_score=confidence_score,
+                    timestamp=datetime.now().isoformat()
+                )
+            
+            else:
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"분석 실패: {analysis_result.get('error', 'Unknown error')}"
+                )
+        
+        finally:
+            # 임시 파일 정리
+            try:
+                os.unlink(temp_file_path)
+            except:
+                pass
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"[API] 파일 분석 오류: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"파일 분석 중 오류가 발생했습니다: {str(e)}"
+        )
+
+@app.post("/api/v23/analyze/video", response_model=VideoAnalysisResponse)
+async def analyze_video_endpoint(
+    file: UploadFile = File(...),
+    request: VideoAnalysisRequest = VideoAnalysisRequest()
+):
+    """고급 비디오 분석 API - MoviePy 키프레임 추출 포함"""
+    
+    session_id = str(uuid.uuid4())
+    start_time = time.time()
+    
+    logging.info(f"[API] 비디오 분석 시작 - 세션: {session_id}, 파일: {file.filename}")
+    
+    try:
+        if not REAL_ANALYSIS_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="비디오 분석 엔진을 사용할 수 없습니다"
+            )
+        
+        # 파일 타입 검증
+        file_ext = os.path.splitext(file.filename)[1].lower()
+        if file_ext not in ['.mp4', '.mov', '.avi', '.mkv', '.wmv', '.flv', '.webm']:
+            raise HTTPException(
+                status_code=400,
+                detail=f"지원하지 않는 비디오 형식: {file_ext}"
+            )
+        
+        # 임시 파일 저장
+        with tempfile.NamedTemporaryFile(delete=False, suffix=f"_{file.filename}") as temp_file:
+            content = await file.read()
+            temp_file.write(content)
+            temp_file_path = temp_file.name
+        
+        try:
+            # 비디오 분석 실행
+            analysis_result = global_analysis_engine.analyze_video_file(temp_file_path, request.language)
+            
+            if analysis_result.get('status') == 'success':
+                processing_time = time.time() - start_time
+                
+                return VideoAnalysisResponse(
+                    session_id=session_id,
+                    success=True,
+                    file_name=file.filename,
+                    video_info=analysis_result.get('video_info', {}),
+                    audio_analysis=analysis_result.get('audio_analysis'),
+                    keyframes_info=analysis_result.get('keyframes_info'),
+                    enhanced_features=analysis_result.get('enhanced_features', {}),
+                    processing_time=round(processing_time, 2),
+                    timestamp=datetime.now().isoformat()
+                )
+            
+            else:
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"비디오 분석 실패: {analysis_result.get('error', 'Unknown error')}"
+                )
+        
+        finally:
+            # 임시 파일 정리
+            try:
+                os.unlink(temp_file_path)
+            except:
+                pass
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"[API] 비디오 분석 오류: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"비디오 분석 중 오류가 발생했습니다: {str(e)}"
+        )
+
+@app.get("/api/v23/system/status", response_model=SystemStatusResponse)
+async def get_system_status():
+    """시스템 상태 조회 API"""
+    
+    try:
+        # 시스템 상태 수집
+        real_analysis_status = REAL_ANALYSIS_AVAILABLE
+        video_processing_status = REAL_ANALYSIS_AVAILABLE
+        
+        # MoviePy와 FFmpeg 상태
+        moviepy_status = False
+        ffmpeg_status = False
+        supported_formats = []
+        
+        if REAL_ANALYSIS_AVAILABLE:
+            try:
+                guide = large_video_processor.get_installation_guide()
+                moviepy_status = guide.get('moviepy_available', False)
+                ffmpeg_status = guide.get('ffmpeg_available', False)
+                supported_formats = guide.get('supported_formats', [])
+            except:
+                pass
+        
+        # 현재 부하 (세션 수)
+        current_load = len(active_sessions)
+        
+        # 업타임 계산 (임시)
+        uptime = "시스템 실행 중"
+        
+        return SystemStatusResponse(
+            server_status="running",
+            real_analysis_available=real_analysis_status,
+            video_processing_available=video_processing_status,
+            moviepy_available=moviepy_status,
+            ffmpeg_available=ffmpeg_status,
+            supported_formats=supported_formats,
+            current_load=current_load,
+            uptime=uptime
+        )
+    
+    except Exception as e:
+        logging.error(f"[API] 시스템 상태 조회 오류: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"시스템 상태 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+@app.get("/api/v23/video/info")
+async def get_video_info_endpoint(video_url: str = Query(..., description="비디오 파일 URL 또는 경로")):
+    """비디오 정보 조회 API"""
+    
+    try:
+        if not REAL_ANALYSIS_AVAILABLE:
+            raise HTTPException(
+                status_code=503,
+                detail="비디오 처리 엔진을 사용할 수 없습니다"
+            )
+        
+        # URL에서 파일 다운로드 또는 로컬 경로 처리
+        # 여기서는 간단히 로컬 경로만 지원
+        if not os.path.exists(video_url):
+            raise HTTPException(
+                status_code=404,
+                detail="비디오 파일을 찾을 수 없습니다"
+            )
+        
+        # 비디오 정보 조회
+        video_info = large_video_processor.get_enhanced_video_info_moviepy(video_url)
+        
+        return {
+            "success": video_info.get('status') == 'success',
+            "video_info": video_info,
+            "timestamp": datetime.now().isoformat()
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        logging.error(f"[API] 비디오 정보 조회 오류: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"비디오 정보 조회 중 오류가 발생했습니다: {str(e)}"
+        )
 
 # 개발용 메인 함수
 if __name__ == "__main__":
