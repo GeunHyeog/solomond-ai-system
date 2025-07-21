@@ -14,12 +14,21 @@ Date: 2025.07.08
 
 import logging
 from typing import Dict, Optional, List, Any
-from googletrans import Translator
-from langdetect import detect, DetectorFactory
-import re
+try:
+    from deep_translator import GoogleTranslator
+    TRANSLATOR_AVAILABLE = True
+except ImportError:
+    TRANSLATOR_AVAILABLE = False
 
-# 일관된 언어 감지를 위한 시드 설정
-DetectorFactory.seed = 0
+try:
+    from langdetect import detect, DetectorFactory
+    # 일관된 언어 감지를 위한 시드 설정
+    DetectorFactory.seed = 0
+    LANGDETECT_AVAILABLE = True
+except ImportError:
+    LANGDETECT_AVAILABLE = False
+
+import re
 
 logger = logging.getLogger(__name__)
 
@@ -28,7 +37,10 @@ class JewelryMultilingualTranslator:
     
     def __init__(self):
         """번역기 초기화"""
-        self.translator = Translator()
+        if TRANSLATOR_AVAILABLE:
+            self.translator = GoogleTranslator()
+        else:
+            self.translator = None
         self.jewelry_glossary = self._load_jewelry_glossary()
         self.supported_languages = ['ko', 'en', 'zh', 'ja', 'th']
         
@@ -266,6 +278,17 @@ class JewelryMultilingualTranslator:
             if not text or not text.strip():
                 return 'unknown'
             
+            if not LANGDETECT_AVAILABLE:
+                # 기본 언어 감지 (간단한 패턴 기반)
+                if any(ord(char) >= 0xAC00 and ord(char) <= 0xD7A3 for char in text):
+                    return 'ko'  # 한글
+                elif any(ord(char) >= 0x4E00 and ord(char) <= 0x9FFF for char in text):
+                    return 'zh'  # 중문
+                elif any(ord(char) >= 0x3040 and ord(char) <= 0x309F for char in text):
+                    return 'ja'  # 일문
+                else:
+                    return 'en'  # 기본값
+            
             detected = detect(text)
             
             # 지원 언어로 매핑
@@ -333,15 +356,17 @@ class JewelryMultilingualTranslator:
                     'jewelry_enhanced': False
                 }
             
-            # Google Translate API 사용
-            result = self.translator.translate(
-                text, 
-                src=source_lang, 
-                dest=target_lang
+            # Deep Translator API 사용
+            if not self.translator:
+                raise Exception("번역기를 사용할 수 없습니다")
+            
+            # deep-translator 사용법에 맞게 수정
+            translated_text = self.translator.translate(
+                text=text,
+                target_language=target_lang
             )
             
-            translated_text = result.text
-            confidence = getattr(result, 'confidence', 0.8)
+            confidence = 0.8  # deep-translator는 confidence를 제공하지 않음
             
             # 주얼리 용어 사전으로 개선
             enhanced_text = self.enhance_with_glossary(
@@ -415,8 +440,11 @@ class JewelryMultilingualTranslator:
     def is_ready(self) -> bool:
         """번역 서비스 준비 상태 확인"""
         try:
-            test_result = self.translator.translate("test", dest='ko')
-            return True
+            if not self.translator:
+                return False
+            # deep-translator로 간단한 테스트
+            test_result = self.translator.translate(text="test", target_language='ko')
+            return bool(test_result)
         except:
             return False
     
