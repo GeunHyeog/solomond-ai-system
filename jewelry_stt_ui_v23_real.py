@@ -414,12 +414,16 @@ class SolomondRealAnalysisUI:
             large_files_detected = []
             if uploaded_files:
                 for file in uploaded_files:
-                    file_size_mb = len(file.getvalue()) / (1024 * 1024)
-                    file_size_gb = file_size_mb / 1024
-                    total_size += file_size_mb
-                    total_files += 1
-                    
-                    file_ext = file.name.split('.')[-1].lower()
+                    try:
+                        file_size_mb = len(file.getvalue()) / (1024 * 1024)
+                        file_size_gb = file_size_mb / 1024
+                        total_size += file_size_mb
+                        total_files += 1
+                        
+                        file_ext = file.name.split('.')[-1].lower() if '.' in file.name else 'unknown'
+                    except Exception as e:
+                        st.error(f"파일 처리 오류 ({file.name}): {str(e)}")
+                        continue
                     
                     # 대용량 동영상 파일 감지 (1GB 이상)
                     is_large_video = file_ext in ['mp4', 'mov', 'avi'] and file_size_gb >= 1.0
@@ -452,11 +456,19 @@ class SolomondRealAnalysisUI:
                 st.metric("💾 총 크기", f"{total_size:.2f} MB")
             with col3:
                 languages = ["자동 감지", "한국어", "영어", "중국어", "일본어"]
+                # 프로젝트 정보에서 언어 설정 가져오기 (호환성 확보)
+                saved_language = st.session_state.project_info.get('target_language', '자동 감지')
+                default_index = 0
+                try:
+                    if saved_language in languages:
+                        default_index = languages.index(saved_language)
+                except (ValueError, TypeError):
+                    default_index = 0
+                
                 analysis_language = st.selectbox(
                     "분석 언어", 
                     languages,
-                    index=languages.index(st.session_state.project_info.get('target_language', '자동 감지')) 
-                    if st.session_state.project_info.get('target_language') in languages else 0
+                    index=default_index
                 )
             
             # 대용량 파일 경고 표시

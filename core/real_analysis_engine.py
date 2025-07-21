@@ -12,9 +12,10 @@ from pathlib import Path
 import json
 from datetime import datetime
 
-# GPU 메모리 문제 해결을 위한 CPU 모드 강제 설정
-os.environ['CUDA_VISIBLE_DEVICES'] = ''
+# GPU 활성화로 성능 향상 (메모리 4GB 충분)
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+# GPU 메모리 최적화
+os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
 # 실제 분석 라이브러리들
 import whisper
@@ -545,17 +546,17 @@ class RealAnalysisEngine:
             self.logger.info("🔄 이미지 텍스트 추출 중... (품질 우선 모드)")
             results = reader.readtext(
                 file_path,
-                width_ths=0.5,     # 텍스트 폭 임계값 (더 민감하게)
-                height_ths=0.5,    # 텍스트 높이 임계값 (더 민감하게)
+                width_ths=0.5,     # 텍스트 폭 임계값
+                height_ths=0.5,    # 텍스트 높이 임계값  
                 paragraph=False,   # 단락 모드 비활성화 (속도 향상)
-                detail=1,          # 상세 정보 포함 (bbox, text, confidence)
-                batch_size=1,      # 배치 크기 최소화
-                workers=1,         # 워커 수 최소화
-                text_threshold=0.4,   # 텍스트 감지 임계값 낮춤 (더 많은 텍스트 감지)
-                low_text=0.3,      # 낮은 텍스트 신뢰도 임계값 낮춤
-                link_threshold=0.3, # 링크 임계값 낮춤
-                canvas_size=4096,  # 캔버스 크기 증가 (고해상도 지원)
-                mag_ratio=2.0      # 확대 비율 증가 (작은 텍스트 감지)
+                detail=1,          # 상세 정보 포함
+                batch_size=4,      # 배치 크기 증가 (GPU 활용도 향상)
+                workers=2,         # 워커 수 증가 (멀티스레딩)
+                text_threshold=0.4,   # 텍스트 감지 임계값
+                low_text=0.3,      # 낮은 텍스트 신뢰도 임계값
+                link_threshold=0.3, # 링크 임계값
+                canvas_size=2048,  # 캔버스 크기 적정화 (속도 vs 품질)
+                mag_ratio=1.5      # 확대 비율 적정화
             )
             
             processing_time = time.time() - start_time
@@ -923,15 +924,21 @@ class RealAnalysisEngine:
             if video_info['status'] not in ['success', 'partial_success']:
                 raise Exception(f"비디오 정보 조회 실패: {video_info.get('error', 'Unknown')}")
             
-            # 1.5. 키프레임 추출 (MoviePy 사용 가능한 경우)
+            # 1.5. 키프레임 추출 및 OCR 분석 (MoviePy 사용 가능한 경우)
             keyframes_info = None
+            visual_analysis = None
             if video_info.get('moviepy_duration') and video_info['file_size_mb'] <= 500:  # 500MB 이하만
                 try:
                     self.logger.info("[INFO] 키프레임 추출 중...")
-                    keyframes_result = large_video_processor.extract_keyframes_moviepy(video_path, num_frames=3)
+                    keyframes_result = large_video_processor.extract_keyframes_moviepy(video_path, num_frames=5)
                     if keyframes_result['status'] == 'success':
                         keyframes_info = keyframes_result
                         self.logger.info(f"[SUCCESS] {len(keyframes_result['keyframes'])}개 키프레임 추출 완료")
+                        
+                        # 🆕 키프레임별 OCR 분석 추가
+                        self.logger.info("🔍 키프레임 OCR 분석 중...")
+                        visual_analysis = self._analyze_keyframes_ocr(keyframes_result['keyframes'], context)
+                        
                 except Exception as e:
                     self.logger.warning(f"[WARNING] 키프레임 추출 실패: {e}")
                     keyframes_info = {"error": str(e)}
@@ -978,6 +985,7 @@ class RealAnalysisEngine:
                 "file_type": "video",
                 "video_info": video_info,
                 "keyframes_info": keyframes_info,
+                "visual_analysis": visual_analysis,  # 🆕 시각적 OCR 분석 결과
                 "audio_extraction": audio_extract_result,
                 "audio_analysis": audio_analysis,
                 "processing_time": round(processing_time, 2),
@@ -986,43 +994,80 @@ class RealAnalysisEngine:
                     "moviepy_analysis": video_info.get('moviepy_duration') is not None,
                     "quality_analysis": video_info.get('video_quality_analysis') is not None,
                     "keyframe_extraction": keyframes_info is not None,
+                    "visual_ocr_analysis": visual_analysis is not None,  # 🆕 시각 분석 여부
                     "frame_analysis": video_info.get('frame_analysis') is not None
                 }
             }
             
-            # 비디오 + 오디오 통합 분석
-            if audio_analysis and audio_analysis.get('status') == 'success':
-                transcription = audio_analysis.get('transcription', '')
+            # 🚀 진정한 다각도 분석: 음성 + 시각 정보 통합
+            audio_available = audio_analysis and audio_analysis.get('status') == 'success'
+            visual_available = visual_analysis and visual_analysis.get('status') == 'success'
+            
+            if audio_available or visual_available:
+                # 멀티모달 정보 통합
+                combined_content = {
+                    "metadata": f"비디오 파일: {file_name}",
+                    "audio_content": "",
+                    "visual_content": "",
+                    "temporal_mapping": []
+                }
                 
-                if transcription:
-                    # 비디오 메타데이터 + STT 결과 통합
-                    combined_text = f"비디오 파일: {file_name}\n"
+                # 기본 메타데이터 추가
+                if video_info.get('format_name'):
+                    combined_content["metadata"] += f" | 형식: {video_info['format_name']}"
+                if video_info.get('duration_formatted'):
+                    combined_content["metadata"] += f" | 길이: {video_info['duration_formatted']}"
+                
+                # 음성 정보 추가
+                if audio_available:
+                    transcription = audio_analysis.get('transcription', '')
+                    combined_content["audio_content"] = f"음성 내용: {transcription}"
                     
-                    if video_info.get('format_name'):
-                        combined_text += f"형식: {video_info['format_name']}\n"
+                # 🆕 시각 정보 추가 (새로 구현된 기능)
+                if visual_available:
+                    visual_text = visual_analysis.get('combined_visual_text', '')
+                    combined_content["visual_content"] = f"화면 텍스트: {visual_text}"
                     
-                    if video_info.get('duration_formatted'):
-                        combined_text += f"길이: {video_info['duration_formatted']}\n"
-                    
-                    if video_info.get('video_info', {}).get('quality'):
-                        combined_text += f"화질: {video_info['video_info']['quality']}\n"
-                    
-                    combined_text += f"음성 내용: {transcription}"
-                    
-                    # 통합 요약 및 키워드 추출
-                    summary = self._generate_summary(combined_text)
-                    keywords = self._extract_jewelry_keywords(combined_text)
-                    
-                    result["integrated_analysis"] = {
-                        "summary": summary,
-                        "jewelry_keywords": keywords,
-                        "content_analysis": {
-                            "has_speech": True,
-                            "speech_duration": video_info.get('duration', 0),
-                            "video_quality": video_info.get('video_info', {}).get('quality', 'Unknown'),
-                            "file_size_category": self._categorize_file_size(video_info.get('file_size_mb', 0))
-                        }
-                    }
+                    # 🆕 시간대별 매핑 (음성 + 시각 정보 동기화)
+                    if visual_analysis.get('frame_details'):
+                        for frame in visual_analysis['frame_details']:
+                            if frame.get('enhanced_text', '').strip():
+                                combined_content["temporal_mapping"].append({
+                                    "timestamp": frame['timestamp_formatted'],
+                                    "timestamp_seconds": frame['timestamp_seconds'], 
+                                    "visual_info": frame['enhanced_text'],
+                                    "confidence": frame.get('average_confidence', 0)
+                                })
+                
+                # 🎯 멀티모달 통합 텍스트 생성
+                integrated_text = f"{combined_content['metadata']}\n"
+                if combined_content["audio_content"]:
+                    integrated_text += f"{combined_content['audio_content']}\n"
+                if combined_content["visual_content"]:
+                    integrated_text += f"{combined_content['visual_content']}\n"
+                
+                # 🧠 통합 분석 수행
+                integrated_summary = self._generate_context_aware_summary(integrated_text, context)
+                integrated_keywords = self._extract_jewelry_keywords(integrated_text)
+                
+                result["integrated_analysis"] = {
+                    "summary": integrated_summary,
+                    "jewelry_keywords": integrated_keywords,
+                    "multimodal_insights": {
+                        "has_audio": audio_available,
+                        "has_visual_text": visual_available and len(combined_content["visual_content"]) > 20,
+                        "temporal_mappings": len(combined_content["temporal_mapping"]),
+                        "analysis_depth": "multimodal" if (audio_available and visual_available) else "single_modal"
+                    },
+                    "content_analysis": {
+                        "has_speech": audio_available,
+                        "has_visual_info": visual_available,
+                        "speech_duration": video_info.get('duration', 0),
+                        "video_quality": video_info.get('video_info', {}).get('quality', 'Unknown'),
+                        "file_size_category": self._categorize_file_size(video_info.get('file_size_mb', 0))
+                    },
+                    "temporal_synchronization": combined_content["temporal_mapping"][:10]  # 상위 10개 시간대
+                }
             
             else:
                 # 오디오 없거나 STT 실패 시 비디오 정보만으로 분석
@@ -1085,6 +1130,110 @@ class RealAnalysisEngine:
                 "timestamp": datetime.now().isoformat()
             }
     
+    def _analyze_keyframes_ocr(self, keyframes_list: List[Dict], context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """키프레임별 OCR 분석 - 영상의 시각적 정보 추출"""
+        start_time = time.time()
+        
+        try:
+            # OCR 모델 로드 (이미지 분석과 동일)
+            reader = self._lazy_load_ocr()
+            
+            frame_analyses = []
+            all_extracted_texts = []
+            total_confidence = 0
+            
+            for i, frame_info in enumerate(keyframes_list):
+                frame_path = frame_info.get('frame_path')
+                timestamp_seconds = frame_info.get('timestamp', i * 10)  # 기본값으로 10초 간격
+                
+                if not frame_path or not os.path.exists(frame_path):
+                    continue
+                    
+                try:
+                    self.logger.info(f"🖼️ 프레임 {i+1} OCR 분석: {timestamp_seconds}초")
+                    
+                    # OCR 수행 (이미지 분석과 동일한 파라미터)
+                    results = reader.readtext(
+                        frame_path,
+                        width_ths=0.5, height_ths=0.5, paragraph=False, detail=1,
+                        batch_size=2, workers=1,  # 프레임 분석은 조금 더 빠르게
+                        text_threshold=0.4, low_text=0.3, link_threshold=0.3,
+                        canvas_size=2048, mag_ratio=1.5
+                    )
+                    
+                    # 결과 처리
+                    detected_texts = []
+                    frame_confidence = 0
+                    
+                    for bbox, text, confidence in results:
+                        if confidence > 0.3:  # 최소 신뢰도 필터링
+                            detected_texts.append({
+                                "text": text.strip(),
+                                "confidence": float(round(confidence, 3)),
+                                "bbox": bbox
+                            })
+                            frame_confidence += float(confidence)
+                    
+                    avg_frame_confidence = float(frame_confidence / len(results)) if results else 0.0
+                    frame_text = ' '.join([item["text"] for item in detected_texts])
+                    
+                    # 컨텍스트 기반 텍스트 향상 (참석자/키워드 보정)
+                    enhanced_frame_text = self._enhance_with_context(frame_text, context) if frame_text.strip() else ""
+                    
+                    frame_analysis = {
+                        "frame_index": i + 1,
+                        "timestamp_seconds": timestamp_seconds,
+                        "timestamp_formatted": self._format_timestamp(timestamp_seconds),
+                        "frame_path": frame_path,
+                        "texts_detected": len(detected_texts),
+                        "average_confidence": avg_frame_confidence,
+                        "raw_text": frame_text,
+                        "enhanced_text": enhanced_frame_text,
+                        "detected_elements": detected_texts[:5]  # 상위 5개만 저장
+                    }
+                    
+                    frame_analyses.append(frame_analysis)
+                    all_extracted_texts.append(enhanced_frame_text)
+                    total_confidence += avg_frame_confidence
+                    
+                except Exception as frame_error:
+                    self.logger.warning(f"❌ 프레임 {i+1} OCR 실패: {frame_error}")
+                    continue
+            
+            processing_time = time.time() - start_time
+            
+            # 전체 텍스트 통합 및 분석
+            combined_visual_text = ' '.join(filter(None, all_extracted_texts))
+            visual_summary = self._generate_context_aware_summary(combined_visual_text, context) if combined_visual_text.strip() else "시각적 텍스트 정보 없음"
+            visual_keywords = self._extract_jewelry_keywords(combined_visual_text) if combined_visual_text.strip() else []
+            
+            return {
+                "status": "success",
+                "processing_time": round(processing_time, 1),
+                "frames_analyzed": len(frame_analyses),
+                "total_texts_found": len(all_extracted_texts),
+                "average_confidence": round(total_confidence / len(frame_analyses), 3) if frame_analyses else 0,
+                "combined_visual_text": combined_visual_text,
+                "visual_summary": visual_summary,
+                "visual_keywords": visual_keywords,
+                "frame_details": frame_analyses,
+                "analysis_type": "keyframe_ocr"
+            }
+            
+        except Exception as e:
+            self.logger.error(f"❌ 키프레임 OCR 분석 실패: {e}")
+            return {
+                "status": "error",
+                "error": str(e),
+                "processing_time": round(time.time() - start_time, 1)
+            }
+    
+    def _format_timestamp(self, seconds: float) -> str:
+        """초를 mm:ss 형식으로 변환"""
+        minutes = int(seconds // 60)
+        secs = int(seconds % 60)
+        return f"{minutes:02d}:{secs:02d}"
+
     def _categorize_file_size(self, size_mb: float) -> str:
         """파일 크기 카테고리 분류"""
         if size_mb < 10:

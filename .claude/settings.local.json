@@ -21,7 +21,10 @@
       "Bash(pip show:*)",
       "Bash(grep:*)",
       "Bash(curl:*)",
-      "Bash(kill:*)"
+      "Bash(kill:*)",
+      "Bash(wmic process where:*)",
+      "Bash(nvidia-smi:*)",
+      "Bash(echo:*)"
     ],
     "deny": []
   }
