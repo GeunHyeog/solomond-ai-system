@@ -55,3 +55,26 @@ class VideoProcessor:
             "supported_formats": self.supported_formats,
             "max_duration": self.max_duration
         }
+
+# 모듈 레벨 함수들
+def get_video_processor():
+    """비디오 프로세서 인스턴스 반환 (호환성 유지)"""
+    return VideoProcessor()
+
+def check_video_support() -> Dict[str, Any]:
+    """비디오 지원 상태 확인"""
+    return {
+        "video_support": True,
+        "supported_formats": ['mp4', 'avi', 'mov', 'wmv', 'flv'],
+        "max_duration": 300,
+        "processing_capability": "기본 비디오 처리"
+    }
+
+def extract_audio_from_video(video_path: str) -> Optional[str]:
+    """비디오에서 오디오 추출 (레거시 호환성)"""
+    logging.info(f"오디오 추출 요청: {video_path}")
+    # 실제 구현은 real_analysis_engine에서 처리
+    return None
+
+# 전역 인스턴스 생성
+video_processor = VideoProcessor()

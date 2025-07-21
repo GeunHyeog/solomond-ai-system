@@ -12,10 +12,25 @@ from pathlib import Path
 import json
 from datetime import datetime
 
-# GPU 활성화로 성능 향상 (메모리 4GB 충분)
+# CPU 모드 최적화 설정 (GPU 없는 환경)
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-# GPU 메모리 최적화
+os.environ['CUDA_VISIBLE_DEVICES'] = ''  # GPU 비활성화
+# PyTorch 설정 최적화
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
+os.environ['TORCH_HOME'] = os.path.expanduser('~/.cache/torch')
+
+# Unicode 인코딩 문제 해결 (Windows)
+os.environ['PYTHONIOENCODING'] = 'utf-8'
+import sys
+if sys.platform == 'win32':
+    import codecs
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+
+# 경고 메시지 억제
+import warnings
+warnings.filterwarnings('ignore', category=UserWarning, module='torch')
+warnings.filterwarnings('ignore', message='.*pin_memory.*')
 
 # 실제 분석 라이브러리들
 import whisper
@@ -65,6 +80,12 @@ try:
     error_recovery_available = True
 except ImportError:
     error_recovery_available = False
+
+try:
+    from .audio_converter import global_audio_converter, convert_audio_to_wav, get_audio_info
+    audio_converter_available = True
+except ImportError:
+    audio_converter_available = False
 
 class RealAnalysisEngine:
     """실제 파일 분석 엔진"""
@@ -156,10 +177,13 @@ class RealAnalysisEngine:
         return f"{context_prefix}{base_summary}{objective_suffix}"
     
     def _setup_logging(self) -> logging.Logger:
-        """로깅 설정"""
+        """로깅 설정 (Unicode 인코딩 문제 해결)"""
         logger = logging.getLogger(__name__)
         if not logger.handlers:
             handler = logging.StreamHandler()
+            # UTF-8 인코딩 강제 설정
+            if hasattr(handler.stream, 'reconfigure'):
+                handler.stream.reconfigure(encoding='utf-8')
             formatter = logging.Formatter(
                 '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
             )
@@ -185,6 +209,19 @@ class RealAnalysisEngine:
             start_time = time.time()
             
             # CPU 모드와 성능 최적화 설정
+            import torch
+            # PyTorch DataLoader pin_memory 경고 방지
+            if not torch.cuda.is_available():
+                torch.backends.cudnn.enabled = False
+                # CPU 모드에서 스레드 수 최적화
+                torch.set_num_threads(2)  # CPU 코어에 맞게 조정
+            
+            # 메모리 정리 (기존 모델이 있는 경우)
+            if hasattr(self, 'ocr_reader') and self.ocr_reader is not None:
+                del self.ocr_reader
+                import gc
+                gc.collect()
+            
             self.ocr_reader = easyocr.Reader(
                 ['ko', 'en'],
                 gpu=False,  # CPU 강제 사용
@@ -193,7 +230,8 @@ class RealAnalysisEngine:
                 recog_network='CRNN',  # 기본 recognition network
                 detector=True,
                 recognizer=True,
-                verbose=False  # 로그 최소화
+                verbose=False,  # 로그 최소화
+                download_enabled=True
             )
             
             load_time = time.time() - start_time
@@ -366,25 +404,55 @@ class RealAnalysisEngine:
             self.logger.error(f"❌ M4A 변환 중 오류: {e}")
             return None
     
-    def _preprocess_m4a_file(self, file_path: str) -> str:
-        """M4A 파일 전처리"""
-        self.logger.info("🎵 M4A 파일 전처리 시작")
+    def _preprocess_audio_file(self, file_path: str) -> str:
+        """오디오 파일 전처리 (M4A 포함 모든 포맷 지원)"""
+        file_ext = Path(file_path).suffix.lower()
+        self.logger.info(f"🎵 오디오 파일 전처리 시작: {file_ext}")
         
-        # 1. 원본 파일 검증
-        if not self._validate_audio_data(file_path):
-            # 검증 실패시 FFmpeg 변환 시도
-            self.logger.info("🔧 FFmpeg 변환으로 재시도")
-            converted_path = self._convert_m4a_to_wav(file_path)
-            if converted_path and self._validate_audio_data(converted_path):
-                return converted_path
+        # 1. 오디오 파일 정보 확인
+        if audio_converter_available:
+            audio_info = get_audio_info(file_path)
+            self.logger.info(f"📊 오디오 정보: {audio_info['duration_seconds']:.1f}초, "
+                           f"{audio_info['file_size_mb']:.1f}MB, {audio_info['sample_rate']}Hz")
+            
+            # 유효하지 않은 오디오 파일이거나 M4A인 경우 변환
+            if not audio_info['is_valid'] or file_ext in ['.m4a', '.aac']:
+                self.logger.info("🔧 오디오 변환 시도...")
+                converted_path = convert_audio_to_wav(file_path, target_sample_rate=16000)
+                
+                if converted_path and self._validate_audio_data(converted_path):
+                    self.logger.info("✅ 오디오 변환 성공")
+                    return converted_path
+                else:
+                    self.logger.warning("⚠️ 오디오 변환 실패, 원본 파일로 시도")
+                    # 변환 실패시 원본으로 시도
+                    if self._validate_audio_data(file_path):
+                        return file_path
+                    return None
             else:
-                # 변환도 실패시 정리하고 None 반환
-                if converted_path and os.path.exists(converted_path):
-                    os.unlink(converted_path)
-                return None
+                # 유효한 오디오 파일이면 검증 후 사용
+                if self._validate_audio_data(file_path):
+                    return file_path
+                else:
+                    # 검증 실패시 변환 시도
+                    converted_path = convert_audio_to_wav(file_path)
+                    return converted_path if converted_path and self._validate_audio_data(converted_path) else None
         
-        # 원본 파일이 정상이면 그대로 사용
-        return file_path
+        # 오디오 컨버터 없으면 기존 M4A 변환 로직 사용
+        else:
+            if file_ext == ".m4a":
+                if not self._validate_audio_data(file_path):
+                    self.logger.info("🔧 FFmpeg 변환으로 재시도")
+                    converted_path = self._convert_m4a_to_wav(file_path)
+                    if converted_path and self._validate_audio_data(converted_path):
+                        return converted_path
+                    else:
+                        if converted_path and os.path.exists(converted_path):
+                            os.unlink(converted_path)
+                        return None
+            
+            # 원본 파일이 정상이면 그대로 사용
+            return file_path if self._validate_audio_data(file_path) else None
     
     def analyze_audio_file(self, file_path: str, language: str = "ko", context: Dict[str, Any] = None) -> Dict[str, Any]:
         """실제 음성 파일 분석"""
@@ -406,16 +474,13 @@ class RealAnalysisEngine:
             file_ext = Path(file_path).suffix.lower()
             self.logger.info(f"📁 파일 형식: {file_ext}")
             
-            # M4A 파일 전처리
-            if file_ext == ".m4a":
-                processed_file_path = self._preprocess_m4a_file(file_path)
-                if processed_file_path is None:
-                    raise Exception("M4A 파일 전처리 실패: 오디오 데이터를 읽을 수 없습니다")
-                
-                # 변환된 파일인지 확인 (임시 파일 정리를 위해)
-                temp_file_created = (processed_file_path != file_path)
-            else:
-                processed_file_path = file_path
+            # 오디오 파일 전처리 (모든 포맷 지원)
+            processed_file_path = self._preprocess_audio_file(file_path)
+            if processed_file_path is None:
+                raise Exception("오디오 파일 전처리 실패: 오디오 데이터를 읽을 수 없습니다")
+            
+            # 변환된 파일인지 확인 (임시 파일 정리를 위해)
+            temp_file_created = (processed_file_path != file_path)
             
             # 음성-텍스트 변환
             self.logger.info("🔄 음성-텍스트 변환 중...")
@@ -539,25 +604,44 @@ class RealAnalysisEngine:
         start_time = time.time()
         
         try:
+            # 파일 크기 확인 및 전처리
+            file_size_mb = os.path.getsize(file_path) / (1024 * 1024)
+            self.logger.info(f"📁 파일 크기: {file_size_mb:.1f}MB")
+            
+            # 큰 파일의 경우 추가 최적화
+            if file_size_mb > 5:  # 5MB 이상
+                canvas_size = 960
+                mag_ratio = 0.8
+                text_threshold = 0.6
+                self.logger.info("📏 대용량 파일 감지 - 추가 속도 최적화 적용")
+            else:
+                canvas_size = 1280
+                mag_ratio = 1.0
+                text_threshold = 0.5
+            
             # OCR 모델 로드
             reader = self._lazy_load_ocr()
             
-            # OCR 텍스트 추출 (품질과 성능 균형)
-            self.logger.info("🔄 이미지 텍스트 추출 중... (품질 우선 모드)")
+            # OCR 텍스트 추출 (속도 최적화 모드)
+            self.logger.info("🔄 이미지 텍스트 추출 중... (속도 최적화 모드)")
             results = reader.readtext(
                 file_path,
-                width_ths=0.5,     # 텍스트 폭 임계값
-                height_ths=0.5,    # 텍스트 높이 임계값  
+                width_ths=0.7,     # 텍스트 폭 임계값 (속도 향상)
+                height_ths=0.7,    # 텍스트 높이 임계값 (속도 향상)
                 paragraph=False,   # 단락 모드 비활성화 (속도 향상)
                 detail=1,          # 상세 정보 포함
-                batch_size=4,      # 배치 크기 증가 (GPU 활용도 향상)
-                workers=2,         # 워커 수 증가 (멀티스레딩)
-                text_threshold=0.4,   # 텍스트 감지 임계값
-                low_text=0.3,      # 낮은 텍스트 신뢰도 임계값
-                link_threshold=0.3, # 링크 임계값
-                canvas_size=2048,  # 캔버스 크기 적정화 (속도 vs 품질)
-                mag_ratio=1.5      # 확대 비율 적정화
+                batch_size=1,      # CPU 모드에서 배치 크기 최적화
+                workers=0,         # CPU 모드에서 멀티프로세싱 비활성화
+                text_threshold=text_threshold,   # 동적 임계값
+                low_text=0.4,      # 낮은 텍스트 신뢰도 임계값 (속도 향상)
+                link_threshold=0.4, # 링크 임계값 (속도 향상)
+                canvas_size=canvas_size,  # 동적 캔버스 크기
+                mag_ratio=mag_ratio      # 동적 확대 비율
             )
+            
+            # 메모리 정리
+            import gc
+            gc.collect()
             
             processing_time = time.time() - start_time
             
@@ -1152,13 +1236,13 @@ class RealAnalysisEngine:
                 try:
                     self.logger.info(f"🖼️ 프레임 {i+1} OCR 분석: {timestamp_seconds}초")
                     
-                    # OCR 수행 (이미지 분석과 동일한 파라미터)
+                    # OCR 수행 (프레임별 속도 최적화)
                     results = reader.readtext(
                         frame_path,
-                        width_ths=0.5, height_ths=0.5, paragraph=False, detail=1,
-                        batch_size=2, workers=1,  # 프레임 분석은 조금 더 빠르게
-                        text_threshold=0.4, low_text=0.3, link_threshold=0.3,
-                        canvas_size=2048, mag_ratio=1.5
+                        width_ths=0.8, height_ths=0.8, paragraph=False, detail=1,
+                        batch_size=1, workers=0,  # 프레임 분석 고속화
+                        text_threshold=0.6, low_text=0.5, link_threshold=0.5,
+                        canvas_size=960, mag_ratio=1.0  # 더 작은 크기로 속도 향상
                     )
                     
                     # 결과 처리
