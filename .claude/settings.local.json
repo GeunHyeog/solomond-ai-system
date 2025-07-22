@@ -30,7 +30,13 @@
       "Bash(tasklist:*)",
       "Bash(find:*)",
       "Bash(tskill:*)",
-      "Bash(del nul)"
+      "Bash(del nul)",
+      "Bash(set PYTHONIOENCODING=utf-8)",
+      "Bash(npx @modelcontextprotocol/server-memory:*)",
+      "Bash(npx:*)",
+      "Bash(npm info:*)",
+      "Bash(npm search:*)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": []
   }
