@@ -82,10 +82,40 @@ except ImportError:
     error_recovery_available = False
 
 try:
+    from .analysis_quality_enhancer import global_quality_enhancer, enhance_analysis_quality
+    quality_enhancer_available = True
+except ImportError:
+    quality_enhancer_available = False
+
+try:
+    from .comprehensive_message_extractor import global_message_extractor, extract_speaker_message
+    message_extractor_available = True
+except ImportError:
+    message_extractor_available = False
+
+try:
+    from .ppt_intelligence_engine import global_ppt_engine, analyze_ppt_slide
+    ppt_intelligence_available = True
+except ImportError:
+    ppt_intelligence_available = False
+
+try:
+    from .jewelry_domain_enhancer import global_jewelry_enhancer, enhance_with_jewelry_domain
+    jewelry_enhancer_available = True
+except ImportError:
+    jewelry_enhancer_available = False
+
+try:
     from .audio_converter import global_audio_converter, convert_audio_to_wav, get_audio_info
     audio_converter_available = True
 except ImportError:
     audio_converter_available = False
+
+try:
+    from .performance_monitor import global_performance_monitor, record_analysis_result
+    performance_monitor_available = True
+except ImportError:
+    performance_monitor_available = False
 
 class RealAnalysisEngine:
     """실제 파일 분석 엔진"""
@@ -645,6 +675,20 @@ class RealAnalysisEngine:
             
             processing_time = time.time() - start_time
             
+            # 성능 모니터링 기록
+            if performance_monitor_available:
+                record_analysis_result(
+                    file_name=os.path.basename(file_path),
+                    file_type="image",
+                    processing_time=processing_time,
+                    status="success",
+                    additional_info={
+                        "file_size_mb": file_size_mb,
+                        "canvas_size": canvas_size,
+                        "detected_blocks": len(results)
+                    }
+                )
+            
             # 결과 처리
             detected_texts = []
             total_confidence = 0
@@ -694,6 +738,19 @@ class RealAnalysisEngine:
             error_msg = f"이미지 분석 실패: {str(e)}"
             self.logger.error(error_msg)
             
+            # 성능 모니터링 기록 (실패)
+            if performance_monitor_available:
+                record_analysis_result(
+                    file_name=os.path.basename(file_path),
+                    file_type="image",
+                    processing_time=time.time() - start_time,
+                    status="failed",
+                    error_msg=error_msg,
+                    additional_info={
+                        "file_size_mb": float(round(os.path.getsize(file_path) / (1024 * 1024), 2)) if os.path.exists(file_path) else 0
+                    }
+                )
+            
             # 에러 복구 분석 시도
             recovery_result = self._try_recovery_analysis(file_path, "image", error_msg)
             if recovery_result:
@@ -707,6 +764,17 @@ class RealAnalysisEngine:
                 
                 # 부분 성공으로 통계 업데이트
                 self._update_stats(time.time() - start_time, True, partial=True)
+                
+                # 성능 모니터링 기록 (부분 성공)
+                if performance_monitor_available:
+                    record_analysis_result(
+                        file_name=os.path.basename(file_path),
+                        file_type="image",
+                        processing_time=time.time() - start_time,
+                        status="partial",
+                        error_msg=f"복구됨: {error_msg}",
+                        additional_info={"recovery_used": True}
+                    )
                 return recovery_result
             
             # 복구 실패시 원래 에러 반환
@@ -1395,17 +1463,18 @@ class RealAnalysisEngine:
 global_analysis_engine = RealAnalysisEngine()
 
 def analyze_file_real(file_path: str, file_type: str, language: str = "auto", context: Dict[str, Any] = None) -> Dict[str, Any]:
-    """파일 실제 분석 (간편 사용, 컨텍스트 지원)"""
+    """파일 실제 분석 (간편 사용, 컨텍스트 지원, 품질 향상 적용)"""
+    # 기본 분석 수행
     if file_type == "audio":
-        return global_analysis_engine.analyze_audio_file(file_path, language=language, context=context)
+        result = global_analysis_engine.analyze_audio_file(file_path, language=language, context=context)
     elif file_type == "image":
-        return global_analysis_engine.analyze_image_file(file_path, context=context)
+        result = global_analysis_engine.analyze_image_file(file_path, context=context)
     elif file_type == "document":
-        return global_analysis_engine.analyze_document_file(file_path)
+        result = global_analysis_engine.analyze_document_file(file_path)
     elif file_type == "youtube":
-        return global_analysis_engine.analyze_youtube_video(file_path, language=language)
+        result = global_analysis_engine.analyze_youtube_video(file_path, language=language)
     elif file_type == "video":
-        return global_analysis_engine.analyze_video_file(file_path, language=language)
+        result = global_analysis_engine.analyze_video_file(file_path, language=language)
     else:
         return {
             "status": "error",
@@ -1413,6 +1482,59 @@ def analyze_file_real(file_path: str, file_type: str, language: str = "auto", co
             "file_name": os.path.basename(file_path) if os.path.exists(file_path) else file_path,
             "timestamp": datetime.now().isoformat()
         }
+    
+    # 🚀 종합 분석 엔진 적용 (클로바 노트 + ChatGPT 수준)
+    if result.get('status') == 'success':
+        try:
+            # 1. 품질 향상 엔진 적용
+            if quality_enhancer_available:
+                result = enhance_analysis_quality(result, context)
+                result['quality_enhancement_applied'] = True
+            
+            # 2. PPT 지능형 분석 (이미지 파일인 경우)
+            if file_type == "image" and ppt_intelligence_available:
+                ppt_analysis = analyze_ppt_slide(file_path, context)
+                if ppt_analysis.get('status') == 'success':
+                    result['ppt_intelligence'] = ppt_analysis['ppt_intelligence']
+                    result['ppt_enhanced_understanding'] = ppt_analysis['enhanced_understanding']
+            
+            # 3. 종합 메시지 추출 (다중 모달 데이터가 있는 경우)
+            if message_extractor_available:
+                # 다중 모달 데이터 준비
+                multimodal_data = {}
+                if file_type == "audio":
+                    multimodal_data['audio_analysis'] = result
+                elif file_type == "image":
+                    multimodal_data['image_analysis'] = [result]
+                elif file_type == "video":
+                    multimodal_data['video_analysis'] = result
+                
+                # 종합 메시지 추출
+                if multimodal_data:
+                    message_analysis = extract_speaker_message(multimodal_data, context)
+                    result['comprehensive_message'] = message_analysis['comprehensive_analysis']
+                    result['clova_style_summary'] = message_analysis['comprehensive_analysis']['clova_style_summary']
+            
+            # 4. 주얼리 도메인 특화 분석 (해당하는 경우)
+            if jewelry_enhancer_available and result.get('enhanced_text'):
+                result = enhance_with_jewelry_domain(result, result['enhanced_text'])
+            
+            # 종합 분석 완료 마킹
+            result['comprehensive_analysis_applied'] = True
+            result['analysis_engines_used'] = {
+                'quality_enhancer': quality_enhancer_available,
+                'message_extractor': message_extractor_available,
+                'ppt_intelligence': ppt_intelligence_available and file_type == "image",
+                'jewelry_domain': jewelry_enhancer_available
+            }
+            
+        except Exception as e:
+            # 종합 분석 실패시 원본 결과 반환 (로그 기록)
+            logging.getLogger(__name__).warning(f"종합 분석 실패: {e}")
+            result['comprehensive_analysis_error'] = str(e)
+            result['comprehensive_analysis_applied'] = False
+    
+    return result
 
 if __name__ == "__main__":
     # 테스트 실행
