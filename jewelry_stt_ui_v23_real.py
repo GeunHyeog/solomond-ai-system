@@ -51,7 +51,7 @@ sys.path.insert(0, str(project_root))
 
 # 실제 분석 엔진 import
 try:
-    from core.real_analysis_engine import global_analysis_engine, analyze_file_real
+    from core.real_analysis_engine import global_analysis_engine, analyze_file_real, create_comprehensive_story_from_sources
     REAL_ANALYSIS_AVAILABLE = True
     print("[SUCCESS] 실제 분석 엔진 로드 완료")
 except ImportError as e:
@@ -879,6 +879,59 @@ class SolomondRealAnalysisUI:
             with col2:
                 st.markdown(f"**성공률:** {report['success_rate']:.1f}%")
                 st.markdown(f"**처리 시간:** {report['total_time']:.1f}초")
+            
+            st.markdown("---")
+            
+            # 🎭 종합 스토리 생성 (새 기능)
+            st.markdown("### 🎭 종합 스토리 - 무엇에 대한 이야기인가?")
+            
+            if st.button("📖 전체 내용을 하나의 이야기로 만들기", type="primary"):
+                with st.spinner("🎭 AI가 전체 내용을 하나의 일관된 한국어 스토리로 구성 중..."):
+                    story_result = self.create_comprehensive_story()
+                    
+                    if story_result and story_result.get("status") == "success":
+                        st.success("✅ 종합 스토리 생성 완료!")
+                        
+                        story_content = story_result.get("story", "")
+                        if story_content:
+                            st.markdown("#### 📚 생성된 스토리")
+                            st.markdown(f"```markdown\n{story_content}\n```")
+                            
+                            # 다운로드 버튼
+                            st.download_button(
+                                label="📥 스토리 다운로드 (TXT)",
+                                data=story_content,
+                                file_name=f"종합_스토리_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt",
+                                mime="text/plain"
+                            )
+                        
+                        # 메타데이터 표시
+                        metadata = story_result.get("metadata", {})
+                        if metadata:
+                            st.markdown("#### 📊 스토리 생성 정보")
+                            col1, col2, col3 = st.columns(3)
+                            with col1:
+                                st.metric("처리된 소스", metadata.get("source_count", 0))
+                            with col2:
+                                st.metric("사용된 AI 엔진", metadata.get("ai_engine_used", "Local"))
+                            with col3:
+                                st.metric("핵심 메시지 수", metadata.get("key_messages_count", 0))
+                    
+                    elif story_result and story_result.get("status") == "error":
+                        st.error(f"❌ 스토리 생성 실패: {story_result.get('error', 'Unknown error')}")
+                        
+                        # 폴백 스토리가 있으면 표시
+                        fallback_story = story_result.get("fallback_story")
+                        if fallback_story:
+                            st.markdown("#### 📄 기본 요약")
+                            st.markdown(fallback_story)
+                            
+                        # API 키 설정 안내
+                        if "API Key" in story_result.get("error", ""):
+                            st.info("💡 **더 나은 스토리 생성을 위한 안내:**\n\nOpenAI API Key를 환경변수 `OPENAI_API_KEY`에 설정하면 GPT-4를 활용한 고품질 스토리 생성이 가능합니다.")
+                    
+                    else:
+                        st.warning("⚠️ 스토리 생성에 실패했습니다. 분석 결과를 확인해주세요.")
             
             st.markdown("---")
             
@@ -2703,6 +2756,71 @@ class SolomondRealAnalysisUI:
         status_text.text("✅ 모든 분석 완료!")
         
         return all_results
+    
+    def create_comprehensive_story(self):
+        """분석 결과들을 하나의 일관된 한국어 스토리로 변환"""
+        
+        try:
+            if not st.session_state.analysis_results:
+                return {
+                    "status": "error",
+                    "error": "분석 결과가 없습니다."
+                }
+            
+            # 분석 결과를 스토리텔링 엔진 형식으로 변환
+            sources = []
+            for i, result in enumerate(st.session_state.analysis_results):
+                if result.get('status') == 'success':
+                    
+                    # 파일 타입 추정
+                    file_name = result.get('file_name', f'파일_{i+1}')
+                    if any(ext in file_name.lower() for ext in ['.wav', '.mp3', '.m4a', '.flac']):
+                        file_type = "audio"
+                    elif any(ext in file_name.lower() for ext in ['.jpg', '.jpeg', '.png', '.gif']):
+                        file_type = "image"
+                    elif any(ext in file_name.lower() for ext in ['.pdf', '.docx', '.doc', '.txt']):
+                        file_type = "document"
+                    else:
+                        file_type = "unknown"
+                    
+                    source_data = {
+                        "name": file_name,
+                        "type": file_type,
+                        "analysis_result": result,
+                        "timestamp": result.get('timestamp')
+                    }
+                    
+                    sources.append(source_data)
+            
+            if not sources:
+                return {
+                    "status": "error",
+                    "error": "성공적으로 분석된 파일이 없습니다."
+                }
+            
+            # 프로젝트 정보에 따른 스토리 타입 결정
+            project_info = st.session_state.get('project_info', {})
+            topic = project_info.get('topic', '').lower()
+            
+            if '상담' in topic or '고객' in topic:
+                story_type = "consultation"
+            elif '회의' in topic or '미팅' in topic:
+                story_type = "meeting"
+            elif len(sources) > 3:  # 다중 소스
+                story_type = "multimedia"
+            else:
+                story_type = "general"
+            
+            # 고급 스토리텔링 엔진으로 스토리 생성
+            story_result = create_comprehensive_story_from_sources(sources, story_type)
+            
+            return story_result
+            
+        except Exception as e:
+            return {
+                "status": "error",
+                "error": f"스토리 생성 중 오류가 발생했습니다: {str(e)}"
+            }
     
     def generate_final_report(self):
         """최종 분석 보고서 생성"""

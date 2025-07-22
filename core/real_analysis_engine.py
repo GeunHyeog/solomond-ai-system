@@ -38,6 +38,13 @@ import easyocr
 import subprocess
 import tempfile
 
+# 고급 스토리텔링 엔진
+try:
+    from .advanced_storytelling_engine import global_storytelling_engine, create_comprehensive_korean_story
+    storytelling_available = True
+except ImportError:
+    storytelling_available = False
+
 try:
     import librosa
     import numpy as np
@@ -228,14 +235,33 @@ class RealAnalysisEngine:
             logger.setLevel(logging.INFO)
         return logger
     
-    def _lazy_load_whisper(self, model_size: str = "base") -> whisper.Whisper:
-        """Whisper 모델 지연 로딩"""
+    def _lazy_load_whisper(self, model_size: str = "large-v3") -> whisper.Whisper:
+        """Whisper 모델 지연 로딩 (최고 품질 large-v3 우선)"""
         if self.whisper_model is None:
-            self.logger.info(f"🎤 Whisper {model_size} 모델 로딩...")
+            self.logger.info(f"🎤 Whisper {model_size} 모델 로딩... (고품질 분석)")
             start_time = time.time()
-            self.whisper_model = whisper.load_model(model_size)
-            load_time = time.time() - start_time
-            self.logger.info(f"✅ Whisper 로드 완료 ({load_time:.1f}초)")
+            
+            try:
+                # large-v3 모델 우선 시도 (최고 품질)
+                self.whisper_model = whisper.load_model(model_size, device="cpu")
+                load_time = time.time() - start_time
+                self.logger.info(f"✅ Whisper {model_size} 로드 완료 ({load_time:.1f}초)")
+                
+            except Exception as e:
+                self.logger.warning(f"⚠️ {model_size} 모델 로드 실패: {e}")
+                
+                # 폴백: base 모델로 재시도
+                try:
+                    fallback_model = "base"
+                    self.logger.info(f"🔄 폴백: Whisper {fallback_model} 모델로 재시도...")
+                    self.whisper_model = whisper.load_model(fallback_model, device="cpu")
+                    load_time = time.time() - start_time
+                    self.logger.info(f"✅ Whisper {fallback_model} 로드 완료 ({load_time:.1f}초)")
+                    
+                except Exception as e2:
+                    self.logger.error(f"❌ Whisper 모델 로드 완전 실패: {e2}")
+                    raise RuntimeError(f"Whisper 모델을 로드할 수 없습니다: {e2}")
+                    
         return self.whisper_model
     
     def _lazy_load_ocr(self) -> easyocr.Reader:
@@ -1599,3 +1625,81 @@ if __name__ == "__main__":
         print(f"   {key}: {value}")
     
     print("\n✅ 실제 분석 엔진 테스트 완료!")
+
+# 고급 스토리텔링 함수 추가
+def create_comprehensive_story_from_sources(sources: List[Dict[str, Any]], 
+                                           story_type: str = "general") -> Dict[str, Any]:
+    """
+    다중 소스 분석 결과를 하나의 일관된 한국어 스토리로 변환
+    사용자의 궁극적인 목표: "어떤 이야기를 하고 있는지" 파악
+    
+    Args:
+        sources: 분석된 소스들의 리스트
+        story_type: 스토리 유형 (general, consultation, meeting, multimedia)
+    
+    Returns:
+        생성된 한국어 스토리
+    """
+    
+    if not storytelling_available:
+        return {
+            "status": "error",
+            "error": "고급 스토리텔링 엔진이 사용할 수 없습니다",
+            "fallback": "OpenAI API Key 또는 Anthropic API Key를 설정하면 더 나은 스토리 생성이 가능합니다"
+        }
+    
+    try:
+        # 분석 결과 구조화
+        analysis_results = {
+            "sources": sources,
+            "metadata": {
+                "generated_at": datetime.now().isoformat(),
+                "total_sources": len(sources)
+            }
+        }
+        
+        # 고급 스토리텔링 엔진 활용
+        story_result = create_comprehensive_korean_story(analysis_results, story_type)
+        
+        return story_result
+        
+    except Exception as e:
+        return {
+            "status": "error", 
+            "error": f"스토리 생성 중 오류: {str(e)}",
+            "fallback_story": _create_simple_fallback_story(sources)
+        }
+
+def _create_simple_fallback_story(sources: List[Dict[str, Any]]) -> str:
+    """간단한 폴백 스토리 생성"""
+    
+    story_parts = []
+    story_parts.append("## 분석 결과 종합")
+    story_parts.append("")
+    
+    audio_count = sum(1 for s in sources if s.get("type") == "audio")
+    image_count = sum(1 for s in sources if s.get("type") == "image") 
+    document_count = sum(1 for s in sources if s.get("type") == "document")
+    
+    story_parts.append(f"총 {len(sources)}개의 파일이 분석되었습니다:")
+    if audio_count > 0:
+        story_parts.append(f"- 음성/동영상 파일: {audio_count}개")
+    if image_count > 0:
+        story_parts.append(f"- 이미지 파일: {image_count}개")  
+    if document_count > 0:
+        story_parts.append(f"- 문서 파일: {document_count}개")
+    
+    story_parts.append("")
+    story_parts.append("### 주요 내용")
+    
+    for i, source in enumerate(sources[:5], 1):  # 최대 5개까지
+        analysis = source.get("analysis_result", {})
+        if analysis.get("status") == "success":
+            text = analysis.get("transcription") or analysis.get("text") or analysis.get("full_text", "")
+            if text:
+                story_parts.append(f"{i}. {source.get('name', 'Unknown')}: {text[:150]}...")
+    
+    story_parts.append("")
+    story_parts.append("**참고**: 더 상세하고 일관된 스토리 생성을 위해 OpenAI API Key를 설정하시기 바랍니다.")
+    
+    return "\n".join(story_parts)
