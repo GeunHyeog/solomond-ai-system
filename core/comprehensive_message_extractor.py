@@ -1,57 +1,44 @@
 #!/usr/bin/env python3
 """
-종합 메시지 추출 엔진 - 클로바 노트 + ChatGPT 수준의 분석 시스템
-강연자가 전달하고자 하는 핵심 메시지를 정확히 파악하는 시스템
+종합 메시지 추출 엔진
+"이 사람들이 무엇을 말하는지" 명확하게 파악하는 시스템
+클로바 노트 + ChatGPT 수준의 요약 품질 제공
 """
 
-import os
 import re
 import logging
-import time
 from typing import Dict, List, Any, Optional, Tuple
 from datetime import datetime
 import json
 
-# 고급 언어 모델들
-try:
-    import openai
-    openai_available = True
-except ImportError:
-    openai_available = False
-
-try:
-    import google.generativeai as genai
-    gemini_available = True
-except ImportError:
-    gemini_available = False
-
-try:
-    from transformers import pipeline, AutoTokenizer, AutoModel
-    transformers_available = True
-except ImportError:
-    transformers_available = False
-
 class ComprehensiveMessageExtractor:
-    """종합 메시지 추출 엔진 - 강연자의 의도를 정확히 파악"""
+    """종합 메시지 추출기"""
     
     def __init__(self):
         self.logger = self._setup_logging()
         
-        # 고급 언어 모델 초기화
-        self.advanced_llm = None
-        self.korean_llm = None
-        self.context_analyzer = None
+        # 주얼리 도메인 키워드
+        self.jewelry_keywords = {
+            "제품": ["반지", "목걸이", "귀걸이", "팔찌", "펜던트", "브로치", "시계"],
+            "재료": ["금", "은", "백금", "플래티넘", "다이아몬드", "루비", "사파이어", "에메랄드"],
+            "상황": ["결혼", "약혼", "선물", "기념일", "생일", "졸업", "승진"],
+            "감정": ["좋아", "예쁘", "마음에", "고민", "망설", "결정", "선택"],
+            "비즈니스": ["가격", "할인", "이벤트", "상담", "문의", "구매", "주문"]
+        }
         
-        # 강연/프레젠테이션 특화 지식
-        self.presentation_patterns = self._build_presentation_patterns()
-        self.message_extraction_rules = self._build_message_extraction_rules()
-        self.context_enhancement_rules = self._build_context_enhancement_rules()
+        # 대화 패턴 분석
+        self.conversation_patterns = {
+            "정보_문의": ["얼마", "가격", "비용", "언제", "어디서", "어떻게"],
+            "구매_의향": ["사고싶", "구매", "주문", "예약", "결정"],
+            "비교_검토": ["다른", "비교", "차이", "어떤게", "뭐가"],
+            "고민_상담": ["고민", "망설", "모르겠", "어떨까", "추천"]
+        }
         
         self.logger.info("🎯 종합 메시지 추출 엔진 초기화 완료")
     
     def _setup_logging(self) -> logging.Logger:
         """로깅 설정"""
-        logger = logging.getLogger(__name__)
+        logger = logging.getLogger(f'{__name__}.ComprehensiveMessageExtractor')
         if not logger.handlers:
             handler = logging.StreamHandler()
             formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -60,720 +47,571 @@ class ComprehensiveMessageExtractor:
             logger.setLevel(logging.INFO)
         return logger
     
-    def _build_presentation_patterns(self) -> Dict[str, Any]:
-        """프레젠테이션 패턴 분석 규칙"""
+    def extract_key_messages(self, text: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
+        """핵심 메시지 추출 - "이 사람들이 무엇을 말하는지" 명확하게"""
+        
+        if not text or len(text.strip()) < 10:
+            return self._create_empty_result()
+        
+        # 1. 텍스트 전처리 및 정제
+        cleaned_text = self._clean_and_enhance_text(text)
+        
+        # 2. 화자 구분 및 대화 플로우 분석
+        speakers_analysis = self._analyze_speakers_and_flow(cleaned_text)
+        
+        # 3. 핵심 메시지 추출
+        main_messages = self._extract_main_messages(cleaned_text, speakers_analysis)
+        
+        # 4. 대화 의도 및 감정 분석
+        intent_analysis = self._analyze_conversation_intent(cleaned_text)
+        
+        # 5. 실행 가능한 인사이트 생성
+        actionable_insights = self._generate_actionable_insights(
+            main_messages, intent_analysis, context
+        )
+        
+        # 6. 사용자 친화적 요약 생성
+        user_friendly_summary = self._create_user_friendly_summary(
+            main_messages, intent_analysis, actionable_insights
+        )
+        
         return {
-            "opening_patterns": [
-                "오늘 말씀드릴", "발표할", "소개하겠습니다", "시작하겠습니다",
-                "주제는", "테마는", "다루고자", "살펴보겠습니다"
-            ],
-            "key_point_indicators": [
-                "중요한 것은", "핵심은", "포인트는", "강조하고 싶은",
-                "기억해야 할", "주목할", "특히", "무엇보다도"
-            ],
-            "transition_phrases": [
-                "다음으로", "이어서", "그리고", "또한", "한편",
-                "반면에", "그러나", "결론적으로", "마지막으로"
-            ],
-            "emphasis_markers": [
-                "반드시", "꼭", "절대", "매우", "정말", "진짜",
-                "확실히", "분명히", "당연히", "물론"
-            ],
-            "conclusion_patterns": [
-                "결론은", "요약하면", "정리하자면", "마무리하며",
-                "끝으로", "마지막으로", "결과적으로", "따라서"
-            ],
-            "question_patterns": [
-                "궁금하시죠?", "어떻게 생각하세요?", "질문이 있으실까요?",
-                "이해되시나요?", "맞죠?", "그렇지 않나요?"
-            ]
-        }
-    
-    def _build_message_extraction_rules(self) -> Dict[str, Any]:
-        """메시지 추출 규칙"""
-        return {
-            "primary_message_weights": {
-                "title_mentions": 3.0,      # 제목/주제 언급
-                "key_indicators": 2.5,      # 핵심 지시어
-                "emphasis_markers": 2.0,    # 강조 표현
-                "conclusion_statements": 2.5, # 결론 진술
-                "repetition": 1.5,          # 반복된 내용
-                "question_answers": 2.0     # 질문-답변 패턴
+            "status": "success",
+            "main_summary": user_friendly_summary,
+            "key_messages": main_messages,
+            "conversation_analysis": {
+                "speakers": speakers_analysis,
+                "intent": intent_analysis,
+                "insights": actionable_insights
             },
-            "supporting_message_weights": {
-                "examples": 1.5,            # 예시/사례
-                "statistics": 2.0,          # 통계/수치
-                "quotes": 1.8,              # 인용
-                "analogies": 1.3,           # 비유/은유
-                "stories": 1.4              # 스토리/일화
-            },
-            "context_modifiers": {
-                "time_references": 1.2,     # 시간 언급
-                "place_references": 1.1,    # 장소 언급
-                "people_references": 1.3,   # 인물 언급
-                "data_references": 1.8      # 데이터 언급
-            }
+            "original_text_length": len(text),
+            "processed_text_length": len(cleaned_text),
+            "analysis_timestamp": datetime.now().isoformat()
         }
     
-    def _build_context_enhancement_rules(self) -> Dict[str, Any]:
-        """컨텍스트 향상 규칙"""
-        return {
-            "slide_context_clues": [
-                "슬라이드", "화면", "보시는 바와 같이", "그림", "표", "차트",
-                "다음 페이지", "이 부분을", "여기서", "이것은"
-            ],
-            "audience_interaction": [
-                "여러분", "청중", "참석자", "고객", "동료", "팀원",
-                "함께", "같이", "우리가", "모두"
-            ],
-            "temporal_markers": [
-                "과거에", "현재", "미래에", "지금", "이전", "다음",
-                "올해", "내년", "최근", "앞으로"
-            ],
-            "causality_markers": [
-                "따라서", "그래서", "결과적으로", "이로 인해", "때문에",
-                "덕분에", "의해", "으로부터", "에서 비롯된"
-            ]
-        }
-    
-    def extract_comprehensive_message(self, multimodal_data: Dict[str, Any], context: Dict[str, Any] = None) -> Dict[str, Any]:
-        """다중 모달 데이터에서 종합 메시지 추출"""
-        self.logger.info("🎯 종합 메시지 추출 시작")
+    def _clean_and_enhance_text(self, text: str) -> str:
+        """텍스트 정제 및 품질 향상"""
         
-        # 1. 다중 모달 데이터 통합
-        integrated_content = self._integrate_multimodal_content(multimodal_data)
+        # 1. 기본 정제
+        text = re.sub(r'\s+', ' ', text)  # 연속 공백 제거
+        text = re.sub(r'[^\w\s가-힣.,!?]', '', text)  # 특수문자 정리
         
-        # 2. 컨텍스트 강화 전처리
-        enhanced_content = self._enhance_context(integrated_content, context)
-        
-        # 3. 강연자 의도 분석
-        speaker_intent = self._analyze_speaker_intent(enhanced_content)
-        
-        # 4. 핵심 메시지 추출
-        key_messages = self._extract_key_messages(enhanced_content, speaker_intent)
-        
-        # 5. 메시지 계층 구조화
-        message_hierarchy = self._structure_message_hierarchy(key_messages)
-        
-        # 6. 실행 가능한 인사이트 도출
-        actionable_insights = self._derive_actionable_insights(message_hierarchy, context)
-        
-        # 7. 클로바 노트 스타일 요약 생성
-        clova_style_summary = self._generate_clova_style_summary(message_hierarchy, speaker_intent)
-        
-        return {
-            "comprehensive_analysis": {
-                "speaker_intent": speaker_intent,
-                "key_messages": key_messages,
-                "message_hierarchy": message_hierarchy,
-                "actionable_insights": actionable_insights,
-                "clova_style_summary": clova_style_summary
-            },
-            "technical_details": {
-                "integrated_content": integrated_content,
-                "enhancement_applied": enhanced_content != integrated_content,
-                "processing_time": time.time(),
-                "confidence_score": self._calculate_overall_confidence(message_hierarchy)
-            }
-        }
-    
-    def _integrate_multimodal_content(self, multimodal_data: Dict[str, Any]) -> Dict[str, Any]:
-        """다중 모달 데이터 통합"""
-        integrated = {
-            "audio_content": "",
-            "visual_content": "",
-            "temporal_sync": [],
-            "metadata": {}
+        # 2. 한국어 맞춤법 기본 보정
+        corrections = {
+            "에요": "예요", "구매할게요": "구매하겠어요", "좋겠네요": "좋겠어요",
+            "반지가": "반지가", "다이야": "다이아", "플래티늄": "플래티넘"
         }
         
-        # 음성 데이터 통합
-        if 'audio_analysis' in multimodal_data:
-            audio = multimodal_data['audio_analysis']
-            if audio.get('status') == 'success':
-                # 향상된 텍스트 우선 사용
-                integrated["audio_content"] = audio.get('enhanced_text', audio.get('full_text', ''))
-                
-                # 시간대별 세그먼트 정보
-                if audio.get('segments'):
-                    for segment in audio['segments']:
-                        integrated["temporal_sync"].append({
-                            "type": "audio",
-                            "start": segment.get('start', 0),
-                            "end": segment.get('end', 0),
-                            "content": segment.get('text', ''),
-                            "confidence": segment.get('avg_logprob', 0)
-                        })
+        for wrong, correct in corrections.items():
+            text = text.replace(wrong, correct)
         
-        # 시각 데이터 통합 (OCR + 키프레임)
-        visual_texts = []
-        
-        # 이미지 OCR 결과
-        if 'image_analysis' in multimodal_data:
-            for image_result in multimodal_data['image_analysis']:
-                if image_result.get('status') == 'success':
-                    visual_texts.append(image_result.get('enhanced_text', image_result.get('full_text', '')))
-        
-        # 비디오 키프레임 OCR 결과
-        if 'video_analysis' in multimodal_data:
-            video = multimodal_data['video_analysis']
-            if video.get('visual_analysis', {}).get('status') == 'success':
-                visual_analysis = video['visual_analysis']
-                combined_visual = visual_analysis.get('combined_visual_text', '')
-                if combined_visual:
-                    visual_texts.append(combined_visual)
-                
-                # 시간대별 시각 정보
-                if visual_analysis.get('frame_details'):
-                    for frame in visual_analysis['frame_details']:
-                        if frame.get('enhanced_text', '').strip():
-                            integrated["temporal_sync"].append({
-                                "type": "visual",
-                                "timestamp": frame.get('timestamp_seconds', 0),
-                                "content": frame['enhanced_text'],
-                                "confidence": frame.get('average_confidence', 0)
-                            })
-        
-        integrated["visual_content"] = ' '.join(filter(None, visual_texts))
-        
-        # 메타데이터 통합
-        integrated["metadata"] = {
-            "has_audio": bool(integrated["audio_content"]),
-            "has_visual": bool(integrated["visual_content"]),
-            "temporal_mappings": len(integrated["temporal_sync"]),
-            "content_richness": self._assess_content_richness(integrated)
+        # 3. 주얼리 전문용어 보정
+        jewelry_corrections = {
+            "다이야몬드": "다이아몬드", "골드": "금", "실버": "은",
+            "링": "반지", "네클리스": "목걸이", "이어링": "귀걸이"
         }
         
-        return integrated
+        for wrong, correct in jewelry_corrections.items():
+            text = re.sub(f'\\b{wrong}\\b', correct, text, flags=re.IGNORECASE)
+        
+        return text.strip()
     
-    def _enhance_context(self, integrated_content: Dict[str, Any], context: Dict[str, Any] = None) -> Dict[str, Any]:
-        """컨텍스트 강화 처리"""
-        enhanced = integrated_content.copy()
+    def _analyze_speakers_and_flow(self, text: str) -> Dict[str, Any]:
+        """화자 구분 및 대화 플로우 분석"""
         
-        if not context:
-            return enhanced
+        # 화자 구분 키워드
+        customer_indicators = ["고객", "구매자", "아", "음", "그럼", "저는", "제가"]
+        staff_indicators = ["안녕하세요", "추천", "설명", "가격은", "이 제품"]
         
-        # 1. 참석자/발표자 정보 활용
-        if context.get('speakers') or context.get('participants'):
-            enhanced = self._apply_speaker_context(enhanced, context)
+        sentences = re.split(r'[.!?]\s*', text)
         
-        # 2. 이벤트 컨텍스트 활용
-        if context.get('event_context'):
-            enhanced = self._apply_event_context(enhanced, context)
+        speakers = []
+        current_speaker = "unknown"
         
-        # 3. 주제 키워드 강화
-        if context.get('topic_keywords'):
-            enhanced = self._apply_topic_enhancement(enhanced, context)
-        
-        # 4. 목적 기반 필터링
-        if context.get('objective'):
-            enhanced = self._apply_objective_filtering(enhanced, context)
-        
-        return enhanced
-    
-    def _analyze_speaker_intent(self, content: Dict[str, Any]) -> Dict[str, Any]:
-        """강연자 의도 분석"""
-        audio_text = content.get("audio_content", "")
-        visual_text = content.get("visual_content", "")
-        combined_text = f"{audio_text} {visual_text}".strip()
-        
-        if not combined_text:
-            return {"intent_type": "unknown", "confidence": 0.0}
-        
-        intent_analysis = {
-            "primary_intent": self._identify_primary_intent(combined_text),
-            "communication_style": self._analyze_communication_style(combined_text),
-            "audience_engagement": self._assess_audience_engagement(combined_text),
-            "content_structure": self._analyze_content_structure(combined_text),
-            "emotional_tone": self._analyze_emotional_tone(combined_text)
-        }
-        
-        return intent_analysis
-    
-    def _extract_key_messages(self, content: Dict[str, Any], speaker_intent: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """핵심 메시지 추출"""
-        audio_text = content.get("audio_content", "")
-        visual_text = content.get("visual_content", "")
-        
-        key_messages = []
-        
-        # 1. 음성에서 핵심 메시지 추출
-        if audio_text:
-            audio_messages = self._extract_messages_from_text(audio_text, "audio")
-            key_messages.extend(audio_messages)
-        
-        # 2. 시각 자료에서 핵심 메시지 추출
-        if visual_text:
-            visual_messages = self._extract_messages_from_text(visual_text, "visual")
-            key_messages.extend(visual_messages)
-        
-        # 3. 시간 동기화 정보 활용
-        if content.get("temporal_sync"):
-            temporal_messages = self._extract_temporal_messages(content["temporal_sync"])
-            key_messages.extend(temporal_messages)
-        
-        # 4. 메시지 중요도 계산 및 정렬
-        for message in key_messages:
-            message["importance_score"] = self._calculate_message_importance(message, speaker_intent)
-        
-        # 중요도 기준 정렬
-        key_messages.sort(key=lambda x: x["importance_score"], reverse=True)
-        
-        return key_messages[:10]  # 상위 10개 메시지
-    
-    def _extract_messages_from_text(self, text: str, source_type: str) -> List[Dict[str, Any]]:
-        """텍스트에서 메시지 추출"""
-        messages = []
-        sentences = re.split(r'[.!?]\s+', text)
-        
-        for i, sentence in enumerate(sentences):
-            if len(sentence.strip()) < 10:
+        for sentence in sentences:
+            if not sentence.strip():
                 continue
+                
+            # 화자 추정
+            if any(word in sentence for word in customer_indicators):
+                current_speaker = "고객"
+            elif any(word in sentence for word in staff_indicators):
+                current_speaker = "직원"
             
-            # 메시지 후보 점수 계산
-            score = 0
-            matched_patterns = []
-            
-            # 패턴 매칭
-            for pattern_type, patterns in self.presentation_patterns.items():
-                for pattern in patterns:
-                    if pattern in sentence:
-                        weight = self.message_extraction_rules["primary_message_weights"].get(pattern_type, 1.0)
-                        score += weight
-                        matched_patterns.append(f"{pattern_type}:{pattern}")
-            
-            # 일정 점수 이상만 메시지로 간주
-            if score >= 1.5:
-                messages.append({
-                    "content": sentence.strip(),
-                    "source_type": source_type,
-                    "position": i,
-                    "raw_score": score,
-                    "matched_patterns": matched_patterns,
-                    "message_type": self._classify_message_type(sentence)
-                })
-        
-        return messages
-    
-    def _extract_temporal_messages(self, temporal_sync: List[Dict]) -> List[Dict[str, Any]]:
-        """시간 동기화 정보에서 메시지 추출"""
-        messages = []
-        
-        # 시간대별 그룹화
-        time_groups = {}
-        for item in temporal_sync:
-            time_key = int(item.get('timestamp', item.get('start', 0)) // 30)  # 30초 단위
-            if time_key not in time_groups:
-                time_groups[time_key] = []
-            time_groups[time_key].append(item)
-        
-        # 각 그룹에서 메시지 추출
-        for time_key, group in time_groups.items():
-            audio_content = " ".join([item['content'] for item in group if item['type'] == 'audio'])
-            visual_content = " ".join([item['content'] for item in group if item['type'] == 'visual'])
-            
-            if audio_content and visual_content:
-                # 음성과 시각 정보가 모두 있는 경우
-                combined_content = f"{audio_content} [화면: {visual_content}]"
-                messages.append({
-                    "content": combined_content,
-                    "source_type": "multimodal",
-                    "timestamp": time_key * 30,
-                    "message_type": "synchronized",
-                    "raw_score": 2.0  # 멀티모달 보너스
-                })
-        
-        return messages
-    
-    def _structure_message_hierarchy(self, key_messages: List[Dict]) -> Dict[str, Any]:
-        """메시지 계층 구조화"""
-        hierarchy = {
-            "main_theme": None,
-            "key_points": [],
-            "supporting_details": [],
-            "conclusions": [],
-            "call_to_actions": []
-        }
-        
-        for message in key_messages:
-            msg_type = message.get("message_type", "general")
-            importance = message.get("importance_score", 0)
-            
-            if importance >= 4.0:
-                if not hierarchy["main_theme"]:
-                    hierarchy["main_theme"] = message
-                else:
-                    hierarchy["key_points"].append(message)
-            elif importance >= 2.5:
-                hierarchy["key_points"].append(message)
-            elif importance >= 1.5:
-                hierarchy["supporting_details"].append(message)
-            
-            # 메시지 타입별 분류
-            if msg_type == "conclusion":
-                hierarchy["conclusions"].append(message)
-            elif msg_type == "action":
-                hierarchy["call_to_actions"].append(message)
-        
-        return hierarchy
-    
-    def _generate_clova_style_summary(self, message_hierarchy: Dict, speaker_intent: Dict) -> Dict[str, Any]:
-        """클로바 노트 스타일 요약 생성"""
-        
-        # 1. 핵심 메시지 (클로바 노트의 "요약" 섹션)
-        main_summary = ""
-        if message_hierarchy.get("main_theme"):
-            main_summary = message_hierarchy["main_theme"]["content"]
-        elif message_hierarchy.get("key_points"):
-            main_summary = message_hierarchy["key_points"][0]["content"]
-        
-        # 2. 주요 포인트 (클로바 노트의 "키워드" 섹션)
-        key_points = []
-        for point in message_hierarchy.get("key_points", [])[:5]:
-            key_points.append({
-                "point": point["content"][:100] + "..." if len(point["content"]) > 100 else point["content"],
-                "importance": point.get("importance_score", 0)
+            speakers.append({
+                "speaker": current_speaker,
+                "content": sentence.strip(),
+                "type": self._classify_sentence_type(sentence)
             })
         
-        # 3. 실행 항목 (클로바 노트의 "액션 아이템" 섹션)
-        action_items = []
-        for action in message_hierarchy.get("call_to_actions", []):
-            action_items.append(action["content"])
-        
-        # 4. 인사이트 (클로바 노트의 "인사이트" 섹션)
-        insights = self._generate_insights_from_intent(speaker_intent)
-        
         return {
-            "executive_summary": main_summary,
-            "key_takeaways": key_points,
-            "action_items": action_items,
-            "speaker_insights": insights,
-            "presentation_structure": {
-                "style": speaker_intent.get("communication_style", {}),
-                "engagement_level": speaker_intent.get("audience_engagement", {}),
-                "emotional_tone": speaker_intent.get("emotional_tone", {})
-            },
-            "clova_compatibility_score": self._calculate_clova_compatibility(message_hierarchy, speaker_intent)
+            "total_speakers": len(set(s["speaker"] for s in speakers)),
+            "speaker_distribution": self._get_speaker_distribution(speakers),
+            "conversation_flow": speakers[:10],  # 처음 10개 문장
+            "dominant_speaker": self._get_dominant_speaker(speakers)
         }
     
-    def _identify_primary_intent(self, text: str) -> Dict[str, Any]:
-        """주요 의도 식별"""
-        intent_indicators = {
-            "inform": ["설명", "소개", "알려드리", "보여드리", "말씀드리"],
-            "persuade": ["설득", "제안", "추천", "권유", "선택"],
-            "educate": ["교육", "학습", "배우", "이해", "습득"],
-            "inspire": ["영감", "동기", "격려", "응원", "자극"],
-            "demonstrate": ["시연", "보여주", "데모", "실습", "실제"],
-            "analyze": ["분석", "검토", "평가", "비교", "연구"]
-        }
+    def _classify_sentence_type(self, sentence: str) -> str:
+        """문장 유형 분류"""
+        if "?" in sentence or any(word in sentence for word in ["얼마", "언제", "어디"]):
+            return "질문"
+        elif any(word in sentence for word in ["추천", "설명", "소개"]):
+            return "설명"
+        elif any(word in sentence for word in ["구매", "사겠", "결정"]):
+            return "결정"
+        elif any(word in sentence for word in ["고민", "망설", "어떨까"]):
+            return "고민"
+        else:
+            return "일반"
+    
+    def _extract_main_messages(self, text: str, speakers_analysis: Dict) -> List[Dict[str, Any]]:
+        """핵심 메시지 추출"""
+        
+        messages = []
+        
+        # 1. 주요 제품/서비스 언급
+        for category, keywords in self.jewelry_keywords.items():
+            for keyword in keywords:
+                if keyword in text:
+                    context = self._extract_context_around_keyword(text, keyword)
+                    if context:
+                        messages.append({
+                            "type": f"{category}_언급",
+                            "keyword": keyword,
+                            "context": context,
+                            "importance": "high" if category in ["제품", "비즈니스"] else "medium"
+                        })
+        
+        # 2. 고객 의도 및 니즈
+        customer_needs = self._extract_customer_needs(text)
+        messages.extend(customer_needs)
+        
+        # 3. 비즈니스 기회 및 액션 포인트
+        business_opportunities = self._extract_business_opportunities(text)
+        messages.extend(business_opportunities)
+        
+        # 중요도 순으로 정렬
+        messages.sort(key=lambda x: {"high": 3, "medium": 2, "low": 1}.get(x.get("importance", "low"), 1), reverse=True)
+        
+        return messages[:10]  # 상위 10개만
+    
+    def _extract_context_around_keyword(self, text: str, keyword: str, window: int = 30) -> str:
+        """키워드 주변 컨텍스트 추출"""
+        index = text.find(keyword)
+        if index == -1:
+            return ""
+        
+        start = max(0, index - window)
+        end = min(len(text), index + len(keyword) + window)
+        
+        return text[start:end].strip()
+    
+    def _extract_customer_needs(self, text: str) -> List[Dict[str, Any]]:
+        """고객 니즈 추출"""
+        needs = []
+        
+        # 가격 관심도
+        if any(word in text for word in ["가격", "얼마", "비용", "저렴", "비싸"]):
+            price_context = self._extract_price_context(text)
+            needs.append({
+                "type": "가격_관심",
+                "context": price_context,
+                "importance": "high",
+                "insight": "고객이 가격 정보를 중요하게 생각하고 있습니다"
+            })
+        
+        # 제품 선택 고민
+        if any(word in text for word in ["고민", "선택", "어떤", "추천"]):
+            needs.append({
+                "type": "선택_고민",
+                "context": self._extract_decision_context(text),
+                "importance": "high",
+                "insight": "고객이 제품 선택에 대해 도움을 필요로 합니다"
+            })
+        
+        # 특별한 목적
+        occasions = ["결혼", "약혼", "기념일", "선물", "생일"]
+        for occasion in occasions:
+            if occasion in text:
+                needs.append({
+                    "type": f"{occasion}_목적",
+                    "context": self._extract_context_around_keyword(text, occasion),
+                    "importance": "medium",
+                    "insight": f"{occasion} 관련 구매를 고려하고 있습니다"
+                })
+        
+        return needs
+    
+    def _extract_price_context(self, text: str) -> str:
+        """가격 관련 컨텍스트 추출"""
+        price_patterns = [
+            r'[가-힣\s]*[0-9,]+원[가-힣\s]*',
+            r'[가-힣\s]*얼마[가-힣\s]*',
+            r'[가-힣\s]*가격[가-힣\s]*'
+        ]
+        
+        for pattern in price_patterns:
+            matches = re.findall(pattern, text)
+            if matches:
+                return '; '.join(matches[:3])
+        
+        return "가격에 대한 관심을 보이고 있음"
+    
+    def _extract_decision_context(self, text: str) -> str:
+        """의사결정 관련 컨텍스트 추출"""
+        decision_keywords = ["고민", "선택", "결정", "추천", "어떤"]
+        contexts = []
+        
+        for keyword in decision_keywords:
+            if keyword in text:
+                context = self._extract_context_around_keyword(text, keyword, 40)
+                if context:
+                    contexts.append(context)
+        
+        return '; '.join(contexts[:2])
+    
+    def _extract_business_opportunities(self, text: str) -> List[Dict[str, Any]]:
+        """비즈니스 기회 추출"""
+        opportunities = []
+        
+        # 구매 신호
+        buy_signals = ["사고 싶", "구매", "주문", "예약", "결정했"]
+        if any(signal in text for signal in buy_signals):
+            opportunities.append({
+                "type": "구매_신호",
+                "context": "고객이 구매 의향을 보이고 있음",
+                "importance": "high",
+                "action": "즉시 상담 진행 및 구매 절차 안내"
+            })
+        
+        # 추가 정보 요청
+        info_requests = ["자세히", "더 알고", "설명", "보여주"]
+        if any(request in text for request in info_requests):
+            opportunities.append({
+                "type": "정보_요청",
+                "context": "고객이 더 많은 정보를 원하고 있음",
+                "importance": "medium",
+                "action": "상세 제품 정보 및 카탈로그 제공"
+            })
+        
+        return opportunities
+    
+    def _analyze_conversation_intent(self, text: str) -> Dict[str, Any]:
+        """대화 의도 분석"""
         
         intent_scores = {}
-        for intent, indicators in intent_indicators.items():
-            score = sum(1 for indicator in indicators if indicator in text)
+        
+        # 각 패턴별 점수 계산
+        for intent, keywords in self.conversation_patterns.items():
+            score = sum(1 for keyword in keywords if keyword in text)
             if score > 0:
                 intent_scores[intent] = score
         
-        if intent_scores:
-            primary = max(intent_scores, key=intent_scores.get)
+        # 주요 의도 결정
+        if not intent_scores:
+            primary_intent = "일반_대화"
+            confidence = 0.3
+        else:
+            primary_intent = max(intent_scores, key=intent_scores.get)
+            total_signals = sum(intent_scores.values())
+            confidence = intent_scores[primary_intent] / total_signals if total_signals > 0 else 0
+        
+        # 의도별 설명
+        intent_descriptions = {
+            "정보_문의": "제품이나 서비스에 대한 정보를 알고 싶어합니다",
+            "구매_의향": "실제 구매를 고려하고 있습니다",
+            "비교_검토": "여러 옵션을 비교하여 최선의 선택을 하려고 합니다",
+            "고민_상담": "구매 결정에 도움이 필요합니다",
+            "일반_대화": "일반적인 대화를 나누고 있습니다"
+        }
+        
+        return {
+            "primary_intent": primary_intent,
+            "confidence": round(confidence, 2),
+            "description": intent_descriptions.get(primary_intent, "알 수 없는 의도"),
+            "all_detected_intents": intent_scores,
+            "urgency_level": self._assess_urgency_level(primary_intent, confidence)
+        }
+    
+    def _assess_urgency_level(self, intent: str, confidence: float) -> str:
+        """긴급도 평가"""
+        if intent == "구매_의향" and confidence > 0.7:
+            return "높음"
+        elif intent in ["정보_문의", "비교_검토"] and confidence > 0.5:
+            return "보통"
+        elif intent == "고민_상담":
+            return "보통"
+        else:
+            return "낮음"
+    
+    def _generate_actionable_insights(self, messages: List[Dict], intent_analysis: Dict, 
+                                    context: Dict = None) -> List[Dict[str, Any]]:
+        """실행 가능한 인사이트 생성"""
+        
+        insights = []
+        
+        # 1. 즉시 실행 가능한 액션
+        if intent_analysis["primary_intent"] == "구매_의향":
+            insights.append({
+                "type": "즉시_액션",
+                "title": "🔥 구매 의향 고객 - 즉시 대응 필요",
+                "description": "고객이 구매 결정 단계에 있습니다. 지금이 성사 기회입니다.",
+                "action": "즉시 상담 연결, 특별 할인 제안, 구매 절차 안내",
+                "priority": "최우선"
+            })
+        
+        # 2. 고객 세그먼트 분석
+        segment = self._identify_customer_segment(messages)
+        if segment:
+            insights.append({
+                "type": "고객_세그먼트",
+                "title": f"👤 고객 유형: {segment['type']}",
+                "description": segment['description'],
+                "action": segment['recommended_action'],
+                "priority": "높음"
+            })
+        
+        # 3. 제품 추천 기회
+        product_opportunities = self._identify_product_opportunities(messages)
+        insights.extend(product_opportunities)
+        
+        # 4. 비즈니스 리스크 및 기회
+        risks_and_opportunities = self._assess_risks_and_opportunities(intent_analysis, messages)
+        insights.extend(risks_and_opportunities)
+        
+        return insights[:5]  # 상위 5개만
+    
+    def _identify_customer_segment(self, messages: List[Dict]) -> Optional[Dict[str, Any]]:
+        """고객 세그먼트 식별"""
+        
+        # 제품 관심도 분석
+        product_interests = []
+        for msg in messages:
+            if msg.get("type", "").endswith("_언급"):
+                product_interests.append(msg["keyword"])
+        
+        # 목적 분석
+        purposes = []
+        for msg in messages:
+            if "목적" in msg.get("type", ""):
+                purposes.append(msg["type"].replace("_목적", ""))
+        
+        # 세그먼트 결정
+        if "결혼" in purposes or "약혼" in purposes:
             return {
-                "type": primary,
-                "confidence": intent_scores[primary] / 10,
-                "all_scores": intent_scores
+                "type": "브라이덜 고객",
+                "description": "결혼 관련 주얼리를 찾고 있는 고객",
+                "recommended_action": "브라이덜 컬렉션 추천, 커플 할인 제안, 맞춤 서비스 안내"
+            }
+        elif "선물" in purposes:
+            return {
+                "type": "선물 구매 고객",
+                "description": "누군가를 위한 선물을 찾고 있는 고객",
+                "recommended_action": "선물 포장 서비스, 가격대별 추천, 교환/반품 정책 안내"
+            }
+        elif any("가격" in msg.get("type", "") for msg in messages):
+            return {
+                "type": "가격 민감 고객",
+                "description": "가격을 중요하게 고려하는 고객",
+                "recommended_action": "할인 이벤트 안내, 분할 결제 옵션 제시, 가성비 제품 추천"
             }
         
-        return {"type": "general", "confidence": 0.1, "all_scores": {}}
+        return None
     
-    def _analyze_communication_style(self, text: str) -> Dict[str, Any]:
-        """커뮤니케이션 스타일 분석"""
-        style_indicators = {
-            "formal": ["존경하는", "말씀드리겠습니다", "감사합니다", "정중히"],
-            "casual": ["여러분", "우리", "같이", "함께", "그죠"],
-            "technical": ["데이터", "분석", "결과", "연구", "방법론"],
-            "storytelling": ["이야기", "경험", "사례", "예를 들어", "한번은"],
-            "interactive": ["질문", "의견", "생각해보세요", "어떻게 생각하세요"]
-        }
+    def _identify_product_opportunities(self, messages: List[Dict]) -> List[Dict[str, Any]]:
+        """제품 추천 기회 식별"""
+        opportunities = []
         
-        style_scores = {}
-        for style, indicators in style_indicators.items():
-            score = sum(1 for indicator in indicators if indicator in text)
-            if score > 0:
-                style_scores[style] = score
+        mentioned_products = []
+        for msg in messages:
+            if msg.get("type", "").startswith("제품_"):
+                mentioned_products.append(msg["keyword"])
+        
+        if mentioned_products:
+            opportunities.append({
+                "type": "제품_추천",
+                "title": f"💎 관심 제품: {', '.join(mentioned_products)}",
+                "description": f"고객이 {', '.join(mentioned_products)}에 관심을 보이고 있습니다",
+                "action": f"관련 제품 라인업 소개, 시착 기회 제공, 세트 할인 제안",
+                "priority": "높음"
+            })
+        
+        return opportunities
+    
+    def _assess_risks_and_opportunities(self, intent_analysis: Dict, 
+                                      messages: List[Dict]) -> List[Dict[str, Any]]:
+        """리스크 및 기회 평가"""
+        assessments = []
+        
+        # 긴급도가 높은 경우
+        if intent_analysis["urgency_level"] == "높음":
+            assessments.append({
+                "type": "기회",
+                "title": "⚡ 고전환 기회",
+                "description": "지금이 성사 확률이 가장 높은 시점입니다",
+                "action": "최고 수준의 서비스 제공, 의사결정권자 즉시 배정",
+                "priority": "최우선"
+            })
+        
+        # 고민하고 있는 경우
+        if any("고민" in msg.get("type", "") for msg in messages):
+            assessments.append({
+                "type": "리스크",
+                "title": "🤔 이탈 위험",
+                "description": "고객이 구매를 망설이고 있어 이탈 가능성이 있습니다",
+                "action": "추가 혜택 제공, 전문 상담사 배정, 체험 기회 확대",
+                "priority": "높음"
+            })
+        
+        return assessments
+    
+    def _create_user_friendly_summary(self, messages: List[Dict], intent_analysis: Dict, 
+                                    insights: List[Dict]) -> Dict[str, Any]:
+        """사용자 친화적 요약 생성"""
+        
+        # 핵심 한 줄 요약
+        main_message = self._generate_one_line_summary(intent_analysis, messages)
+        
+        # 주요 포인트 (3-5개)
+        key_points = self._extract_key_points(messages, insights)
+        
+        # 추천 액션 (실행 가능한 것들)
+        recommended_actions = self._extract_recommended_actions(insights)
+        
+        # 고객 상태 요약
+        customer_status = self._summarize_customer_status(intent_analysis, messages)
         
         return {
-            "dominant_style": max(style_scores, key=style_scores.get) if style_scores else "neutral",
-            "style_mix": style_scores
+            "one_line_summary": main_message,
+            "key_points": key_points,
+            "customer_status": customer_status,
+            "recommended_actions": recommended_actions,
+            "urgency_indicator": intent_analysis["urgency_level"],
+            "confidence_score": intent_analysis["confidence"]
         }
     
-    def _assess_audience_engagement(self, text: str) -> Dict[str, Any]:
-        """청중 참여도 평가"""
-        engagement_indicators = {
-            "high": ["여러분", "함께", "질문", "참여", "상호작용"],
-            "medium": ["보시듯이", "알 수 있듯", "이해하시겠지만"],
-            "low": ["설명드리겠습니다", "보여드리겠습니다"]
-        }
+    def _generate_one_line_summary(self, intent_analysis: Dict, messages: List[Dict]) -> str:
+        """핵심 한 줄 요약 생성"""
         
-        engagement_scores = {}
-        for level, indicators in engagement_indicators.items():
-            score = sum(1 for indicator in indicators if indicator in text)
-            engagement_scores[level] = score
+        intent = intent_analysis["primary_intent"]
         
-        total_score = sum(engagement_scores.values())
-        if total_score == 0:
-            return {"level": "unknown", "score": 0}
-        
-        # 가중 평균 계산
-        weighted_score = (engagement_scores["high"] * 3 + engagement_scores["medium"] * 2 + engagement_scores["low"] * 1) / total_score
-        
-        if weighted_score >= 2.5:
-            level = "high"
-        elif weighted_score >= 1.5:
-            level = "medium"
+        if intent == "구매_의향":
+            return "🔥 고객이 구매 의사를 명확히 표현했습니다 - 즉시 상담 진행 필요"
+        elif intent == "정보_문의":
+            products = [msg["keyword"] for msg in messages if msg.get("type", "").startswith("제품_")]
+            if products:
+                return f"📋 고객이 {', '.join(products[:2])}에 대한 정보를 요청하고 있습니다"
+            else:
+                return "📋 고객이 제품 정보를 문의하고 있습니다"
+        elif intent == "고민_상담":
+            return "🤔 고객이 구매 결정에 도움을 필요로 하고 있습니다 - 상담 지원 필요"
+        elif intent == "비교_검토":
+            return "⚖️ 고객이 여러 옵션을 비교 검토하고 있습니다 - 차별화 포인트 어필 필요"
         else:
-            level = "low"
-        
-        return {"level": level, "score": weighted_score, "details": engagement_scores}
+            return "💬 고객과의 일반적인 상담이 진행되고 있습니다"
     
-    def _analyze_content_structure(self, text: str) -> Dict[str, Any]:
-        """내용 구조 분석"""
-        structure_elements = {
-            "has_introduction": any(pattern in text for pattern in self.presentation_patterns["opening_patterns"]),
-            "has_main_points": any(pattern in text for pattern in self.presentation_patterns["key_point_indicators"]),
-            "has_transitions": any(pattern in text for pattern in self.presentation_patterns["transition_phrases"]),
-            "has_conclusion": any(pattern in text for pattern in self.presentation_patterns["conclusion_patterns"]),
-            "has_emphasis": any(pattern in text for pattern in self.presentation_patterns["emphasis_markers"])
+    def _extract_key_points(self, messages: List[Dict], insights: List[Dict]) -> List[str]:
+        """주요 포인트 추출"""
+        points = []
+        
+        # 메시지에서 핵심 포인트
+        for msg in messages[:3]:  # 상위 3개
+            if msg.get("insight"):
+                points.append(msg["insight"])
+            elif msg.get("context"):
+                points.append(f"{msg['type'].replace('_', ' ')}: {msg['context'][:50]}...")
+        
+        # 인사이트에서 핵심 포인트
+        for insight in insights[:2]:  # 상위 2개
+            if insight.get("description"):
+                points.append(insight["description"])
+        
+        return points[:5]  # 최대 5개
+    
+    def _extract_recommended_actions(self, insights: List[Dict]) -> List[str]:
+        """추천 액션 추출"""
+        actions = []
+        
+        for insight in insights:
+            if insight.get("action"):
+                actions.append(f"• {insight['action']}")
+        
+        return actions[:3]  # 최대 3개
+    
+    def _summarize_customer_status(self, intent_analysis: Dict, messages: List[Dict]) -> str:
+        """고객 상태 요약"""
+        
+        intent = intent_analysis["primary_intent"]
+        confidence = intent_analysis["confidence"]
+        
+        status_map = {
+            "구매_의향": f"🟢 구매 준비 상태 (확신도: {confidence*100:.0f}%)",
+            "정보_문의": f"🟡 정보 수집 단계 (관심도: {confidence*100:.0f}%)",
+            "고민_상담": f"🟠 의사결정 고민 중 (지원 필요도: {confidence*100:.0f}%)",
+            "비교_검토": f"🔵 옵션 비교 검토 중 (검토 깊이: {confidence*100:.0f}%)",
+            "일반_대화": f"⚪ 일반 상담 진행 중"
         }
         
-        structure_score = sum(structure_elements.values()) / len(structure_elements)
-        
+        return status_map.get(intent, "⚪ 상태 파악 중")
+    
+    def _get_speaker_distribution(self, speakers: List[Dict]) -> Dict[str, int]:
+        """화자별 발언 비율"""
+        distribution = {}
+        for speaker_info in speakers:
+            speaker = speaker_info["speaker"]
+            distribution[speaker] = distribution.get(speaker, 0) + 1
+        return distribution
+    
+    def _get_dominant_speaker(self, speakers: List[Dict]) -> str:
+        """주요 화자 식별"""
+        distribution = self._get_speaker_distribution(speakers)
+        if not distribution:
+            return "unknown"
+        return max(distribution, key=distribution.get)
+    
+    def _create_empty_result(self) -> Dict[str, Any]:
+        """빈 결과 생성"""
         return {
-            "structure_completeness": structure_score,
-            "elements_present": structure_elements,
-            "organization_level": "well_structured" if structure_score >= 0.6 else "moderately_structured" if structure_score >= 0.3 else "poorly_structured"
+            "status": "no_content",
+            "main_summary": {
+                "one_line_summary": "분석할 충분한 내용이 없습니다",
+                "key_points": [],
+                "customer_status": "⚪ 내용 부족",
+                "recommended_actions": ["더 많은 대화 내용 필요"],
+                "urgency_indicator": "낮음",
+                "confidence_score": 0.0
+            },
+            "key_messages": [],
+            "conversation_analysis": {},
+            "analysis_timestamp": datetime.now().isoformat()
         }
-    
-    def _analyze_emotional_tone(self, text: str) -> Dict[str, Any]:
-        """감정 톤 분석"""
-        emotional_indicators = {
-            "enthusiastic": ["정말", "굉장히", "매우", "놀라운", "환상적"],
-            "confident": ["확신", "분명", "당연히", "확실히", "명확히"],
-            "cautious": ["아마도", "가능성", "고려해야", "주의해야", "신중히"],
-            "urgent": ["긴급", "빨리", "즉시", "반드시", "중요"],
-            "neutral": ["입니다", "있습니다", "됩니다", "것입니다"]
-        }
-        
-        tone_scores = {}
-        for tone, indicators in emotional_indicators.items():
-            score = sum(1 for indicator in indicators if indicator in text)
-            if score > 0:
-                tone_scores[tone] = score
-        
-        dominant_tone = max(tone_scores, key=tone_scores.get) if tone_scores else "neutral"
-        
-        return {
-            "dominant_tone": dominant_tone,
-            "tone_distribution": tone_scores,
-            "emotional_intensity": sum(tone_scores.values()) / len(text.split()) * 100 if text else 0
-        }
-    
-    def _classify_message_type(self, message: str) -> str:
-        """메시지 타입 분류"""
-        message_lower = message.lower()
-        
-        if any(pattern in message_lower for pattern in self.presentation_patterns["conclusion_patterns"]):
-            return "conclusion"
-        elif any(pattern in message_lower for pattern in self.presentation_patterns["key_point_indicators"]):
-            return "key_point"
-        elif any(pattern in message_lower for pattern in self.presentation_patterns["opening_patterns"]):
-            return "introduction"
-        elif "해야" in message_lower or "필요" in message_lower or "권장" in message_lower:
-            return "action"
-        elif "?" in message:
-            return "question"
-        else:
-            return "general"
-    
-    def _calculate_message_importance(self, message: Dict, speaker_intent: Dict) -> float:
-        """메시지 중요도 계산"""
-        base_score = message.get("raw_score", 0)
-        
-        # 메시지 타입별 보너스
-        type_bonus = {
-            "key_point": 1.5,
-            "conclusion": 1.3,
-            "action": 1.2,
-            "introduction": 1.1,
-            "question": 1.0,
-            "general": 0.8
-        }
-        
-        msg_type = message.get("message_type", "general")
-        score = base_score * type_bonus.get(msg_type, 1.0)
-        
-        # 소스 타입별 보너스
-        source_bonus = {
-            "multimodal": 1.3,  # 음성+시각 동시
-            "audio": 1.0,
-            "visual": 1.1
-        }
-        
-        source_type = message.get("source_type", "audio")
-        score *= source_bonus.get(source_type, 1.0)
-        
-        # 스피커 의도와의 일치도 보너스
-        intent_type = speaker_intent.get("primary_intent", {}).get("type", "general")
-        if intent_type == "inform" and msg_type == "key_point":
-            score *= 1.2
-        elif intent_type == "persuade" and msg_type == "action":
-            score *= 1.3
-        
-        return score
-    
-    def _derive_actionable_insights(self, message_hierarchy: Dict, context: Dict = None) -> List[Dict[str, Any]]:
-        """실행 가능한 인사이트 도출"""
-        insights = []
-        
-        # 주요 메시지 기반 인사이트
-        if message_hierarchy.get("main_theme"):
-            main_theme = message_hierarchy["main_theme"]["content"]
-            insights.append({
-                "type": "main_message",
-                "insight": f"강연자의 핵심 메시지: {main_theme[:100]}...",
-                "action": "이 메시지를 중심으로 후속 논의나 실행 계획 수립",
-                "priority": "high"
-            })
-        
-        # 실행 항목 인사이트
-        if message_hierarchy.get("call_to_actions"):
-            insights.append({
-                "type": "action_items",
-                "insight": f"{len(message_hierarchy['call_to_actions'])}개의 구체적인 실행 항목 제시됨",
-                "action": "제시된 실행 항목들을 체크리스트로 정리하여 단계별 실행",
-                "priority": "high"
-            })
-        
-        # 지식 공유 인사이트
-        if len(message_hierarchy.get("supporting_details", [])) > 3:
-            insights.append({
-                "type": "knowledge_sharing",
-                "insight": "풍부한 세부 정보와 배경 지식 제공됨",
-                "action": "상세 내용을 정리하여 팀 내 지식 공유 자료로 활용",
-                "priority": "medium"
-            })
-        
-        return insights
-    
-    def _generate_insights_from_intent(self, speaker_intent: Dict) -> List[str]:
-        """의도 기반 인사이트 생성"""
-        insights = []
-        
-        intent_type = speaker_intent.get("primary_intent", {}).get("type", "general")
-        
-        if intent_type == "inform":
-            insights.append("💡 정보 전달 중심의 발표 - 핵심 정보 습득에 집중")
-        elif intent_type == "persuade":
-            insights.append("🎯 설득을 위한 발표 - 제안사항에 대한 의사결정 필요")
-        elif intent_type == "educate":
-            insights.append("📚 교육 목적의 발표 - 학습한 내용을 실무에 적용 검토")
-        elif intent_type == "inspire":
-            insights.append("🔥 동기부여 중심의 발표 - 개인/팀 목표 재정비 기회")
-        
-        # 커뮤니케이션 스타일 인사이트
-        comm_style = speaker_intent.get("communication_style", {}).get("dominant_style", "neutral")
-        if comm_style == "interactive":
-            insights.append("🤝 상호작용적 발표 스타일 - 추가 질의응답 시간 확보 권장")
-        elif comm_style == "technical":
-            insights.append("🔬 기술적 발표 내용 - 전문 용어 및 세부사항 재검토 필요")
-        
-        return insights
-    
-    def _calculate_overall_confidence(self, message_hierarchy: Dict) -> float:
-        """전체 신뢰도 계산"""
-        factors = [
-            message_hierarchy.get("main_theme") is not None,
-            len(message_hierarchy.get("key_points", [])) >= 2,
-            len(message_hierarchy.get("supporting_details", [])) >= 1,
-            len(message_hierarchy.get("conclusions", [])) >= 1
-        ]
-        
-        confidence = sum(factors) / len(factors)
-        return confidence
-    
-    def _calculate_clova_compatibility(self, message_hierarchy: Dict, speaker_intent: Dict) -> float:
-        """클로바 노트 호환성 점수"""
-        compatibility_factors = [
-            message_hierarchy.get("main_theme") is not None,  # 명확한 주제
-            len(message_hierarchy.get("key_points", [])) >= 1,  # 핵심 포인트
-            speaker_intent.get("content_structure", {}).get("structure_completeness", 0) > 0.5,  # 구조화
-            speaker_intent.get("primary_intent", {}).get("confidence", 0) > 0.3  # 의도 명확성
-        ]
-        
-        score = sum(compatibility_factors) / len(compatibility_factors)
-        return score
-    
-    # Context application methods (helper methods)
-    def _apply_speaker_context(self, content: Dict, context: Dict) -> Dict:
-        """발표자 컨텍스트 적용"""
-        # 간단한 구현 - 실제로는 더 복잡한 로직 필요
-        return content
-    
-    def _apply_event_context(self, content: Dict, context: Dict) -> Dict:
-        """이벤트 컨텍스트 적용"""
-        return content
-    
-    def _apply_topic_enhancement(self, content: Dict, context: Dict) -> Dict:
-        """주제 키워드 강화"""
-        return content
-    
-    def _apply_objective_filtering(self, content: Dict, context: Dict) -> Dict:
-        """목적 기반 필터링"""
-        return content
-    
-    def _assess_content_richness(self, content: Dict) -> float:
-        """콘텐츠 풍부도 평가"""
-        richness = 0
-        if content.get("audio_content"):
-            richness += 0.5
-        if content.get("visual_content"):
-            richness += 0.3
-        if len(content.get("temporal_sync", [])) > 0:
-            richness += 0.2
-        return min(richness, 1.0)
 
-# 전역 메시지 추출 엔진
+# 전역 인스턴스
 global_message_extractor = ComprehensiveMessageExtractor()
 
-def extract_speaker_message(analysis_results: Dict[str, Any], context: Dict[str, Any] = None) -> Dict[str, Any]:
-    """강연자 메시지 추출 통합 함수"""
-    return global_message_extractor.extract_comprehensive_message(analysis_results, context)
+def extract_comprehensive_messages(text: str, context: Dict[str, Any] = None) -> Dict[str, Any]:
+    """간편 메시지 추출 함수"""
+    return global_message_extractor.extract_key_messages(text, context)
 
 if __name__ == "__main__":
-    # 테스트 실행
-    print("🎯 종합 메시지 추출 엔진 테스트")
-    
-    # 테스트 데이터
-    test_data = {
-        "audio_analysis": {
-            "status": "success",
-            "enhanced_text": "오늘 말씀드릴 주제는 디지털 전환입니다. 가장 중요한 것은 고객 중심의 사고입니다. 결론적으로 우리는 즉시 행동해야 합니다.",
-            "segments": [
-                {"start": 0, "end": 10, "text": "오늘 말씀드릴 주제는 디지털 전환입니다"},
-                {"start": 10, "end": 20, "text": "가장 중요한 것은 고객 중심의 사고입니다"}
-            ]
-        },
-        "visual_analysis": {
-            "status": "success",
-            "combined_visual_text": "디지털 전환 전략 슬라이드 고객 만족도 95% 증가"
-        }
-    }
-    
-    test_context = {
-        "event_context": "기업 전략 발표회",
-        "speakers": "CEO 김철수",
-        "objective": "디지털 전환 계획 공유"
-    }
+    # 테스트 코드
+    test_text = """
+    안녕하세요. 다이아몬드 반지 가격이 궁금해서요. 
+    1캐럿 정도로 생각하고 있는데 얼마 정도 할까요?
+    결혼 예정이라서 예쁜 걸로 찾고 있어요.
+    예산은 500만원 정도 생각하고 있습니다.
+    """
     
     extractor = ComprehensiveMessageExtractor()
-    result = extractor.extract_comprehensive_message(test_data, test_context)
+    result = extractor.extract_key_messages(test_text)
     
-    print(f"메인 메시지: {result['comprehensive_analysis']['clova_style_summary']['executive_summary']}")
-    print(f"핵심 포인트: {len(result['comprehensive_analysis']['key_messages'])}개")
-    print(f"클로바 호환성: {result['comprehensive_analysis']['clova_style_summary']['clova_compatibility_score']:.2f}")
+    print("=== 메시지 추출 결과 ===")
+    summary = result["main_summary"]
+    print(f"핵심 요약: {summary['one_line_summary']}")
+    print(f"고객 상태: {summary['customer_status']}")
+    print("주요 포인트:")
+    for point in summary['key_points']:
+        print(f"  - {point}")
+    print("추천 액션:")
+    for action in summary['recommended_actions']:
+        print(f"  {action}")

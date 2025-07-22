@@ -24,7 +24,13 @@
       "Bash(kill:*)",
       "Bash(wmic process where:*)",
       "Bash(nvidia-smi:*)",
-      "Bash(echo:*)"
+      "Bash(echo:*)",
+      "WebFetch(domain:localhost)",
+      "Bash(powershell:*)",
+      "Bash(tasklist:*)",
+      "Bash(find:*)",
+      "Bash(tskill:*)",
+      "Bash(del nul)"
     ],
     "deny": []
   }

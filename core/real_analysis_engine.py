@@ -102,7 +102,7 @@ except ImportError:
 try:
     from .jewelry_domain_enhancer import global_jewelry_enhancer, enhance_with_jewelry_domain
     jewelry_enhancer_available = True
-except ImportError:
+except (ImportError, SyntaxError):
     jewelry_enhancer_available = False
 
 try:
@@ -116,6 +116,12 @@ try:
     performance_monitor_available = True
 except ImportError:
     performance_monitor_available = False
+
+try:
+    from .comprehensive_message_extractor import extract_comprehensive_messages
+    message_extractor_available = True
+except ImportError:
+    message_extractor_available = False
 
 class RealAnalysisEngine:
     """실제 파일 분석 엔진"""
@@ -555,6 +561,17 @@ class RealAnalysisEngine:
             # 주얼리 키워드 분석 (향상된 텍스트 기반)
             jewelry_keywords = self._extract_jewelry_keywords(enhanced_text)
             
+            # 종합 메시지 추출 (핵심 개선: "이 사람들이 무엇을 말하는지" 명확히)
+            comprehensive_messages = {}
+            if enhanced_text and len(enhanced_text.strip()) > 10:
+                try:
+                    self.logger.info("🧠 종합 메시지 추출 중...")
+                    comprehensive_messages = extract_comprehensive_messages(enhanced_text, context)
+                    self.logger.info("✅ 종합 메시지 추출 완료")
+                except Exception as e:
+                    self.logger.warning(f"⚠️ 메시지 추출 실패: {e}")
+                    comprehensive_messages = {"status": "error", "error": str(e)}
+            
             analysis_result = {
                 "status": "success",
                 "file_name": os.path.basename(file_path),
@@ -568,6 +585,7 @@ class RealAnalysisEngine:
                 "summary": summary,
                 "jewelry_keywords": jewelry_keywords,
                 "segments": segments,
+                "comprehensive_messages": comprehensive_messages,  # 핵심 추가
                 "analysis_type": "real_whisper_stt",
                 "timestamp": datetime.now().isoformat()
             }
@@ -713,6 +731,17 @@ class RealAnalysisEngine:
             # 주얼리 키워드 분석 (향상된 텍스트 기반)
             jewelry_keywords = self._extract_jewelry_keywords(enhanced_text)
             
+            # 종합 메시지 추출 (핵심 개선: "이 사람들이 무엇을 말하는지" 명확히)
+            comprehensive_messages = {}
+            if enhanced_text and len(enhanced_text.strip()) > 10:
+                try:
+                    self.logger.info("🧠 종합 메시지 추출 중...")
+                    comprehensive_messages = extract_comprehensive_messages(enhanced_text, context)
+                    self.logger.info("✅ 종합 메시지 추출 완료")
+                except Exception as e:
+                    self.logger.warning(f"⚠️ 메시지 추출 실패: {e}")
+                    comprehensive_messages = {"status": "error", "error": str(e)}
+            
             analysis_result = {
                 "status": "success",
                 "file_name": os.path.basename(file_path),
@@ -725,6 +754,7 @@ class RealAnalysisEngine:
                 "summary": summary,
                 "jewelry_keywords": jewelry_keywords,
                 "detailed_results": detected_texts,
+                "comprehensive_messages": comprehensive_messages,  # 핵심 추가
                 "analysis_type": "real_easyocr",
                 "timestamp": datetime.now().isoformat()
             }

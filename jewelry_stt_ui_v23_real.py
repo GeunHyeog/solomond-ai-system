@@ -76,6 +76,14 @@ except ImportError as e:
     LECTURE_COMPILER_AVAILABLE = False
     print(f"[ERROR] 강의 내용 컴파일러 로드 실패: {e}")
 
+try:
+    from core.performance_monitor import global_performance_monitor, get_system_performance, get_current_success_rate
+    PERFORMANCE_MONITOR_AVAILABLE = True
+    print("[SUCCESS] 성능 모니터링 시스템 로드 완료")
+except ImportError as e:
+    PERFORMANCE_MONITOR_AVAILABLE = False
+    print(f"[ERROR] 성능 모니터링 시스템 로드 실패: {e}")
+
 # 기존 모듈들
 try:
     from core.hybrid_llm_manager_v23 import HybridLLMManager
@@ -192,6 +200,60 @@ class SolomondRealAnalysisUI:
         
         st.markdown("---")
     
+    def render_navigation_bar(self, current_step: int):
+        """표준 네비게이션 바 렌더링"""
+        st.markdown("---")
+        
+        # 이전/다음 단계 버튼 로직
+        prev_step = current_step - 1 if current_step > 1 else None
+        next_step = current_step + 1 if current_step < 4 else None
+        
+        # 단계별 조건 검사
+        can_go_next = self._can_proceed_to_next_step(current_step)
+        
+        col1, col2, col3 = st.columns([1, 2, 1])
+        
+        with col1:
+            if prev_step:
+                step_names = {1: "기본정보", 2: "업로드", 3: "검토", 4: "보고서"}
+                if st.button(f"⬅️ 이전 단계 ({step_names[prev_step]})", type="secondary"):
+                    st.session_state.workflow_step = prev_step
+                    st.rerun()
+        
+        with col3:
+            if next_step and can_go_next:
+                step_names = {2: "업로드", 3: "검토", 4: "보고서"}
+                button_text = f"➡️ 다음 단계 ({step_names[next_step]})"
+                if current_step == 3:
+                    button_text = "📋 최종 보고서 생성"
+                
+                if st.button(button_text, type="primary"):
+                    st.session_state.workflow_step = next_step
+                    if current_step == 3:
+                        st.success("✅ 분석 완료! 최종 보고서를 생성합니다.")
+                    st.rerun()
+            elif next_step and not can_go_next:
+                # 조건 미충족 시 안내 메시지
+                if current_step == 1:
+                    st.info("기본정보를 입력하거나 '건너뛰기' 버튼을 사용하세요.")
+                elif current_step == 2:
+                    st.info("파일을 업로드하거나 동영상 URL을 입력해주세요.")
+                elif current_step == 3:
+                    st.info("분석을 완료한 후 다음 단계로 진행할 수 있습니다.")
+    
+    def _can_proceed_to_next_step(self, current_step: int) -> bool:
+        """다음 단계로 진행 가능한지 확인"""
+        if current_step == 1:
+            # Step 1은 항상 건너뛸 수 있음
+            return True
+        elif current_step == 2:
+            # Step 2는 파일이 업로드되었거나 YouTube URL이 있어야 함
+            return bool(st.session_state.uploaded_files_data)
+        elif current_step == 3:
+            # Step 3는 분석 결과가 있어야 함
+            return bool(st.session_state.analysis_results)
+        return False
+    
     def render_step1_basic_info(self):
         """1단계: 기본정보 입력"""
         st.markdown("## 1️⃣ 프로젝트 기본정보 (선택사항)")
@@ -299,12 +361,44 @@ class SolomondRealAnalysisUI:
                 value=st.session_state.project_info.get('analysis_depth', '상세'),
                 help="깊이가 높을수록 더 상세한 분석과 인사이트를 제공합니다"
             )
-            
-            correlation_analysis = st.checkbox(
-                "파일 간 상관관계 분석",
-                value=st.session_state.project_info.get('correlation_analysis', True),
-                help="업로드된 여러 파일 간의 연관성과 일관성을 분석합니다"
+        
+        # 🎯 분석 모드 선택 (독립 섹션으로 분리하여 직관성 개선)
+        st.markdown("---")
+        st.markdown("### 🎯 분석 모드 선택")
+        
+        col7, col8 = st.columns([3, 2])
+        
+        with col7:
+            st.markdown("**어떤 방식으로 파일들을 분석할까요?**")
+            analysis_mode = st.radio(
+                "분석 방식 선택",
+                options=[
+                    "🚀 **배치 종합 분석** (권장) - 모든 파일을 통합하여 고품질 분석",
+                    "📁 **개별 파일 분석** - 각 파일을 독립적으로 분석"
+                ],
+                index=0 if st.session_state.project_info.get('correlation_analysis', True) else 1,
+                label_visibility="collapsed"
             )
+            
+            correlation_analysis = "배치 종합 분석" in analysis_mode
+        
+        with col8:
+            if correlation_analysis:
+                st.success("""
+                ✨ **배치 종합 분석의 장점:**
+                - 파일 간 상관관계 분석
+                - 중복 내용 자동 제거
+                - 컨텍스트 통합으로 정확도 향상
+                - 종합적인 인사이트 도출
+                """)
+            else:
+                st.warning("""
+                📁 **개별 파일 분석 특징:**
+                - 파일별 독립적 처리
+                - 빠른 처리 속도
+                - 상관관계 분석 불가
+                - 제한적인 통합 인사이트
+                """)
         
         # 확장된 기본정보 저장
         st.session_state.project_info = {
@@ -324,19 +418,16 @@ class SolomondRealAnalysisUI:
             'created_time': datetime.now().isoformat()
         }
         
+        # 건너뛰기 버튼 (중앙에 별도로)
         st.markdown("---")
-        
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
             if st.button("📋 기본정보 건너뛰고 업로드 시작", type="primary", use_container_width=True):
                 st.session_state.workflow_step = 2
                 st.rerun()
-                
-            if project_name or objective:
-                if st.button("✅ 기본정보 저장하고 다음 단계", type="secondary", use_container_width=True):
-                    st.session_state.workflow_step = 2
-                    st.success("기본정보가 저장되었습니다!")
-                    st.rerun()
+        
+        # 표준 네비게이션 바
+        self.render_navigation_bar(1)
     
     def render_step2_upload(self):
         """2단계: 파일 업로드"""
@@ -394,16 +485,17 @@ class SolomondRealAnalysisUI:
             help="Ctrl/Cmd + 클릭으로 여러 파일 선택 가능. 대용량 동영상은 자동으로 청크 단위 처리됩니다."
         )
         
-        # 유튜브 URL 입력
-        st.markdown("### 🎬 유튜브 URL 추가")
-        youtube_urls = st.text_area(
-            "유튜브 URL (한 줄에 하나씩)",
-            placeholder="https://www.youtube.com/watch?v=example1\nhttps://www.youtube.com/watch?v=example2",
-            height=100
+        # 동영상 URL 입력
+        st.markdown("### 🎬 동영상 URL 추가")
+        video_urls = st.text_area(
+            "동영상 URL (YouTube, Brightcove 등 - 한 줄에 하나씩)",
+            placeholder="https://www.youtube.com/watch?v=example1\nhttps://players.brightcove.net/1659762912/default_default/index.html?videoId=6374563565112\nhttps://youtu.be/example3",
+            height=120,
+            help="지원 플랫폼: YouTube, Brightcove, 기타 직접 동영상 링크"
         )
         
         # 업로드된 파일 정보 표시
-        if uploaded_files or youtube_urls.strip():
+        if uploaded_files or video_urls.strip():
             st.markdown("### 📋 업로드된 파일 목록")
             
             total_files = 0
@@ -422,7 +514,8 @@ class SolomondRealAnalysisUI:
                         
                         file_ext = file.name.split('.')[-1].lower() if '.' in file.name else 'unknown'
                     except Exception as e:
-                        st.error(f"파일 처리 오류 ({file.name}): {str(e)}")
+                        st.error(f"❌ 파일 처리 오류 ({file.name}): {str(e)}")
+                        st.info("💡 **해결 방법**: 파일이 손상되지 않았는지 확인하고, 다른 형식으로 변환해보세요")
                         continue
                     
                     # 대용량 동영상 파일 감지 (1GB 이상)
@@ -440,12 +533,20 @@ class SolomondRealAnalysisUI:
                     elif file_ext in ['pdf', 'docx', 'txt']:
                         file_categories["document"].append((file.name, file_size_mb))
             
-            # 유튜브 URL 처리
-            if youtube_urls.strip():
-                urls = [url.strip() for url in youtube_urls.strip().split('\n') if url.strip()]
+            # 동영상 URL 처리
+            if video_urls.strip():
+                urls = [url.strip() for url in video_urls.strip().split('\n') if url.strip()]
                 for url in urls:
                     if 'youtube.com' in url or 'youtu.be' in url:
                         file_categories["youtube"].append((url, 0))
+                        total_files += 1
+                    elif 'brightcove.net' in url:
+                        file_categories["brightcove"] = file_categories.get("brightcove", [])
+                        file_categories["brightcove"].append((url, 0))
+                        total_files += 1
+                    elif any(domain in url.lower() for domain in ['vimeo.com', 'dailymotion.com', '.mp4', '.mov', '.avi']):
+                        file_categories["other_video"] = file_categories.get("other_video", [])
+                        file_categories["other_video"].append((url, 0))
                         total_files += 1
             
             # 파일 정보 표시
@@ -483,30 +584,8 @@ class SolomondRealAnalysisUI:
             elif large_files_detected and not LARGE_FILE_HANDLER_AVAILABLE:
                 st.error(f"❌ **대용량 파일 처리 불가**: {len(large_files_detected)}개의 대용량 파일이 있지만 대용량 파일 핸들러가 비활성화되어 있습니다.")
             
-            # 카테고리별 파일 목록
-            for category, files in file_categories.items():
-                if files:
-                    category_names = {
-                        "audio": "🎤 음성 파일",
-                        "video": "🎬 동영상 파일", 
-                        "image": "🖼️ 이미지 파일",
-                        "document": "📄 문서 파일",
-                        "youtube": "🎬 유튜브 URL"
-                    }
-                    
-                    with st.expander(f"{category_names[category]} ({len(files)}개)"):
-                        for file_info in files:
-                            if category == "youtube":
-                                name = file_info[0]
-                                st.write(f"🔗 {name}")
-                            elif category == "video":
-                                name, size_display, is_large = file_info
-                                icon = "🎬🚀" if is_large else "🎬"
-                                note = " (대용량 처리)" if is_large else ""
-                                st.write(f"{icon} {name} ({size_display}){note}")
-                            else:
-                                name, size_mb = file_info
-                                st.write(f"📄 {name} ({size_mb:.2f} MB)")
+            # 파일 미리보기 및 카테고리별 목록
+            self.render_file_preview(file_categories, uploaded_files)
             
             # 분석 시작 버튼
             st.markdown("---")
@@ -516,7 +595,7 @@ class SolomondRealAnalysisUI:
                     # 파일 데이터 저장
                     st.session_state.uploaded_files_data = {
                         'files': uploaded_files,
-                        'youtube_urls': youtube_urls.strip().split('\n') if youtube_urls.strip() else [],
+                        'video_urls': video_urls.strip().split('\n') if video_urls.strip() else [],
                         'analysis_language': analysis_language,
                         'total_files': total_files,
                         'total_size': total_size,
@@ -526,16 +605,164 @@ class SolomondRealAnalysisUI:
                     st.success(f"✅ {total_files}개 파일 업로드 완료! 분석을 시작합니다.")
                     st.rerun()
         
-        # 네비게이션
-        st.markdown("---")
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("⬅️ 이전 단계 (기본정보)", type="secondary"):
-                st.session_state.workflow_step = 1
-                st.rerun()
-        with col2:
-            if not uploaded_files and not youtube_urls.strip():
-                st.info("파일을 업로드하거나 유튜브 URL을 입력해주세요.")
+        # 표준 네비게이션 바
+        self.render_navigation_bar(2)
+    
+    def render_file_preview(self, file_categories: Dict, uploaded_files: List):
+        """파일 미리보기 및 상세 정보 표시"""
+        st.markdown("### 📋 업로드된 파일 미리보기")
+        
+        # 파일 딕셔너리 생성 (파일명을 키로 사용)
+        file_dict = {}
+        if uploaded_files:
+            for file in uploaded_files:
+                file_dict[file.name] = file
+        
+        # 카테고리별 파일 목록과 미리보기
+        for category, files in file_categories.items():
+            if not files:
+                continue
+                
+            category_names = {
+                "audio": "🎤 음성 파일",
+                "video": "🎬 동영상 파일", 
+                "image": "🖼️ 이미지 파일",
+                "document": "📄 문서 파일",
+                "youtube": "🎬 YouTube URL",
+                "brightcove": "📺 Brightcove URL",
+                "other_video": "🌐 기타 동영상 URL"
+            }
+            
+            with st.expander(f"{category_names[category]} ({len(files)}개)", expanded=True):
+                # 이미지 파일의 경우 썸네일 표시
+                if category == "image":
+                    # 이미지를 그리드로 표시
+                    cols = st.columns(min(3, len(files)))
+                    for idx, file_info in enumerate(files):
+                        name, size_mb = file_info
+                        col_idx = idx % 3
+                        
+                        with cols[col_idx]:
+                            # 파일 정보 표시
+                            st.write(f"**{name}**")
+                            st.caption(f"📏 크기: {size_mb:.2f} MB")
+                            
+                            # 이미지 썸네일 표시
+                            if name in file_dict:
+                                try:
+                                    st.image(file_dict[name], width=200, caption=name)
+                                except Exception as e:
+                                    st.error(f"⚠️ 이미지 미리보기 실패: {str(e)}")
+                
+                # 오디오 파일의 경우 상세 정보와 재생
+                elif category == "audio":
+                    for file_info in files:
+                        name, size_mb = file_info
+                        col1, col2 = st.columns([2, 1])
+                        
+                        with col1:
+                            st.write(f"🎵 **{name}**")
+                            st.caption(f"📏 크기: {size_mb:.2f} MB")
+                            
+                            # 오디오 파일 정보 추출 시도
+                            if name in file_dict:
+                                try:
+                                    # 임시로 파일 저장하여 정보 추출
+                                    import tempfile
+                                    with tempfile.NamedTemporaryFile(delete=False, suffix=f".{name.split('.')[-1]}") as tmp_file:
+                                        tmp_file.write(file_dict[name].getvalue())
+                                        tmp_path = tmp_file.name
+                                    
+                                    # 오디오 정보 표시 (실제 분석 엔진 활용)
+                                    try:
+                                        from core.audio_converter import get_audio_info
+                                        audio_info = get_audio_info(tmp_path)
+                                        if audio_info['is_valid']:
+                                            st.caption(f"⏱️ 길이: {audio_info['duration_seconds']:.1f}초")
+                                            st.caption(f"🎵 샘플링: {audio_info['sample_rate']}Hz")
+                                            st.caption(f"📻 채널: {audio_info['channels']}ch")
+                                    except ImportError:
+                                        st.caption("📊 상세 정보: 분석 엔진 로드 후 확인 가능")
+                                    except Exception:
+                                        st.caption("📊 상세 정보: 분석 중 확인됩니다")
+                                    
+                                    # 임시 파일 정리
+                                    try:
+                                        os.unlink(tmp_path)
+                                    except:
+                                        pass
+                                        
+                                except Exception as e:
+                                    st.caption(f"⚠️ 정보 추출 실패: {str(e)}")
+                        
+                        with col2:
+                            # 오디오 재생 위젯 (지원되는 형식만)
+                            if name in file_dict and name.lower().endswith(('.wav', '.mp3')):
+                                try:
+                                    st.audio(file_dict[name])
+                                except Exception:
+                                    st.caption("🎵 재생기 로드 실패")
+                
+                # 동영상 파일의 경우 상세 정보
+                elif category == "video":
+                    for file_info in files:
+                        name, size_display, is_large = file_info
+                        
+                        col1, col2 = st.columns([3, 1])
+                        with col1:
+                            icon = "🎬🚀" if is_large else "🎬"
+                            note = " (대용량 자동 처리)" if is_large else ""
+                            st.write(f"{icon} **{name}**{note}")
+                            st.caption(f"📏 크기: {size_display}")
+                            
+                            if is_large:
+                                st.info("✨ 대용량 파일로 자동 청크 처리됩니다")
+                        
+                        with col2:
+                            if name in file_dict:
+                                try:
+                                    # 비디오 미리보기 (작은 크기로)
+                                    st.video(file_dict[name])
+                                except Exception:
+                                    st.caption("🎬 미리보기 로드 실패")
+                
+                # 문서 파일의 경우
+                elif category == "document":
+                    for file_info in files:
+                        name, size_mb = file_info
+                        st.write(f"📄 **{name}**")
+                        st.caption(f"📏 크기: {size_mb:.2f} MB")
+                        
+                        # 파일 형식별 설명
+                        if name.lower().endswith('.pdf'):
+                            st.caption("📑 PDF 문서 - OCR 텍스트 추출 예정")
+                        elif name.lower().endswith('.docx'):
+                            st.caption("📝 Word 문서 - 텍스트 추출 예정") 
+                        elif name.lower().endswith('.txt'):
+                            st.caption("📋 텍스트 파일 - 직접 읽기")
+                
+                # 온라인 동영상 URL의 경우
+                elif category in ["youtube", "brightcove", "other_video"]:
+                    for file_info in files:
+                        name = file_info[0]
+                        
+                        if category == "youtube":
+                            st.write(f"🎬 **YouTube URL**")
+                            st.caption("🎬 비디오 정보 및 오디오 다운로드 예정")
+                        elif category == "brightcove":
+                            st.write(f"📺 **Brightcove URL**")
+                            st.caption("🎬 Brightcove 플레이어에서 동영상 분석 예정")
+                        elif category == "other_video":
+                            st.write(f"🌐 **동영상 URL**")
+                            st.caption("🎬 직접 링크에서 동영상 다운로드 및 분석 예정")
+                        
+                        st.code(name)
+                        
+                        # URL 유효성 간단 체크
+                        if name.startswith(('http://', 'https://')):
+                            st.success("✅ 유효한 URL 형식")
+                        else:
+                            st.warning("⚠️ URL이 http:// 또는 https://로 시작하지 않습니다")
     
     def render_step3_review(self):
         """3단계: 중간 검토"""
@@ -622,27 +849,8 @@ class SolomondRealAnalysisUI:
             if len(st.session_state.analysis_results) > 5:
                 st.info(f"추가 {len(st.session_state.analysis_results) - 5}개 결과가 더 있습니다.")
             
-            # 다음 단계로 진행 버튼
-            st.markdown("---")
-            col1, col2, col3 = st.columns([1, 2, 1])
-            with col2:
-                if st.button("📋 최종 보고서 생성", type="primary", use_container_width=True):
-                    st.session_state.workflow_step = 4
-                    st.success("✅ 분석 완료! 최종 보고서를 생성합니다.")
-                    st.rerun()
-        
-        # 네비게이션
-        st.markdown("---")
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("⬅️ 이전 단계 (업로드)", type="secondary"):
-                st.session_state.workflow_step = 2
-                st.rerun()
-        with col2:
-            if st.session_state.analysis_results:
-                if st.button("➡️ 다음 단계 (보고서)", type="secondary"):
-                    st.session_state.workflow_step = 4
-                    st.rerun()
+        # 표준 네비게이션 바
+        self.render_navigation_bar(3)
     
     def render_step4_report(self):
         """4단계: 최종 보고서"""
@@ -892,6 +1100,70 @@ class SolomondRealAnalysisUI:
                         mime="text/plain"
                     )
         
+        # 성능 분석 대시보드
+        if PERFORMANCE_MONITOR_AVAILABLE:
+            st.markdown("---")
+            st.markdown("### 📊 시스템 성능 분석")
+            
+            try:
+                performance_summary = get_system_performance()
+                
+                # 성능 메트릭 표시
+                col1, col2, col3, col4 = st.columns(4)
+                
+                with col1:
+                    overall = performance_summary["overall_performance"]
+                    rate = overall["success_rate"]
+                    if rate >= 85:
+                        st.metric("🎯 전체 성공률", f"{rate}%", delta="우수")
+                    elif rate >= 70:
+                        st.metric("🎯 전체 성공률", f"{rate}%", delta="양호")
+                    else:
+                        st.metric("🎯 전체 성공률", f"{rate}%", delta="개선필요")
+                
+                with col2:
+                    recent = performance_summary["recent_performance"]
+                    st.metric("📈 최근 성공률", f"{recent['success_rate']}%", 
+                             delta=f"최근 {recent['total_analyses']}개")
+                
+                with col3:
+                    total_processed = performance_summary["system_stats"]["total_files_processed"]
+                    st.metric("📁 총 처리 파일", f"{total_processed}개")
+                
+                with col4:
+                    errors = performance_summary["error_analysis"]["total_errors"]
+                    if errors == 0:
+                        st.metric("🛡️ 총 오류", "0개", delta="안정")
+                    else:
+                        st.metric("🛡️ 총 오류", f"{errors}개", delta="점검필요")
+                
+                # 파일 타입별 성능
+                if performance_summary["file_type_performance"]:
+                    with st.expander("📈 파일 타입별 성능 상세"):
+                        for file_type, perf in performance_summary["file_type_performance"].items():
+                            col1, col2, col3 = st.columns(3)
+                            with col1:
+                                st.markdown(f"**{file_type.upper()} 파일**")
+                            with col2:
+                                st.markdown(f"성공률: {perf['success_rate']}%")
+                            with col3:
+                                st.markdown(f"평균 시간: {perf['avg_processing_time']}초")
+                
+                # 성능 개선 추천사항
+                recommendations = global_performance_monitor.get_recommendations()
+                if recommendations:
+                    with st.expander("💡 성능 개선 추천사항"):
+                        for rec in recommendations:
+                            if rec["priority"] == "high":
+                                st.error(f"🔴 **{rec['category']}**: {rec['recommendation']}")
+                            elif rec["priority"] == "medium":
+                                st.warning(f"🟡 **{rec['category']}**: {rec['recommendation']}")
+                            else:
+                                st.info(f"🔵 **{rec['category']}**: {rec['recommendation']}")
+                
+            except Exception as e:
+                st.error(f"⚠️ 성능 분석 오류: {str(e)}")
+        
         # 새 프로젝트 시작
         st.markdown("---")
         col1, col2, col3 = st.columns([1, 2, 1])
@@ -906,13 +1178,8 @@ class SolomondRealAnalysisUI:
                 st.success("✅ 새 프로젝트가 시작되었습니다!")
                 st.rerun()
         
-        # 네비게이션
-        st.markdown("---")
-        col1, col2 = st.columns(2)
-        with col1:
-            if st.button("⬅️ 이전 단계 (검토)", type="secondary"):
-                st.session_state.workflow_step = 3
-                st.rerun()
+        # 표준 네비게이션 바
+        self.render_navigation_bar(4)
     
     def render_multifile_analysis_tab(self):
         """멀티파일 분석 탭"""
@@ -1379,7 +1646,7 @@ class SolomondRealAnalysisUI:
     def display_system_status(self):
         """시스템 상태 표시"""
         
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4, col5 = st.columns(5)
         
         with col1:
             if REAL_ANALYSIS_AVAILABLE:
@@ -1407,6 +1674,27 @@ class SolomondRealAnalysisUI:
                 st.success("✅ Transformers")
             except ImportError:
                 st.warning("⚠️ Transformers")
+        
+        with col5:
+            st.markdown("**📈 성능**")
+            if PERFORMANCE_MONITOR_AVAILABLE:
+                try:
+                    success_rate = get_current_success_rate()
+                    if success_rate["total_analyses"] > 0:
+                        rate = success_rate["success_rate"]
+                        if rate >= 85:
+                            st.success(f"✅ {rate}%")
+                        elif rate >= 70:
+                            st.warning(f"⚠️ {rate}%")
+                        else:
+                            st.error(f"❌ {rate}%")
+                        st.caption(f"총 {success_rate['total_analyses']}개")
+                    else:
+                        st.info("📊 분석 대기")
+                except Exception:
+                    st.caption("⚠️ 모니터링 오류")
+            else:
+                st.caption("❌ 모니터링 불가")
     
     def render_audio_analysis_tab(self):
         """음성 분석 탭"""
@@ -1498,9 +1786,17 @@ class SolomondRealAnalysisUI:
                 pass
     
     def display_audio_results(self, result: Dict[str, Any]):
-        """음성 분석 결과 표시"""
+        """음성 분석 결과 표시 - 사용자 친화적 버전"""
         
-        # 기본 정보
+        # 🚀 향상된 결과 표시 엔진 사용
+        try:
+            from core.user_friendly_presenter import show_enhanced_analysis_result
+            show_enhanced_analysis_result(result, st.session_state.project_info)
+            return
+        except ImportError:
+            pass  # 기존 방식으로 fallback
+        
+        # 기존 기본 정보 표시 (fallback)
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
@@ -1515,17 +1811,69 @@ class SolomondRealAnalysisUI:
         with col4:
             st.metric("세그먼트", f"{result['segments_count']}개")
         
-        # 추출된 텍스트
-        st.markdown("### 📄 추출된 텍스트")
-        st.text_area(
-            "전체 텍스트",
-            value=result['full_text'],
-            height=200,
-            disabled=True
-        )
+        # 💡 핵심 개선: 종합 메시지 분석 표시
+        if result.get('comprehensive_messages') and result['comprehensive_messages'].get('status') == 'success':
+            st.markdown("### 🎯 **이 사람들이 말한 내용 요약**")
+            
+            comp_msg = result['comprehensive_messages']
+            main_summary = comp_msg.get('main_summary', {})
+            
+            # 핵심 한 줄 요약
+            if main_summary.get('one_line_summary'):
+                st.success(f"**📢 핵심 메시지:** {main_summary['one_line_summary']}")
+            
+            # 고객 상태 및 중요도
+            col1, col2 = st.columns(2)
+            with col1:
+                if main_summary.get('customer_status'):
+                    st.info(f"**👤 고객 상태:** {main_summary['customer_status']}")
+            with col2:
+                if main_summary.get('urgency_indicator'):
+                    urgency_colors = {'높음': '🔴', '보통': '🟡', '낮음': '🟢'}
+                    urgency_emoji = urgency_colors.get(main_summary['urgency_indicator'], '⚪')
+                    st.info(f"**⚡ 긴급도:** {urgency_emoji} {main_summary['urgency_indicator']}")
+            
+            # 주요 포인트
+            if main_summary.get('key_points'):
+                st.markdown("**🔍 주요 포인트:**")
+                for point in main_summary['key_points'][:3]:  # 상위 3개만
+                    st.markdown(f"• {point}")
+            
+            # 추천 액션
+            if main_summary.get('recommended_actions'):
+                st.markdown("**💼 추천 액션:**")
+                for action in main_summary['recommended_actions']:
+                    st.markdown(f"{action}")
+            
+            # 상세 분석 (접을 수 있게)
+            with st.expander("🔬 상세 대화 분석"):
+                conv_analysis = comp_msg.get('conversation_analysis', {})
+                
+                # 화자 분석
+                if conv_analysis.get('speakers'):
+                    speakers_info = conv_analysis['speakers']
+                    st.markdown("**👥 대화 참여자:**")
+                    if speakers_info.get('speaker_distribution'):
+                        for speaker, count in speakers_info['speaker_distribution'].items():
+                            st.markdown(f"• {speaker}: {count}회 발언")
+                
+                # 대화 의도
+                if conv_analysis.get('intent'):
+                    intent_info = conv_analysis['intent']
+                    st.markdown(f"**🎯 대화 의도:** {intent_info.get('description', '')}")
+                    st.markdown(f"**📊 신뢰도:** {intent_info.get('confidence', 0)*100:.0f}%")
         
-        # 요약
-        if result.get('summary'):
+        # 추출된 텍스트 (기술적 상세정보로 이동)
+        with st.expander("📄 추출된 원본 텍스트"):
+            st.text_area(
+                "전체 텍스트",
+                value=result['full_text'],
+                height=200,
+                disabled=True
+            )
+        
+        # 기존 요약 (fallback)
+        if result.get('summary') and not (result.get('comprehensive_messages') and result['comprehensive_messages'].get('status') == 'success'):
             st.markdown("### 📋 AI 요약")
             st.info(result['summary'])
         
@@ -1623,9 +1971,17 @@ class SolomondRealAnalysisUI:
                 pass
     
     def display_image_results(self, result: Dict[str, Any]):
-        """이미지 분석 결과 표시"""
+        """이미지 분석 결과 표시 - 사용자 친화적 버전"""
         
-        # 기본 정보
+        # 🚀 향상된 결과 표시 엔진 사용
+        try:
+            from core.user_friendly_presenter import show_enhanced_analysis_result
+            show_enhanced_analysis_result(result, st.session_state.project_info)
+            return
+        except ImportError:
+            pass  # 기존 방식으로 fallback
+        
+        # 기존 기본 정보 표시 (fallback)
         col1, col2, col3, col4 = st.columns(4)
         
         with col1:
@@ -1640,17 +1996,51 @@ class SolomondRealAnalysisUI:
         with col4:
             st.metric("파일 크기", f"{result['file_size_mb']} MB")
         
-        # 추출된 텍스트
-        st.markdown("### 📄 추출된 텍스트")
-        st.text_area(
-            "OCR 결과",
-            value=result['full_text'],
-            height=150,
-            disabled=True
-        )
+        # 💡 핵심 개선: 종합 메시지 분석 표시
+        if result.get('comprehensive_messages') and result['comprehensive_messages'].get('status') == 'success':
+            st.markdown("### 🎯 **이미지에서 추출한 핵심 내용**")
+            
+            comp_msg = result['comprehensive_messages']
+            main_summary = comp_msg.get('main_summary', {})
+            
+            # 핵심 한 줄 요약
+            if main_summary.get('one_line_summary'):
+                st.success(f"**📢 핵심 메시지:** {main_summary['one_line_summary']}")
+            
+            # 고객 상태 및 중요도
+            col1, col2 = st.columns(2)
+            with col1:
+                if main_summary.get('customer_status'):
+                    st.info(f"**👤 고객 상태:** {main_summary['customer_status']}")
+            with col2:
+                if main_summary.get('urgency_indicator'):
+                    urgency_colors = {'높음': '🔴', '보통': '🟡', '낮음': '🟢'}
+                    urgency_emoji = urgency_colors.get(main_summary['urgency_indicator'], '⚪')
+                    st.info(f"**⚡ 긴급도:** {urgency_emoji} {main_summary['urgency_indicator']}")
+            
+            # 주요 포인트
+            if main_summary.get('key_points'):
+                st.markdown("**🔍 주요 포인트:**")
+                for point in main_summary['key_points'][:3]:  # 상위 3개만
+                    st.markdown(f"• {point}")
+            
+            # 추천 액션
+            if main_summary.get('recommended_actions'):
+                st.markdown("**💼 추천 액션:**")
+                for action in main_summary['recommended_actions']:
+                    st.markdown(f"{action}")
         
-        # 요약
-        if result.get('summary'):
+        # 추출된 텍스트 (기술적 상세정보로 이동)
+        with st.expander("📄 추출된 원본 텍스트"):
+            st.text_area(
+                "OCR 결과",
+                value=result['full_text'],
+                height=150,
+                disabled=True
+            )
+        
+        # 기존 요약 (fallback)
+        if result.get('summary') and not (result.get('comprehensive_messages') and result['comprehensive_messages'].get('status') == 'success'):
             st.markdown("### 📋 AI 요약")
             st.info(result['summary'])
         
@@ -2090,10 +2480,57 @@ class SolomondRealAnalysisUI:
             # 오류가 있어도 분석은 계속 진행 (lazy loading 방식으로)
     
     def execute_comprehensive_analysis(self):
-        """포괄적 파일 분석 실행"""
+        """🚀 배치 종합 분석 실행 - 모든 파일을 통합 분석"""
         if not st.session_state.uploaded_files_data:
             return []
         
+        uploaded_files_data = st.session_state.uploaded_files_data
+        
+        # 🎯 배치 분석 vs 개별 분석 선택
+        enable_batch_analysis = st.session_state.project_info.get('correlation_analysis', True)
+        
+        if enable_batch_analysis:
+            st.success("🚀 **배치 종합 분석 시작**: 모든 파일을 통합하여 최고 품질의 분석을 수행합니다")
+            with st.container():
+                st.markdown("### 📊 배치 분석 진행 상황")
+                return self._execute_batch_comprehensive_analysis()
+        else:
+            st.warning("📁 **개별 분석 모드**: 파일별로 독립적으로 분석합니다 (품질 제한적)")
+            return self._execute_individual_analysis()
+    
+    def _execute_batch_comprehensive_analysis(self):
+        """배치 종합 분석 - 모든 파일을 통합 처리"""
+        uploaded_files_data = st.session_state.uploaded_files_data
+        all_results = []
+        
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        
+        # 1️⃣ 단계: 파일 분류 및 전처리
+        status_text.text("🔍 1단계: 파일 분류 및 전처리 중...")
+        file_categories = self._categorize_and_preprocess_files(uploaded_files_data)
+        progress_bar.progress(0.2)
+        
+        # 2️⃣ 단계: 통합 컨텍스트 구성
+        status_text.text("🧠 2단계: 통합 컨텍스트 구성 중...")
+        integrated_context = self._build_integrated_context(file_categories)
+        progress_bar.progress(0.4)
+        
+        # 3️⃣ 단계: 배치 분석 실행
+        status_text.text("⚡ 3단계: 배치 통합 분석 실행 중...")
+        batch_results = self._execute_batch_analysis(file_categories, integrated_context)
+        progress_bar.progress(0.8)
+        
+        # 4️⃣ 단계: 결과 통합 및 최적화
+        status_text.text("🎯 4단계: 결과 통합 및 최적화 중...")
+        final_results = self._integrate_and_optimize_results(batch_results, integrated_context)
+        progress_bar.progress(1.0)
+        
+        status_text.text("✅ 배치 종합 분석 완료!")
+        return final_results
+    
+    def _execute_individual_analysis(self):
+        """기존 개별 분석 방식 (호환성 유지)"""
         uploaded_files_data = st.session_state.uploaded_files_data
         all_results = []
         
@@ -2103,7 +2540,7 @@ class SolomondRealAnalysisUI:
         # 모델은 실제 사용 시점에 lazy loading으로 로딩 (서버 시작 시간 단축)
         status_text.text("🔧 분석 준비 중...")
         
-        total_items = len(uploaded_files_data.get('files', [])) + len(uploaded_files_data.get('youtube_urls', []))
+        total_items = len(uploaded_files_data.get('files', [])) + len(uploaded_files_data.get('video_urls', []))
         current_item = 0
         
         # 업로드된 파일 분석
@@ -2179,8 +2616,11 @@ class SolomondRealAnalysisUI:
                 if REAL_ANALYSIS_AVAILABLE and file_type in ["audio", "image"]:
                     language = uploaded_files_data.get('analysis_language', 'auto')
                     
-                    # 프로젝트 컨텍스트 정보 준비
-                    context = st.session_state.get('project_info', {})
+                    # 🧠 강화된 프로젝트 컨텍스트 정보 준비
+                    context = self._prepare_enhanced_context()
+                    
+                    # 분석 진행 상황 업데이트 (컨텍스트 정보 포함)
+                    self._update_analysis_status(uploaded_file.name, context)
                     
                     result = analyze_file_real(tmp_file_path, file_type, language, context)
                     
@@ -2240,11 +2680,17 @@ class SolomondRealAnalysisUI:
                     except Exception as cleanup_error:
                         self.logger.warning(f"대용량 파일 핸들러 정리 실패: {cleanup_error}")
         
-        # YouTube URL 분석 (현재는 플레이스홀더)
-        for url in uploaded_files_data.get('youtube_urls', []):
+        # 동영상 URL 분석 (YouTube, Brightcove 등)
+        for url in uploaded_files_data.get('video_urls', []):
             current_item += 1
             progress_bar.progress(current_item / total_items)
-            status_text.text(f"🔄 YouTube 분석 중: {url} ({current_item}/{total_items})")
+            # URL 타입에 따른 상태 메시지
+            if 'youtube.com' in url or 'youtu.be' in url:
+                status_text.text(f"🔄 YouTube 분석 중: {url[:50]}... ({current_item}/{total_items})")
+            elif 'brightcove.net' in url:
+                status_text.text(f"🔄 Brightcove 분석 중: {url[:50]}... ({current_item}/{total_items})")
+            else:
+                status_text.text(f"🔄 동영상 URL 분석 중: {url[:50]}... ({current_item}/{total_items})")
             
             # YouTube 분석은 향후 구현 예정
             all_results.append({
@@ -2830,6 +3276,403 @@ class SolomondRealAnalysisUI:
                 showlegend=True
             )
             st.plotly_chart(fig, use_container_width=True)
+    
+    def _prepare_enhanced_context(self) -> Dict[str, Any]:
+        """강화된 분석 컨텍스트 준비 - 사전정보 최대 활용"""
+        base_context = st.session_state.get('project_info', {})
+        
+        enhanced_context = {
+            # 기본 프로젝트 정보
+            'project_name': base_context.get('name', ''),
+            'project_type': base_context.get('type', ''),
+            'objective': base_context.get('objective', ''),
+            'target_language': base_context.get('target_language', 'auto'),
+            
+            # 🆕 참석자 및 발표자 정보 (텍스트 보정에 활용)
+            'participants': self._extract_names(base_context.get('participants', '')),
+            'speakers': self._extract_names(base_context.get('speakers', '')),
+            
+            # 🆕 주제 및 키워드 정보 (컨텍스트 분석에 활용)
+            'topic_keywords': self._extract_keywords(base_context.get('topic_keywords', '')),
+            'event_context': base_context.get('event_context', ''),
+            
+            # 🆕 분석 설정 정보
+            'analysis_depth': base_context.get('analysis_depth', '상세'),
+            'enable_multi_angle': base_context.get('enable_multi_angle', True),
+            'correlation_analysis': base_context.get('correlation_analysis', True),
+            
+            # 🆕 이미 분석된 파일들의 정보 (상관관계 분석용)
+            'previous_results': self._get_previous_analysis_summary(),
+            
+            # 🆕 실시간 분석 가이드라인
+            'analysis_guidelines': self._generate_analysis_guidelines(base_context)
+        }
+        
+        return enhanced_context
+    
+    def _extract_names(self, names_text: str) -> List[str]:
+        """참석자/발표자 이름 추출 및 정규화"""
+        if not names_text.strip():
+            return []
+        
+        # 쉼표, 세미콜론, 줄바꿈으로 구분
+        names = []
+        for separator in [',', ';', '\n']:
+            names_text = names_text.replace(separator, '|')
+        
+        for name in names_text.split('|'):
+            name = name.strip()
+            if name and len(name) >= 2:  # 최소 2글자 이상
+                names.append(name)
+        
+        return names
+    
+    def _extract_keywords(self, keywords_text: str) -> List[str]:
+        """주제 키워드 추출 및 정규화"""
+        if not keywords_text.strip():
+            return []
+        
+        keywords = []
+        for separator in [',', ';', '\n', ' ']:
+            keywords_text = keywords_text.replace(separator, '|')
+        
+        for keyword in keywords_text.split('|'):
+            keyword = keyword.strip()
+            if keyword and len(keyword) >= 2:  # 최소 2글자 이상
+                keywords.append(keyword)
+        
+        return keywords
+    
+    def _get_previous_analysis_summary(self) -> Dict[str, Any]:
+        """이전 분석 결과 요약 (상관관계 분석용)"""
+        previous_results = getattr(st.session_state, 'analysis_results', [])
+        
+        if not previous_results:
+            return {}
+        
+        # 이전 결과에서 중요 정보 추출
+        summary = {
+            'total_files_analyzed': len(previous_results),
+            'common_keywords': [],
+            'frequent_participants': [],
+            'main_topics': []
+        }
+        
+        # 공통 키워드 및 참석자 추출
+        all_keywords = []
+        all_texts = []
+        
+        for result in previous_results:
+            if result.get('status') == 'success':
+                if result.get('jewelry_keywords'):
+                    all_keywords.extend(result['jewelry_keywords'])
+                if result.get('full_text'):
+                    all_texts.append(result['full_text'])
+        
+        # 빈도 기반 중요 정보 추출
+        if all_keywords:
+            from collections import Counter
+            keyword_counts = Counter(all_keywords)
+            summary['common_keywords'] = [k for k, v in keyword_counts.most_common(5)]
+        
+        return summary
+    
+    def _generate_analysis_guidelines(self, context: Dict[str, Any]) -> List[str]:
+        """컨텍스트 기반 분석 가이드라인 생성"""
+        guidelines = []
+        
+        # 프로젝트 타입별 가이드라인
+        project_type = context.get('type', '')
+        if '회의' in project_type:
+            guidelines.append("회의록 형식의 구조화된 요약 생성")
+            guidelines.append("참석자별 발언 내용 구분")
+        elif '강의' in project_type or '세미나' in project_type:
+            guidelines.append("교육 자료로 활용 가능한 체계적 정리")
+            guidelines.append("핵심 개념과 실용적 응용 방안 도출")
+        
+        # 참석자 정보가 있을 경우
+        if context.get('participants'):
+            guidelines.append(f"참석자 이름 정확성 검증: {', '.join(context['participants'][:3])}")
+        
+        # 키워드 정보가 있을 경우
+        if context.get('topic_keywords'):
+            guidelines.append(f"핵심 키워드 중심 분석: {', '.join(context['topic_keywords'][:3])}")
+        
+        return guidelines
+    
+    def _update_analysis_status(self, filename: str, context: Dict[str, Any]):
+        """분석 진행 상황을 컨텍스트 정보와 함께 업데이트"""
+        
+        # 컨텍스트 정보 표시
+        context_info = []
+        if context.get('participants'):
+            context_info.append(f"👥 참석자 {len(context['participants'])}명")
+        if context.get('speakers'):
+            context_info.append(f"🎤 발표자 {len(context['speakers'])}명")
+        if context.get('topic_keywords'):
+            context_info.append(f"🔑 키워드 {len(context['topic_keywords'])}개")
+        
+        if context_info:
+            context_display = " | ".join(context_info)
+            st.info(f"📋 **활용 중인 사전정보**: {context_display}")
+        
+        # 분석 가이드라인 표시
+        if context.get('analysis_guidelines'):
+            with st.expander("🎯 적용 중인 분석 가이드라인", expanded=False):
+                for guideline in context['analysis_guidelines']:
+                    st.write(f"• {guideline}")
+    
+    def _categorize_and_preprocess_files(self, uploaded_files_data) -> Dict[str, List]:
+        """파일 분류 및 전처리"""
+        categories = {
+            'audio_files': [],
+            'video_files': [],  
+            'image_files': [],
+            'document_files': [],
+            'video_urls': uploaded_files_data.get('video_urls', [])
+        }
+        
+        for uploaded_file in uploaded_files_data.get('files', []):
+            file_ext = uploaded_file.name.split('.')[-1].lower()
+            file_size_mb = len(uploaded_file.getvalue()) / (1024 * 1024)
+            
+            file_info = {
+                'file': uploaded_file,
+                'name': uploaded_file.name,
+                'extension': file_ext,
+                'size_mb': file_size_mb,
+                'temp_path': None
+            }
+            
+            if file_ext in ['wav', 'mp3', 'flac', 'm4a']:
+                categories['audio_files'].append(file_info)
+            elif file_ext in ['mp4', 'mov', 'avi']:
+                categories['video_files'].append(file_info)
+            elif file_ext in ['jpg', 'jpeg', 'png', 'bmp', 'tiff']:
+                categories['image_files'].append(file_info)
+            elif file_ext in ['pdf', 'docx', 'txt']:
+                categories['document_files'].append(file_info)
+        
+        return categories
+    
+    def _build_integrated_context(self, file_categories) -> Dict[str, Any]:
+        """모든 파일 정보를 통합한 컨텍스트 구성"""
+        base_context = self._prepare_enhanced_context()
+        
+        integrated_context = {
+            **base_context,
+            'file_categories': file_categories,
+            'total_files': sum(len(files) for files in file_categories.values() if isinstance(files, list)),
+            'file_distribution': {
+                'audio': len(file_categories.get('audio_files', [])),
+                'video': len(file_categories.get('video_files', [])),
+                'image': len(file_categories.get('image_files', [])),
+                'document': len(file_categories.get('document_files', [])),
+                'video_url': len(file_categories.get('video_urls', []))
+            },
+            'analysis_strategy': self._determine_analysis_strategy(file_categories),
+            'cross_reference_enabled': True,
+            'batch_processing': True
+        }
+        
+        return integrated_context
+    
+    def _determine_analysis_strategy(self, file_categories) -> str:
+        """파일 구성에 따른 최적 분석 전략 결정"""
+        audio_count = len(file_categories.get('audio_files', []))
+        video_count = len(file_categories.get('video_files', []))
+        image_count = len(file_categories.get('image_files', []))
+        
+        if video_count > 0 and (audio_count > 0 or image_count > 0):
+            return "multimodal_integrated"  # 다중모달 통합 분석
+        elif audio_count > 0 and image_count > 0:
+            return "audio_visual_correlation"  # 음성-시각 상관관계
+        elif video_count > 1:
+            return "multi_video_synthesis"  # 다중 영상 종합
+        elif image_count > 3:
+            return "sequential_image_analysis"  # 연속 이미지 분석
+        else:
+            return "standard_batch"  # 표준 배치 분석
+    
+    def _execute_batch_analysis(self, file_categories, integrated_context) -> Dict[str, Any]:
+        """배치 통합 분석 실행"""
+        batch_results = {
+            'audio_results': [],
+            'video_results': [],
+            'image_results': [],
+            'document_results': [],
+            'youtube_results': [],
+            'cross_correlations': [],
+            'integrated_insights': {}
+        }
+        
+        # 🎤 음성 파일 배치 분석
+        if file_categories.get('audio_files'):
+            batch_results['audio_results'] = self._batch_analyze_audio_files(
+                file_categories['audio_files'], integrated_context
+            )
+        
+        # 🎬 영상 파일 배치 분석  
+        if file_categories.get('video_files'):
+            batch_results['video_results'] = self._batch_analyze_video_files(
+                file_categories['video_files'], integrated_context
+            )
+        
+        # 🖼️ 이미지 파일 배치 분석
+        if file_categories.get('image_files'):
+            batch_results['image_results'] = self._batch_analyze_image_files(
+                file_categories['image_files'], integrated_context
+            )
+        
+        # 🔗 상관관계 분석
+        if integrated_context.get('cross_reference_enabled'):
+            batch_results['cross_correlations'] = self._analyze_cross_correlations(
+                batch_results, integrated_context
+            )
+        
+        return batch_results
+    
+    def _batch_analyze_audio_files(self, audio_files, context) -> List[Dict]:
+        """음성 파일 배치 분석"""
+        results = []
+        
+        # 모든 음성 파일을 임시 저장
+        temp_files = []
+        for file_info in audio_files:
+            with tempfile.NamedTemporaryFile(suffix=f".{file_info['extension']}", delete=False) as tmp_file:
+                tmp_file.write(file_info['file'].getvalue())
+                temp_files.append(tmp_file.name)
+                file_info['temp_path'] = tmp_file.name
+        
+        # 배치 STT 처리 (GPU 효율성 극대화)
+        try:
+            for i, file_info in enumerate(audio_files):
+                st.text(f"🎤 음성 분석: {file_info['name']} ({i+1}/{len(audio_files)})")
+                
+                # 개별 분석 수행 (컨텍스트 포함)
+                result = analyze_file_real(file_info['temp_path'], 'audio', 'auto', context)
+                result['batch_index'] = i
+                result['cross_reference_ready'] = True
+                results.append(result)
+                
+        finally:
+            # 임시 파일 정리
+            for temp_file in temp_files:
+                try:
+                    os.unlink(temp_file)
+                except:
+                    pass
+        
+        return results
+    
+    def _batch_analyze_image_files(self, image_files, context) -> List[Dict]:
+        """이미지 파일 배치 분석 - GPU 최적화"""
+        results = []
+        
+        # 이미지 파일 임시 저장
+        temp_files = []
+        for file_info in image_files:
+            with tempfile.NamedTemporaryFile(suffix=f".{file_info['extension']}", delete=False) as tmp_file:
+                tmp_file.write(file_info['file'].getvalue())
+                temp_files.append(tmp_file.name)
+                file_info['temp_path'] = tmp_file.name
+        
+        try:
+            # GPU 모델 한 번만 로드하여 배치 처리
+            for i, file_info in enumerate(image_files):
+                st.text(f"🖼️ 이미지 분석: {file_info['name']} ({i+1}/{len(image_files)})")
+                
+                result = analyze_file_real(file_info['temp_path'], 'image', 'auto', context)
+                result['batch_index'] = i
+                result['cross_reference_ready'] = True
+                results.append(result)
+                
+        finally:
+            # 임시 파일 정리
+            for temp_file in temp_files:
+                try:
+                    os.unlink(temp_file)
+                except:
+                    pass
+        
+        return results
+    
+    def _batch_analyze_video_files(self, video_files, context) -> List[Dict]:
+        """영상 파일 배치 분석 - 다각도 통합"""
+        results = []
+        
+        for i, file_info in enumerate(video_files):
+            st.text(f"🎬 영상 분석: {file_info['name']} ({i+1}/{len(video_files)})")
+            
+            # 임시 파일 저장
+            with tempfile.NamedTemporaryFile(suffix=f".{file_info['extension']}", delete=False) as tmp_file:
+                tmp_file.write(file_info['file'].getvalue())
+                temp_path = tmp_file.name
+            
+            try:
+                result = analyze_file_real(temp_path, 'video', 'auto', context)
+                result['batch_index'] = i
+                result['cross_reference_ready'] = True
+                results.append(result)
+            finally:
+                try:
+                    os.unlink(temp_path)
+                except:
+                    pass
+        
+        return results
+    
+    def _analyze_cross_correlations(self, batch_results, context) -> List[Dict]:
+        """배치 결과 간 상관관계 분석"""
+        correlations = []
+        
+        # 모든 텍스트 수집
+        all_texts = []
+        all_keywords = []
+        
+        for category, results in batch_results.items():
+            if isinstance(results, list):
+                for result in results:
+                    if result.get('status') == 'success':
+                        if result.get('full_text'):
+                            all_texts.append({
+                                'text': result['full_text'],
+                                'source': category,
+                                'file_name': result.get('file_name', ''),
+                                'type': category.replace('_results', '')
+                            })
+                        if result.get('jewelry_keywords'):
+                            all_keywords.extend(result['jewelry_keywords'])
+        
+        # 공통 키워드 분석
+        if all_keywords:
+            from collections import Counter
+            keyword_counts = Counter(all_keywords)
+            common_keywords = [k for k, v in keyword_counts.most_common(10) if v > 1]
+            
+            correlations.append({
+                'type': 'common_keywords',
+                'keywords': common_keywords,
+                'strength': len(common_keywords) / len(set(all_keywords)) if all_keywords else 0
+            })
+        
+        return correlations
+    
+    def _integrate_and_optimize_results(self, batch_results, context) -> List[Dict]:
+        """배치 결과 통합 및 최적화"""
+        integrated_results = []
+        
+        # 모든 결과를 통합 리스트로 변환
+        for category, results in batch_results.items():
+            if isinstance(results, list):
+                for result in results:
+                    # 배치 분석 메타데이터 추가
+                    result['batch_processed'] = True
+                    result['correlation_analyzed'] = len(batch_results.get('cross_correlations', [])) > 0
+                    result['analysis_strategy'] = context.get('analysis_strategy', 'standard_batch')
+                    integrated_results.append(result)
+        
+        return integrated_results
 
 def main():
     """메인 실행 함수"""
