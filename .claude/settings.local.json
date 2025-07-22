@@ -45,7 +45,12 @@
       "Bash(cp:*)",
       "mcp__ide__executeCode",
       "Bash(dir C:UsersPC_58410solomond-ai-system*.log)",
-      "Bash(where uv)"
+      "Bash(where uv)",
+      "Bash(where playwright)",
+      "Bash(playwright --version)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(rg:*)"
     ],
     "deny": []
   }

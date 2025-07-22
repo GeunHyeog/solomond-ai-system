@@ -514,8 +514,27 @@ class SolomondRealAnalysisUI:
                         
                         file_ext = file.name.split('.')[-1].lower() if '.' in file.name else 'unknown'
                     except Exception as e:
-                        st.error(f"❌ 파일 처리 오류 ({file.name}): {str(e)}")
-                        st.info("💡 **해결 방법**: 파일이 손상되지 않았는지 확인하고, 다른 형식으로 변환해보세요")
+                        # 강화된 에러 처리 사용
+                        try:
+                            from core.enhanced_error_handler import handle_error
+                            error_result = handle_error(e, {"file_name": file.name, "step": "file_processing"})
+                            
+                            st.error(f"❌ {error_result['user_message']}")
+                            
+                            if error_result['solutions']:
+                                st.info("💡 **해결 방법**:")
+                                for i, solution in enumerate(error_result['solutions'][:3], 1):
+                                    st.info(f"   {i}. {solution}")
+                            
+                            # 자동 복구가 성공한 경우
+                            if error_result.get('recovery_success'):
+                                st.success(f"✅ 자동 복구 완료: {error_result.get('recovery_message', '문제가 해결되었습니다')}")
+                        
+                        except ImportError:
+                            # 폴백: 기본 에러 처리
+                            st.error(f"❌ 파일 처리 오류 ({file.name}): {str(e)}")
+                            st.info("💡 **해결 방법**: 파일이 손상되지 않았는지 확인하고, 다른 형식으로 변환해보세요")
+                        
                         continue
                     
                     # 대용량 동영상 파일 감지 (1GB 이상)

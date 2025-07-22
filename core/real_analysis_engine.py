@@ -12,9 +12,21 @@ from pathlib import Path
 import json
 from datetime import datetime
 
-# CPU 모드 최적화 설정 (GPU 없는 환경)
-os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = ''  # GPU 비활성화
+# GPU 메모리 관리 시스템 초기화
+try:
+    from .gpu_memory_manager import global_gpu_manager, ComputeMode
+    GPU_MANAGER_AVAILABLE = True
+    
+    # 권장 모드로 설정
+    recommended_mode = global_gpu_manager.get_recommended_mode(required_memory_mb=2000)  # 2GB 필요
+    global_gpu_manager.switch_mode(recommended_mode)
+    
+except ImportError:
+    GPU_MANAGER_AVAILABLE = False
+    # 폴백: 기본 CPU 모드 설정
+    os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+    os.environ['CUDA_VISIBLE_DEVICES'] = ''  # GPU 비활성화
+
 # PyTorch 설정 최적화
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 os.environ['TORCH_HOME'] = os.path.expanduser('~/.cache/torch')
@@ -430,7 +442,32 @@ class RealAnalysisEngine:
             return False
     
     def _convert_m4a_to_wav(self, m4a_path: str) -> str:
-        """M4A 파일을 WAV로 변환 (FFmpeg 사용)"""
+        """M4A 파일을 WAV로 변환 (강화된 처리)"""
+        try:
+            # 강화된 M4A 프로세서 사용
+            from .enhanced_m4a_processor import global_m4a_processor
+            
+            self.logger.info("🔄 강화된 M4A → WAV 변환 시작...")
+            
+            # 심층 분석 후 변환
+            result_path = global_m4a_processor.process_m4a_to_wav(m4a_path, target_sample_rate=16000)
+            
+            if result_path and os.path.exists(result_path) and os.path.getsize(result_path) > 0:
+                self.logger.info("✅ 강화된 M4A 변환 완료")
+                return result_path
+            else:
+                self.logger.warning("⚠️ 강화된 M4A 변환 실패, 기본 FFmpeg 시도...")
+                return self._fallback_m4a_conversion(m4a_path)
+                
+        except ImportError:
+            self.logger.warning("⚠️ 강화된 M4A 프로세서 없음, 기본 FFmpeg 사용")
+            return self._fallback_m4a_conversion(m4a_path)
+        except Exception as e:
+            self.logger.warning(f"⚠️ 강화된 M4A 변환 예외: {e}, 기본 방법 시도")
+            return self._fallback_m4a_conversion(m4a_path)
+    
+    def _fallback_m4a_conversion(self, m4a_path: str) -> str:
+        """M4A 변환 폴백 메서드"""
         try:
             # 임시 WAV 파일 생성
             with tempfile.NamedTemporaryFile(suffix='.wav', delete=False) as temp_wav:
@@ -446,14 +483,13 @@ class RealAnalysisEngine:
                 temp_wav_path
             ]
             
-            self.logger.info("🔄 M4A → WAV 변환 중...")
             result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
             
             if result.returncode == 0:
-                self.logger.info("✅ M4A → WAV 변환 완료")
+                self.logger.info("✅ 폴백 M4A 변환 완료")
                 return temp_wav_path
             else:
-                self.logger.error(f"❌ FFmpeg 변환 실패: {result.stderr}")
+                self.logger.error(f"❌ 폴백 FFmpeg 변환 실패: {result.stderr}")
                 # 실패시 임시 파일 정리
                 if os.path.exists(temp_wav_path):
                     os.unlink(temp_wav_path)
