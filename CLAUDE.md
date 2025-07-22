@@ -148,16 +148,14 @@ start_windows_monitor.bat
 
 ## 🔗 **외부 통합 상태**
 
-### ✅ **활성 MCP 서버들 (9개 완전 확장)**
+### ✅ **활성 MCP 서버들 (7개 공식 서버)**
 - **Memory**: 지식 그래프 관리 (@modelcontextprotocol/server-memory)
-- **Filesystem**: 파일 시스템 접근 (@modelcontextprotocol/server-filesystem)
-- **Playwright**: 브라우저 자동화 (@playwright/mcp)
+- **Filesystem**: 보안 파일 시스템 접근 (@modelcontextprotocol/server-filesystem)
+- **Git**: GitHub 연동 (@modelcontextprotocol/server-git) - Claude Code 전용 토큰
+- **Fetch**: 웹 콘텐츠 가져오기 (@modelcontextprotocol/server-fetch)
 - **Sequential Thinking**: 단계별 문제 해결 (@modelcontextprotocol/server-sequential-thinking)
-- **Smart Crawler**: 지능형 웹 크롤링 (mcp-smart-crawler)
-- **Everything**: Windows 파일 고속 검색 (@modelcontextprotocol/server-everything)
-- **🆕 GitHub**: 15개 도구 완전 통합 (@andrebuzeli/github-mcp-v2)
-- **🆕 Perplexity**: 실시간 AI 검색 (nascoder-perplexity-mcp)
-- **🆕 Notion**: 문서/데이터베이스 관리 (@notionhq/notion-mcp-server)
+- **Time**: 시간/시간대 관리 (@modelcontextprotocol/server-time)
+- **Playwright**: 브라우저 자동화 (@playwright/mcp@latest)
 
 ### 🌐 **GitHub 저장소**
 - **URL**: https://github.com/GeunHyeog/solomond-ai-system
@@ -196,11 +194,11 @@ git log --oneline -5
 
 
 ---
-**Last Updated**: 2025-07-22 17:45 KST  
-**Version**: v2.3-mcp-expanded  
-**Status**: ✅ MCP 생태계 완전 확장 (3개→9개 서버) - 브라우저 자동화 준비 완료
+**Last Updated**: 2025-07-22 18:30 KST  
+**Version**: v2.3-mcp-official  
+**Status**: ✅ MCP 공식 서버 8개 완전 구성 - Claude Code 재시작 대기
 **Current Server**: http://localhost:8503 (Streamlit 안정 운영 중)
-**Session ID**: 20250722_174500
-**System Health**: ✅ MCP 확장 완료 (GitHub/Perplexity/Notion/Playwright 등)
-**Git Status**: c1790bd - MCP 9개 서버 설치/설정 완료, Claude Desktop 재시작 대기
-**Next Session Goal**: Claude Desktop 재시작 후 mcp__ 함수 활용 및 브라우저 콘텐츠 분석 시스템
+**Session ID**: 20250722_183000  
+**System Health**: ✅ MCP 공식화 완료 (GitHub/Perplexity/Playwright 등 8개 서버)
+**Git Status**: MCP 설정 최적화 완료, 보안 강화된 공식 서버만 사용
+**Next Session Goal**: Claude Code 재시작 후 8개 MCP 서버 연동 테스트 및 실제 활용

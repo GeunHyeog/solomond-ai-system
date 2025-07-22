@@ -36,7 +36,16 @@
       "Bash(npx:*)",
       "Bash(npm info:*)",
       "Bash(npm search:*)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "mcp__ide__getDiagnostics",
+      "Bash(gh repo view:*)",
+      "Bash(git config:*)",
+      "Bash(gh auth:*)",
+      "Bash(wsl:*)",
+      "Bash(cp:*)",
+      "mcp__ide__executeCode",
+      "Bash(dir C:UsersPC_58410solomond-ai-system*.log)",
+      "Bash(where uv)"
     ],
     "deny": []
   }
