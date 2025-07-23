@@ -44,3 +44,23 @@ class ImageProcessor:
             "status": "ready",
             "supported_formats": self.supported_formats
         }
+
+
+# 전역 인스턴스 생성
+image_processor = ImageProcessor()
+
+
+# 레거시 호환성을 위한 함수들
+def get_image_processor():
+    """이미지 프로세서 인스턴스 반환 (레거시 호환)"""
+    return image_processor
+
+
+def process_image_file(file_path: str) -> str:
+    """이미지 파일 처리 (레거시 호환)"""
+    return image_processor.process_image(file_path)
+
+
+def process_document_file(file_path: str) -> str:
+    """문서 파일 처리 (레거시 호환)"""
+    return f"문서 파일 분석: {file_path}"

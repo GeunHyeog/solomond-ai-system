@@ -137,10 +137,23 @@ except ImportError:
     performance_monitor_available = False
 
 try:
-    from .comprehensive_message_extractor import extract_comprehensive_messages
+    from .comprehensive_message_extractor import ComprehensiveMessageExtractor
+    
+    # 전역 인스턴스 생성
+    global_message_extractor = ComprehensiveMessageExtractor()
+    
+    def extract_comprehensive_messages(text: str, context: dict = None):
+        """종합 메시지 추출 함수"""
+        return global_message_extractor.extract_key_messages(text, context)
+    
     message_extractor_available = True
-except ImportError:
+except ImportError as e:
+    print(f"종합 메시지 추출 엔진 로드 실패: {e}")
     message_extractor_available = False
+    
+    def extract_comprehensive_messages(text: str, context: dict = None):
+        """폴백 함수"""
+        return {"status": "unavailable", "error": "메시지 추출 엔진을 사용할 수 없습니다"}
 
 class RealAnalysisEngine:
     """실제 파일 분석 엔진"""
@@ -247,14 +260,14 @@ class RealAnalysisEngine:
             logger.setLevel(logging.INFO)
         return logger
     
-    def _lazy_load_whisper(self, model_size: str = "large-v3") -> whisper.Whisper:
-        """Whisper 모델 지연 로딩 (최고 품질 large-v3 우선)"""
+    def _lazy_load_whisper(self, model_size: str = "base") -> whisper.Whisper:
+        """Whisper 모델 지연 로딩 (속도 우선 base 모델)"""
         if self.whisper_model is None:
             self.logger.info(f"🎤 Whisper {model_size} 모델 로딩... (고품질 분석)")
             start_time = time.time()
             
             try:
-                # large-v3 모델 우선 시도 (최고 품질)
+                # base 모델 우선 (속도 최적화)
                 self.whisper_model = whisper.load_model(model_size, device="cpu")
                 load_time = time.time() - start_time
                 self.logger.info(f"✅ Whisper {model_size} 로드 완료 ({load_time:.1f}초)")
@@ -262,9 +275,9 @@ class RealAnalysisEngine:
             except Exception as e:
                 self.logger.warning(f"⚠️ {model_size} 모델 로드 실패: {e}")
                 
-                # 폴백: base 모델로 재시도
+                # 폴백: tiny 모델로 재시도 (최고 속도)
                 try:
-                    fallback_model = "base"
+                    fallback_model = "tiny"
                     self.logger.info(f"🔄 폴백: Whisper {fallback_model} 모델로 재시도...")
                     self.whisper_model = whisper.load_model(fallback_model, device="cpu")
                     load_time = time.time() - start_time
@@ -322,7 +335,7 @@ class RealAnalysisEngine:
                 self.logger.info("🧠 NLP 모델 로딩...")
                 start_time = time.time()
                 self.nlp_pipeline = pipeline("summarization", 
-                                           model="facebook/bart-large-cnn")
+                                           model="facebook/bart-base")
                 load_time = time.time() - start_time
                 self.logger.info(f"✅ NLP 로드 완료 ({load_time:.1f}초)")
             except Exception as e:
@@ -620,6 +633,12 @@ class RealAnalysisEngine:
             # 컨텍스트를 고려한 요약 생성
             summary = self._generate_context_aware_summary(enhanced_text, context)
             
+            # 화자 구분 시도 (새로운 기능)
+            speaker_analysis = self._analyze_speakers(text, segments)
+            
+            # 핵심 발언 추출 (사용자 요구사항 반영)
+            key_statements = self._extract_key_statements(enhanced_text, context)
+            
             # 주얼리 키워드 분석 (향상된 텍스트 기반)
             jewelry_keywords = self._extract_jewelry_keywords(enhanced_text)
             
@@ -648,9 +667,38 @@ class RealAnalysisEngine:
                 "jewelry_keywords": jewelry_keywords,
                 "segments": segments,
                 "comprehensive_messages": comprehensive_messages,  # 핵심 추가
+                "speaker_analysis": speaker_analysis,  # 화자 구분 추가
+                "key_statements": key_statements,  # 핵심 발언 추가
                 "analysis_type": "real_whisper_stt",
                 "timestamp": datetime.now().isoformat()
             }
+            
+            # 🎯 MCP 자동 통합 시스템 적용 (모든 상황 대응)
+            try:
+                from ..mcp_auto_integration_wrapper import enhance_result_with_mcp
+                
+                # 사용자 요청 컨텍스트 구성
+                user_request = f"음성 파일 {os.path.basename(file_path)} 분석"
+                mcp_context = {
+                    "files": [{"name": os.path.basename(file_path), "size_mb": analysis_result["file_size_mb"]}],
+                    "text_content": enhanced_text,
+                    "analysis_type": "audio_analysis",
+                    "detected_language": detected_language,
+                    "processing_time": processing_time,
+                    "context": context or {}
+                }
+                
+                # MCP 자동 향상 적용
+                enhanced_analysis = await enhance_result_with_mcp(user_request, analysis_result, mcp_context)
+                if enhanced_analysis != analysis_result:  # MCP 향상이 적용된 경우
+                    analysis_result = enhanced_analysis
+                    self.logger.info("✅ MCP 자동 통합으로 분석 품질 향상 완료")
+                else:
+                    self.logger.info("📋 MCP 향상 조건 미달, 기본 분석 결과 유지")
+                
+            except Exception as mcp_error:
+                self.logger.warning(f"⚠️ MCP 자동 통합 중 오류 (분석은 정상 진행): {mcp_error}")
+                # MCP 오류가 있어도 기본 분석 결과는 그대로 반환
             
             self._update_stats(processing_time, True)
             self.logger.info(f"✅ 음성 분석 완료 ({processing_time:.1f}초)")

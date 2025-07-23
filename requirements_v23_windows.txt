@@ -37,6 +37,12 @@ python-dotenv>=1.0.0
 # 로깅
 loguru>=0.7.2
 
+# AI 및 머신러닝 (핵심)
+torch>=2.0.0
+transformers>=4.30.0
+sentence-transformers>=2.2.0
+easyocr>=1.7.0
+
 # 이미지 처리 (선택적)
 Pillow>=10.1.0
 

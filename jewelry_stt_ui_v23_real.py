@@ -87,6 +87,25 @@ except ImportError as e:
 # 기존 모듈들
 try:
     from core.hybrid_llm_manager_v23 import HybridLLMManager
+
+# 🎯 MCP 자동 통합 시스템 임포트
+try:
+    from mcp_auto_integration_wrapper import smart_mcp_enhance, enhance_result_with_mcp, get_mcp_usage_stats
+    MCP_AUTO_INTEGRATION_AVAILABLE = True
+    print("✅ MCP 자동 통합 시스템 활성화")
+except ImportError as e:
+    MCP_AUTO_INTEGRATION_AVAILABLE = False
+    print(f"⚠️ MCP 자동 통합 시스템 비활성화: {e}")
+    
+    # 폴백 함수들
+    def smart_mcp_enhance(func):
+        return func
+    
+    async def enhance_result_with_mcp(request, result, context=None):
+        return result
+    
+    def get_mcp_usage_stats():
+        return {"status": "unavailable"}
     HYBRID_LLM_AVAILABLE = True
 except ImportError:
     HYBRID_LLM_AVAILABLE = False
