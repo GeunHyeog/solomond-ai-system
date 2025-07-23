@@ -73,7 +73,11 @@
       "Bash(exit)",
       "Bash(dir:*)",
       "mcp__memory__search_nodes",
-      "mcp__memory__create_entities"
+      "mcp__memory__create_entities",
+      "mcp__memory__create_relations",
+      "mcp__filesystem__list_directory",
+      "mcp__perplexity__chat_completion",
+      "mcp__filesystem__search_files"
     ],
     "deny": []
   }
