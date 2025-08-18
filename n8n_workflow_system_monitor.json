@@ -1,0 +1,140 @@
+{
+  "name": "SOLOMOND System Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 5
+            }
+          ]
+        }
+      },
+      "id": "schedule",
+      "name": "모니터링 스케줄",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8500/health",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "check_dashboard",
+      "name": "대시보드 상태 확인",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8501/health",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "check_analysis",
+      "name": "분석 시스템 확인",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $('대시보드 상태 확인').item.json.status || 'error' }}",
+              "rightValue": "error",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "id": "check_errors",
+      "name": "에러 확인",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "message": "🚨 SOLOMOND AI 시스템 알림\\n시간: {{ new Date().toISOString() }}\\n상태: 시스템 에러 감지\\n확인 필요: http://localhost:8500"
+      },
+      "id": "send_alert",
+      "name": "알림 발송",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "모니터링 스케줄": {
+      "main": [
+        [
+          {
+            "node": "대시보드 상태 확인",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "분석 시스템 확인",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "대시보드 상태 확인": {
+      "main": [
+        [
+          {
+            "node": "에러 확인",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "분석 시스템 확인": {
+      "main": [
+        [
+          {
+            "node": "에러 확인",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "에러 확인": {
+      "main": [
+        [
+          {
+            "node": "알림 발송",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "staticData": {}
+}

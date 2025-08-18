@@ -1,0 +1,287 @@
+{
+  "name": "🎯 SOLOMOND AI Master Orchestrator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "solomond-ai-trigger",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "master_trigger",
+      "name": "🚀 SOLOMOND 요청 수신",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🧠 SOLOMOND AI 지능적 요청 분석 및 라우팅 결정\nconst requestData = $input.first().json;\n\n// 1. 요청 타입 분석\nconst fileTypes = requestData.files ? requestData.files.map(f => f.type || 'unknown') : [];\nconst hasAudio = fileTypes.some(t => t.includes('audio'));\nconst hasImage = fileTypes.some(t => t.includes('image'));\nconst hasVideo = fileTypes.some(t => t.includes('video'));\nconst hasText = requestData.text_content || requestData.description;\nconst hasUrl = requestData.url;\n\n// 2. 지능적 모듈 선택 로직\nlet selectedModule = 'module1'; // 기본값\nlet aiModel = 'qwen2.5:7b'; // 기본 모델\nlet analysisStrategy = 'standard';\nlet reasoning = [];\n\n// 🎯 Module 1: 컨퍼런스 분석 (기본)\nif (hasAudio || hasVideo || (hasImage && requestData.context === 'conference')) {\n  selectedModule = 'module1';\n  aiModel = 'qwen2.5:7b';\n  analysisStrategy = 'multimodal_conference';\n  reasoning.push('음성/영상 파일 감지 → 컨퍼런스 분석 모듈 선택');\n  reasoning.push('qwen2.5:7b 선택 이유: 빠른 회의 분석에 최적화');\n}\n\n// 🕷️ Module 2: 웹 크롤러  \nelse if (hasUrl || (hasText && requestData.source === 'web')) {\n  selectedModule = 'module2';\n  aiModel = 'qwen2.5:7b';\n  analysisStrategy = 'web_content_analysis';\n  reasoning.push('URL 또는 웹 콘텐츠 감지 → 웹 크롤러 모듈 선택');\n  reasoning.push('qwen2.5:7b 선택 이유: 뉴스 요약 및 번역에 특화');\n}\n\n// 💎 Module 3: 보석 분석\nelse if (hasImage && (requestData.context === 'gemstone' || requestData.keywords?.includes('보석'))) {\n  selectedModule = 'module3';\n  aiModel = 'qwen2.5:7b';\n  analysisStrategy = 'gemstone_identification';\n  reasoning.push('보석 이미지 감지 → 보석 분석 모듈 선택');\n  reasoning.push('qwen2.5:7b 선택 이유: 보석 전문 분석 및 산지 식별');\n}\n\n// 🏗️ Module 4: 3D CAD 변환\nelse if (hasImage && requestData.context === '3d_cad') {\n  selectedModule = 'module4';\n  aiModel = 'llama3.2:3b';\n  analysisStrategy = 'image_to_cad';\n  reasoning.push('3D CAD 변환 요청 감지 → CAD 모듈 선택');\n  reasoning.push('llama3.2:3b 선택 이유: 빠른 이미지 처리에 최적화');\n}\n\n// 3. 분석 파라미터 설정\nconst analysisConfig = {\n  temperature: selectedModule === 'module4' ? 0.5 : 0.7, // CAD는 정확성 우선\n  max_tokens: selectedModule === 'module3' ? 1500 : 2000, // 보석 분석은 간결하게\n  use_dual_brain: true, // 모든 모듈에서 듀얼 브레인 활성화\n  google_calendar_integration: requestData.save_to_calendar !== false\n};\n\n// 4. 우선순위 및 리소스 할당\nlet priority = 'normal';\nif (requestData.urgent || fileTypes.length > 10) {\n  priority = 'high';\n} else if (requestData.batch_mode) {\n  priority = 'low';\n}\n\n// 5. 마스터 결정 결과\nconst masterDecision = {\n  timestamp: new Date().toISOString(),\n  request_id: requestData.id || Date.now().toString(),\n  routing_decision: {\n    selected_module: selectedModule,\n    ai_model: aiModel,\n    analysis_strategy: analysisStrategy,\n    reasoning: reasoning\n  },\n  analysis_config: analysisConfig,\n  resource_allocation: {\n    priority: priority,\n    estimated_time: selectedModule === 'module1' ? '5-10분' : '2-5분',\n    memory_requirement: selectedModule === 'module4' ? 'high' : 'medium'\n  },\n  file_analysis: {\n    total_files: fileTypes.length,\n    file_types: fileTypes,\n    has_audio: hasAudio,\n    has_image: hasImage,\n    has_video: hasVideo\n  },\n  next_workflow: `solomond-${selectedModule}-detailed`,\n  original_request: requestData\n};\n\nreturn masterDecision;"
+      },
+      "id": "intelligent_router",
+      "name": "🧠 지능적 모듈 라우터",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.routing_decision.selected_module }}",
+              "rightValue": "module1",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "route_module1",
+      "name": "📊 Module1 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.routing_decision.selected_module }}",
+              "rightValue": "module2",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "route_module2",
+      "name": "🕷️ Module2 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 350]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.routing_decision.selected_module }}",
+              "rightValue": "module3",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "route_module3",
+      "name": "💎 Module3 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 500]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.routing_decision.selected_module }}",
+              "rightValue": "module4",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "route_module4",
+      "name": "🏗️ Module4 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 650]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/solomond-module1-detailed",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "timeout": 300000
+        }
+      },
+      "id": "trigger_module_workflow",
+      "name": "⚡ 모듈 워크플로우 실행",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 📋 마스터 실행 로그 및 상태 추적\nconst decision = $input.first().json;\nconst moduleResult = $input.all()[1] ? $input.all()[1].json : null;\n\nconst masterLog = {\n  timestamp: new Date().toISOString(),\n  session_id: decision.request_id,\n  master_decision: {\n    module_selected: decision.routing_decision.selected_module,\n    ai_model: decision.routing_decision.ai_model,\n    reasoning: decision.routing_decision.reasoning,\n    execution_time: new Date() - new Date(decision.timestamp)\n  },\n  module_execution: {\n    status: moduleResult ? 'completed' : 'in_progress',\n    result_preview: moduleResult ? Object.keys(moduleResult).slice(0, 5) : null\n  },\n  next_steps: {\n    dual_brain_pending: true,\n    google_calendar_pending: decision.analysis_config.google_calendar_integration,\n    estimated_completion: new Date(Date.now() + 10*60*1000).toISOString()\n  },\n  system_metrics: {\n    total_files_processed: decision.file_analysis.total_files,\n    analysis_strategy: decision.routing_decision.analysis_strategy,\n    resource_priority: decision.resource_allocation.priority\n  }\n};\n\nreturn masterLog;"
+      },
+      "id": "master_status_tracker",
+      "name": "📊 마스터 상태 추적",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 300]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"orchestration_complete\", \"message\": \"SOLOMOND AI 마스터 오케스트레이션 완료\", \"session_id\": $json.session_id, \"module_executed\": $json.master_decision.module_selected, \"ai_model\": $json.master_decision.ai_model, \"reasoning\": $json.master_decision.reasoning, \"next_workflow\": \"dual_brain_system\", \"estimated_completion\": $json.next_steps.estimated_completion } }}"
+      },
+      "id": "master_response",
+      "name": "✅ 마스터 응답",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1340, 400]
+    }
+  ],
+  "connections": {
+    "🚀 SOLOMOND 요청 수신": {
+      "main": [
+        [
+          {
+            "node": "🧠 지능적 모듈 라우터",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 지능적 모듈 라우터": {
+      "main": [
+        [
+          {
+            "node": "📊 Module1 분기",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🕷️ Module2 분기",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "💎 Module3 분기",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🏗️ Module4 분기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Module1 분기": {
+      "main": [
+        [
+          {
+            "node": "⚡ 모듈 워크플로우 실행",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🕷️ Module2 분기": {
+      "main": [
+        [
+          {
+            "node": "⚡ 모듈 워크플로우 실행",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "💎 Module3 분기": {
+      "main": [
+        [
+          {
+            "node": "⚡ 모듈 워크플로우 실행",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏗️ Module4 분기": {
+      "main": [
+        [
+          {
+            "node": "⚡ 모듈 워크플로우 실행",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "⚡ 모듈 워크플로우 실행": {
+      "main": [
+        [
+          {
+            "node": "📊 마스터 상태 추적",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 마스터 상태 추적": {
+      "main": [
+        [
+          {
+            "node": "✅ 마스터 응답",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

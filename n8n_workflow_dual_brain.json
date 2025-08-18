@@ -1,0 +1,148 @@
+{
+  "name": "SOLOMOND Dual Brain Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "analysis-complete",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook_trigger",
+      "name": "분석 완료 트리거",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check_status",
+      "name": "분석 상태 확인",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8580/api/generate-insights",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "ai_insights",
+      "name": "AI 인사이트 생성",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "create",
+        "calendarId": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "summary": "={{ $json.analysis_title || '컨퍼런스 분석 완료' }}",
+        "description": "={{ $json.summary || '분석이 완료되었습니다.' }}\\n\\n생성된 인사이트:\\n{{ $json.insights }}",
+        "startDate": "={{ new Date().toISOString() }}",
+        "endDate": "={{ new Date(Date.now() + 60*60*1000).toISOString() }}",
+        "additionalFields": {
+          "attendees": "solomond.jgh@gmail.com"
+        }
+      },
+      "id": "calendar_event",
+      "name": "구글 캘린더 이벤트",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 2,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"success\", \"message\": \"듀얼 브레인 워크플로우 완료\", \"calendar_event_id\": $('구글 캘린더 이벤트').item.json.id, \"insights_generated\": true } }}"
+      },
+      "id": "response",
+      "name": "응답",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "분석 완료 트리거": {
+      "main": [
+        [
+          {
+            "node": "분석 상태 확인",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "분석 상태 확인": {
+      "main": [
+        [
+          {
+            "node": "AI 인사이트 생성",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "구글 캘린더 이벤트",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI 인사이트 생성": {
+      "main": [
+        [
+          {
+            "node": "응답",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "구글 캘린더 이벤트": {
+      "main": [
+        [
+          {
+            "node": "응답",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "staticData": {}
+}

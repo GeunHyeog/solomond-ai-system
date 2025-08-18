@@ -1,0 +1,214 @@
+{
+  "name": "SOLOMOND AI System Visualization",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "value": "*/2 * * * *"
+            }
+          ]
+        }
+      },
+      "id": "system_monitor",
+      "name": "🔄 시스템 모니터링 (2분마다)",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:8501",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "check_conference_system",
+      "name": "📊 컨퍼런스 분석 시스템 상태",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 200]
+    },
+    {
+      "parameters": {
+        "method": "GET", 
+        "url": "http://localhost:8500",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "check_dashboard",
+      "name": "🎯 메인 대시보드 상태",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "http://localhost:11434/api/tags",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "check_ollama",
+      "name": "🤖 Ollama AI 모델 상태",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [460, 600]
+    },
+    {
+      "parameters": {
+        "jsCode": "// SOLOMOND AI 시스템 상태 종합 분석\nconst conferenceStatus = $input.first();\nconst dashboardStatus = $input.all()[1] || {};\nconst ollamaStatus = $input.all()[2] || {};\n\nconst systemHealth = {\n  timestamp: new Date().toISOString(),\n  overall_status: 'unknown',\n  components: {\n    conference_analysis: {\n      status: conferenceStatus.statusCode === 200 ? '🟢 정상' : '🔴 오류',\n      port: 8501,\n      response_time: conferenceStatus.responseTime || 0\n    },\n    main_dashboard: {\n      status: dashboardStatus.statusCode === 200 ? '🟢 정상' : '🟡 확인필요',\n      port: 8500,\n      response_time: dashboardStatus.responseTime || 0\n    },\n    ollama_ai: {\n      status: ollamaStatus.statusCode === 200 ? '🟢 정상' : '🟡 확인필요',\n      port: 11434,\n      models_count: ollamaStatus.json?.models?.length || 0\n    }\n  },\n  workflow_status: {\n    dual_brain: '✅ 듀얼 브레인 시스템 통합됨',\n    file_analysis: '📁 멀티모달 분석 준비됨',\n    ai_insights: '🧠 AI 인사이트 생성 활성화',\n    google_calendar: '📅 구글 캘린더 연동 완료'\n  }\n};\n\n// 전체 상태 판정\nconst healthyComponents = Object.values(systemHealth.components)\n  .filter(comp => comp.status.includes('🟢')).length;\n  \nif (healthyComponents >= 2) {\n  systemHealth.overall_status = '🟢 시스템 정상';\n} else if (healthyComponents >= 1) {\n  systemHealth.overall_status = '🟡 일부 문제';\n} else {\n  systemHealth.overall_status = '🔴 시스템 점검 필요';\n}\n\nreturn systemHealth;"
+      },
+      "id": "analyze_system_health",
+      "name": "🔍 시스템 종합 분석",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.overall_status }}",
+              "rightValue": "🟢 시스템 정상",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "check_system_health",
+      "name": "🎯 시스템 건강도 확인",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [900, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 시스템 상태 시각화용 데이터 생성\nconst healthData = $input.first();\n\n// 상태 로그 생성\nconst statusLog = {\n  timestamp: healthData.timestamp,\n  system_status: healthData.overall_status,\n  components_summary: Object.entries(healthData.components)\n    .map(([name, data]) => `${name}: ${data.status}`)\n    .join(', '),\n  workflow_summary: Object.entries(healthData.workflow_status)\n    .map(([name, status]) => `${name}: ${status}`)\n    .join('\\n'),\n  monitoring_message: `SOLOMOND AI 시스템 모니터링 완료\\n전체 상태: ${healthData.overall_status}\\n\\n컴포넌트 상태:\\n${Object.entries(healthData.components).map(([name, data]) => `• ${name}: ${data.status} (포트 ${data.port})`).join('\\n')}\\n\\n워크플로우 상태:\\n${Object.entries(healthData.workflow_status).map(([name, status]) => `• ${status}`).join('\\n')}`\n};\n\nreturn statusLog;"
+      },
+      "id": "format_status_display",
+      "name": "📋 상태 표시용 포맷팅",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 시스템 문제 알림 생성\nconst healthData = $input.first();\n\nconst alertData = {\n  timestamp: healthData.timestamp,\n  alert_level: healthData.overall_status.includes('🔴') ? 'ERROR' : 'WARNING',\n  message: `SOLOMOND AI 시스템 이상 감지`,\n  details: {\n    overall_status: healthData.overall_status,\n    problem_components: Object.entries(healthData.components)\n      .filter(([name, data]) => !data.status.includes('🟢'))\n      .map(([name, data]) => `${name}: ${data.status}`),\n    recommended_actions: [\n      '시스템 서비스 재시작',\n      '포트 상태 확인',\n      '로그 파일 점검',\n      '의존성 서비스 확인'\n    ]\n  }\n};\n\nreturn alertData;"
+      },
+      "id": "generate_alert",
+      "name": "🚨 문제 상황 알림",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 400]
+    }
+  ],
+  "connections": {
+    "🔄 시스템 모니터링 (2분마다)": {
+      "main": [
+        [
+          {
+            "node": "📊 컨퍼런스 분석 시스템 상태",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🎯 메인 대시보드 상태",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🤖 Ollama AI 모델 상태",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 컨퍼런스 분석 시스템 상태": {
+      "main": [
+        [
+          {
+            "node": "🔍 시스템 종합 분석",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 메인 대시보드 상태": {
+      "main": [
+        [
+          {
+            "node": "🔍 시스템 종합 분석",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🤖 Ollama AI 모델 상태": {
+      "main": [
+        [
+          {
+            "node": "🔍 시스템 종합 분석",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 시스템 종합 분석": {
+      "main": [
+        [
+          {
+            "node": "🎯 시스템 건강도 확인",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 시스템 건강도 확인": {
+      "main": [
+        [
+          {
+            "node": "📋 상태 표시용 포맷팅",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "🚨 문제 상황 알림",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

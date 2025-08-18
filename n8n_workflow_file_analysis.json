@@ -1,0 +1,144 @@
+{
+  "name": "SOLOMOND File Analysis Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "file-upload",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "file_upload",
+      "name": "파일 업로드 트리거",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.file_type }}",
+              "rightValue": "audio",
+              "operator": {
+                "type": "string",
+                "operation": "contains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "check_file_type",
+      "name": "파일 타입 확인",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8501/api/process-audio",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "process_audio",
+      "name": "오디오 분석",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 200]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:8501/api/process-image",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "process_image",
+      "name": "이미지 분석",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:5678/webhook/analysis-complete",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "trigger_dual_brain",
+      "name": "듀얼 브레인 트리거",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "파일 업로드 트리거": {
+      "main": [
+        [
+          {
+            "node": "파일 타입 확인",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "파일 타입 확인": {
+      "main": [
+        [
+          {
+            "node": "오디오 분석",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "이미지 분석",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "오디오 분석": {
+      "main": [
+        [
+          {
+            "node": "듀얼 브레인 트리거",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "이미지 분석": {
+      "main": [
+        [
+          {
+            "node": "듀얼 브레인 트리거",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {},
+  "staticData": {}
+}

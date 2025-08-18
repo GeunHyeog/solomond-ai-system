@@ -96,12 +96,12 @@ test_*.py
 user_files/
 google_credentials.json
 
-# n8n 관련
-n8n_*
-N8N_*
+# n8n 관련 (기본적으로 포함, 민감 정보만 제외)
+# n8n_credentials.json (예시 - 필요시 추가)
 
 # 문서 (핵심 문서 제외)
 *.md
 !README.md
 !CLAUDE.md
 !TROUBLESHOOTING.md
+!N8N_*.md

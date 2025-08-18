@@ -1,0 +1,277 @@
+{
+  "name": "🧠🧠 Dual Brain Common Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "dual-brain-system",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "dual_brain_trigger",
+      "name": "🧠 듀얼 브레인 활성화",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🧠 듀얼 브레인 시스템 - 분석 완료 데이터 처리 및 전략 수립\nconst analysisData = $input.first().json;\n\n// 1. 분석 결과 검증 및 분류\nconst dataValidation = {\n  timestamp: new Date().toISOString(),\n  session_id: analysisData.session_id || analysisData.request_id,\n  analysis_quality: {\n    has_valid_results: !!(analysisData.success_status === 'success'),\n    quality_score: analysisData.quality_score || analysisData.quality_metrics?.overall_score || 0,\n    modalities_count: analysisData.modalities_processed || analysisData.processing_summary?.total_modalities || 0,\n    ai_model_used: analysisData.ai_model || analysisData.processing_summary?.ai_model_used || 'unknown'\n  },\n  content_analysis: {\n    has_conference_content: !!(analysisData.module === 'conference_analysis' || analysisData.selected_module === 'module1'),\n    content_type: analysisData.analysis_strategy || analysisData.routing_decision?.analysis_strategy || 'standard',\n    file_count: analysisData.file_analysis?.total_files || 0\n  }\n};\n\n// 2. 구글 캘린더 연동 의사결정\nconst calendarDecision = {\n  should_create_event: false,\n  reasoning: [],\n  event_details: null\n};\n\n// 캘린더 생성 조건 검증\nif (dataValidation.analysis_quality.has_valid_results) {\n  calendarDecision.should_create_event = true;\n  calendarDecision.reasoning.push('분석이 성공적으로 완료됨');\n  \n  if (dataValidation.analysis_quality.quality_score > 80) {\n    calendarDecision.reasoning.push(`높은 품질 점수 (${dataValidation.analysis_quality.quality_score}점)`);\n  }\n  \n  if (dataValidation.content_analysis.has_conference_content) {\n    calendarDecision.reasoning.push('컨퍼런스 분석 내용 포함');\n  }\n  \n  // 캘린더 이벤트 세부사항 생성\n  calendarDecision.event_details = {\n    title: `${analysisData.analysis_title || '컨퍼런스 분석'} - 완료`,\n    description: `SOLOMOND AI 분석 완료\\n\\n` +\n                `• 품질 점수: ${dataValidation.analysis_quality.quality_score}점\\n` +\n                `• 처리된 파일: ${dataValidation.content_analysis.file_count}개\\n` +\n                `• AI 모델: ${dataValidation.analysis_quality.ai_model_used}\\n` +\n                `• 분석 유형: ${dataValidation.content_analysis.content_type}\\n\\n` +\n                `분석 결과를 바탕으로 AI 인사이트를 생성했습니다.`,\n    start_time: new Date().toISOString(),\n    end_time: new Date(Date.now() + 60*60*1000).toISOString(), // 1시간 후\n    attendees: ['solomond.jgh@gmail.com']\n  };\n} else {\n  calendarDecision.reasoning.push('분석 품질이 기준에 미달');\n  calendarDecision.reasoning.push(`품질 점수: ${dataValidation.analysis_quality.quality_score}점`);\n}\n\n// 3. AI 인사이트 생성 의사결정\nconst insightsDecision = {\n  should_generate_insights: dataValidation.analysis_quality.has_valid_results,\n  insight_types: [],\n  analysis_focus: []\n};\n\nif (insightsDecision.should_generate_insights) {\n  // 분석 유형에 따른 인사이트 전략\n  if (dataValidation.content_analysis.has_conference_content) {\n    insightsDecision.insight_types.push('시간_패턴_분석');\n    insightsDecision.insight_types.push('주제_트렌드_분석');\n    insightsDecision.insight_types.push('성과_분석');\n    insightsDecision.analysis_focus.push('컨퍼런스 주제별 트렌드');\n    insightsDecision.analysis_focus.push('발표 품질 및 참여도');\n  }\n  \n  // 품질 점수에 따른 심화 분석\n  if (dataValidation.analysis_quality.quality_score > 90) {\n    insightsDecision.insight_types.push('미래_예측_분석');\n    insightsDecision.insight_types.push('개인화_추천');\n    insightsDecision.analysis_focus.push('향후 개선 방향 제시');\n  }\n}\n\n// 4. 듀얼 브레인 실행 계획\nconst dualBrainPlan = {\n  timestamp: dataValidation.timestamp,\n  session_id: dataValidation.session_id,\n  execution_strategy: {\n    calendar_integration: calendarDecision,\n    ai_insights: insightsDecision,\n    parallel_execution: true,\n    timeout_seconds: 120\n  },\n  data_pipeline: {\n    source_data: analysisData,\n    processed_metadata: dataValidation,\n    next_steps: ['calendar_sync', 'insight_generation', 'pattern_analysis']\n  },\n  success_criteria: {\n    calendar_event_created: calendarDecision.should_create_event,\n    insights_generated: insightsDecision.should_generate_insights,\n    pattern_detection: true,\n    user_notification: true\n  }\n};\n\nreturn dualBrainPlan;"
+      },
+      "id": "dual_brain_orchestrator",
+      "name": "🎯 듀얼 브레인 오케스트레이터",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.execution_strategy.calendar_integration.should_create_event }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equal"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "calendar_gate",
+      "name": "📅 캘린더 연동 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.execution_strategy.ai_insights.should_generate_insights }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equal"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "insights_gate",
+      "name": "🧠 AI 인사이트 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 📅 구글 캘린더 연동 의사결정 및 실행 로직\nconst dualBrainData = $input.first().json;\nconst calendarConfig = dualBrainData.execution_strategy.calendar_integration;\n\n// 1. 캘린더 이벤트 생성 로직\nconst calendarExecution = {\n  timestamp: new Date().toISOString(),\n  session_id: dualBrainData.session_id,\n  action: 'google_calendar_integration',\n  decision_reasoning: calendarConfig.reasoning,\n  \n  // 사용자 확인 프로세스\n  user_confirmation: {\n    required: true,\n    message: `분석이 완료되었습니다. 구글 캘린더에 이벤트를 생성하시겠습니까?\\n\\n` +\n             `📊 분석 결과:\\n${calendarConfig.reasoning.join('\\n')}\\n\\n` +\n             `📅 생성될 이벤트:\\n제목: ${calendarConfig.event_details.title}\\n` +\n             `시간: ${new Date(calendarConfig.event_details.start_time).toLocaleString('ko-KR')}`,\n    timeout_minutes: 10\n  },\n  \n  // 구글 캘린더 API 호출 설정\n  calendar_api_config: {\n    calendar_id: 'primary',\n    event_data: {\n      summary: calendarConfig.event_details.title,\n      description: calendarConfig.event_details.description,\n      start: {\n        dateTime: calendarConfig.event_details.start_time,\n        timeZone: 'Asia/Seoul'\n      },\n      end: {\n        dateTime: calendarConfig.event_details.end_time,\n        timeZone: 'Asia/Seoul'\n      },\n      attendees: calendarConfig.event_details.attendees.map(email => ({email})),\n      reminders: {\n        useDefault: false,\n        overrides: [\n          {method: 'email', minutes: 60},\n          {method: 'popup', minutes: 10}\n        ]\n      }\n    }\n  },\n  \n  // 실행 후 검증 기준\n  success_criteria: {\n    event_created: true,\n    event_id_returned: true,\n    email_notification_sent: true,\n    user_feedback_collected: false // 추후 구현\n  },\n  \n  // 실패 시 폴백 전략\n  fallback_strategy: {\n    retry_attempts: 2,\n    alternative_calendar: 'solomond.jgh@gmail.com',\n    offline_storage: true,\n    user_notification: '캘린더 연동에 실패했지만 분석 결과는 성공적으로 저장되었습니다.'\n  }\n};\n\nreturn calendarExecution;"
+      },
+      "id": "calendar_integration_logic",
+      "name": "📅 구글 캘린더 통합 로직",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 250]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🧠 AI 인사이트 생성 의사결정 및 실행 로직\nconst dualBrainData = $input.first().json;\nconst insightsConfig = dualBrainData.execution_strategy.ai_insights;\n\n// 1. 인사이트 생성 전략 세부화\nconst insightsExecution = {\n  timestamp: new Date().toISOString(),\n  session_id: dualBrainData.session_id,\n  action: 'ai_insights_generation',\n  \n  // 6가지 패턴 탐지 전략\n  pattern_detection_config: {\n    time_patterns: {\n      enabled: insightsConfig.insight_types.includes('시간_패턴_분석'),\n      analysis_focus: ['분석 빈도', '시간대별 성과', '주기성 탐지'],\n      lookback_days: 30\n    },\n    content_patterns: {\n      enabled: insightsConfig.insight_types.includes('주제_트렌드_분석'),\n      analysis_focus: ['키워드 빈도', '주제 변화', '트렌드 방향'],\n      topic_modeling: true\n    },\n    performance_patterns: {\n      enabled: insightsConfig.insight_types.includes('성과_분석'),\n      analysis_focus: ['품질 점수 변화', '성공률 추이', '효율성 개선'],\n      benchmark_comparison: true\n    },\n    correlation_patterns: {\n      enabled: true,\n      analysis_focus: ['파일 유형별 성과', '시간-품질 상관관계', '모달리티 조합 효과'],\n      statistical_significance: 0.05\n    },\n    anomaly_patterns: {\n      enabled: true,\n      analysis_focus: ['이상 점수 탐지', '품질 급변 구간', '예외적 성과'],\n      sensitivity: 'medium'\n    },\n    opportunity_patterns: {\n      enabled: insightsConfig.insight_types.includes('미래_예측_분석'),\n      analysis_focus: ['개선 기회', '최적화 포인트', '확장 가능성'],\n      future_horizon_days: 60\n    }\n  },\n  \n  // AI 모델 활용 전략\n  ai_processing_strategy: {\n    primary_model: dualBrainData.data_pipeline.source_data.ai_model || 'qwen2.5:7b',\n    model_selection_reasoning: [\n      'qwen2.5:7b 선택: 패턴 분석 및 인사이트 생성에 최적화',\n      '한국어 컨텍스트 이해도 우수',\n      '주얼리 업계 도메인 지식 활용'\n    ],\n    prompt_engineering: {\n      context_setup: '주얼리 업계 SOLOMOND AI 시스템의 분석 패턴 전문가',\n      analysis_directive: insightsConfig.analysis_focus,\n      output_format: '구조화된 인사이트 + 실행 가능한 추천사항',\n      creativity_balance: 0.7 // 창의성과 정확성 균형\n    }\n  },\n  \n  // 개인화 추천 시스템\n  personalization_config: {\n    enabled: insightsConfig.insight_types.includes('개인화_추천'),\n    user_profile: {\n      analysis_history: '기존 분석 패턴 활용',\n      preference_learning: '사용자 피드백 기반',\n      domain_expertise: '주얼리 업계 전문성'\n    },\n    recommendation_types: [\n      '다음 분석 최적 시점 제안',\n      '파일 업로드 품질 개선 방안',\n      '분석 효율성 향상 팁',\n      '트렌드 기반 주목 영역'\n    ]\n  },\n  \n  // 인사이트 품질 보장\n  quality_assurance: {\n    confidence_threshold: 0.8,\n    evidence_requirement: '최소 3개 데이터 포인트',\n    statistical_validation: true,\n    human_review_trigger: '신뢰도 < 0.6 또는 새로운 패턴 발견'\n  },\n  \n  // 결과 전달 전략\n  output_strategy: {\n    primary_format: '시각화 + 텍스트 설명',\n    actionable_items: '구체적 실행 방안 포함',\n    trend_visualization: 'Plotly 차트 생성',\n    summary_levels: ['경영진용 요약', '실무진용 상세', '기술진용 심화']\n  }\n};\n\nreturn insightsExecution;"
+      },
+      "id": "ai_insights_logic",
+      "name": "🧠 AI 인사이트 생성 로직",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 450]
+    },
+    {
+      "parameters": {
+        "resource": "event",
+        "operation": "create",
+        "calendarId": {
+          "__rl": true,
+          "value": "primary",
+          "mode": "list"
+        },
+        "summary": "={{ $json.calendar_api_config.event_data.summary }}",
+        "description": "={{ $json.calendar_api_config.event_data.description }}",
+        "startDate": "={{ $json.calendar_api_config.event_data.start.dateTime }}",
+        "endDate": "={{ $json.calendar_api_config.event_data.end.dateTime }}",
+        "additionalFields": {
+          "attendees": "={{ $json.calendar_api_config.event_data.attendees.map(a => a.email).join(',') }}"
+        }
+      },
+      "id": "google_calendar_api",
+      "name": "📅 구글 캘린더 API 호출",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 2,
+      "position": [1120, 200]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8580/api/generate-insights",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "timeout": 60000
+        }
+      },
+      "id": "ai_insights_api",
+      "name": "🧠 AI 인사이트 API 호출",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1120, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🏆 듀얼 브레인 시스템 실행 결과 통합 및 성공 평가\nconst originalPlan = $input.first().json;\nconst calendarResult = $input.all()[1] ? $input.all()[1].json : null;\nconst insightsResult = $input.all()[2] ? $input.all()[2].json : null;\n\n// 1. 실행 결과 분석\nconst executionResults = {\n  timestamp: new Date().toISOString(),\n  session_id: originalPlan.session_id,\n  \n  calendar_integration: {\n    attempted: originalPlan.execution_strategy.calendar_integration.should_create_event,\n    successful: !!(calendarResult && calendarResult.id),\n    event_id: calendarResult ? calendarResult.id : null,\n    event_link: calendarResult ? calendarResult.htmlLink : null,\n    error_info: calendarResult ? calendarResult.error : null\n  },\n  \n  ai_insights: {\n    attempted: originalPlan.execution_strategy.ai_insights.should_generate_insights,\n    successful: !!(insightsResult && insightsResult.insights),\n    insights_count: insightsResult ? (insightsResult.insights ? Object.keys(insightsResult.insights).length : 0) : 0,\n    patterns_detected: insightsResult ? (insightsResult.patterns_detected || 0) : 0,\n    recommendations_generated: insightsResult ? (insightsResult.recommendations ? insightsResult.recommendations.length : 0) : 0\n  }\n};\n\n// 2. 성공률 계산\nconst successMetrics = {\n  overall_success_rate: 0,\n  component_success: {\n    calendar: executionResults.calendar_integration.successful ? 1 : 0,\n    insights: executionResults.ai_insights.successful ? 1 : 0\n  },\n  attempted_components: (\n    (executionResults.calendar_integration.attempted ? 1 : 0) +\n    (executionResults.ai_insights.attempted ? 1 : 0)\n  )\n};\n\nif (successMetrics.attempted_components > 0) {\n  const successful_components = Object.values(successMetrics.component_success).reduce((a, b) => a + b, 0);\n  successMetrics.overall_success_rate = (successful_components / successMetrics.attempted_components) * 100;\n}\n\n// 3. 사용자 알림 메시지 생성\nconst userNotification = {\n  title: '🧠 듀얼 브레인 시스템 실행 완료',\n  summary: `성공률: ${successMetrics.overall_success_rate.toFixed(1)}% (${Object.values(successMetrics.component_success).reduce((a, b) => a + b, 0)}/${successMetrics.attempted_components}개 성공)`,\n  details: []\n};\n\nif (executionResults.calendar_integration.attempted) {\n  if (executionResults.calendar_integration.successful) {\n    userNotification.details.push(\n      `✅ 구글 캘린더: 이벤트 생성 성공 (${executionResults.calendar_integration.event_id})`\n    );\n  } else {\n    userNotification.details.push(\n      `❌ 구글 캘린더: 이벤트 생성 실패 - ${executionResults.calendar_integration.error_info || '알 수 없는 오류'}`\n    );\n  }\n}\n\nif (executionResults.ai_insights.attempted) {\n  if (executionResults.ai_insights.successful) {\n    userNotification.details.push(\n      `✅ AI 인사이트: ${executionResults.ai_insights.insights_count}개 인사이트, ${executionResults.ai_insights.patterns_detected}개 패턴, ${executionResults.ai_insights.recommendations_generated}개 추천사항 생성`\n    );\n  } else {\n    userNotification.details.push(\n      `❌ AI 인사이트: 생성 실패`\n    );\n  }\n}\n\n// 4. 다음 단계 안내\nconst nextSteps = {\n  immediate_actions: [],\n  future_opportunities: []\n};\n\nif (executionResults.calendar_integration.successful) {\n  nextSteps.immediate_actions.push('캘린더에서 분석 결과 확인 및 일정 조정');\n  nextSteps.future_opportunities.push('정기적인 분석 일정 설정');\n}\n\nif (executionResults.ai_insights.successful) {\n  nextSteps.immediate_actions.push('AI 인사이트 리포트 검토 및 액션 아이템 실행');\n  nextSteps.future_opportunities.push('패턴 기반 전략 수립');\n}\n\n// 5. 최종 듀얼 브레인 실행 보고서\nconst finalReport = {\n  session_summary: {\n    session_id: originalPlan.session_id,\n    execution_time: new Date() - new Date(originalPlan.timestamp),\n    components_executed: successMetrics.attempted_components,\n    success_rate: successMetrics.overall_success_rate\n  },\n  detailed_results: executionResults,\n  success_metrics: successMetrics,\n  user_notification: userNotification,\n  next_steps: nextSteps,\n  system_status: {\n    dual_brain_health: successMetrics.overall_success_rate > 50 ? 'healthy' : 'needs_attention',\n    recommendations_for_improvement: successMetrics.overall_success_rate < 100 ? [\n      '시스템 연결 상태 점검',\n      '인증 정보 갱신 확인',\n      '서비스 가용성 모니터링'\n    ] : ['시스템 정상 작동 중']\n  }\n};\n\nreturn finalReport;"
+      },
+      "id": "dual_brain_final_integration",
+      "name": "🏆 듀얼 브레인 통합 완료",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"dual_brain_complete\", \"message\": \"듀얼 브레인 시스템 실행 완료\", \"session_id\": $json.session_summary.session_id, \"success_rate\": $json.success_metrics.overall_success_rate, \"calendar_success\": $json.detailed_results.calendar_integration.successful, \"insights_success\": $json.detailed_results.ai_insights.successful, \"user_notification\": $json.user_notification, \"next_steps\": $json.next_steps, \"system_health\": $json.system_status.dual_brain_health, \"detailed_report\": $json } }}"
+      },
+      "id": "dual_brain_response",
+      "name": "✅ 듀얼 브레인 완료 응답",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1560, 400]
+    }
+  ],
+  "connections": {
+    "🧠 듀얼 브레인 활성화": {
+      "main": [
+        [
+          {
+            "node": "🎯 듀얼 브레인 오케스트레이터",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 듀얼 브레인 오케스트레이터": {
+      "main": [
+        [
+          {
+            "node": "📅 캘린더 연동 분기",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🧠 AI 인사이트 분기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📅 캘린더 연동 분기": {
+      "main": [
+        [
+          {
+            "node": "📅 구글 캘린더 통합 로직",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 AI 인사이트 분기": {
+      "main": [
+        [
+          {
+            "node": "🧠 AI 인사이트 생성 로직",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📅 구글 캘린더 통합 로직": {
+      "main": [
+        [
+          {
+            "node": "📅 구글 캘린더 API 호출",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 AI 인사이트 생성 로직": {
+      "main": [
+        [
+          {
+            "node": "🧠 AI 인사이트 API 호출",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📅 구글 캘린더 API 호출": {
+      "main": [
+        [
+          {
+            "node": "🏆 듀얼 브레인 통합 완료",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 AI 인사이트 API 호출": {
+      "main": [
+        [
+          {
+            "node": "🏆 듀얼 브레인 통합 완료",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏆 듀얼 브레인 통합 완료": {
+      "main": [
+        [
+          {
+            "node": "✅ 듀얼 브레인 완료 응답",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

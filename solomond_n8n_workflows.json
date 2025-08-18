@@ -1,0 +1,444 @@
+{
+  "workflows": {
+    "dual_brain_pipeline": {
+      "name": "SOLOMOND Dual Brain Pipeline",
+      "description": "분석 완료 → AI 인사이트 → 구글 캘린더 자동 워크플로우",
+      "nodes": [
+        {
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "analysis-complete",
+            "responseMode": "responseNode",
+            "options": {}
+          },
+          "id": "webhook_trigger",
+          "name": "분석 완료 트리거",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 1.1,
+          "position": [240, 300]
+        },
+        {
+          "parameters": {
+            "conditions": {
+              "options": {
+                "caseSensitive": true,
+                "leftValue": "",
+                "typeValidation": "strict"
+              },
+              "conditions": [
+                {
+                  "leftValue": "={{ $json.status }}",
+                  "rightValue": "completed",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "combinator": "and"
+            },
+            "options": {}
+          },
+          "id": "check_status",
+          "name": "분석 상태 확인",
+          "type": "n8n-nodes-base.if",
+          "typeVersion": 2,
+          "position": [460, 300]
+        },
+        {
+          "parameters": {
+            "url": "http://localhost:8580/api/generate-insights",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ $json }}",
+            "options": {}
+          },
+          "id": "ai_insights",
+          "name": "AI 인사이트 생성",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [680, 200]
+        },
+        {
+          "parameters": {
+            "resource": "event",
+            "operation": "create",
+            "calendarId": {
+              "__rl": true,
+              "value": "primary",
+              "mode": "list"
+            },
+            "summary": "={{ $json.analysis_title || '컨퍼런스 분석 완료' }}",
+            "description": "={{ $json.summary || '분석이 완료되었습니다.' }}\\n\\n생성된 인사이트:\\n{{ $json.insights }}",
+            "startDate": "={{ new Date().toISOString() }}",
+            "endDate": "={{ new Date(Date.now() + 60*60*1000).toISOString() }}",
+            "additionalFields": {
+              "attendees": "solomond.jgh@gmail.com"
+            }
+          },
+          "id": "calendar_event",
+          "name": "구글 캘린더 이벤트",
+          "type": "n8n-nodes-base.googleCalendar",
+          "typeVersion": 2,
+          "position": [680, 400]
+        },
+        {
+          "parameters": {
+            "respondWith": "json",
+            "responseBody": "={{ { \"status\": \"success\", \"message\": \"듀얼 브레인 워크플로우 완료\", \"calendar_event_id\": $('구글 캘린더 이벤트').item.json.id, \"insights_generated\": true } }}"
+          },
+          "id": "response",
+          "name": "응답",
+          "type": "n8n-nodes-base.respondToWebhook",
+          "typeVersion": 1.1,
+          "position": [900, 300]
+        }
+      ],
+      "connections": {
+        "분석 완료 트리거": {
+          "main": [
+            [
+              {
+                "node": "분석 상태 확인",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "분석 상태 확인": {
+          "main": [
+            [
+              {
+                "node": "AI 인사이트 생성",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "구글 캘린더 이벤트",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "AI 인사이트 생성": {
+          "main": [
+            [
+              {
+                "node": "응답",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "구글 캘린더 이벤트": {
+          "main": [
+            [
+              {
+                "node": "응답",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      }
+    },
+    
+    "file_analysis_pipeline": {
+      "name": "SOLOMOND File Analysis Pipeline",
+      "description": "파일 업로드 → 타입 감지 → 적절한 분석 모듈 실행",
+      "nodes": [
+        {
+          "parameters": {
+            "httpMethod": "POST",
+            "path": "file-upload",
+            "responseMode": "responseNode",
+            "options": {}
+          },
+          "id": "file_upload",
+          "name": "파일 업로드 트리거",
+          "type": "n8n-nodes-base.webhook",
+          "typeVersion": 1.1,
+          "position": [240, 300]
+        },
+        {
+          "parameters": {
+            "conditions": {
+              "options": {
+                "caseSensitive": true,
+                "leftValue": "",
+                "typeValidation": "strict"
+              },
+              "conditions": [
+                {
+                  "leftValue": "={{ $json.file_type }}",
+                  "rightValue": "audio",
+                  "operator": {
+                    "type": "string",
+                    "operation": "contains"
+                  }
+                }
+              ],
+              "combinator": "and"
+            },
+            "options": {}
+          },
+          "id": "check_file_type",
+          "name": "파일 타입 확인",
+          "type": "n8n-nodes-base.if",
+          "typeVersion": 2,
+          "position": [460, 300]
+        },
+        {
+          "parameters": {
+            "url": "http://localhost:8501/api/process-audio",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ $json }}",
+            "options": {}
+          },
+          "id": "process_audio",
+          "name": "오디오 분석",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [680, 200]
+        },
+        {
+          "parameters": {
+            "url": "http://localhost:8501/api/process-image",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ $json }}",
+            "options": {}
+          },
+          "id": "process_image",
+          "name": "이미지 분석",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [680, 400]
+        },
+        {
+          "parameters": {
+            "url": "http://localhost:5678/webhook/analysis-complete",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={{ $json }}",
+            "options": {}
+          },
+          "id": "trigger_dual_brain",
+          "name": "듀얼 브레인 트리거",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [900, 300]
+        }
+      ],
+      "connections": {
+        "파일 업로드 트리거": {
+          "main": [
+            [
+              {
+                "node": "파일 타입 확인",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "파일 타입 확인": {
+          "main": [
+            [
+              {
+                "node": "오디오 분석",
+                "type": "main",
+                "index": 0
+              }
+            ],
+            [
+              {
+                "node": "이미지 분석",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "오디오 분석": {
+          "main": [
+            [
+              {
+                "node": "듀얼 브레인 트리거",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "이미지 분석": {
+          "main": [
+            [
+              {
+                "node": "듀얼 브레인 트리거",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      }
+    },
+
+    "system_monitor": {
+      "name": "SOLOMOND System Monitor",
+      "description": "5분마다 시스템 상태 모니터링 및 알림",
+      "nodes": [
+        {
+          "parameters": {
+            "rule": {
+              "interval": [
+                {
+                  "field": "minutes",
+                  "minutesInterval": 5
+                }
+              ]
+            }
+          },
+          "id": "schedule",
+          "name": "모니터링 스케줄",
+          "type": "n8n-nodes-base.cron",
+          "typeVersion": 1,
+          "position": [240, 300]
+        },
+        {
+          "parameters": {
+            "url": "http://localhost:8500/health",
+            "options": {
+              "timeout": 5000
+            }
+          },
+          "id": "check_dashboard",
+          "name": "대시보드 상태 확인",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [460, 200]
+        },
+        {
+          "parameters": {
+            "url": "http://localhost:8501/health",
+            "options": {
+              "timeout": 5000
+            }
+          },
+          "id": "check_analysis",
+          "name": "분석 시스템 확인",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 4.2,
+          "position": [460, 400]
+        },
+        {
+          "parameters": {
+            "conditions": {
+              "options": {
+                "caseSensitive": true,
+                "leftValue": "",
+                "typeValidation": "strict"
+              },
+              "conditions": [
+                {
+                  "leftValue": "={{ $('대시보드 상태 확인').item.json.status || 'error' }}",
+                  "rightValue": "error",
+                  "operator": {
+                    "type": "string",
+                    "operation": "equals"
+                  }
+                }
+              ],
+              "combinator": "or"
+            },
+            "options": {}
+          },
+          "id": "check_errors",
+          "name": "에러 확인",
+          "type": "n8n-nodes-base.if",
+          "typeVersion": 2,
+          "position": [680, 300]
+        },
+        {
+          "parameters": {
+            "message": "🚨 SOLOMOND AI 시스템 알림\\n시간: {{ new Date().toISOString() }}\\n상태: 시스템 에러 감지\\n확인 필요: http://localhost:8500"
+          },
+          "id": "send_alert",
+          "name": "알림 발송",
+          "type": "n8n-nodes-base.noOp",
+          "typeVersion": 1,
+          "position": [900, 300]
+        }
+      ],
+      "connections": {
+        "모니터링 스케줄": {
+          "main": [
+            [
+              {
+                "node": "대시보드 상태 확인",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "분석 시스템 확인",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "대시보드 상태 확인": {
+          "main": [
+            [
+              {
+                "node": "에러 확인",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "분석 시스템 확인": {
+          "main": [
+            [
+              {
+                "node": "에러 확인",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "에러 확인": {
+          "main": [
+            [
+              {
+                "node": "알림 발송",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      }
+    }
+  },
+  
+  "setup_instructions": {
+    "step_1": "n8n 웹 인터페이스 접속 (http://localhost:5678)",
+    "step_2": "계정 생성 및 로그인",
+    "step_3": "각 워크플로우를 수동으로 생성 (JSON 복사 붙여넣기)",
+    "step_4": "Google Calendar 인증 설정",
+    "step_5": "워크플로우 활성화",
+    "webhook_urls": {
+      "analysis_complete": "http://localhost:5678/webhook/analysis-complete",
+      "file_upload": "http://localhost:5678/webhook/file-upload"
+    }
+  }
+}

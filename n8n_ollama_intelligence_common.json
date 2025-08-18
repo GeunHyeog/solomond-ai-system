@@ -1,0 +1,171 @@
+{
+  "name": "🤖 Ollama AI Intelligence Common Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ollama-ai-intelligence",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "ollama_trigger",
+      "name": "🤖 Ollama AI 요청",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🤖 Ollama AI 모델 지능적 선택 및 최적화 시스템\nconst request = $input.first().json;\n\n// 1. 요청 분석 및 모듈 타입 식별\nconst requestAnalysis = {\n  timestamp: new Date().toISOString(),\n  session_id: request.session_id || Date.now().toString(),\n  \n  // 모듈 타입 결정\n  module_type: request.module_type || request.selected_module || 'general',\n  \n  // 작업 복잡도 분석\n  task_complexity: {\n    content_length: request.content ? request.content.length : 0,\n    file_count: request.file_count || request.files?.length || 0,\n    multimodal: !!(request.has_audio || request.has_image || request.has_video),\n    analysis_depth: request.analysis_strategy || 'standard'\n  },\n  \n  // 성능 요구사항 분석\n  performance_requirements: {\n    speed_priority: request.priority === 'high' || request.urgent,\n    accuracy_priority: request.module_type === 'gemstone_analysis',\n    resource_constraints: request.resource_allocation?.memory_requirement === 'high'\n  }\n};\n\n// 2. SOLOMOND AI 모델 선택 매트릭스 (실제 구현된 로직)\nconst modelSelectionMatrix = {\n  'conference_analysis': {\n    primary: 'qwen2.5:7b',\n    reasoning: '빠른 회의 분석에 최적화, 한국어 처리 우수, 주얼리 컨텍스트 이해',\n    fallbacks: ['llama3.2:3b', 'gemma2:2b'],\n    performance_profile: {\n      speed: 'high',\n      accuracy: 'high',\n      korean_support: 'excellent',\n      domain_knowledge: 'jewelry_conference'\n    }\n  },\n  'web_crawler': {\n    primary: 'qwen2.5:7b',\n    reasoning: '뉴스 요약 및 번역 특화, 다국어 처리 능력',\n    fallbacks: ['qwen2.5:7b', 'gemma3:4b'],\n    performance_profile: {\n      speed: 'high',\n      accuracy: 'high',\n      multilingual: 'excellent',\n      domain_knowledge: 'news_analysis'\n    }\n  },\n  'gemstone_analysis': {\n    primary: 'qwen2.5:7b',\n    reasoning: '보석 전문 분석 및 산지 식별, 정밀한 분석 능력',\n    fallbacks: ['gemma3:27b', 'qwen2.5:7b'],\n    performance_profile: {\n      speed: 'medium',\n      accuracy: 'very_high',\n      precision: 'critical',\n      domain_knowledge: 'gemology'\n    }\n  },\n  'cad_conversion': {\n    primary: 'llama3.2:3b',\n    reasoning: '빠른 이미지 처리, 3D 변환 최적화, 경량화',\n    fallbacks: ['gemma3:4b', 'qwen2.5:7b'],\n    performance_profile: {\n      speed: 'very_high',\n      accuracy: 'medium',\n      image_processing: 'optimized',\n      domain_knowledge: '3d_modeling'\n    }\n  },\n  'general': {\n    primary: 'qwen2.5:7b',\n    reasoning: '범용 목적, 균형잡힌 성능',\n    fallbacks: ['llama3.2:3b', 'gemma3:4b'],\n    performance_profile: {\n      speed: 'high',\n      accuracy: 'high',\n      versatility: 'excellent',\n      domain_knowledge: 'general'\n    }\n  }\n};\n\n// 3. 모델 가용성 확인 로직 (실제 시스템 반영)\nconst modelAvailability = {\n  available_models: [\n    'gpt-oss:20b',    // 13GB - 최신 8시간 전 업데이트\n    'qwen3:8b',       // 5.2GB - 새로운 Qwen3 모델  \n    'gemma3:27b',     // 17GB - 초대형 모델\n    'qwen2.5:7b',     // 4.7GB - 안정적 성능\n    'gemma3:4b',      // 3.3GB - 경량 고성능\n    'llama3.2:3b'     // 경량 빠른 처리\n  ],\n  \n  // 실시간 모델 상태 체크\n  model_health_check: {\n    endpoint: 'http://localhost:11434/api/tags',\n    timeout: 5,\n    required_for_selection: true\n  }\n};\n\n// 4. 지능적 모델 선택 알고리즘\nconst selectedConfig = modelSelectionMatrix[requestAnalysis.module_type] || modelSelectionMatrix['general'];\nconst modelDecision = {\n  primary_model: selectedConfig.primary,\n  selection_reasoning: [\n    `모듈 타입: ${requestAnalysis.module_type}`,\n    `선택 이유: ${selectedConfig.reasoning}`,\n    `성능 프로필: ${Object.entries(selectedConfig.performance_profile).map(([k,v]) => `${k}=${v}`).join(', ')}`\n  ],\n  fallback_strategy: {\n    models: selectedConfig.fallbacks,\n    criteria: [\n      '1순위: 추천 모델 사용 가능 시',\n      '2순위: qwen2.5:7b → llama3.2:3b → gemma2:2b 순서',\n      '3순위: 사용 가능한 첫 번째 모델'\n    ]\n  }\n};\n\n// 5. 프롬프트 엔지니어링 전략\nconst promptStrategy = {\n  template_selection: {\n    jewelry_prompts: {\n      'conference_analysis': {\n        context: '주얼리 업계 컨퍼런스 분석 전문가',\n        focus: ['핵심 논의사항', '업계 인사이트', '실행 액션', '추가 조사 영역'],\n        format: '간결하고 구체적인 분석 결과'\n      },\n      'news_summary': {\n        context: '주얼리 업계 전문 애널리스트',\n        focus: ['핵심 내용', '업계 영향', '키워드', '중요도'],\n        format: '구조화된 요약'\n      },\n      'gemstone_identification': {\n        context: '보석학 전문가',\n        focus: ['색상 특성', '내포물 패턴', '광학적 특성', '지질학적 배경'],\n        format: '정밀한 산지 분석'\n      }\n    }\n  },\n  \n  // 모델별 최적화 파라미터\n  optimization_parameters: {\n    temperature: requestAnalysis.module_type === 'cad_conversion' ? 0.5 : 0.7,\n    max_tokens: requestAnalysis.module_type === 'gemstone_analysis' ? 1500 : 2000,\n    top_k: 40,\n    top_p: 0.9,\n    reasoning: [\n      `Temperature ${requestAnalysis.module_type === 'cad_conversion' ? '0.5 (정확성 우선)' : '0.7 (창의성-정확성 균형)'}`,\n      `Max tokens ${requestAnalysis.module_type === 'gemstone_analysis' ? '1500 (간결함)' : '2000 (충분한 설명)'}`\n    ]\n  }\n};\n\n// 6. 품질 관리 및 모니터링\nconst qualityControl = {\n  response_validation: {\n    min_confidence: 0.7,\n    hallucination_check: true,\n    domain_relevance_check: requestAnalysis.module_type !== 'general',\n    korean_language_check: true\n  },\n  \n  performance_monitoring: {\n    response_time_limit: requestAnalysis.performance_requirements.speed_priority ? 30 : 60,\n    memory_usage_limit: requestAnalysis.performance_requirements.resource_constraints ? 'high' : 'medium',\n    concurrent_request_limit: 3\n  },\n  \n  error_handling: {\n    retry_strategy: 'exponential_backoff',\n    max_retries: 2,\n    fallback_model_on_error: true,\n    graceful_degradation: true\n  }\n};\n\n// 7. 최종 Ollama 지능 결정\nconst ollamaIntelligence = {\n  timestamp: requestAnalysis.timestamp,\n  session_id: requestAnalysis.session_id,\n  \n  model_decision: modelDecision,\n  prompt_strategy: promptStrategy,\n  quality_control: qualityControl,\n  \n  execution_config: {\n    endpoint: 'http://localhost:11434/api/generate',\n    model: modelDecision.primary_model,\n    stream: false,\n    options: promptStrategy.optimization_parameters\n  },\n  \n  success_criteria: {\n    model_availability: 'primary 또는 fallback 모델 사용 가능',\n    response_quality: '신뢰도 > 70%',\n    performance: `응답 시간 < ${qualityControl.performance_monitoring.response_time_limit}초`,\n    relevance: '도메인 관련성 확인'\n  },\n  \n  monitoring_metrics: {\n    model_selection_accuracy: 'track',\n    prompt_effectiveness: 'measure',\n    user_satisfaction: 'collect_feedback',\n    system_performance: 'continuous_monitoring'\n  }\n};\n\nreturn ollamaIntelligence;"
+      },
+      "id": "ollama_intelligence_analyzer",
+      "name": "🧠 Ollama 지능 분석기",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "{{ $json.execution_config.endpoint.replace('/api/generate', '/api/tags') }}",
+        "options": {
+          "timeout": 5000
+        }
+      },
+      "id": "check_model_availability",
+      "name": "🔍 모델 가용성 체크",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🎯 실시간 모델 선택 최종 결정\nconst intelligence = $input.first().json;\nconst availabilityResponse = $input.all()[1] ? $input.all()[1].json : null;\n\n// 1. 사용 가능한 모델 목록 파싱\nlet availableModels = [];\nif (availabilityResponse && availabilityResponse.models) {\n  availableModels = availabilityResponse.models.map(m => m.name);\n} else {\n  // 폴백: 기본 모델 목록 사용\n  availableModels = ['qwen2.5:7b', 'llama3.2:3b', 'gemma3:4b'];\n}\n\n// 2. 최적 모델 선택 로직 실행\nlet finalModel = intelligence.model_decision.primary_model;\nlet selectionReason = '추천 모델 선택';\n\n// 추천 모델이 사용 가능한지 확인\nif (!availableModels.includes(intelligence.model_decision.primary_model)) {\n  // 폴백 전략 실행\n  const fallbacks = intelligence.model_decision.fallback_strategy.models;\n  let modelFound = false;\n  \n  for (const fallbackModel of fallbacks) {\n    if (availableModels.includes(fallbackModel)) {\n      finalModel = fallbackModel;\n      selectionReason = `폴백 모델 선택 (${intelligence.model_decision.primary_model} 불가용)`;\n      modelFound = true;\n      break;\n    }\n  }\n  \n  // 폴백 모델도 없으면 첫 번째 사용 가능한 모델\n  if (!modelFound && availableModels.length > 0) {\n    finalModel = availableModels[0];\n    selectionReason = '첫 번째 사용 가능 모델 선택 (모든 추천 모델 불가용)';\n  }\n}\n\n// 3. 선택된 모델에 맞는 최적화 조정\nconst modelOptimization = {\n  'gpt-oss:20b': { temperature: 0.6, max_tokens: 3000, reasoning: '대형 모델 - 창의성 약간 억제, 토큰 증가' },\n  'qwen3:8b': { temperature: 0.7, max_tokens: 2500, reasoning: '신형 모델 - 기본 설정 최적화' },\n  'gemma3:27b': { temperature: 0.5, max_tokens: 4000, reasoning: '초대형 모델 - 정확성 우선, 최대 토큰' },\n  'qwen2.5:7b': { temperature: 0.7, max_tokens: 2000, reasoning: '검증된 모델 - 균형잡힌 설정' },\n  'gemma3:4b': { temperature: 0.8, max_tokens: 1500, reasoning: '경량 모델 - 창의성 증가, 토큰 절약' },\n  'llama3.2:3b': { temperature: 0.8, max_tokens: 1500, reasoning: '고속 모델 - 창의성 증가, 효율성 우선' }\n};\n\nconst selectedOptimization = modelOptimization[finalModel] || {\n  temperature: 0.7,\n  max_tokens: 2000,\n  reasoning: '기본 설정 적용'\n};\n\n// 4. 프롬프트 템플릿 최종 구성\nconst promptTemplate = intelligence.prompt_strategy.template_selection.jewelry_prompts[\n  intelligence.session_id.includes('conference') ? 'conference_analysis' :\n  intelligence.session_id.includes('news') ? 'news_summary' :\n  intelligence.session_id.includes('gemstone') ? 'gemstone_identification' :\n  'conference_analysis' // 기본값\n];\n\n// 5. 최종 실행 구성\nconst finalExecutionConfig = {\n  timestamp: new Date().toISOString(),\n  session_id: intelligence.session_id,\n  \n  model_selection: {\n    selected_model: finalModel,\n    selection_reason: selectionReason,\n    available_models_count: availableModels.length,\n    primary_model_available: availableModels.includes(intelligence.model_decision.primary_model),\n    optimization_applied: selectedOptimization\n  },\n  \n  execution_parameters: {\n    endpoint: intelligence.execution_config.endpoint,\n    model: finalModel,\n    stream: false,\n    options: {\n      num_predict: selectedOptimization.max_tokens,\n      temperature: selectedOptimization.temperature,\n      top_k: intelligence.prompt_strategy.optimization_parameters.top_k,\n      top_p: intelligence.prompt_strategy.optimization_parameters.top_p\n    },\n    timeout: intelligence.quality_control.performance_monitoring.response_time_limit * 1000\n  },\n  \n  prompt_configuration: {\n    template: promptTemplate,\n    context_setup: promptTemplate.context,\n    analysis_focus: promptTemplate.focus,\n    output_format: promptTemplate.format\n  },\n  \n  quality_assurance: {\n    validation_rules: intelligence.quality_control.response_validation,\n    monitoring_enabled: true,\n    error_handling: intelligence.quality_control.error_handling,\n    success_criteria: intelligence.success_criteria\n  },\n  \n  decision_log: {\n    original_request: intelligence.model_decision.selection_reasoning,\n    availability_check: `${availableModels.length}개 모델 확인됨`,\n    final_decision: `${finalModel} 선택 - ${selectionReason}`,\n    optimization_reasoning: selectedOptimization.reasoning,\n    expected_performance: intelligence.monitoring_metrics\n  }\n};\n\nreturn finalExecutionConfig;"
+      },
+      "id": "final_model_selector",
+      "name": "🎯 최종 모델 선택기",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [680, 450]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "{{ $json.execution_parameters.endpoint }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ { \"model\": $json.execution_parameters.model, \"prompt\": \"테스트 프롬프트: 이 모델이 정상 작동하는지 확인\", \"stream\": $json.execution_parameters.stream, \"options\": $json.execution_parameters.options } }}",
+        "options": {
+          "timeout": "={{ $json.execution_parameters.timeout }}"
+        }
+      },
+      "id": "test_model_response",
+      "name": "🧪 모델 응답 테스트",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🏆 Ollama AI 지능 시스템 최종 검증 및 보고\nconst executionConfig = $input.first().json;\nconst testResponse = $input.all()[1] ? $input.all()[1].json : null;\n\n// 1. 모델 응답 품질 평가\nconst responseQuality = {\n  model_responsive: !!(testResponse && testResponse.response),\n  response_length: testResponse ? (testResponse.response ? testResponse.response.length : 0) : 0,\n  response_time: testResponse ? (testResponse.total_duration ? testResponse.total_duration / 1000000 : 0) : 0, // 나노초를 밀리초로\n  load_duration: testResponse ? (testResponse.load_duration ? testResponse.load_duration / 1000000 : 0) : 0,\n  prompt_eval_duration: testResponse ? (testResponse.prompt_eval_duration ? testResponse.prompt_eval_duration / 1000000 : 0) : 0,\n  eval_duration: testResponse ? (testResponse.eval_duration ? testResponse.eval_duration / 1000000 : 0) : 0\n};\n\n// 2. 성능 메트릭 계산\nconst performanceMetrics = {\n  response_speed: responseQuality.response_time < 30000 ? 'fast' : \n                 responseQuality.response_time < 60000 ? 'medium' : 'slow',\n  \n  model_efficiency: {\n    tokens_per_second: testResponse && testResponse.eval_count && responseQuality.eval_duration > 0 ? \n                      (testResponse.eval_count / (responseQuality.eval_duration / 1000)).toFixed(2) : 'N/A',\n    load_time_acceptable: responseQuality.load_duration < 10000, // 10초 이내\n    memory_usage: executionConfig.model_selection.selected_model.includes('27b') ? 'high' :\n                 executionConfig.model_selection.selected_model.includes('8b') ? 'medium' : 'low'\n  },\n  \n  quality_indicators: {\n    response_completeness: responseQuality.response_length > 50,\n    model_coherence: testResponse ? !testResponse.response?.includes('Error') : false,\n    context_awareness: testResponse ? testResponse.response?.includes('테스트') : false\n  }\n};\n\n// 3. 선택 결정 검증\nconst selectionValidation = {\n  primary_model_success: executionConfig.model_selection.primary_model_available && responseQuality.model_responsive,\n  fallback_necessity: !executionConfig.model_selection.primary_model_available,\n  optimization_effectiveness: {\n    temperature_appropriate: executionConfig.execution_parameters.options.temperature >= 0.5 && \n                           executionConfig.execution_parameters.options.temperature <= 0.8,\n    token_limit_reasonable: executionConfig.execution_parameters.options.num_predict >= 1500 &&\n                           executionConfig.execution_parameters.options.num_predict <= 4000,\n    model_specific_tuning: !!executionConfig.model_selection.optimization_applied\n  }\n};\n\n// 4. 전체 시스템 건강도 평가\nlet systemHealthScore = 0;\nlet maxScore = 0;\n\n// 모델 응답성 (30점)\nmaxScore += 30;\nif (responseQuality.model_responsive) systemHealthScore += 30;\nelse if (responseQuality.response_length > 0) systemHealthScore += 15;\n\n// 성능 속도 (25점)\nmaxScore += 25;\nif (performanceMetrics.response_speed === 'fast') systemHealthScore += 25;\nelse if (performanceMetrics.response_speed === 'medium') systemHealthScore += 15;\nelse if (performanceMetrics.response_speed === 'slow') systemHealthScore += 5;\n\n// 모델 효율성 (25점)\nmaxScore += 25;\nif (performanceMetrics.model_efficiency.load_time_acceptable) systemHealthScore += 10;\nif (performanceMetrics.model_efficiency.tokens_per_second !== 'N/A' && \n    parseFloat(performanceMetrics.model_efficiency.tokens_per_second) > 10) systemHealthScore += 15;\n\n// 품질 지표 (20점)\nmaxScore += 20;\nif (performanceMetrics.quality_indicators.response_completeness) systemHealthScore += 7;\nif (performanceMetrics.quality_indicators.model_coherence) systemHealthScore += 7;\nif (performanceMetrics.quality_indicators.context_awareness) systemHealthScore += 6;\n\nconst healthPercentage = (systemHealthScore / maxScore) * 100;\n\n// 5. 최종 Ollama 지능 보고서\nconst ollamaIntelligenceReport = {\n  timestamp: new Date().toISOString(),\n  session_id: executionConfig.session_id,\n  \n  model_decision_summary: {\n    selected_model: executionConfig.model_selection.selected_model,\n    selection_reasoning: executionConfig.decision_log.final_decision,\n    optimization_applied: executionConfig.model_selection.optimization_applied,\n    primary_model_available: executionConfig.model_selection.primary_model_available\n  },\n  \n  performance_evaluation: {\n    response_quality: responseQuality,\n    performance_metrics: performanceMetrics,\n    system_health_score: healthPercentage.toFixed(1)\n  },\n  \n  validation_results: selectionValidation,\n  \n  operational_status: {\n    ready_for_production: healthPercentage > 70 && responseQuality.model_responsive,\n    recommended_actions: healthPercentage < 70 ? [\n      '모델 가용성 재확인',\n      '네트워크 연결 상태 점검', \n      'Ollama 서비스 재시작 고려'\n    ] : ['시스템 정상 - 프로덕션 사용 가능'],\n    \n    next_optimization_opportunities: [\n      '모델별 프롬프트 템플릿 A/B 테스트',\n      '응답 품질 피드백 루프 구축',\n      '동적 파라미터 조정 시스템'\n    ]\n  },\n  \n  intelligence_insights: {\n    model_selection_accuracy: executionConfig.model_selection.primary_model_available ? 'high' : 'fallback_success',\n    prompt_optimization_effectiveness: selectionValidation.optimization_effectiveness,\n    system_reliability: healthPercentage > 80 ? 'excellent' : \n                      healthPercentage > 60 ? 'good' : 'needs_improvement'\n  }\n};\n\nreturn ollamaIntelligenceReport;"
+      },
+      "id": "ollama_intelligence_validator",
+      "name": "🏆 Ollama 지능 검증기",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"ollama_intelligence_ready\", \"message\": \"Ollama AI 지능 시스템 준비 완료\", \"session_id\": $json.session_id, \"selected_model\": $json.model_decision_summary.selected_model, \"system_health\": $json.performance_evaluation.system_health_score, \"ready_for_production\": $json.operational_status.ready_for_production, \"optimization_applied\": $json.model_decision_summary.optimization_applied, \"intelligence_level\": $json.intelligence_insights.system_reliability, \"detailed_report\": $json } }}"
+      },
+      "id": "ollama_response",
+      "name": "✅ Ollama 지능 완료 응답",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1340, 400]
+    }
+  ],
+  "connections": {
+    "🤖 Ollama AI 요청": {
+      "main": [
+        [
+          {
+            "node": "🧠 Ollama 지능 분석기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 Ollama 지능 분석기": {
+      "main": [
+        [
+          {
+            "node": "🔍 모델 가용성 체크",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🎯 최종 모델 선택기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🔍 모델 가용성 체크": {
+      "main": [
+        [
+          {
+            "node": "🎯 최종 모델 선택기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎯 최종 모델 선택기": {
+      "main": [
+        [
+          {
+            "node": "🧪 모델 응답 테스트",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧪 모델 응답 테스트": {
+      "main": [
+        [
+          {
+            "node": "🏆 Ollama 지능 검증기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🏆 Ollama 지능 검증기": {
+      "main": [
+        [
+          {
+            "node": "✅ Ollama 지능 완료 응답",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}

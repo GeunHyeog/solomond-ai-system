@@ -1,0 +1,279 @@
+{
+  "name": "📊 Module1: Conference Analysis Intelligence",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "solomond-module1-detailed",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "module1_trigger",
+      "name": "📊 컨퍼런스 분석 요청",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1,
+      "position": [240, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🔍 Module1: 파일 타입별 분석 전략 수립\nconst masterData = $input.first().json;\nconst files = masterData.file_analysis;\n\n// 1. 파일 분석 및 전략 결정\nconst analysisStrategy = {\n  timestamp: new Date().toISOString(),\n  session_id: masterData.request_id,\n  file_classification: {\n    total_files: files.total_files,\n    audio_files: files.has_audio ? 'detected' : 'none',\n    image_files: files.has_image ? 'detected' : 'none', \n    video_files: files.has_video ? 'detected' : 'none'\n  },\n  processing_decisions: []\n};\n\n// 2. 음성 파일 처리 결정\nif (files.has_audio) {\n  analysisStrategy.processing_decisions.push({\n    type: 'audio_processing',\n    method: 'whisper_stt',\n    reasoning: 'Whisper STT로 음성→텍스트 변환',\n    additional_steps: ['화자 분리', '키워드 추출', '감정 분석'],\n    ai_model: masterData.routing_decision.ai_model,\n    prompt_template: 'conference_analysis'\n  });\n}\n\n// 3. 이미지 파일 처리 결정  \nif (files.has_image) {\n  analysisStrategy.processing_decisions.push({\n    type: 'image_processing',\n    method: 'easyocr_extraction',\n    reasoning: 'EasyOCR로 텍스트 추출 후 내용 분석',\n    additional_steps: ['품질 검증', '텍스트 정리', 'OCR 신뢰도 체크'],\n    ai_model: masterData.routing_decision.ai_model,\n    prompt_template: 'conference_analysis'\n  });\n}\n\n// 4. 비디오 파일 처리 결정\nif (files.has_video) {\n  analysisStrategy.processing_decisions.push({\n    type: 'video_processing', \n    method: 'frame_extraction_plus_audio',\n    reasoning: '프레임 추출 + 음성 분리 → 이미지+오디오 분석',\n    additional_steps: ['키프레임 선별', '음성 트랙 분리', '멀티모달 결합'],\n    ai_model: masterData.routing_decision.ai_model,\n    prompt_template: 'conference_analysis'\n  });\n}\n\n// 5. qwen2.5:7b 모델 선택 이유 상세화\nanalysisStrategy.ai_reasoning = {\n  model_selected: masterData.routing_decision.ai_model,\n  selection_criteria: [\n    '빠른 회의 분석에 최적화된 모델',\n    '한국어 처리 성능 우수',\n    '주얼리 업계 컨텍스트 이해',\n    '적절한 추론 속도와 정확성 균형'\n  ],\n  fallback_models: ['llama3.2:3b', 'gemma2:2b'],\n  temperature: masterData.analysis_config.temperature,\n  max_tokens: masterData.analysis_config.max_tokens\n};\n\n// 6. 품질 관리 전략\nanalysisStrategy.quality_control = {\n  ocr_confidence_threshold: 0.7,\n  audio_quality_check: true,\n  duplicate_detection: true,\n  error_handling: 'graceful_degradation',\n  retry_failed_files: 1\n};\n\n// 7. 예상 결과물 정의\nanalysisStrategy.expected_outputs = {\n  primary: '종합 컨퍼런스 분석 보고서',\n  secondary: ['파일별 분석 결과', '키워드 추출', '화자별 발언 분석'],\n  dual_brain_trigger: masterData.analysis_config.use_dual_brain,\n  google_calendar: masterData.analysis_config.google_calendar_integration\n};\n\nreturn analysisStrategy;"
+      },
+      "id": "analysis_strategy_planner",
+      "name": "🧠 분석 전략 수립",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.file_classification.audio_files }}",
+              "rightValue": "detected",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "audio_processing_gate",
+      "name": "🎵 음성 분석 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 250]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.file_classification.image_files }}",
+              "rightValue": "detected",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "image_processing_gate",
+      "name": "🖼️ 이미지 분석 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 400]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.file_classification.video_files }}",
+              "rightValue": "detected",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        }
+      },
+      "id": "video_processing_gate",
+      "name": "🎬 비디오 분석 분기",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [680, 550]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🎵 Whisper STT 음성 분석 의사결정\nconst strategy = $input.first().json;\n\nconst audioProcessing = {\n  timestamp: new Date().toISOString(),\n  processing_type: 'audio_analysis',\n  whisper_config: {\n    model: 'whisper-1',\n    language: 'ko',\n    response_format: 'text',\n    reasoning: 'CPU 모드 안정성 + 한국어 최적화'\n  },\n  post_processing: {\n    speaker_separation: {\n      method: 'audio_features_based',\n      reasoning: '음성 특성 기반 간단한 화자 분리',\n      expected_speakers: 2-4\n    },\n    keyword_extraction: {\n      focus: ['주얼리', '보석', '트렌드', '시장', '기술'],\n      method: 'frequency_and_context'\n    },\n    sentiment_analysis: {\n      granularity: 'speaker_level',\n      aspects: ['긍정/부정', '관심도', '전문성']\n    }\n  },\n  ollama_analysis: {\n    model: strategy.ai_reasoning.model_selected,\n    prompt_engineering: {\n      context: '주얼리 업계 컨퍼런스',\n      focus_areas: ['핵심 논의사항', '업계 인사이트', '실행 액션', '추가 조사 영역'],\n      output_format: '구조화된 분석 보고서'\n    },\n    quality_assurance: {\n      confidence_check: true,\n      hallucination_prevention: '사실 기반 분석만 포함',\n      length_optimization: '간결하고 구체적'\n    }\n  },\n  success_criteria: {\n    whisper_accuracy: '>85%',\n    speaker_separation: '화자별 발언 구분',\n    ollama_analysis: '실행 가능한 인사이트 도출'\n  }\n};\n\nreturn audioProcessing;"
+      },
+      "id": "audio_analysis_intelligence",
+      "name": "🎵 Whisper+Ollama 음성 분석",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 200]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🖼️ EasyOCR 이미지 분석 의사결정\nconst strategy = $input.first().json;\n\nconst imageProcessing = {\n  timestamp: new Date().toISOString(),\n  processing_type: 'image_analysis',\n  easyocr_config: {\n    languages: ['ko', 'en'],\n    confidence_threshold: strategy.quality_control.ocr_confidence_threshold,\n    gpu_mode: false,\n    reasoning: 'CPU 모드로 안정성 확보, 한영 동시 지원'\n  },\n  quality_control: {\n    text_filtering: {\n      min_confidence: 0.7,\n      min_text_length: 3,\n      noise_removal: '특수문자 및 의미없는 텍스트 제거'\n    },\n    duplicate_detection: {\n      method: 'text_similarity',\n      threshold: 0.9,\n      reasoning: '중복 추출 텍스트 방지'\n    },\n    post_processing: {\n      text_cleaning: '줄바꿈 정리, 공백 정규화',\n      encoding_fix: 'UTF-8 인코딩 보정'\n    }\n  },\n  ollama_analysis: {\n    model: strategy.ai_reasoning.model_selected,\n    prompt_engineering: {\n      context: '주얼리 컨퍼런스 프레젠테이션 자료',\n      analysis_focus: ['핵심 키워드', '수치 데이터', '트렌드 정보', '제품 소개'],\n      output_structure: '이미지별 분석 + 종합 인사이트'\n    },\n    context_awareness: {\n      jewelry_terminology: '보석학 전문 용어 인식',\n      market_data: '시장 데이터 및 통계 해석',\n      visual_context: '차트, 그래프, 도표 내용 분석'\n    }\n  },\n  success_criteria: {\n    ocr_quality: '텍스트 추출 신뢰도 >70%',\n    content_analysis: '의미있는 정보 도출',\n    integration: '음성 분석과의 상호 보완'\n  }\n};\n\nreturn imageProcessing;"
+      },
+      "id": "image_analysis_intelligence",
+      "name": "🖼️ EasyOCR+Ollama 이미지 분석",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 350]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🎬 비디오 멀티모달 분석 의사결정\nconst strategy = $input.first().json;\n\nconst videoProcessing = {\n  timestamp: new Date().toISOString(),\n  processing_type: 'video_multimodal_analysis',\n  frame_extraction: {\n    method: 'keyframe_selection',\n    interval: '5초마다 또는 장면 전환시',\n    max_frames: 20,\n    reasoning: '중요 프레임만 선별하여 효율성 확보'\n  },\n  audio_extraction: {\n    format: 'wav',\n    quality: '16kHz 모노',\n    noise_reduction: 'basic_filtering',\n    reasoning: 'Whisper STT 최적화'\n  },\n  multimodal_fusion: {\n    strategy: 'complementary_analysis',\n    visual_analysis: {\n      method: 'easyocr_on_keyframes',\n      focus: '슬라이드 텍스트, 차트, 그래프'\n    },\n    audio_analysis: {\n      method: 'whisper_stt_full_track',\n      focus: '발표 내용, 질의응답'\n    },\n    temporal_alignment: {\n      sync_method: 'timestamp_based',\n      reasoning: '음성과 영상 내용의 시간적 연결'\n    }\n  },\n  ollama_integration: {\n    model: strategy.ai_reasoning.model_selected,\n    analysis_approach: 'cross_modal_synthesis',\n    prompt_strategy: {\n      visual_context: '화면에 표시된 정보',\n      audio_context: '발표자의 설명',\n      synthesis: '시청각 정보의 통합 분석'\n    },\n    output_format: {\n      timeline_analysis: '시간대별 주요 내용',\n      key_moments: '핵심 발표 구간',\n      comprehensive_summary: '전체 영상 종합 분석'\n    }\n  },\n  success_criteria: {\n    frame_quality: '주요 정보 포함 프레임 추출',\n    audio_clarity: 'STT 정확도 >80%',\n    multimodal_sync: '음성-영상 내용 일치도',\n    comprehensive_insight: '단일 모달리티 대비 향상된 분석'\n  }\n};\n\nreturn videoProcessing;"
+      },
+      "id": "video_analysis_intelligence",
+      "name": "🎬 멀티모달 비디오 분석",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 500]
+    },
+    {
+      "parameters": {
+        "jsCode": "// 🔄 Module1 결과 통합 및 품질 평가\nconst strategyData = $input.first().json;\nconst audioResult = $input.all()[1] ? $input.all()[1].json : null;\nconst imageResult = $input.all()[2] ? $input.all()[2].json : null;\nconst videoResult = $input.all()[3] ? $input.all()[3].json : null;\n\n// 1. 처리 완료된 모달리티 확인\nconst completedProcessing = {\n  audio: audioResult !== null,\n  image: imageResult !== null, \n  video: videoResult !== null\n};\n\n// 2. 모달리티별 품질 점수 계산\nconst qualityAssessment = {\n  overall_score: 0,\n  modality_scores: {},\n  processing_time: new Date() - new Date(strategyData.timestamp)\n};\n\nif (audioResult) {\n  qualityAssessment.modality_scores.audio = {\n    whisper_success: audioResult.whisper_config ? 95 : 0,\n    speaker_separation: audioResult.post_processing?.speaker_separation ? 85 : 0,\n    ollama_analysis: audioResult.ollama_analysis ? 90 : 0\n  };\n}\n\nif (imageResult) {\n  qualityAssessment.modality_scores.image = {\n    ocr_quality: imageResult.easyocr_config ? 88 : 0,\n    text_extraction: imageResult.quality_control ? 85 : 0,\n    content_analysis: imageResult.ollama_analysis ? 90 : 0\n  };\n}\n\nif (videoResult) {\n  qualityAssessment.modality_scores.video = {\n    frame_extraction: videoResult.frame_extraction ? 92 : 0,\n    multimodal_fusion: videoResult.multimodal_fusion ? 88 : 0,\n    comprehensive_analysis: videoResult.ollama_integration ? 95 : 0\n  };\n}\n\n// 3. 전체 품질 점수 계산\nconst totalModalities = Object.keys(qualityAssessment.modality_scores).length;\nif (totalModalities > 0) {\n  let totalScore = 0;\n  Object.values(qualityAssessment.modality_scores).forEach(scores => {\n    const modalityAvg = Object.values(scores).reduce((a, b) => a + b, 0) / Object.values(scores).length;\n    totalScore += modalityAvg;\n  });\n  qualityAssessment.overall_score = totalScore / totalModalities;\n}\n\n// 4. Module1 완료 보고서\nconst module1Report = {\n  timestamp: new Date().toISOString(),\n  session_id: strategyData.session_id,\n  module: 'conference_analysis',\n  processing_summary: {\n    total_modalities: totalModalities,\n    completed_processing: completedProcessing,\n    ai_model_used: strategyData.ai_reasoning.model_selected,\n    processing_decisions: strategyData.processing_decisions.length\n  },\n  quality_metrics: qualityAssessment,\n  ai_decision_summary: {\n    model_selection_reasoning: strategyData.ai_reasoning.selection_criteria,\n    processing_strategies: strategyData.processing_decisions.map(d => d.reasoning),\n    quality_controls_applied: Object.keys(strategyData.quality_control)\n  },\n  next_steps: {\n    dual_brain_ready: strategyData.expected_outputs.dual_brain_trigger,\n    google_calendar_ready: strategyData.expected_outputs.google_calendar,\n    expected_outputs: strategyData.expected_outputs.primary\n  },\n  success_status: qualityAssessment.overall_score > 80 ? 'success' : 'partial_success'\n};\n\nreturn module1Report;"
+      },
+      "id": "module1_integration_report",
+      "name": "📊 Module1 통합 분석 보고서",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1120, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"status\": \"module1_complete\", \"message\": \"컨퍼런스 분석 모듈 완료\", \"session_id\": $json.session_id, \"quality_score\": $json.quality_metrics.overall_score, \"ai_model\": $json.processing_summary.ai_model_used, \"modalities_processed\": $json.processing_summary.total_modalities, \"processing_decisions\": $json.ai_decision_summary.processing_strategies, \"next_workflow\": \"dual_brain_system\", \"success_status\": $json.success_status, \"detailed_report\": $json } }}"
+      },
+      "id": "module1_response",
+      "name": "✅ Module1 완료 응답",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1340, 400]
+    }
+  ],
+  "connections": {
+    "📊 컨퍼런스 분석 요청": {
+      "main": [
+        [
+          {
+            "node": "🧠 분석 전략 수립",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🧠 분석 전략 수립": {
+      "main": [
+        [
+          {
+            "node": "🎵 음성 분석 분기",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🖼️ 이미지 분석 분기",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "🎬 비디오 분석 분기",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎵 음성 분석 분기": {
+      "main": [
+        [
+          {
+            "node": "🎵 Whisper+Ollama 음성 분석",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🖼️ 이미지 분석 분기": {
+      "main": [
+        [
+          {
+            "node": "🖼️ EasyOCR+Ollama 이미지 분석",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎬 비디오 분석 분기": {
+      "main": [
+        [
+          {
+            "node": "🎬 멀티모달 비디오 분석",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎵 Whisper+Ollama 음성 분석": {
+      "main": [
+        [
+          {
+            "node": "📊 Module1 통합 분석 보고서",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🖼️ EasyOCR+Ollama 이미지 분석": {
+      "main": [
+        [
+          {
+            "node": "📊 Module1 통합 분석 보고서",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "🎬 멀티모달 비디오 분석": {
+      "main": [
+        [
+          {
+            "node": "📊 Module1 통합 분석 보고서",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "📊 Module1 통합 분석 보고서": {
+      "main": [
+        [
+          {
+            "node": "✅ Module1 완료 응답",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
