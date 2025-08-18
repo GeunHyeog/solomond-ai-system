@@ -11,7 +11,7 @@ Serena-Powered Code Intelligence for SOLOMOND AI
 4. 정밀한 코드 수정 및 최적화
 5. SOLOMOND AI 특화 성능 최적화
 
-Serena의 핵심 능력을 Claude Code의 네이티브 도구로 구현
+Serena의 핵심 능력을 표준 Python 도구로 구현
 """
 
 import os

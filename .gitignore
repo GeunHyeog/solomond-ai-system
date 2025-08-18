@@ -66,6 +66,13 @@ config/secrets.json
 *token*
 *api_key*
 
+# Claude Code 설정 (민감한 개발 환경 정보)
+.claude/
+.claude/*
+
+# MCP 설정 (개발 환경 전용)
+.mcp*.json
+
 # 테스트
 .pytest_cache/
 coverage/

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-🧠 SOLOMOND AI Serena 코딩 에이전트 - Claude Code 서브에이전트 통합
-Serena Coding Agent as Claude Code Sub-Agent
+🧠 SOLOMOND AI Serena 코딩 에이전트 - AI 어시스턴트 통합
+Serena Coding Agent for AI-Assisted Development
 
-이 모듈은 Serena의 코딩 에이전트 기능을 Claude Code의 서브에이전트로 통합합니다.
-/agent serena 명령어로 호출 가능한 실제 Claude Code 서브에이전트를 구현합니다.
+이 모듈은 Serena의 코딩 에이전트 기능을 AI 개발 환경에 통합합니다.
+코드 분석 및 최적화를 위한 인텔리전트 에이전트를 구현합니다.
 
 핵심 기능:
 1. Symbol-level 코드 분석 및 편집
@@ -116,7 +116,7 @@ class AnalysisResult:
     health_score: float
 
 class SerenaCodeAnalyzer:
-    """Serena 코드 분석기 - Claude Code 최적화 버전"""
+    """Serena 코드 분석기 - AI 최적화 버전"""
     
     def __init__(self, project_root: str = None):
         self.project_root = Path(project_root) if project_root else Path.cwd()
