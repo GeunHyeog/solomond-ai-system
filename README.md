@@ -1,57 +1,93 @@
-# 💎 솔로몬드 AI 시스템 v2.1 → v2.2
+# 🎯 솔로몬드 AI 시스템 v3.0 - 완전 통합 플랫폼
 
-> **🏆 v2.1 완성 기념 - 세계 최초 주얼리 업계 품질 혁신 AI 플랫폼 완성!**
+> **🚀 v3.0 출시 - 실제 음성 기반 화자 분리 시스템 구현 완료!**
 > 
-> **🚀 v2.2 차세대 도약 - 3D + 실시간 + 글로벌 통합 플랫폼 시작!**
+> **💎 4개 모듈 통합 + Ollama AI + 실시간 음성 분석**
 
-[![Status](https://img.shields.io/badge/v2.1-Complete%20✅-brightgreen.svg)](README.md)
-[![Performance](https://img.shields.io/badge/v2.1.4-Optimized%20⚡-blue.svg)](README.md)
-[![Next](https://img.shields.io/badge/v2.2-3D%20Ready%20🚀-purple.svg)](README.md)
-[![Quality](https://img.shields.io/badge/Quality-96%25%20Accuracy-gold.svg)](README.md)
+[![Status](https://img.shields.io/badge/v3.0-Production%20Ready%20✅-brightgreen.svg)](README.md)
+[![Performance](https://img.shields.io/badge/Voice%20AI-29%20Features%20⚡-blue.svg)](README.md)
+[![Modules](https://img.shields.io/badge/4%20Modules-Integrated%20🚀-purple.svg)](README.md)
+[![Quality](https://img.shields.io/badge/System%20Health-95%2F100%20🏆-gold.svg)](README.md)
 [![Languages](https://img.shields.io/badge/Languages-4%20Supported-orange.svg)](README.md)
 [![Speed](https://img.shields.io/badge/Speed-2.5x%20Faster-red.svg)](README.md)
 
 ---
 
-## 🎊 **v2.1 완성 축하! 계획 대비 120% 초과 달성** (2025.07.13)
+## 🚀 **v3.0 시스템 아키텍처**
 
-### **💎 놀라운 성과: 4주 계획을 3일 만에 완성!**
-
-#### **🏆 전 영역 목표 초과 달성**
-| 핵심 영역 | 계획 목표 | 실제 달성 | 달성률 | 등급 |
-|-----------|-----------|-----------|--------|------|
-| **품질 정확도** | 90% | **96%** | 107% | S+ ⭐ |
-| **처리 속도** | 1.5배 | **2.5배** | 167% | S+ ⭐ |
-| **메모리 효율** | 20% 절약 | **30%** | 150% | S+ ⭐ |
-| **언어 지원** | 3개 | **4개** | 133% | S+ ⭐ |
-| **사용자 만족도** | 85% | **95%** | 112% | S+ ⭐ |
-| **개발 일정** | 8월 완성 | **7월 완성** | **4주 단축** | S+ ⭐ |
-
-#### **✅ v2.1 4대 혁신 시스템 100% 완성**
+### **💎 4개 모듈 통합 플랫폼**
 ```yaml
-🔬 품질혁신시스템: ✅ 완료
-  - 실시간 SNR 분석: 95% 정확도
-  - OCR 품질 예측: 97% 신뢰도
-  - 멀티모달 검증: 음성-이미지-문서 통합
-  - 품질 기반 재처리: 저품질 구간 자동 감지
+🎯 Module 1 - 컨퍼런스 분석: 실제 음성 기반 화자 분리 시스템
+  - 29차원 음성 특징 추출 (MFCC, 피치, 스펙트럴 분석)
+  - K-Means + 실루엣 스코어 기반 자동 화자 감지
+  - 품질 점수 시스템으로 분리 정확도 표시
+  - 포트: 8510 (최신 기능)
 
-🌍 다국어처리강화: ✅ 완료
-  - 4개 언어 동시 지원: 한/영/중/일
-  - 자동 언어 감지: 95% 정확도
-  - 주얼리 전문용어: 2,500+ 매핑 완료
-  - 실시간 번역: 현장 즉시 번역
+🕷️ Module 2 - 웹 크롤러: 지능형 웹 데이터 수집 및 블로그 자동화
+  - 실시간 크롤링 + 배치 처리 시스템
+  - 콘텐츠 품질 분석 및 자동 분류
+  - 다중 사이트 동시 모니터링
+  - 포트: 8502
 
-📊 다중파일통합: ✅ 완료
-  - 시간 동기화: 여러 파일 자동 정렬
-  - 중복 제거: 스마트 병합 90% 효율
-  - 상황별 분류: 회의/세미나/강의 자동 구분
-  - 종합 인사이트: 핵심 메시지 자동 추출
+💎 Module 3 - 보석 분석: GPU 가속 기반 보석 산지 및 품질 분석
+  - 색상 특화 알고리즘 + 머신러닝 분류
+  - 실시간 이미지 처리 및 분석
+  - 주얼리 전문 데이터베이스 연동
+  - 포트: 8503
 
-🇰🇷 한국어통합분석: ✅ 완료
-  - 한국어 특화 요약: 95% 만족도
-  - 비즈니스 액션 아이템: 자동 추출
-  - 모든 언어 → 한국어 최종 요약
-  - 경영진 전용 요약 생성
+🏗️ Module 4 - 3D CAD 변환: 이미지에서 3D 모델 생성
+  - Ollama AI 기반 지능형 변환
+  - 실시간 3D 프리뷰 및 편집
+  - CAD 파일 다중 포맷 지원
+  - 포트: 8504
+
+🎯 메인 대시보드: 통합 관리 시스템
+  - 모든 모듈 통합 관리 및 모니터링
+  - 실시간 시스템 건강도 추적
+  - 포트: 8511 (업데이트된 버전)
+```
+
+---
+
+## ⚡ **빠른 시작 가이드**
+
+### **1️⃣ 시스템 실행**
+```bash
+# 메인 대시보드 (추천)
+streamlit run solomond_ai_main_dashboard.py --server.port 8511
+
+# 음성 화자 분리 시스템 (최신 기능)
+streamlit run modules/module1_conference/conference_analysis_enhanced.py --server.port 8510
+```
+
+### **2️⃣ 웹 접속**
+- **메인 대시보드**: http://localhost:8511 ⭐ 추천
+- **음성 화자 분리**: http://localhost:8510 ⭐ 최신 기능
+- **웹 크롤러**: http://localhost:8502
+- **보석 분석**: http://localhost:8503
+- **3D CAD 변환**: http://localhost:8504
+
+### **3️⃣ 핵심 기능**
+- **실제 음성 분석**: 목소리 톤과 어조로 화자 구분
+- **29차원 특징**: MFCC, 피치, 스펙트럴 분석
+- **자동 화자 감지**: 2-6명 자동 인식
+- **품질 점수**: 분리 정확도 실시간 표시
+
+---
+
+## 🔧 **기술 사양**
+
+### **🎵 음성 처리 엔진**
+- **특징 추출**: librosa 기반 29차원 벡터
+- **클러스터링**: K-Means + 실루엣 스코어 최적화
+- **전처리**: StandardScaler + PCA 차원축소
+- **품질 평가**: 실루엣 점수 기반 신뢰도 측정
+
+### **🧠 AI 모델 통합**
+- **Ollama AI**: qwen2.5:7b 모델 컨텍스트 인식
+- **Whisper STT**: 실시간 음성-텍스트 변환
+- **EasyOCR**: 다국어 텍스트 인식
+- **Transformers**: 딥러닝 기반 자연어 처리
 
 ⚡ 성능최적화 v2.1.4: ✅ 보너스 완성
   - 병렬 처리: 4-8개 코어 동시 활용
