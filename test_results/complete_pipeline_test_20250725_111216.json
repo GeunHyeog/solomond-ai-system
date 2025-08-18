@@ -1,0 +1,923 @@
+{
+  "test_timestamp": "2025-07-25T11:12:16.692148",
+  "test_summary": {
+    "total_files": 7,
+    "successful_tests": 6,
+    "failed_tests": 1,
+    "total_time": 0.05852031707763672
+  },
+  "file_tests": {
+    "text_consultation": {
+      "file_path": "test_data/jewelry_consultation_scenario.txt",
+      "file_type": "text_consultation",
+      "status": "success",
+      "start_time": 1753409536.6927817,
+      "processing_time": 0.02307415008544922,
+      "analysis_result": {
+        "timestamp": "2025-07-25T11:12:16.695647",
+        "basic_analysis": {
+          "main_messages": [
+            {
+              "type": "제품_언급",
+              "keyword": "목걸이",
+              "context": "고객 안녕하세요. 결혼 10주년 기념으로 아내에게 줄 목걸이를 찾고 있어요. 상담사 아, 뜻깊은 기념일이시네요!",
+              "importance": "high"
+            },
+            {
+              "type": "제품_언급",
+              "keyword": "펜던트",
+              "context": "다이아몬드 목걸이는 어떠세요? 1캐럿 정도의 솔리테어 펜던트가 우아하면서도 클래식한 매력이 있어요. 고객 다이아몬",
+              "importance": "high"
+            },
+            {
+              "type": "비즈니스_언급",
+              "keyword": "가격",
+              "context": "이 세팅되어 있어요. 고객 와... 정말 아름답네요. 가격은 어떻게 되나요? 상담사 이 제품은 280만원입니다.",
+              "importance": "high"
+            },
+            {
+              "type": "비즈니스_언급",
+              "keyword": "상담",
+              "context": "주얼리 상담 실제 시나리오  종합 테스트용  고객 상담 대화 내용",
+              "importance": "high"
+            },
+            {
+              "type": "비즈니스_언급",
+              "keyword": "구매",
+              "context": "추출 결과   한줄요약 10주년 기념 사파이어 목걸이 구매 상담 성공  고객상태 만족, 구매 결정  긴급도 낮음",
+              "importance": "high"
+            },
+            {
+              "type": "가격_관심",
+              "context": " 가격은 어떻게 되나요;  적절한 가격대",
+              "importance": "high",
+              "insight": "고객이 가격 정보를 중요하게 생각하고 있습니다"
+            },
+            {
+              "type": "선택_고민",
+              "context": "래티넘 체인 포함이고, GIA 인증서도 함께 드려요. 고객 음... 좀 고민이 되네요. 아내가 좋아할지... 상담사 걱정 마세요. 저희는 30일 교; 하고 있어요. 너무 화려하지 않으면서도 품격 있는 걸로요. 상담사 좋은 선택이세요. 다이아몬드 목걸이는 어떠세요? 1캐럿 정도의 솔리테어 펜던트가",
+              "importance": "high",
+              "insight": "고객이 제품 선택에 대해 도움을 필요로 합니다"
+            },
+            {
+              "type": "구매_신호",
+              "context": "고객이 구매 의향을 보이고 있음",
+              "importance": "high",
+              "action": "즉시 상담 진행 및 구매 절차 안내"
+            },
+            {
+              "type": "재료_언급",
+              "keyword": "은",
+              "context": "아내에게 줄 목걸이를 찾고 있어요. 상담사 아, 뜻깊은 기념일이시네요! 축하드립니다. 예산은 어느 정도로 생",
+              "importance": "medium"
+            },
+            {
+              "type": "재료_언급",
+              "keyword": "플래티넘",
+              "context": "걸이는 정말 우아하고 고급스러워요. 특히 화이트골드나 플래티넘과 조합하면 아름답습니다. 고객 오, 사파이어라...",
+              "importance": "medium"
+            }
+          ],
+          "emotional_state": {
+            "overall_tone": "긍정적",
+            "positive_indicators": [
+              "만족",
+              "감사"
+            ],
+            "negative_indicators": [
+              "걱정"
+            ],
+            "customer_satisfaction": 0.8999999999999999,
+            "urgency_level": "보통",
+            "decision_stage": "결정단계"
+          },
+          "speakers_info": {
+            "total_speakers": 2,
+            "speaker_distribution": {
+              "김민수": 49,
+              "박영희": 5
+            },
+            "conversation_flow": [
+              {
+                "speaker": "김민수",
+                "content": "주얼리 상담 실제 시나리오  종합 테스트용  고객 상담 대화 내용  상담사 안녕하세요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "솔로몬드 주얼리에 오신 것을 환영합니다",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "어떤 도움이 필요하신가요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "고객 안녕하세요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "결혼 10주년 기념으로 아내에게 줄 목걸이를 찾고 있어요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "상담사 아, 뜻깊은 기념일이시네요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "축하드립니다",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "예산은 어느 정도로 생각하고 계신가요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "고객 음",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "200만원에서 300만원 정도로 생각하고 있어요",
+                "type": "일반"
+              }
+            ],
+            "dominant_speaker": "김민수"
+          }
+        },
+        "speaker_analysis": {
+          "total_speakers": 2,
+          "speaker_distribution": {
+            "김민수": 49,
+            "박영희": 5
+          },
+          "conversation_flow": [
+            {
+              "speaker": "김민수",
+              "content": "주얼리 상담 실제 시나리오  종합 테스트용  고객 상담 대화 내용  상담사 안녕하세요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "솔로몬드 주얼리에 오신 것을 환영합니다",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "어떤 도움이 필요하신가요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "고객 안녕하세요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "결혼 10주년 기념으로 아내에게 줄 목걸이를 찾고 있어요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "상담사 아, 뜻깊은 기념일이시네요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "축하드립니다",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "예산은 어느 정도로 생각하고 계신가요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "고객 음",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "200만원에서 300만원 정도로 생각하고 있어요",
+              "type": "일반"
+            }
+          ],
+          "dominant_speaker": "김민수"
+        },
+        "market_intelligence": {
+          "status": "준비됨",
+          "products": [
+            "펜던트",
+            "목걸이"
+          ]
+        },
+        "situation_intelligence": {
+          "status": "준비됨",
+          "complexity": "높음"
+        },
+        "final_insights": {
+          "summary": "고도화된 분석 시스템으로 처리됨",
+          "key_improvements": [
+            "화자별 개별 분석 완료",
+            "시장 지능 정보 연동 준비",
+            "지능적 상황 판단 시스템 활성화"
+          ],
+          "analysis_quality": "매우 높음",
+          "confidence_score": 0.95,
+          "speaker_insights": "개별 화자 분석 및 실명 매칭 완료",
+          "market_insights": "실시간 시장 정보 연동 가능",
+          "situation_insights": "복합 상황 분석 및 전략 제안 준비"
+        }
+      },
+      "errors": [],
+      "quality_metrics": {
+        "has_basic_analysis": true,
+        "has_speaker_analysis": true,
+        "has_market_intelligence": true,
+        "has_situation_intelligence": true,
+        "has_final_insights": true,
+        "analysis_completeness": 1.0,
+        "processing_success": true,
+        "text_analysis_quality": {
+          "speaker_identification": true,
+          "context_understanding": true,
+          "jewelry_domain_recognition": true,
+          "sentiment_analysis": false
+        }
+      }
+    },
+    "text_inquiry": {
+      "file_path": "test_data/diamond_inquiry.txt",
+      "file_type": "text_inquiry",
+      "status": "success",
+      "start_time": 1753409536.7165318,
+      "processing_time": 0.0033380985260009766,
+      "analysis_result": {
+        "timestamp": "2025-07-25T11:12:16.717637",
+        "basic_analysis": {
+          "main_messages": [
+            {
+              "type": "제품_언급",
+              "keyword": "반지",
+              "context": "안녕하세요. 다이아몬드 반지를 찾고 있어요. 약혼반지로 쓸 건데 1캐럿 정도로 생",
+              "importance": "high"
+            },
+            {
+              "type": "비즈니스_언급",
+              "keyword": "가격",
+              "context": "도로 생각하고 있습니다. GIA 인증서 있는 걸로요. 가격이 얼마나 할까요?",
+              "importance": "high"
+            },
+            {
+              "type": "가격_관심",
+              "context": " 가격이 얼마나 할까요",
+              "importance": "high",
+              "insight": "고객이 가격 정보를 중요하게 생각하고 있습니다"
+            },
+            {
+              "type": "재료_언급",
+              "keyword": "다이아몬드",
+              "context": "안녕하세요. 다이아몬드 반지를 찾고 있어요. 약혼반지로 쓸 건데 1캐럿 정도",
+              "importance": "medium"
+            },
+            {
+              "type": "상황_언급",
+              "keyword": "약혼",
+              "context": "안녕하세요. 다이아몬드 반지를 찾고 있어요. 약혼반지로 쓸 건데 1캐럿 정도로 생각하고 있습니다. GI",
+              "importance": "medium"
+            },
+            {
+              "type": "약혼_목적",
+              "context": "안녕하세요. 다이아몬드 반지를 찾고 있어요. 약혼반지로 쓸 건데 1캐럿 정도로 생각하고 있습니다. GI",
+              "importance": "medium",
+              "insight": "약혼 관련 구매를 고려하고 있습니다"
+            }
+          ],
+          "emotional_state": {
+            "overall_tone": "중립",
+            "positive_indicators": [],
+            "negative_indicators": [],
+            "customer_satisfaction": 0.5,
+            "urgency_level": "보통",
+            "decision_stage": "검토단계"
+          },
+          "speakers_info": {
+            "total_speakers": 2,
+            "speaker_distribution": {
+              "박영희": 1,
+              "김민수": 4
+            },
+            "conversation_flow": [
+              {
+                "speaker": "박영희",
+                "content": "안녕하세요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "다이아몬드 반지를 찾고 있어요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "약혼반지로 쓸 건데 1캐럿 정도로 생각하고 있습니다",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "GIA 인증서 있는 걸로요",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "가격이 얼마나 할까요",
+                "type": "질문"
+              }
+            ],
+            "dominant_speaker": "김민수"
+          }
+        },
+        "speaker_analysis": {
+          "total_speakers": 2,
+          "speaker_distribution": {
+            "박영희": 1,
+            "김민수": 4
+          },
+          "conversation_flow": [
+            {
+              "speaker": "박영희",
+              "content": "안녕하세요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "다이아몬드 반지를 찾고 있어요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "약혼반지로 쓸 건데 1캐럿 정도로 생각하고 있습니다",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "GIA 인증서 있는 걸로요",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "가격이 얼마나 할까요",
+              "type": "질문"
+            }
+          ],
+          "dominant_speaker": "김민수"
+        },
+        "market_intelligence": {
+          "status": "준비됨",
+          "products": [
+            "반지"
+          ]
+        },
+        "situation_intelligence": {
+          "status": "준비됨",
+          "complexity": "높음"
+        },
+        "final_insights": {
+          "summary": "고도화된 분석 시스템으로 처리됨",
+          "key_improvements": [
+            "화자별 개별 분석 완료",
+            "시장 지능 정보 연동 준비",
+            "지능적 상황 판단 시스템 활성화"
+          ],
+          "analysis_quality": "매우 높음",
+          "confidence_score": 0.95,
+          "speaker_insights": "개별 화자 분석 및 실명 매칭 완료",
+          "market_insights": "실시간 시장 정보 연동 가능",
+          "situation_insights": "복합 상황 분석 및 전략 제안 준비"
+        }
+      },
+      "errors": [],
+      "quality_metrics": {
+        "has_basic_analysis": true,
+        "has_speaker_analysis": true,
+        "has_market_intelligence": true,
+        "has_situation_intelligence": true,
+        "has_final_insights": true,
+        "analysis_completeness": 1.0,
+        "processing_success": true,
+        "text_analysis_quality": {
+          "speaker_identification": true,
+          "context_understanding": true,
+          "jewelry_domain_recognition": true,
+          "sentiment_analysis": false
+        }
+      }
+    },
+    "text_description": {
+      "file_path": "test_data/jewelry_product_description.txt",
+      "file_type": "text_description",
+      "status": "success",
+      "start_time": 1753409536.720902,
+      "processing_time": 0.004566192626953125,
+      "analysis_result": {
+        "timestamp": "2025-07-25T11:12:16.722282",
+        "basic_analysis": {
+          "main_messages": [
+            {
+              "type": "제품_언급",
+              "keyword": "반지",
+              "context": "한 날 자가 선물  매칭 추천 제품   블루 사파이어 반지 세트 구매 시 10 할인  블루 사파이어 귀걸이 페어",
+              "importance": "high"
+            },
+            {
+              "type": "제품_언급",
+              "keyword": "목걸이",
+              "context": "주얼리 제품 정보  종합 분석용  블루 사파이어 목걸이 상세 정보   제품명 로얄 블루 사파이어 솔리테어 펜",
+              "importance": "high"
+            },
+            {
+              "type": "제품_언급",
+              "keyword": "귀걸이",
+              "context": "파이어 반지 세트 구매 시 10 할인  블루 사파이어 귀걸이 페어 세트  다이아몬드 테니스 브레슬릿 조합 추천",
+              "importance": "high"
+            },
+            {
+              "type": "제품_언급",
+              "keyword": "펜던트",
+              "context": "이 상세 정보   제품명 로얄 블루 사파이어 솔리테어 펜던트  모델번호 SMSAP3001  가격 2,800,000",
+              "importance": "high"
+            },
+            {
+              "type": "비즈니스_언급",
+              "keyword": "가격",
+              "context": "파이어 솔리테어 펜던트  모델번호 SMSAP3001  가격 2,800,000원  보석 사양   주 보석 블루 사",
+              "importance": "high"
+            },
+            {
+              "type": "비즈니스_언급",
+              "keyword": "할인",
+              "context": "추천 제품   블루 사파이어 반지 세트 구매 시 10 할인  블루 사파이어 귀걸이 페어 세트  다이아몬드 테니스",
+              "importance": "high"
+            },
+            {
+              "type": "비즈니스_언급",
+              "keyword": "구매",
+              "context": "주의사항 강한 충격 피하기, 화학세제 접촉 금지  구매 혜택   고급 벨벳 주얼리 박스  은 클리닝 클로스",
+              "importance": "high"
+            },
+            {
+              "type": "가격_관심",
+              "context": "  가격 2,800,000원  보석 사양   주 보석 블루 사파이어 ",
+              "importance": "high",
+              "insight": "고객이 가격 정보를 중요하게 생각하고 있습니다"
+            },
+            {
+              "type": "선택_고민",
+              "context": "보석 관리 가이드북  무료 리사이징 1회  연간 무상 점검 서비스  추천 고객   결혼 기념일 선물  생일 선물 9월 탄생석  승진 축하 선물",
+              "importance": "high",
+              "insight": "고객이 제품 선택에 대해 도움을 필요로 합니다"
+            },
+            {
+              "type": "구매_신호",
+              "context": "고객이 구매 의향을 보이고 있음",
+              "importance": "high",
+              "action": "즉시 상담 진행 및 구매 절차 안내"
+            }
+          ],
+          "emotional_state": {
+            "overall_tone": "중립",
+            "positive_indicators": [],
+            "negative_indicators": [],
+            "customer_satisfaction": 0.5,
+            "urgency_level": "보통",
+            "decision_stage": "결정단계"
+          },
+          "speakers_info": {
+            "total_speakers": 2,
+            "speaker_distribution": {
+              "unknown": 1,
+              "김민수": 3
+            },
+            "conversation_flow": [
+              {
+                "speaker": "unknown",
+                "content": "주얼리 제품 정보  종합 분석용  블루 사파이어 목걸이 상세 정보   제품명 로얄 블루 사파이어 솔리테어 펜던트  모델번호 SMSAP3001  가격 2,800,000원  보석 사양   주 보석 블루 사파이어 3",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "0ct  원산지 스리랑카 Ceylon  컷 오벌 컷  색상 로얄 블루 최고 등급  투명도 VVS Very Very Slightly Included  처리 무처리 천연석  보조 보석 다이아몬드 0",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "50ct 총중량  개수 16개 헤일로 세팅  컷 라운드 브릴리언트  색상 F Near Colorless  투명도 VS1 Very Slightly Included  귀금속 사양   소재 플래티넘 Pt950  체인 18인치 45cm 플래티넘 체인 포함  잠금장치 스프링 클래스프 안전 장치 포함  총 중량 약 8",
+                "type": "일반"
+              },
+              {
+                "speaker": "김민수",
+                "content": "5g  인증 및 보증   GIA 인증서 사파이어  다이아몬드 감정서 국제보석감정원  제품 품질보증서 평생 무상 AS  30일 교환 보장서  디자인 특징   클래식 솔리테어 디자인  헤일로 세팅으로 사파이어 돋보임 효과  우아한 곡선 프롱 세팅  심플하면서도 럭셔리한 스타일  관리 및 보관   정기 점검 6개월마다 권장  초음파 세척 가능 전문점에서  보관 개별 파우치에 보관 권장  주의사항 강한 충격 피하기, 화학세제 접촉 금지  구매 혜택   고급 벨벳 주얼리 박스  은 클리닝 클로스  보석 관리 가이드북  무료 리사이징 1회  연간 무상 점검 서비스  추천 고객   결혼 기념일 선물  생일 선물 9월 탄생석  승진 축하 선물  졸업 기념품  특별한 날 자가 선물  매칭 추천 제품   블루 사파이어 반지 세트 구매 시 10 할인  블루 사파이어 귀걸이 페어 세트  다이아몬드 테니스 브레슬릿 조합 추천",
+                "type": "설명"
+              }
+            ],
+            "dominant_speaker": "김민수"
+          }
+        },
+        "speaker_analysis": {
+          "total_speakers": 2,
+          "speaker_distribution": {
+            "unknown": 1,
+            "김민수": 3
+          },
+          "conversation_flow": [
+            {
+              "speaker": "unknown",
+              "content": "주얼리 제품 정보  종합 분석용  블루 사파이어 목걸이 상세 정보   제품명 로얄 블루 사파이어 솔리테어 펜던트  모델번호 SMSAP3001  가격 2,800,000원  보석 사양   주 보석 블루 사파이어 3",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "0ct  원산지 스리랑카 Ceylon  컷 오벌 컷  색상 로얄 블루 최고 등급  투명도 VVS Very Very Slightly Included  처리 무처리 천연석  보조 보석 다이아몬드 0",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "50ct 총중량  개수 16개 헤일로 세팅  컷 라운드 브릴리언트  색상 F Near Colorless  투명도 VS1 Very Slightly Included  귀금속 사양   소재 플래티넘 Pt950  체인 18인치 45cm 플래티넘 체인 포함  잠금장치 스프링 클래스프 안전 장치 포함  총 중량 약 8",
+              "type": "일반"
+            },
+            {
+              "speaker": "김민수",
+              "content": "5g  인증 및 보증   GIA 인증서 사파이어  다이아몬드 감정서 국제보석감정원  제품 품질보증서 평생 무상 AS  30일 교환 보장서  디자인 특징   클래식 솔리테어 디자인  헤일로 세팅으로 사파이어 돋보임 효과  우아한 곡선 프롱 세팅  심플하면서도 럭셔리한 스타일  관리 및 보관   정기 점검 6개월마다 권장  초음파 세척 가능 전문점에서  보관 개별 파우치에 보관 권장  주의사항 강한 충격 피하기, 화학세제 접촉 금지  구매 혜택   고급 벨벳 주얼리 박스  은 클리닝 클로스  보석 관리 가이드북  무료 리사이징 1회  연간 무상 점검 서비스  추천 고객   결혼 기념일 선물  생일 선물 9월 탄생석  승진 축하 선물  졸업 기념품  특별한 날 자가 선물  매칭 추천 제품   블루 사파이어 반지 세트 구매 시 10 할인  블루 사파이어 귀걸이 페어 세트  다이아몬드 테니스 브레슬릿 조합 추천",
+              "type": "설명"
+            }
+          ],
+          "dominant_speaker": "김민수"
+        },
+        "market_intelligence": {
+          "status": "준비됨",
+          "products": [
+            "반지",
+            "목걸이",
+            "귀걸이",
+            "펜던트"
+          ]
+        },
+        "situation_intelligence": {
+          "status": "준비됨",
+          "complexity": "높음"
+        },
+        "final_insights": {
+          "summary": "고도화된 분석 시스템으로 처리됨",
+          "key_improvements": [
+            "화자별 개별 분석 완료",
+            "시장 지능 정보 연동 준비",
+            "지능적 상황 판단 시스템 활성화"
+          ],
+          "analysis_quality": "매우 높음",
+          "confidence_score": 0.95,
+          "speaker_insights": "개별 화자 분석 및 실명 매칭 완료",
+          "market_insights": "실시간 시장 정보 연동 가능",
+          "situation_insights": "복합 상황 분석 및 전략 제안 준비"
+        }
+      },
+      "errors": [],
+      "quality_metrics": {
+        "has_basic_analysis": true,
+        "has_speaker_analysis": true,
+        "has_market_intelligence": true,
+        "has_situation_intelligence": true,
+        "has_final_insights": true,
+        "analysis_completeness": 1.0,
+        "processing_success": true,
+        "text_analysis_quality": {
+          "speaker_identification": true,
+          "context_understanding": true,
+          "jewelry_domain_recognition": true,
+          "sentiment_analysis": false
+        }
+      }
+    },
+    "document": {
+      "file_path": "test_data/jewelry_appraisal.docx",
+      "file_type": "document",
+      "status": "no_content",
+      "start_time": 1753409536.7260904,
+      "processing_time": 0,
+      "analysis_result": null,
+      "errors": [
+        "파일 내용을 읽을 수 없음"
+      ],
+      "quality_metrics": {}
+    },
+    "image": {
+      "file_path": "test_files/test_image.png",
+      "file_type": "image",
+      "status": "success",
+      "start_time": 1753409536.7312462,
+      "processing_time": 0.006777524948120117,
+      "analysis_result": {
+        "timestamp": "2025-07-25T11:12:16.735170",
+        "basic_analysis": {
+          "main_messages": [],
+          "emotional_state": {
+            "overall_tone": "중립",
+            "positive_indicators": [],
+            "negative_indicators": [],
+            "customer_satisfaction": 0.5,
+            "urgency_level": "보통",
+            "decision_stage": "정보수집"
+          },
+          "speakers_info": {
+            "total_speakers": 1,
+            "speaker_distribution": {
+              "unknown": 1
+            },
+            "conversation_flow": [
+              {
+                "speaker": "unknown",
+                "content": "이미지 파일 처리 실패 ImageProcessor object has no attribute extract_text",
+                "type": "일반"
+              }
+            ],
+            "dominant_speaker": "unknown"
+          }
+        },
+        "speaker_analysis": {
+          "total_speakers": 1,
+          "speaker_distribution": {
+            "unknown": 1
+          },
+          "conversation_flow": [
+            {
+              "speaker": "unknown",
+              "content": "이미지 파일 처리 실패 ImageProcessor object has no attribute extract_text",
+              "type": "일반"
+            }
+          ],
+          "dominant_speaker": "unknown"
+        },
+        "market_intelligence": {
+          "status": "준비됨",
+          "products": []
+        },
+        "situation_intelligence": {
+          "status": "준비됨",
+          "complexity": "높음"
+        },
+        "final_insights": {
+          "summary": "고도화된 분석 시스템으로 처리됨",
+          "key_improvements": [
+            "화자별 개별 분석 완료",
+            "시장 지능 정보 연동 준비",
+            "지능적 상황 판단 시스템 활성화"
+          ],
+          "analysis_quality": "매우 높음",
+          "confidence_score": 0.95,
+          "speaker_insights": "개별 화자 분석 및 실명 매칭 완료",
+          "market_insights": "실시간 시장 정보 연동 가능",
+          "situation_insights": "복합 상황 분석 및 전략 제안 준비"
+        }
+      },
+      "errors": [],
+      "quality_metrics": {
+        "has_basic_analysis": true,
+        "has_speaker_analysis": true,
+        "has_market_intelligence": true,
+        "has_situation_intelligence": true,
+        "has_final_insights": true,
+        "analysis_completeness": 1.0,
+        "processing_success": true
+      }
+    },
+    "audio_wav": {
+      "file_path": "test_files/test_audio.wav",
+      "file_type": "audio_wav",
+      "status": "success",
+      "start_time": 1753409536.73901,
+      "processing_time": 0.006133556365966797,
+      "analysis_result": {
+        "timestamp": "2025-07-25T11:12:16.742868",
+        "basic_analysis": {
+          "main_messages": [],
+          "emotional_state": {
+            "overall_tone": "중립",
+            "positive_indicators": [],
+            "negative_indicators": [],
+            "customer_satisfaction": 0.5,
+            "urgency_level": "보통",
+            "decision_stage": "정보수집"
+          },
+          "speakers_info": {
+            "total_speakers": 1,
+            "speaker_distribution": {
+              "김민수": 1
+            },
+            "conversation_flow": [
+              {
+                "speaker": "김민수",
+                "content": "음성 파일 처리 실패 AudioProcessor object has no attribute transcribe_audio",
+                "type": "일반"
+              }
+            ],
+            "dominant_speaker": "김민수"
+          }
+        },
+        "speaker_analysis": {
+          "total_speakers": 1,
+          "speaker_distribution": {
+            "김민수": 1
+          },
+          "conversation_flow": [
+            {
+              "speaker": "김민수",
+              "content": "음성 파일 처리 실패 AudioProcessor object has no attribute transcribe_audio",
+              "type": "일반"
+            }
+          ],
+          "dominant_speaker": "김민수"
+        },
+        "market_intelligence": {
+          "status": "준비됨",
+          "products": []
+        },
+        "situation_intelligence": {
+          "status": "준비됨",
+          "complexity": "높음"
+        },
+        "final_insights": {
+          "summary": "고도화된 분석 시스템으로 처리됨",
+          "key_improvements": [
+            "화자별 개별 분석 완료",
+            "시장 지능 정보 연동 준비",
+            "지능적 상황 판단 시스템 활성화"
+          ],
+          "analysis_quality": "매우 높음",
+          "confidence_score": 0.95,
+          "speaker_insights": "개별 화자 분석 및 실명 매칭 완료",
+          "market_insights": "실시간 시장 정보 연동 가능",
+          "situation_insights": "복합 상황 분석 및 전략 제안 준비"
+        }
+      },
+      "errors": [],
+      "quality_metrics": {
+        "has_basic_analysis": true,
+        "has_speaker_analysis": true,
+        "has_market_intelligence": true,
+        "has_situation_intelligence": true,
+        "has_final_insights": true,
+        "analysis_completeness": 1.0,
+        "processing_success": true,
+        "audio_processing_quality": {
+          "stt_success": true,
+          "speaker_diarization": false,
+          "audio_quality": "unknown"
+        }
+      }
+    },
+    "audio_m4a": {
+      "file_path": "test_files/test_audio.m4a",
+      "file_type": "audio_m4a",
+      "status": "success",
+      "start_time": 1753409536.745781,
+      "processing_time": 0.004863262176513672,
+      "analysis_result": {
+        "timestamp": "2025-07-25T11:12:16.747643",
+        "basic_analysis": {
+          "main_messages": [],
+          "emotional_state": {
+            "overall_tone": "중립",
+            "positive_indicators": [],
+            "negative_indicators": [],
+            "customer_satisfaction": 0.5,
+            "urgency_level": "보통",
+            "decision_stage": "정보수집"
+          },
+          "speakers_info": {
+            "total_speakers": 1,
+            "speaker_distribution": {
+              "김민수": 1
+            },
+            "conversation_flow": [
+              {
+                "speaker": "김민수",
+                "content": "음성 파일 처리 실패 AudioProcessor object has no attribute transcribe_audio",
+                "type": "일반"
+              }
+            ],
+            "dominant_speaker": "김민수"
+          }
+        },
+        "speaker_analysis": {
+          "total_speakers": 1,
+          "speaker_distribution": {
+            "김민수": 1
+          },
+          "conversation_flow": [
+            {
+              "speaker": "김민수",
+              "content": "음성 파일 처리 실패 AudioProcessor object has no attribute transcribe_audio",
+              "type": "일반"
+            }
+          ],
+          "dominant_speaker": "김민수"
+        },
+        "market_intelligence": {
+          "status": "준비됨",
+          "products": []
+        },
+        "situation_intelligence": {
+          "status": "준비됨",
+          "complexity": "높음"
+        },
+        "final_insights": {
+          "summary": "고도화된 분석 시스템으로 처리됨",
+          "key_improvements": [
+            "화자별 개별 분석 완료",
+            "시장 지능 정보 연동 준비",
+            "지능적 상황 판단 시스템 활성화"
+          ],
+          "analysis_quality": "매우 높음",
+          "confidence_score": 0.95,
+          "speaker_insights": "개별 화자 분석 및 실명 매칭 완료",
+          "market_insights": "실시간 시장 정보 연동 가능",
+          "situation_insights": "복합 상황 분석 및 전략 제안 준비"
+        }
+      },
+      "errors": [],
+      "quality_metrics": {
+        "has_basic_analysis": true,
+        "has_speaker_analysis": true,
+        "has_market_intelligence": true,
+        "has_situation_intelligence": true,
+        "has_final_insights": true,
+        "analysis_completeness": 1.0,
+        "processing_success": true,
+        "audio_processing_quality": {
+          "stt_success": true,
+          "speaker_diarization": false,
+          "audio_quality": "unknown"
+        }
+      }
+    }
+  },
+  "component_performance": {
+    "comprehensive_message_extractor": {
+      "status": "active",
+      "enhanced_features": true,
+      "mcp_integration_ready": true
+    },
+    "market_intelligence_engine": {
+      "status": "implemented",
+      "mcp_perplexity_ready": true
+    },
+    "intelligent_situation_analyzer": {
+      "status": "implemented",
+      "mcp_sequential_thinking_ready": true
+    },
+    "real_analysis_engine": {
+      "status": "active",
+      "integration_level": "partial"
+    }
+  },
+  "quality_assessment": {
+    "overall_success_rate": 0.8571428571428571,
+    "average_completeness": 1.0,
+    "component_coverage": {
+      "basic_analysis": true,
+      "speaker_analysis": true,
+      "market_intelligence": true,
+      "situation_intelligence": true,
+      "final_insights": true
+    },
+    "identified_issues": [],
+    "recommendations": []
+  },
+  "pipeline_analysis": {
+    "current_capability": "60-70%",
+    "bottlenecks": [
+      "document 처리 실패"
+    ],
+    "strengths": [
+      "UI 및 기본 워크플로우 안정적",
+      "텍스트 기반 분석 기능 작동"
+    ],
+    "immediate_improvements": [
+      "MCP 실제 연동 활성화",
+      "에러 핸들링 강화",
+      "파일 처리 안정성 향상"
+    ],
+    "long_term_goals": [
+      "Ollama 통합으로 한국어 성능 향상",
+      "Speaker Diarization 정확도 개선",
+      "실시간 성능 최적화"
+    ]
+  }
+}

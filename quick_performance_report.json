@@ -1,0 +1,27 @@
+{
+  "system": {
+    "cpu_percent": 22.8,
+    "memory_percent": 67.1,
+    "memory_available_gb": 4.553459167480469
+  },
+  "api": {
+    "health_check_time": 4.115479230880737,
+    "status": "OK",
+    "models": 7
+  },
+  "ollama": {
+    "status": "ERROR",
+    "error": "HTTPConnectionPool(host='localhost', port=8000): Read timed out. (read timeout=30)"
+  },
+  "file_io": {
+    "write_time": 0.004561185836791992,
+    "read_time": 0.008735179901123047,
+    "write_speed_mb_s": 48.08948826511944,
+    "read_speed_mb_s": 25.110540968393472
+  },
+  "bottlenecks": [
+    "SLOW API RESPONSE - API 서버 응답 속도 개선 필요",
+    "OLLAMA CONNECTION ISSUE - AI 서버 문제"
+  ],
+  "timestamp": 1754582749.604379
+}

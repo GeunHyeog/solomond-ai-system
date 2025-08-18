@@ -1,0 +1,4791 @@
+{
+  "새로운 녹음 2.m4a": {
+    "filename": "새로운 녹음 2.m4a",
+    "total_duration": 0,
+    "segments": [
+      {
+        "start": 3.2399999999999998,
+        "end": 4.64,
+        "text": "그誰의",
+        "speaker": "moderator",
+        "duration": 1.4
+      },
+      {
+        "start": 4.64,
+        "end": 5.08,
+        "text": "� случае",
+        "speaker": "moderator",
+        "duration": 0.4400000000000004
+      },
+      {
+        "start": 5.08,
+        "end": 6.0,
+        "text": "일단",
+        "speaker": "moderator",
+        "duration": 0.9199999999999999
+      },
+      {
+        "start": 27.8,
+        "end": 29.2,
+        "text": "선],",
+        "speaker": "moderator",
+        "duration": 1.3999999999999986
+      },
+      {
+        "start": 29.2,
+        "end": 35.98,
+        "text": "저희� alliance",
+        "speaker": "moderator",
+        "duration": 6.779999999999998
+      },
+      {
+        "start": 35.98,
+        "end": 36.26,
+        "text": "asz ноч",
+        "speaker": "moderator",
+        "duration": 0.28000000000000114
+      },
+      {
+        "start": 36.26,
+        "end": 38.06,
+        "text": "제 Choice 감수를",
+        "speaker": "moderator",
+        "duration": 1.8000000000000043
+      },
+      {
+        "start": 38.06,
+        "end": 47.24,
+        "text": "내 지금 의상 Lots of im at I think",
+        "speaker": "moderator",
+        "duration": 9.18
+      },
+      {
+        "start": 61.1,
+        "end": 62.7,
+        "text": "аз Organ",
+        "speaker": "moderator",
+        "duration": 1.6000000000000014
+      },
+      {
+        "start": 84.58,
+        "end": 85.98,
+        "text": "감사합니다",
+        "speaker": "moderator",
+        "duration": 1.4000000000000057
+      }
+    ],
+    "speaker_stats": {
+      "moderator": {
+        "total_duration": 25.20000000000001,
+        "segment_count": 10,
+        "total_text_length": 89,
+        "texts": [
+          "그誰의",
+          "� случае",
+          "일단",
+          "선],",
+          "저희� alliance",
+          "asz ноч",
+          "제 Choice 감수를",
+          "내 지금 의상 Lots of im at I think",
+          "аз Organ",
+          "감사합니다"
+        ],
+        "role": "사회자",
+        "sample_text": "내 지금 의상 Lots of im at I think"
+      }
+    },
+    "success": true
+  },
+  "새로운 녹음.m4a": {
+    "filename": "새로운 녹음.m4a",
+    "total_duration": 0,
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 19.66,
+        "text": "의미 vem의",
+        "speaker": "moderator",
+        "duration": 19.66
+      },
+      {
+        "start": 26.3,
+        "end": 26.3,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 42.56,
+        "end": 43.96,
+        "text": "파규가",
+        "speaker": "moderator",
+        "duration": 1.3999999999999986
+      },
+      {
+        "start": 43.96,
+        "end": 44.54,
+        "text": "식사 Andrew 중간 bem택으로",
+        "speaker": "moderator",
+        "duration": 0.5799999999999983
+      },
+      {
+        "start": 44.54,
+        "end": 45.98,
+        "text": "공급단 land위에",
+        "speaker": "moderator",
+        "duration": 1.4399999999999977
+      },
+      {
+        "start": 49.02,
+        "end": 51.82,
+        "text": "maternity aggregate",
+        "speaker": "moderator",
+        "duration": 2.799999999999997
+      },
+      {
+        "start": 51.82,
+        "end": 53.06,
+        "text": "하고 계산 Elektore",
+        "speaker": "moderator",
+        "duration": 1.240000000000002
+      },
+      {
+        "start": 55.4,
+        "end": 56.8,
+        "text": "미",
+        "speaker": "moderator",
+        "duration": 1.3999999999999986
+      },
+      {
+        "start": 56.8,
+        "end": 63.48,
+        "text": "GOD의 프로운에서 물어본다,",
+        "speaker": "moderator",
+        "duration": 6.68
+      },
+      {
+        "start": 65.25999999999999,
+        "end": 66.66,
+        "text": "하나하나 Beau,",
+        "speaker": "moderator",
+        "duration": 1.4000000000000057
+      },
+      {
+        "start": 66.66,
+        "end": 71.14,
+        "text": "소 bashb laughing ball",
+        "speaker": "moderator",
+        "duration": 4.480000000000004
+      },
+      {
+        "start": 82.65999999999998,
+        "end": 85.5,
+        "text": "우리 전fer연신의 고 them",
+        "speaker": "moderator",
+        "duration": 2.8400000000000176
+      },
+      {
+        "start": 85.5,
+        "end": 86.78,
+        "text": "urities 언급하고",
+        "speaker": "moderator",
+        "duration": 1.2800000000000011
+      },
+      {
+        "start": 71.94,
+        "end": 86.28,
+        "text": "MAX",
+        "speaker": "moderator",
+        "duration": 14.340000000000003
+      },
+      {
+        "start": 90.16,
+        "end": 91.56,
+        "text": "facility 2입니다.",
+        "speaker": "moderator",
+        "duration": 1.4000000000000057
+      },
+      {
+        "start": 110.08,
+        "end": 111.48,
+        "text": "그녀와Р어이가",
+        "speaker": "moderator",
+        "duration": 1.4000000000000057
+      },
+      {
+        "start": 102.44,
+        "end": 113.03999999999999,
+        "text": "А",
+        "speaker": "moderator",
+        "duration": 10.599999999999994
+      },
+      {
+        "start": 116.74,
+        "end": 119.56,
+        "text": "drug Painless leche",
+        "speaker": "moderator",
+        "duration": 2.8200000000000074
+      },
+      {
+        "start": 119.56,
+        "end": 119.56,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 119.56,
+        "end": 119.56,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 119.56,
+        "end": 119.56,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 119.56,
+        "end": 119.56,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 119.56,
+        "end": 119.56,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 122.14,
+        "end": 123.54,
+        "text": "supports",
+        "speaker": "moderator",
+        "duration": 1.4000000000000057
+      },
+      {
+        "start": 128.14000000000001,
+        "end": 128.54,
+        "text": "ability",
+        "speaker": "moderator",
+        "duration": 0.39999999999997726
+      },
+      {
+        "start": 129.06,
+        "end": 129.3,
+        "text": "often",
+        "speaker": "moderator",
+        "duration": 0.2400000000000091
+      },
+      {
+        "start": 129.3,
+        "end": 129.48,
+        "text": "law",
+        "speaker": "moderator",
+        "duration": 0.1799999999999784
+      },
+      {
+        "start": 130.26,
+        "end": 130.58,
+        "text": "practices",
+        "speaker": "moderator",
+        "duration": 0.3200000000000216
+      },
+      {
+        "start": 130.58,
+        "end": 131.48,
+        "text": "mean",
+        "speaker": "moderator",
+        "duration": 0.8999999999999773
+      },
+      {
+        "start": 131.48,
+        "end": 136.42,
+        "text": "Fry means",
+        "speaker": "moderator",
+        "duration": 4.939999999999998
+      },
+      {
+        "start": 136.42,
+        "end": 137.34,
+        "text": "advocates",
+        "speaker": "moderator",
+        "duration": 0.9200000000000159
+      },
+      {
+        "start": 137.34,
+        "end": 137.34,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 137.34,
+        "end": 138.72,
+        "text": "여자 ordered wie chain",
+        "speaker": "moderator",
+        "duration": 1.3799999999999955
+      },
+      {
+        "start": 138.72,
+        "end": 139.46,
+        "text": "자격의",
+        "speaker": "moderator",
+        "duration": 0.7400000000000091
+      },
+      {
+        "start": 141.52,
+        "end": 142.8,
+        "text": "1999MyMt",
+        "speaker": "moderator",
+        "duration": 1.2800000000000011
+      },
+      {
+        "start": 147.35999999999999,
+        "end": 148.82,
+        "text": "footsteps簡單植임 safe",
+        "speaker": "moderator",
+        "duration": 1.460000000000008
+      },
+      {
+        "start": 159.16,
+        "end": 161.96,
+        "text": "crime jewelry",
+        "speaker": "moderator",
+        "duration": 2.8000000000000114
+      },
+      {
+        "start": 184.23999999999998,
+        "end": 185.64,
+        "text": "Sister는",
+        "speaker": "moderator",
+        "duration": 1.4000000000000057
+      },
+      {
+        "start": 185.64,
+        "end": 186.92,
+        "text": "phonetic싱한 크�acula잉 Impect에ung",
+        "speaker": "moderator",
+        "duration": 1.2800000000000011
+      },
+      {
+        "start": 186.92,
+        "end": 188.52,
+        "text": "가정 popping",
+        "speaker": "moderator",
+        "duration": 1.6000000000000227
+      },
+      {
+        "start": 188.52,
+        "end": 188.52,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 190.01999999999998,
+        "end": 191.68,
+        "text": "Bath is",
+        "speaker": "moderator",
+        "duration": 1.660000000000025
+      },
+      {
+        "start": 192.51999999999998,
+        "end": 192.94,
+        "text": "Aldan",
+        "speaker": "moderator",
+        "duration": 0.4200000000000159
+      },
+      {
+        "start": 192.94,
+        "end": 193.68,
+        "text": "John",
+        "speaker": "moderator",
+        "duration": 0.7400000000000091
+      },
+      {
+        "start": 193.68,
+        "end": 193.68,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 193.68,
+        "end": 193.68,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 193.68,
+        "end": 196.14,
+        "text": "에폭tain",
+        "speaker": "moderator",
+        "duration": 2.4599999999999795
+      },
+      {
+        "start": 205.51999999999998,
+        "end": 206.92,
+        "text": "講어있고",
+        "speaker": "moderator",
+        "duration": 1.4000000000000057
+      },
+      {
+        "start": 206.92,
+        "end": 206.92,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 206.92,
+        "end": 206.92,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 206.92,
+        "end": 206.92,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 206.92,
+        "end": 209.96,
+        "text": "공연",
+        "speaker": "moderator",
+        "duration": 3.0400000000000205
+      },
+      {
+        "start": 209.96,
+        "end": 210.82,
+        "text": "대 Cook",
+        "speaker": "moderator",
+        "duration": 0.8599999999999852
+      },
+      {
+        "start": 210.82,
+        "end": 214.4,
+        "text": "our panel session",
+        "speaker": "moderator",
+        "duration": 3.5800000000000125
+      },
+      {
+        "start": 211.04,
+        "end": 213.16,
+        "text": "jun",
+        "speaker": "moderator",
+        "duration": 2.1200000000000045
+      },
+      {
+        "start": 213.17999999999998,
+        "end": 214.35999999999999,
+        "text": "ler",
+        "speaker": "moderator",
+        "duration": 1.1800000000000068
+      },
+      {
+        "start": 214.39999999999998,
+        "end": 215.38,
+        "text": "ingredients",
+        "speaker": "moderator",
+        "duration": 0.9800000000000182
+      },
+      {
+        "start": 214.4,
+        "end": 215.68,
+        "text": "Fra microscope",
+        "speaker": "moderator",
+        "duration": 1.2800000000000011
+      },
+      {
+        "start": 215.68,
+        "end": 216.36,
+        "text": "and to saat FIRian",
+        "speaker": "moderator",
+        "duration": 0.6800000000000068
+      },
+      {
+        "start": 216.88,
+        "end": 217.16,
+        "text": "press MC",
+        "speaker": "moderator",
+        "duration": 0.28000000000000114
+      },
+      {
+        "start": 217.16,
+        "end": 218.14,
+        "text": "please welcome",
+        "speaker": "moderator",
+        "duration": 0.9799999999999898
+      },
+      {
+        "start": 218.14,
+        "end": 218.78,
+        "text": "liyeon",
+        "speaker": "moderator",
+        "duration": 0.6400000000000148
+      },
+      {
+        "start": 218.78,
+        "end": 219.36,
+        "text": "from chalif",
+        "speaker": "moderator",
+        "duration": 0.5800000000000125
+      },
+      {
+        "start": 219.36,
+        "end": 220.36,
+        "text": "your review",
+        "speaker": "moderator",
+        "duration": 1.0
+      },
+      {
+        "start": 222.08,
+        "end": 222.96,
+        "text": "Thank you everybody",
+        "speaker": "moderator",
+        "duration": 0.8799999999999955
+      },
+      {
+        "start": 222.96,
+        "end": 223.96,
+        "text": "You were absolutely",
+        "speaker": "moderator",
+        "duration": 1.0
+      },
+      {
+        "start": 228.20000000000002,
+        "end": 230.64,
+        "text": "Thank you completely",
+        "speaker": "moderator",
+        "duration": 2.4399999999999693
+      },
+      {
+        "start": 230.64,
+        "end": 233.34,
+        "text": "zan to share in our",
+        "speaker": "moderator",
+        "duration": 2.700000000000017
+      },
+      {
+        "start": 233.34,
+        "end": 234.24,
+        "text": "experiences and thoughts",
+        "speaker": "moderator",
+        "duration": 0.9000000000000057
+      },
+      {
+        "start": 234.24,
+        "end": 237.36,
+        "text": "importantly let me be",
+        "speaker": "moderator",
+        "duration": 3.1200000000000045
+      },
+      {
+        "start": 237.36,
+        "end": 238.82,
+        "text": "an Instruction of",
+        "speaker": "moderator",
+        "duration": 1.4599999999999795
+      },
+      {
+        "start": 238.82,
+        "end": 240.0,
+        "text": "what we do on destinations",
+        "speaker": "moderator",
+        "duration": 1.1800000000000068
+      },
+      {
+        "start": 240.0,
+        "end": 270.0,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 30.0
+      },
+      {
+        "start": 270.0,
+        "end": 270.32,
+        "text": "͜ater",
+        "speaker": "moderator",
+        "duration": 0.3199999999999932
+      },
+      {
+        "start": 270.32,
+        "end": 271.18,
+        "text": "아니에요,",
+        "speaker": "moderator",
+        "duration": 0.8600000000000136
+      },
+      {
+        "start": 298.8,
+        "end": 299.98,
+        "text": "아프리언트",
+        "speaker": "moderator",
+        "duration": 1.1800000000000068
+      },
+      {
+        "start": 316.02000000000004,
+        "end": 316.6,
+        "text": "저희 partnerships은",
+        "speaker": "moderator",
+        "duration": 0.5799999999999841
+      },
+      {
+        "start": 316.6,
+        "end": 320.3,
+        "text": "수의 targets abbreviation을 fascinating해",
+        "speaker": "moderator",
+        "duration": 3.6999999999999886
+      },
+      {
+        "start": 320.3,
+        "end": 320.58,
+        "text": "Dog.",
+        "speaker": "moderator",
+        "duration": 0.2799999999999727
+      },
+      {
+        "start": 333.66,
+        "end": 334.62,
+        "text": "rumors.",
+        "speaker": "moderator",
+        "duration": 0.9599999999999795
+      },
+      {
+        "start": 338.54,
+        "end": 339.98,
+        "text": "Coll circle or",
+        "speaker": "moderator",
+        "duration": 1.4399999999999977
+      },
+      {
+        "start": 339.98,
+        "end": 343.40000000000003,
+        "text": "트� balancing,",
+        "speaker": "moderator",
+        "duration": 3.420000000000016
+      },
+      {
+        "start": 343.4,
+        "end": 348.32,
+        "text": "연구�ig motif을 이뤄 �ètres Inspired Precious Matter small spillion",
+        "speaker": "moderator",
+        "duration": 4.920000000000016
+      },
+      {
+        "start": 348.32,
+        "end": 349.14,
+        "text": "of pages of Tracy'에 꿔 Brankey.",
+        "speaker": "moderator",
+        "duration": 0.8199999999999932
+      },
+      {
+        "start": 349.84,
+        "end": 352.94,
+        "text": "이 ersten fracture를",
+        "speaker": "moderator",
+        "duration": 3.1000000000000227
+      },
+      {
+        "start": 352.94,
+        "end": 353.72,
+        "text": "더 cet seitoki야로",
+        "speaker": "moderator",
+        "duration": 0.7800000000000296
+      },
+      {
+        "start": 353.72,
+        "end": 354.7,
+        "text": "자막진주.",
+        "speaker": "moderator",
+        "duration": 0.9799999999999613
+      },
+      {
+        "start": 355.18,
+        "end": 357.08,
+        "text": "milli Kil hips",
+        "speaker": "moderator",
+        "duration": 1.8999999999999773
+      },
+      {
+        "start": 363.99999999999994,
+        "end": 365.2,
+        "text": "apon disciplinary",
+        "speaker": "moderator",
+        "duration": 1.2000000000000455
+      },
+      {
+        "start": 365.2,
+        "end": 368.12,
+        "text": "oddly",
+        "speaker": "moderator",
+        "duration": 2.920000000000016
+      },
+      {
+        "start": 365.38,
+        "end": 366.88,
+        "text": "거의",
+        "speaker": "moderator",
+        "duration": 1.5
+      },
+      {
+        "start": 366.88,
+        "end": 368.68,
+        "text": "vi Active treasencial clubs는",
+        "speaker": "moderator",
+        "duration": 1.8000000000000114
+      },
+      {
+        "start": 368.68,
+        "end": 371.40000000000003,
+        "text": "務이 algunos 우리法명님로",
+        "speaker": "moderator",
+        "duration": 2.7200000000000273
+      },
+      {
+        "start": 376.52000000000004,
+        "end": 377.92,
+        "text": "더 많이",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 377.92,
+        "end": 378.24,
+        "text": "ным Kum END obra 관회를",
+        "speaker": "moderator",
+        "duration": 0.3199999999999932
+      },
+      {
+        "start": 378.24,
+        "end": 380.4,
+        "text": "제학구와",
+        "speaker": "moderator",
+        "duration": 2.159999999999968
+      },
+      {
+        "start": 383.58,
+        "end": 395.38,
+        "text": "ClydALL",
+        "speaker": "moderator",
+        "duration": 11.800000000000011
+      },
+      {
+        "start": 407.32000000000005,
+        "end": 408.72,
+        "text": "원",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 425.0,
+        "end": 426.4,
+        "text": "А",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 426.4,
+        "end": 428.48,
+        "text": "이 주식의",
+        "speaker": "moderator",
+        "duration": 2.080000000000041
+      },
+      {
+        "start": 428.48,
+        "end": 430.54,
+        "text": "가장 중요한 예리입니다 심얼 teenagers",
+        "speaker": "moderator",
+        "duration": 2.0600000000000023
+      },
+      {
+        "start": 430.54,
+        "end": 434.06,
+        "text": "주류 wasn't-",
+        "speaker": "moderator",
+        "duration": 3.519999999999982
+      },
+      {
+        "start": 437.26000000000005,
+        "end": 442.82,
+        "text": "전 cuid calcium 8147 조",
+        "speaker": "moderator",
+        "duration": 5.559999999999945
+      },
+      {
+        "start": 442.82,
+        "end": 443.72,
+        "text": "항조",
+        "speaker": "moderator",
+        "duration": 0.9000000000000341
+      },
+      {
+        "start": 446.6,
+        "end": 448.0,
+        "text": "품새",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 448.0,
+        "end": 448.02,
+        "text": "usto",
+        "speaker": "moderator",
+        "duration": 0.01999999999998181
+      },
+      {
+        "start": 462.06,
+        "end": 463.06,
+        "text": "있네요.",
+        "speaker": "moderator",
+        "duration": 1.0
+      },
+      {
+        "start": 453.52000000000004,
+        "end": 455.34,
+        "text": "전공으로 다른 clinics,",
+        "speaker": "moderator",
+        "duration": 1.8199999999999363
+      },
+      {
+        "start": 455.4,
+        "end": 456.74,
+        "text": "titt이 especialmente",
+        "speaker": "moderator",
+        "duration": 1.3400000000000318
+      },
+      {
+        "start": 456.74,
+        "end": 459.46,
+        "text": "ок우�ura인atterpartiuna 부족하고",
+        "speaker": "moderator",
+        "duration": 2.7199999999999704
+      },
+      {
+        "start": 459.46,
+        "end": 460.34,
+        "text": "zer기에 독간의",
+        "speaker": "moderator",
+        "duration": 0.8799999999999955
+      },
+      {
+        "start": 460.34,
+        "end": 462.94,
+        "text": "samerater nosci현 further",
+        "speaker": "moderator",
+        "duration": 2.6000000000000227
+      },
+      {
+        "start": 473.64,
+        "end": 473.88,
+        "text": "muniz",
+        "speaker": "moderator",
+        "duration": 0.2400000000000091
+      },
+      {
+        "start": 473.88,
+        "end": 475.79999999999995,
+        "text": "압행",
+        "speaker": "moderator",
+        "duration": 1.919999999999959
+      },
+      {
+        "start": 475.79999999999995,
+        "end": 476.9,
+        "text": "Split",
+        "speaker": "moderator",
+        "duration": 1.1000000000000227
+      },
+      {
+        "start": 462.94,
+        "end": 464.78,
+        "text": "bubble firm 러시아 특집进군고도",
+        "speaker": "moderator",
+        "duration": 1.839999999999975
+      },
+      {
+        "start": 464.78,
+        "end": 467.74,
+        "text": "이를Team아디와 왕지적 연 lifts",
+        "speaker": "moderator",
+        "duration": 2.9600000000000364
+      },
+      {
+        "start": 467.74,
+        "end": 469.36,
+        "text": "주황醫원과 업그레이드",
+        "speaker": "moderator",
+        "duration": 1.6200000000000045
+      },
+      {
+        "start": 471.02,
+        "end": 471.02,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 471.02,
+        "end": 471.02,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 471.02,
+        "end": 471.58,
+        "text": "Above",
+        "speaker": "moderator",
+        "duration": 0.5600000000000023
+      },
+      {
+        "start": 475.38,
+        "end": 476.78,
+        "text": "KELSEE",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 479.26000000000005,
+        "end": 497.96,
+        "text": "걸쾌한ание는��다 체� Koh Sea 도입의",
+        "speaker": "moderator",
+        "duration": 18.699999999999932
+      },
+      {
+        "start": 503.78000000000003,
+        "end": 505.18,
+        "text": "alternation",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 531.38,
+        "end": 532.1,
+        "text": "евой 기",
+        "speaker": "moderator",
+        "duration": 0.7200000000000273
+      },
+      {
+        "start": 532.1,
+        "end": 532.9,
+        "text": "비 Al",
+        "speaker": "moderator",
+        "duration": 0.7999999999999545
+      },
+      {
+        "start": 532.9,
+        "end": 533.14,
+        "text": "고",
+        "speaker": "moderator",
+        "duration": 0.2400000000000091
+      },
+      {
+        "start": 564.42,
+        "end": 565.6,
+        "text": "GOTC Electric Fund引의,",
+        "speaker": "moderator",
+        "duration": 1.1800000000000637
+      },
+      {
+        "start": 566.14,
+        "end": 566.34,
+        "text": "Brad John Smaller Micro-Line VJi",
+        "speaker": "moderator",
+        "duration": 0.20000000000004547
+      },
+      {
+        "start": 566.34,
+        "end": 566.7,
+        "text": "Nós입니다.",
+        "speaker": "moderator",
+        "duration": 0.36000000000001364
+      },
+      {
+        "start": 567.28,
+        "end": 567.98,
+        "text": "Congratulations,",
+        "speaker": "moderator",
+        "duration": 0.7000000000000455
+      },
+      {
+        "start": 567.98,
+        "end": 568.8,
+        "text": "on telling ourgovernment company,",
+        "speaker": "moderator",
+        "duration": 0.8199999999999363
+      },
+      {
+        "start": 573.96,
+        "end": 575.74,
+        "text": "לכ건를 함께 conduc어",
+        "speaker": "moderator",
+        "duration": 1.7799999999999727
+      },
+      {
+        "start": 589.62,
+        "end": 591.86,
+        "text": "villa의 emphasizes",
+        "speaker": "moderator",
+        "duration": 2.240000000000009
+      },
+      {
+        "start": 613.84,
+        "end": 615.24,
+        "text": "저는",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 620.0,
+        "end": 621.58,
+        "text": "결ardon CSV",
+        "speaker": "moderator",
+        "duration": 1.580000000000041
+      },
+      {
+        "start": 621.58,
+        "end": 622.48,
+        "text": "thanks for the awesome.",
+        "speaker": "moderator",
+        "duration": 0.8999999999999773
+      },
+      {
+        "start": 623.26,
+        "end": 625.88,
+        "text": "thank you very much.",
+        "speaker": "moderator",
+        "duration": 2.6200000000000045
+      },
+      {
+        "start": 625.96,
+        "end": 626.4,
+        "text": "thank you.",
+        "speaker": "moderator",
+        "duration": 0.4399999999999409
+      },
+      {
+        "start": 627.84,
+        "end": 634.5,
+        "text": "I think you've proven that sustainability is an infinite journey.",
+        "speaker": "moderator",
+        "duration": 6.659999999999968
+      },
+      {
+        "start": 634.92,
+        "end": 635.7,
+        "text": "it doesn't end.",
+        "speaker": "moderator",
+        "duration": 0.7800000000000864
+      },
+      {
+        "start": 636.1,
+        "end": 638.46,
+        "text": "it's a long-term plan from child life.",
+        "speaker": "moderator",
+        "duration": 2.3600000000000136
+      },
+      {
+        "start": 638.72,
+        "end": 642.86,
+        "text": "and I believe after that there will be another long-term plan coming up.",
+        "speaker": "moderator",
+        "duration": 4.139999999999986
+      },
+      {
+        "start": 643.32,
+        "end": 646.0,
+        "text": "Okay, now our next panelist.",
+        "speaker": "moderator",
+        "duration": 2.67999999999995
+      },
+      {
+        "start": 646.34,
+        "end": 647.7,
+        "text": "let's all welcome Henry.",
+        "speaker": "moderator",
+        "duration": 1.3600000000000136
+      },
+      {
+        "start": 648.04,
+        "end": 649.62,
+        "text": "Henry the Flores Yorms.",
+        "speaker": "moderator",
+        "duration": 1.580000000000041
+      },
+      {
+        "start": 649.62,
+        "end": 650.1,
+        "text": "감사합니다",
+        "speaker": "moderator",
+        "duration": 0.4800000000000182
+      },
+      {
+        "start": 650.1,
+        "end": 651.84,
+        "text": "안녕하세요",
+        "speaker": "moderator",
+        "duration": 1.740000000000009
+      },
+      {
+        "start": 651.84,
+        "end": 657.66,
+        "text": "여러분 스스로도",
+        "speaker": "moderator",
+        "duration": 5.819999999999936
+      },
+      {
+        "start": 659.82,
+        "end": 661.22,
+        "text": "and",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 661.22,
+        "end": 661.76,
+        "text": "cl pm",
+        "speaker": "moderator",
+        "duration": 0.5399999999999636
+      },
+      {
+        "start": 669.14,
+        "end": 669.14,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 669.14,
+        "end": 669.14,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 669.14,
+        "end": 669.14,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 669.14,
+        "end": 672.34,
+        "text": "패 틞�",
+        "speaker": "moderator",
+        "duration": 3.2000000000000455
+      },
+      {
+        "start": 672.34,
+        "end": 672.8,
+        "text": "네",
+        "speaker": "moderator",
+        "duration": 0.4599999999999227
+      },
+      {
+        "start": 672.8,
+        "end": 673.78,
+        "text": "Snowrelle",
+        "speaker": "moderator",
+        "duration": 0.9800000000000182
+      },
+      {
+        "start": 673.78,
+        "end": 674.36,
+        "text": "ומר",
+        "speaker": "moderator",
+        "duration": 0.5800000000000409
+      },
+      {
+        "start": 674.36,
+        "end": 675.18,
+        "text": "그다음에",
+        "speaker": "moderator",
+        "duration": 0.8199999999999363
+      },
+      {
+        "start": 675.18,
+        "end": 675.18,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 675.18,
+        "end": 676.82,
+        "text": "어린 땐",
+        "speaker": "moderator",
+        "duration": 1.6400000000001
+      },
+      {
+        "start": 676.82,
+        "end": 676.82,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 676.82,
+        "end": 676.84,
+        "text": "느낄",
+        "speaker": "moderator",
+        "duration": 0.01999999999998181
+      },
+      {
+        "start": 681.58,
+        "end": 684.38,
+        "text": "언れて",
+        "speaker": "moderator",
+        "duration": 2.7999999999999545
+      },
+      {
+        "start": 685.12,
+        "end": 685.1600000000001,
+        "text": "언れて",
+        "speaker": "moderator",
+        "duration": 0.04000000000007731
+      },
+      {
+        "start": 685.1600000000001,
+        "end": 686.36,
+        "text": "언れて",
+        "speaker": "moderator",
+        "duration": 1.1999999999999318
+      },
+      {
+        "start": 686.36,
+        "end": 688.0600000000001,
+        "text": "ello",
+        "speaker": "moderator",
+        "duration": 1.7000000000000455
+      },
+      {
+        "start": 688.0600000000001,
+        "end": 689.46,
+        "text": "mara",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 689.46,
+        "end": 690.2,
+        "text": "Ray",
+        "speaker": "moderator",
+        "duration": 0.7400000000000091
+      },
+      {
+        "start": 690.2,
+        "end": 690.46,
+        "text": "애",
+        "speaker": "moderator",
+        "duration": 0.2599999999999909
+      },
+      {
+        "start": 712.0400000000001,
+        "end": 713.44,
+        "text": "geldi는",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 713.44,
+        "end": 715.36,
+        "text": "브라ilib room은",
+        "speaker": "moderator",
+        "duration": 1.919999999999959
+      },
+      {
+        "start": 715.36,
+        "end": 716.36,
+        "text": "우리 어느 addition",
+        "speaker": "moderator",
+        "duration": 1.0
+      },
+      {
+        "start": 716.36,
+        "end": 722.3,
+        "text": "节다로 Kevin Horacker woolyg주의",
+        "speaker": "moderator",
+        "duration": 5.939999999999941
+      },
+      {
+        "start": 722.3,
+        "end": 726.0,
+        "text": "사람들 його 언론에 Cad ad",
+        "speaker": "moderator",
+        "duration": 3.7000000000000455
+      },
+      {
+        "start": 751.7,
+        "end": 753.1,
+        "text": "더ения가",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 781.6800000000001,
+        "end": 782.72,
+        "text": "Aleconductive.",
+        "speaker": "moderator",
+        "duration": 1.0399999999999636
+      },
+      {
+        "start": 782.72,
+        "end": 782.82,
+        "text": "父 veggie는",
+        "speaker": "moderator",
+        "duration": 0.10000000000002274
+      },
+      {
+        "start": 782.82,
+        "end": 783.08,
+        "text": "en",
+        "speaker": "moderator",
+        "duration": 0.2599999999999909
+      },
+      {
+        "start": 767.6800000000001,
+        "end": 769.66,
+        "text": "ALK",
+        "speaker": "moderator",
+        "duration": 1.9799999999999045
+      },
+      {
+        "start": 772.7,
+        "end": 775.6800000000001,
+        "text": "그대의",
+        "speaker": "moderator",
+        "duration": 2.980000000000018
+      },
+      {
+        "start": 800.14,
+        "end": 802.02,
+        "text": "웃고 있는",
+        "speaker": "moderator",
+        "duration": 1.8799999999999955
+      },
+      {
+        "start": 802.02,
+        "end": 804.56,
+        "text": "그리고",
+        "speaker": "moderator",
+        "duration": 2.5399999999999636
+      },
+      {
+        "start": 808.8000000000001,
+        "end": 811.6,
+        "text": "어쩌다려나 왜",
+        "speaker": "moderator",
+        "duration": 2.7999999999999545
+      },
+      {
+        "start": 829.62,
+        "end": 831.02,
+        "text": "Marshall을",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 831.02,
+        "end": 831.9,
+        "text": "circulating",
+        "speaker": "moderator",
+        "duration": 0.8799999999999955
+      },
+      {
+        "start": 831.9,
+        "end": 833.36,
+        "text": "Hinduly P tongue system",
+        "speaker": "moderator",
+        "duration": 1.4600000000000364
+      },
+      {
+        "start": 834.72,
+        "end": 835.6,
+        "text": "점점",
+        "speaker": "moderator",
+        "duration": 0.8799999999999955
+      },
+      {
+        "start": 835.6,
+        "end": 838.54,
+        "text": "lungen 대책하는",
+        "speaker": "moderator",
+        "duration": 2.939999999999941
+      },
+      {
+        "start": 838.54,
+        "end": 838.54,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 849.48,
+        "end": 857.38,
+        "text": "과andy",
+        "speaker": "moderator",
+        "duration": 7.899999999999977
+      },
+      {
+        "start": 838.54,
+        "end": 840.28,
+        "text": "셔콘은 이 작품에",
+        "speaker": "moderator",
+        "duration": 1.740000000000009
+      },
+      {
+        "start": 840.28,
+        "end": 841.74,
+        "text": "이런 주 мо고",
+        "speaker": "moderator",
+        "duration": 1.4600000000000364
+      },
+      {
+        "start": 841.74,
+        "end": 843.36,
+        "text": "제가 Kristalai's Gemstone",
+        "speaker": "moderator",
+        "duration": 1.6200000000000045
+      },
+      {
+        "start": 843.36,
+        "end": 843.66,
+        "text": "injust요.",
+        "speaker": "moderator",
+        "duration": 0.2999999999999545
+      },
+      {
+        "start": 844.58,
+        "end": 845.94,
+        "text": "again",
+        "speaker": "moderator",
+        "duration": 1.3600000000000136
+      },
+      {
+        "start": 848.14,
+        "end": 849.5,
+        "text": "네이미 ее",
+        "speaker": "moderator",
+        "duration": 1.3600000000000136
+      },
+      {
+        "start": 849.5,
+        "end": 849.5,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 849.5,
+        "end": 850.66,
+        "text": "이스타를",
+        "speaker": "moderator",
+        "duration": 1.1599999999999682
+      },
+      {
+        "start": 850.66,
+        "end": 850.66,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 850.66,
+        "end": 850.9,
+        "text": "일자",
+        "speaker": "moderator",
+        "duration": 0.2400000000000091
+      },
+      {
+        "start": 850.9,
+        "end": 852.2,
+        "text": "잠� well",
+        "speaker": "moderator",
+        "duration": 1.3000000000000682
+      },
+      {
+        "start": 852.2,
+        "end": 852.56,
+        "text": "여깄",
+        "speaker": "moderator",
+        "duration": 0.35999999999989996
+      },
+      {
+        "start": 856.54,
+        "end": 859.26,
+        "text": "제 expands",
+        "speaker": "moderator",
+        "duration": 2.7200000000000273
+      },
+      {
+        "start": 862.3,
+        "end": 863.66,
+        "text": "요선",
+        "speaker": "moderator",
+        "duration": 1.3600000000000136
+      },
+      {
+        "start": 863.66,
+        "end": 865.74,
+        "text": "음료",
+        "speaker": "moderator",
+        "duration": 2.080000000000041
+      },
+      {
+        "start": 865.74,
+        "end": 866.46,
+        "text": "ust",
+        "speaker": "moderator",
+        "duration": 0.7200000000000273
+      },
+      {
+        "start": 866.46,
+        "end": 867.18,
+        "text": "ꈌ",
+        "speaker": "moderator",
+        "duration": 0.7199999999999136
+      },
+      {
+        "start": 867.18,
+        "end": 867.4,
+        "text": "제",
+        "speaker": "moderator",
+        "duration": 0.22000000000002728
+      },
+      {
+        "start": 866.0,
+        "end": 866.68,
+        "text": "제",
+        "speaker": "moderator",
+        "duration": 0.67999999999995
+      },
+      {
+        "start": 866.68,
+        "end": 867.3399999999999,
+        "text": "고보",
+        "speaker": "moderator",
+        "duration": 0.6599999999999682
+      },
+      {
+        "start": 867.3399999999999,
+        "end": 868.48,
+        "text": "안",
+        "speaker": "moderator",
+        "duration": 1.1400000000001
+      },
+      {
+        "start": 895.44,
+        "end": 896.56,
+        "text": "맛있어요!",
+        "speaker": "moderator",
+        "duration": 1.1199999999998909
+      },
+      {
+        "start": 896.56,
+        "end": 897.1,
+        "text": "The World Foundry",
+        "speaker": "moderator",
+        "duration": 0.5400000000000773
+      },
+      {
+        "start": 897.1,
+        "end": 897.1,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 891.66,
+        "end": 895.1,
+        "text": "마유",
+        "speaker": "moderator",
+        "duration": 3.4400000000000546
+      },
+      {
+        "start": 897.1,
+        "end": 911.36,
+        "text": "온 gangs notation one or oneда제같이",
+        "speaker": "moderator",
+        "duration": 14.259999999999991
+      },
+      {
+        "start": 914.38,
+        "end": 914.4,
+        "text": "fringe",
+        "speaker": "moderator",
+        "duration": 0.01999999999998181
+      },
+      {
+        "start": 925.6800000000001,
+        "end": 927.08,
+        "text": "쥬얼한",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 939.84,
+        "end": 941.24,
+        "text": "경인 achieve",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 941.24,
+        "end": 954.88,
+        "text": "너무 changer",
+        "speaker": "moderator",
+        "duration": 13.639999999999986
+      },
+      {
+        "start": 958.1999999999999,
+        "end": 960.76,
+        "text": "Thank you very much Henry.",
+        "speaker": "moderator",
+        "duration": 2.560000000000059
+      },
+      {
+        "start": 962.24,
+        "end": 967.38,
+        "text": "Our next panelists, Let's welcome Catherine of PICS,",
+        "speaker": "moderator",
+        "duration": 5.139999999999986
+      },
+      {
+        "start": 967.5,
+        "end": 975.74,
+        "text": "I'll find youly one of the finalists for this Sustainability Awards 2025 by JWA Academy of LORIS WORKS.",
+        "speaker": "moderator",
+        "duration": 8.240000000000009
+      },
+      {
+        "start": 976.0,
+        "end": 976.88,
+        "text": "Thank you so much Mary.",
+        "speaker": "moderator",
+        "duration": 0.8799999999999955
+      },
+      {
+        "start": 977.58,
+        "end": 980.38,
+        "text": "So before I start, let me ask you one question.",
+        "speaker": "moderator",
+        "duration": 2.7999999999999545
+      },
+      {
+        "start": 981.38,
+        "end": 982.96,
+        "text": "What makes something beautiful?",
+        "speaker": "moderator",
+        "duration": 1.580000000000041
+      },
+      {
+        "start": 1012.0,
+        "end": 1013.4,
+        "text": "忍고도",
+        "speaker": "moderator",
+        "duration": 1.3999999999999773
+      },
+      {
+        "start": 1013.4,
+        "end": 1014.86,
+        "text": "유젝",
+        "speaker": "moderator",
+        "duration": 1.4600000000000364
+      },
+      {
+        "start": 1022.28,
+        "end": 1023.12,
+        "text": "그림이나",
+        "speaker": "moderator",
+        "duration": 0.8400000000000318
+      },
+      {
+        "start": 1023.12,
+        "end": 1023.56,
+        "text": "şu compliance",
+        "speaker": "moderator",
+        "duration": 0.4399999999999409
+      },
+      {
+        "start": 1034.48,
+        "end": 1035.32,
+        "text": "이번에는",
+        "speaker": "moderator",
+        "duration": 0.8399999999999181
+      },
+      {
+        "start": 1035.32,
+        "end": 1035.46,
+        "text": "그걸",
+        "speaker": "moderator",
+        "duration": 0.14000000000010004
+      },
+      {
+        "start": 1035.46,
+        "end": 1035.46,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 1049.8999999999999,
+        "end": 1051.3,
+        "text": "저희가",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1051.3,
+        "end": 1055.72,
+        "text": "아주 큰 Sheila 라고 보시면",
+        "speaker": "moderator",
+        "duration": 4.420000000000073
+      },
+      {
+        "start": 1055.72,
+        "end": 1059.58,
+        "text": "단일 scariestauf은",
+        "speaker": "moderator",
+        "duration": 3.8599999999999
+      },
+      {
+        "start": 1059.58,
+        "end": 1062.02,
+        "text": "rada",
+        "speaker": "moderator",
+        "duration": 2.4400000000000546
+      },
+      {
+        "start": 1103.6799999999998,
+        "end": 1105.08,
+        "text": "Scandinavian literature,",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1116.7599999999998,
+        "end": 1119.56,
+        "text": "hooks français의",
+        "speaker": "moderator",
+        "duration": 2.800000000000182
+      },
+      {
+        "start": 1120.78,
+        "end": 1141.4199999999998,
+        "text": "ія이 어떻게 보itting다면 정권 사 등ý父 Panda는",
+        "speaker": "moderator",
+        "duration": 20.639999999999873
+      },
+      {
+        "start": 1142.86,
+        "end": 1147.36,
+        "text": "Powerfulobil del Sal ع빔낸 강형 평가З상의 워 cors amencel",
+        "speaker": "moderator",
+        "duration": 4.5
+      },
+      {
+        "start": 1147.36,
+        "end": 1147.36,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 1152.0399999999997,
+        "end": 1155.7,
+        "text": "100% 우리 launched",
+        "speaker": "moderator",
+        "duration": 3.6600000000003092
+      },
+      {
+        "start": 1155.7,
+        "end": 1158.78,
+        "text": "Piz Confessyour",
+        "speaker": "moderator",
+        "duration": 3.0799999999999272
+      },
+      {
+        "start": 1163.82,
+        "end": 1165.22,
+        "text": "göre",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1168.46,
+        "end": 1185.38,
+        "text": "platinum You also follow me to try that message",
+        "speaker": "speaker_2",
+        "duration": 16.920000000000073
+      },
+      {
+        "start": 1195.26,
+        "end": 1196.66,
+        "text": "내",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1196.66,
+        "end": 1202.46,
+        "text": "문제 Users' 후再见은 After War",
+        "speaker": "moderator",
+        "duration": 5.7999999999999545
+      },
+      {
+        "start": 1208.7,
+        "end": 1208.7,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 1208.7,
+        "end": 1212.44,
+        "text": "이분과 신공사 whole value",
+        "speaker": "moderator",
+        "duration": 3.740000000000009
+      },
+      {
+        "start": 1220.8799999999999,
+        "end": 1222.28,
+        "text": "자서over",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1291.7199999999998,
+        "end": 1312.26,
+        "text": "La yellSence medal",
+        "speaker": "moderator",
+        "duration": 20.54000000000019
+      },
+      {
+        "start": 1312.26,
+        "end": 1314.66,
+        "text": "있어, 뭐 이유가 올튼яж개�anco식,",
+        "speaker": "moderator",
+        "duration": 2.400000000000091
+      },
+      {
+        "start": 1317.6200000000001,
+        "end": 1318.58,
+        "text": "준비했을 때 gloraltres önem혀 지라니",
+        "speaker": "moderator",
+        "duration": 0.959999999999809
+      },
+      {
+        "start": 1341.4,
+        "end": 1342.24,
+        "text": "�keepers� empire의 일지를aced clause",
+        "speaker": "speaker_2",
+        "duration": 0.8399999999999181
+      },
+      {
+        "start": 1354.04,
+        "end": 1355.44,
+        "text": "이었어old's",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1355.44,
+        "end": 1377.56,
+        "text": "뭐 대해서 저는",
+        "speaker": "moderator",
+        "duration": 22.11999999999989
+      },
+      {
+        "start": 1377.56,
+        "end": 1381.66,
+        "text": "Kurdish sheep who knows what they're doing!",
+        "speaker": "moderator",
+        "duration": 4.100000000000136
+      },
+      {
+        "start": 1381.66,
+        "end": 1385.6,
+        "text": "Animals have great quality and inclusion",
+        "speaker": "moderator",
+        "duration": 3.939999999999827
+      },
+      {
+        "start": 1385.6,
+        "end": 1392.16,
+        "text": "건しょう 다른 thuackedie는",
+        "speaker": "moderator",
+        "duration": 6.560000000000173
+      },
+      {
+        "start": 1392.16,
+        "end": 1393.9,
+        "text": "무� Europa разг엔 치당객의 수직한 평가의",
+        "speaker": "moderator",
+        "duration": 1.740000000000009
+      },
+      {
+        "start": 1393.9,
+        "end": 1399.02,
+        "text": "마지막 기권에서 촬영할 유larını gospel입니다",
+        "speaker": "moderator",
+        "duration": 5.119999999999891
+      },
+      {
+        "start": 1405.2199999999998,
+        "end": 1409.52,
+        "text": "너무 좋은 monotaur brig",
+        "speaker": "moderator",
+        "duration": 4.300000000000182
+      },
+      {
+        "start": 1409.52,
+        "end": 1409.52,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 1448.4799999999998,
+        "end": 1451.28,
+        "text": "Carmen Crab",
+        "speaker": "moderator",
+        "duration": 2.800000000000182
+      },
+      {
+        "start": 1451.28,
+        "end": 1452.72,
+        "text": "rescued",
+        "speaker": "moderator",
+        "duration": 1.4400000000000546
+      },
+      {
+        "start": 1452.72,
+        "end": 1456.98,
+        "text": "Да Much",
+        "speaker": "moderator",
+        "duration": 4.259999999999991
+      },
+      {
+        "start": 1456.98,
+        "end": 1458.64,
+        "text": "나도",
+        "speaker": "moderator",
+        "duration": 1.6600000000000819
+      },
+      {
+        "start": 1450.58,
+        "end": 1458.12,
+        "text": "5",
+        "speaker": "moderator",
+        "duration": 7.539999999999964
+      },
+      {
+        "start": 1458.64,
+        "end": 1460.64,
+        "text": "傑 parade",
+        "speaker": "moderator",
+        "duration": 2.0
+      },
+      {
+        "start": 1463.4399999999998,
+        "end": 1464.84,
+        "text": "retrano",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1467.28,
+        "end": 1468.68,
+        "text": "어",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1485.34,
+        "end": 1486.74,
+        "text": "해주다가",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1536.08,
+        "end": 1538.88,
+        "text": "identities Shengda가",
+        "speaker": "moderator",
+        "duration": 2.800000000000182
+      },
+      {
+        "start": 1540.6399999999999,
+        "end": 1542.04,
+        "text": "장난ogue이Boyk",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1544.1999999999998,
+        "end": 1545.6,
+        "text": "asthma",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1545.6,
+        "end": 1545.6,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 1545.6,
+        "end": 1549.86,
+        "text": "thank you so much",
+        "speaker": "moderator",
+        "duration": 4.259999999999991
+      },
+      {
+        "start": 1551.6999999999998,
+        "end": 1553.1,
+        "text": "다닌",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1556.6599999999999,
+        "end": 1558.54,
+        "text": "저한夢",
+        "speaker": "moderator",
+        "duration": 1.8800000000001091
+      },
+      {
+        "start": 1566.88,
+        "end": 1567.7800000000002,
+        "text": "3iggs",
+        "speaker": "moderator",
+        "duration": 0.900000000000091
+      },
+      {
+        "start": 1567.92,
+        "end": 1568.8200000000002,
+        "text": "평생",
+        "speaker": "moderator",
+        "duration": 0.900000000000091
+      },
+      {
+        "start": 1587.5399999999997,
+        "end": 1594.0,
+        "text": "저희에 싸 usbt한 해달라는",
+        "speaker": "moderator",
+        "duration": 6.460000000000264
+      },
+      {
+        "start": 1594.0,
+        "end": 1597.56,
+        "text": "대타수의 대한민국�의 세",
+        "speaker": "moderator",
+        "duration": 3.5599999999999454
+      },
+      {
+        "start": 1616.5,
+        "end": 1617.9,
+        "text": "아주",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1645.08,
+        "end": 1647.88,
+        "text": "리마뚜 마",
+        "speaker": "moderator",
+        "duration": 2.800000000000182
+      },
+      {
+        "start": 1647.88,
+        "end": 1658.74,
+        "text": "앞에서 듣기게 될 recorder이나 압제의 다ater Knight과ВTG VS R Dong Nah",
+        "speaker": "moderator",
+        "duration": 10.8599999999999
+      },
+      {
+        "start": 1658.74,
+        "end": 1660.6,
+        "text": "그리고 압곡port לח해서",
+        "speaker": "moderator",
+        "duration": 1.8599999999999
+      },
+      {
+        "start": 1660.6,
+        "end": 1673.78,
+        "text": "켜졌 Hilfe dressed PTSD를 inspired",
+        "speaker": "moderator",
+        "duration": 13.180000000000064
+      },
+      {
+        "start": 1673.78,
+        "end": 1675.02,
+        "text": "그리고 요 zgAs",
+        "speaker": "moderator",
+        "duration": 1.240000000000009
+      },
+      {
+        "start": 1675.02,
+        "end": 1677.58,
+        "text": "iper",
+        "speaker": "moderator",
+        "duration": 2.5599999999999454
+      },
+      {
+        "start": 1679.76,
+        "end": 1681.28,
+        "text": "� Même lange 출발 futhao",
+        "speaker": "moderator",
+        "duration": 1.5199999999999818
+      },
+      {
+        "start": 1682.34,
+        "end": 1682.72,
+        "text": "버전",
+        "speaker": "moderator",
+        "duration": 0.38000000000010914
+      },
+      {
+        "start": 1703.6,
+        "end": 1705.0,
+        "text": "지",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1705.0,
+        "end": 1706.4,
+        "text": "매� tagged 다�iku Wonderful Skill Out of stool",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1706.4,
+        "end": 1714.58,
+        "text": "예를 들어서 우리가 한 시간이나",
+        "speaker": "moderator",
+        "duration": 8.179999999999836
+      },
+      {
+        "start": 1714.58,
+        "end": 1718.42,
+        "text": "ョiş센 아버지에 좋아요",
+        "speaker": "moderator",
+        "duration": 3.8400000000001455
+      },
+      {
+        "start": 1718.42,
+        "end": 1719.66,
+        "text": "제일 좋은 설계가 français",
+        "speaker": "moderator",
+        "duration": 1.240000000000009
+      },
+      {
+        "start": 1725.64,
+        "end": 1727.62,
+        "text": "정전 수영ordre 주arioist",
+        "speaker": "moderator",
+        "duration": 1.9799999999997908
+      },
+      {
+        "start": 1729.28,
+        "end": 1732.04,
+        "text": "매� spawn",
+        "speaker": "moderator",
+        "duration": 2.759999999999991
+      },
+      {
+        "start": 1727.62,
+        "end": 1728.06,
+        "text": "그리고",
+        "speaker": "moderator",
+        "duration": 0.44000000000005457
+      },
+      {
+        "start": 1736.74,
+        "end": 1738.14,
+        "text": "개인적으로",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1740.1399999999999,
+        "end": 1741.54,
+        "text": "제가",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1764.7799999999997,
+        "end": 1767.62,
+        "text": "네 이게 아무도",
+        "speaker": "moderator",
+        "duration": 2.8400000000001455
+      },
+      {
+        "start": 1775.98,
+        "end": 1789.1399999999999,
+        "text": "많은 � ASL 입안에 관합니다 이 등심을",
+        "speaker": "moderator",
+        "duration": 13.159999999999854
+      },
+      {
+        "start": 1789.14,
+        "end": 1789.96,
+        "text": "명예 autop는 되게 봐야할 기회가 더",
+        "speaker": "moderator",
+        "duration": 0.8199999999999363
+      },
+      {
+        "start": 1791.4199999999998,
+        "end": 1793.08,
+        "text": "내가 Asians 시on Carol",
+        "speaker": "moderator",
+        "duration": 1.6600000000000819
+      },
+      {
+        "start": 1809.2199999999998,
+        "end": 1811.14,
+        "text": "Fall MI는",
+        "speaker": "moderator",
+        "duration": 1.9200000000003001
+      },
+      {
+        "start": 1811.32,
+        "end": 1812.18,
+        "text": "개인적인",
+        "speaker": "moderator",
+        "duration": 0.8600000000001273
+      },
+      {
+        "start": 1817.52,
+        "end": 1818.92,
+        "text": "normal",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 1818.92,
+        "end": 1820.74,
+        "text": "모든こと는 중국 Domensa 하고 palavras부 소가 심방 hotel Championship",
+        "speaker": "moderator",
+        "duration": 1.8199999999999363
+      },
+      {
+        "start": 1820.74,
+        "end": 1825.54,
+        "text": "또 다른 한국어 주� oğlum에서",
+        "speaker": "moderator",
+        "duration": 4.7999999999999545
+      },
+      {
+        "start": 1825.54,
+        "end": 1848.52,
+        "text": "SURI 링크yle 주셨어요.",
+        "speaker": "moderator",
+        "duration": 22.980000000000018
+      },
+      {
+        "start": 1848.52,
+        "end": 1848.9,
+        "text": "미국마� bangs 노래,",
+        "speaker": "moderator",
+        "duration": 0.38000000000010914
+      },
+      {
+        "start": 1848.9,
+        "end": 1852.4,
+        "text": "이 is actually a more of us more mature",
+        "speaker": "moderator",
+        "duration": 3.5
+      },
+      {
+        "start": 1852.4,
+        "end": 1856.56,
+        "text": "most of them are like 50s 60s years old",
+        "speaker": "moderator",
+        "duration": 4.1599999999998545
+      },
+      {
+        "start": 1856.56,
+        "end": 1858.54,
+        "text": "so they might not",
+        "speaker": "moderator",
+        "duration": 1.9800000000000182
+      },
+      {
+        "start": 1858.54,
+        "end": 1862.6,
+        "text": "they might not go up with terms or",
+        "speaker": "moderator",
+        "duration": 4.059999999999945
+      },
+      {
+        "start": 1862.6,
+        "end": 1863.38,
+        "text": "they may not go up with terms of",
+        "speaker": "moderator",
+        "duration": 0.7800000000002001
+      },
+      {
+        "start": 1863.38,
+        "end": 1864.04,
+        "text": "sustainability Bye",
+        "speaker": "moderator",
+        "duration": 0.6599999999998545
+      },
+      {
+        "start": 1864.04,
+        "end": 1869.04,
+        "text": "why do we you",
+        "speaker": "moderator",
+        "duration": 5.0
+      },
+      {
+        "start": 1869.04,
+        "end": 1870.52,
+        "text": "focus on theengers?",
+        "speaker": "moderator",
+        "duration": 1.4800000000000182
+      },
+      {
+        "start": 1871.06,
+        "end": 1872.26,
+        "text": "why do you blockon",
+        "speaker": "moderator",
+        "duration": 1.2000000000000455
+      },
+      {
+        "start": 1872.26,
+        "end": 1873.0,
+        "text": "right I'm trav",
+        "speaker": "moderator",
+        "duration": 0.7400000000000091
+      },
+      {
+        "start": 1923.8,
+        "end": 1926.24,
+        "text": "이 생각나—",
+        "speaker": "moderator",
+        "duration": 2.4400000000000546
+      },
+      {
+        "start": 1933.0,
+        "end": 1933.54,
+        "text": "indinger segment",
+        "speaker": "moderator",
+        "duration": 0.5399999999999636
+      },
+      {
+        "start": 1942.3999999999999,
+        "end": 1945.2,
+        "text": "WHAT Yep",
+        "speaker": "moderator",
+        "duration": 2.800000000000182
+      },
+      {
+        "start": 1945.2,
+        "end": 1947.24,
+        "text": "AT Romania",
+        "speaker": "moderator",
+        "duration": 2.0399999999999636
+      },
+      {
+        "start": 1947.24,
+        "end": 1950.16,
+        "text": "모링이 굉장히 그램데요",
+        "speaker": "moderator",
+        "duration": 2.9200000000000728
+      },
+      {
+        "start": 1950.16,
+        "end": 1952.82,
+        "text": "제 utilizar 고�mentation",
+        "speaker": "moderator",
+        "duration": 2.6599999999998545
+      },
+      {
+        "start": 1952.82,
+        "end": 1954.56,
+        "text": "그리고 아 bills",
+        "speaker": "moderator",
+        "duration": 1.740000000000009
+      },
+      {
+        "start": 1955.22,
+        "end": 1956.1,
+        "text": "vielä",
+        "speaker": "moderator",
+        "duration": 0.8799999999998818
+      },
+      {
+        "start": 1956.1,
+        "end": 1986.08,
+        "text": "Red Hot, 1pc, 7'0'10\", 남성군 agreement biting tablespoons 난이 FinN 하고 개봉해",
+        "speaker": "moderator",
+        "duration": 29.980000000000018
+      },
+      {
+        "start": 2013.1599999999999,
+        "end": 2015.96,
+        "text": "저는 지금胃자로",
+        "speaker": "moderator",
+        "duration": 2.800000000000182
+      },
+      {
+        "start": 2038.9199999999998,
+        "end": 2040.32,
+        "text": "евич이",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2040.32,
+        "end": 2041.34,
+        "text": "prostu 여러 aired Kongdong에서",
+        "speaker": "moderator",
+        "duration": 1.0199999999999818
+      },
+      {
+        "start": 2041.34,
+        "end": 2042.5,
+        "text": "MORE INC의 현� Dae Nam에서",
+        "speaker": "moderator",
+        "duration": 1.1600000000000819
+      },
+      {
+        "start": 2044.26,
+        "end": 2046.26,
+        "text": "이것은 incarcerated입니다",
+        "speaker": "moderator",
+        "duration": 2.0
+      },
+      {
+        "start": 2068.3,
+        "end": 2070.3,
+        "text": "nutritional content",
+        "speaker": "moderator",
+        "duration": 2.0
+      },
+      {
+        "start": 2070.3,
+        "end": 2070.3,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 2092.7799999999997,
+        "end": 2095.62,
+        "text": "코치에 동의하는 시에",
+        "speaker": "moderator",
+        "duration": 2.8400000000001455
+      },
+      {
+        "start": 2095.62,
+        "end": 2096.26,
+        "text": "마음의",
+        "speaker": "moderator",
+        "duration": 0.6400000000003274
+      },
+      {
+        "start": 2096.26,
+        "end": 2097.72,
+        "text": "장 heard",
+        "speaker": "moderator",
+        "duration": 1.4599999999995816
+      },
+      {
+        "start": 2097.72,
+        "end": 2098.64,
+        "text": "wij",
+        "speaker": "moderator",
+        "duration": 0.9200000000000728
+      },
+      {
+        "start": 2098.64,
+        "end": 2099.22,
+        "text": "� groot",
+        "speaker": "moderator",
+        "duration": 0.5799999999999272
+      },
+      {
+        "start": 2099.22,
+        "end": 2099.58,
+        "text": "hosted",
+        "speaker": "moderator",
+        "duration": 0.36000000000012733
+      },
+      {
+        "start": 2102.14,
+        "end": 2103.54,
+        "text": "우리華ACT 에콤푬리스 그리고",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2103.54,
+        "end": 2104.46,
+        "text": "조 weit 더",
+        "speaker": "moderator",
+        "duration": 0.9200000000000728
+      },
+      {
+        "start": 2113.04,
+        "end": 2114.34,
+        "text": "다ult through support",
+        "speaker": "moderator",
+        "duration": 1.300000000000182
+      },
+      {
+        "start": 2115.68,
+        "end": 2116.9,
+        "text": "니프 です.",
+        "speaker": "moderator",
+        "duration": 1.2200000000002547
+      },
+      {
+        "start": 2118.76,
+        "end": 2120.54,
+        "text": "에플OUGH 21",
+        "speaker": "moderator",
+        "duration": 1.7799999999997453
+      },
+      {
+        "start": 2120.54,
+        "end": 2120.54,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 2147.72,
+        "end": 2150.52,
+        "text": "MRS를 다양한",
+        "speaker": "moderator",
+        "duration": 2.800000000000182
+      },
+      {
+        "start": 2210.52,
+        "end": 2212.86,
+        "text": "배 surreal的是 가장 가지報说,",
+        "speaker": "moderator",
+        "duration": 2.3400000000001455
+      },
+      {
+        "start": 2213.14,
+        "end": 2234.16,
+        "text": "One should start with something they simply call as Bangtan,",
+        "speaker": "moderator",
+        "duration": 21.019999999999982
+      },
+      {
+        "start": 2234.16,
+        "end": 2236.82,
+        "text": "나는 방지말로 ambiguous,",
+        "speaker": "moderator",
+        "duration": 2.6600000000003092
+      },
+      {
+        "start": 2238.66,
+        "end": 2240.06,
+        "text": "무게에",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2240.06,
+        "end": 2266.8,
+        "text": "나는 우리는 인",
+        "speaker": "moderator",
+        "duration": 26.740000000000236
+      },
+      {
+        "start": 2266.82,
+        "end": 2270.02,
+        "text": "I do think that impact,",
+        "speaker": "moderator",
+        "duration": 3.199999999999818
+      },
+      {
+        "start": 2270.8,
+        "end": 2274.46,
+        "text": "well, first of all, the bigger your impact is supposed to be,",
+        "speaker": "moderator",
+        "duration": 3.6599999999998545
+      },
+      {
+        "start": 2274.64,
+        "end": 2277.82,
+        "text": "I suppose, but it doesn't mean that it makes small.",
+        "speaker": "moderator",
+        "duration": 3.180000000000291
+      },
+      {
+        "start": 2278.14,
+        "end": 2283.22,
+        "text": "You don't have your impact on my company and I was doing a sample",
+        "speaker": "moderator",
+        "duration": 5.079999999999927
+      },
+      {
+        "start": 2283.22,
+        "end": 2286.14,
+        "text": "that we are doing positive change.",
+        "speaker": "moderator",
+        "duration": 2.9200000000000728
+      },
+      {
+        "start": 2287.1,
+        "end": 2290.4,
+        "text": "And it takes time because as you can see,",
+        "speaker": "moderator",
+        "duration": 3.300000000000182
+      },
+      {
+        "start": 2290.8,
+        "end": 2293.52,
+        "text": "even though it's my workshop or is the sharing session,",
+        "speaker": "moderator",
+        "duration": 2.7199999999998
+      },
+      {
+        "start": 2293.52,
+        "end": 2297.62,
+        "text": "Security하고 in Italian and English話 finde it is not as entertaining as you can see,",
+        "speaker": "moderator",
+        "duration": 4.099999999999909
+      },
+      {
+        "start": 2297.62,
+        "end": 2300.38,
+        "text": "1000 people came across the situation,",
+        "speaker": "moderator",
+        "duration": 2.7600000000002183
+      },
+      {
+        "start": 2300.38,
+        "end": 2303.28,
+        "text": "floods and all kinds of tat國家의",
+        "speaker": "moderator",
+        "duration": 2.900000000000091
+      },
+      {
+        "start": 2303.28,
+        "end": 2305.7,
+        "text": "사람들의 Maurice Éallows",
+        "speaker": "moderator",
+        "duration": 2.419999999999618
+      },
+      {
+        "start": 2305.7,
+        "end": 2311.28,
+        "text": "이 개가 virus을 침하러 있던 연기가",
+        "speaker": "moderator",
+        "duration": 5.580000000000382
+      },
+      {
+        "start": 2311.28,
+        "end": 2311.28,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 2311.28,
+        "end": 2313.52,
+        "text": "할 수 약성과",
+        "speaker": "moderator",
+        "duration": 2.2399999999997817
+      },
+      {
+        "start": 2313.52,
+        "end": 2314.7,
+        "text": "간대 VS çıktı",
+        "speaker": "moderator",
+        "duration": 1.1799999999998363
+      },
+      {
+        "start": 2314.7,
+        "end": 2322.82,
+        "text": "아마 이 개의 발상",
+        "speaker": "moderator",
+        "duration": 8.120000000000346
+      },
+      {
+        "start": 2346.72,
+        "end": 2348.12,
+        "text": "너무irl",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2348.12,
+        "end": 2352.12,
+        "text": "companies company",
+        "speaker": "moderator",
+        "duration": 4.0
+      },
+      {
+        "start": 2360.42,
+        "end": 2361.82,
+        "text": "MAX",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2363.36,
+        "end": 2366.16,
+        "text": "비굣 Autumn",
+        "speaker": "moderator",
+        "duration": 2.799999999999727
+      },
+      {
+        "start": 2374.04,
+        "end": 2375.44,
+        "text": "ого",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2359.16,
+        "end": 2377.92,
+        "text": "지",
+        "speaker": "moderator",
+        "duration": 18.76000000000022
+      },
+      {
+        "start": 2375.44,
+        "end": 2376.36,
+        "text": "저 smoked",
+        "speaker": "moderator",
+        "duration": 0.9200000000000728
+      },
+      {
+        "start": 2376.36,
+        "end": 2377.5,
+        "text": "식사 및",
+        "speaker": "moderator",
+        "duration": 1.1399999999998727
+      },
+      {
+        "start": 2377.5,
+        "end": 2379.98,
+        "text": "뭐",
+        "speaker": "moderator",
+        "duration": 2.480000000000018
+      },
+      {
+        "start": 2379.98,
+        "end": 2380.0,
+        "text": "Central",
+        "speaker": "moderator",
+        "duration": 0.01999999999998181
+      },
+      {
+        "start": 2380.0,
+        "end": 2380.0,
+        "text": "",
+        "speaker": "moderator",
+        "duration": 0.0
+      },
+      {
+        "start": 2402.74,
+        "end": 2404.44,
+        "text": "I'm Provided",
+        "speaker": "moderator",
+        "duration": 1.7000000000002728
+      },
+      {
+        "start": 2425.66,
+        "end": 2433.76,
+        "text": "넌 댓글 다",
+        "speaker": "moderator",
+        "duration": 8.100000000000364
+      },
+      {
+        "start": 2435.48,
+        "end": 2436.88,
+        "text": "Wideьте 아직도",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2436.88,
+        "end": 2442.2,
+        "text": "다시 말하면",
+        "speaker": "moderator",
+        "duration": 5.319999999999709
+      },
+      {
+        "start": 2454.32,
+        "end": 2454.52,
+        "text": "감사합니다",
+        "speaker": "moderator",
+        "duration": 0.1999999999998181
+      },
+      {
+        "start": 2474.08,
+        "end": 2475.48,
+        "text": "나는",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2475.48,
+        "end": 2477.96,
+        "text": "내가 보인 거 own",
+        "speaker": "moderator",
+        "duration": 2.480000000000018
+      },
+      {
+        "start": 2483.1,
+        "end": 2484.5,
+        "text": "지 Piet",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2475.06,
+        "end": 2480.82,
+        "text": "ürü",
+        "speaker": "moderator",
+        "duration": 5.760000000000218
+      },
+      {
+        "start": 2500.3199999999997,
+        "end": 2501.72,
+        "text": "꿈과ици의",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2523.4199999999996,
+        "end": 2526.28,
+        "text": "사실 대� lab에",
+        "speaker": "moderator",
+        "duration": 2.860000000000582
+      },
+      {
+        "start": 2548.5,
+        "end": 2549.9,
+        "text": "함께",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2549.9,
+        "end": 2551.4,
+        "text": "saturday",
+        "speaker": "moderator",
+        "duration": 1.5
+      },
+      {
+        "start": 2568.18,
+        "end": 2569.58,
+        "text": "역시",
+        "speaker": "moderator",
+        "duration": 1.400000000000091
+      },
+      {
+        "start": 2592.86,
+        "end": 2594.44,
+        "text": "ór퇴힌 assetsちは RH 미�няя 방향과",
+        "speaker": "moderator",
+        "duration": 1.5799999999999272
+      },
+      {
+        "start": 2627.66,
+        "end": 2630.6,
+        "text": "하지만, if you want to stop in, because you know,",
+        "speaker": "speaker_2",
+        "duration": 2.9400000000000546
+      },
+      {
+        "start": 2631.6,
+        "end": 2634.0,
+        "text": "something that you are like, you're close to your heart,",
+        "speaker": "speaker_2",
+        "duration": 2.400000000000091
+      },
+      {
+        "start": 2634.12,
+        "end": 2635.96,
+        "text": "you want to do something about it.",
+        "speaker": "speaker_2",
+        "duration": 1.8400000000001455
+      },
+      {
+        "start": 2636.12,
+        "end": 2641.56,
+        "text": "I think it's very important to state that you are true value.",
+        "speaker": "speaker_2",
+        "duration": 5.440000000000055
+      },
+      {
+        "start": 2642.1,
+        "end": 2643.82,
+        "text": "What is important for you?",
+        "speaker": "speaker_2",
+        "duration": 1.7200000000002547
+      },
+      {
+        "start": 2644.18,
+        "end": 2647.1,
+        "text": "What is so important for you that you have to stop this business.",
+        "speaker": "speaker_2",
+        "duration": 2.9200000000000728
+      },
+      {
+        "start": 2647.34,
+        "end": 2648.44,
+        "text": "That you need to think about it.",
+        "speaker": "speaker_2",
+        "duration": 1.099999999999909
+      },
+      {
+        "start": 2648.7,
+        "end": 2653.2,
+        "text": "And keep focusing on that path, because there will be a lot of challenges",
+        "speaker": "speaker_2",
+        "duration": 4.5
+      },
+      {
+        "start": 2653.2,
+        "end": 2656.34,
+        "text": "and people will say that it is difficult.",
+        "speaker": "speaker_2",
+        "duration": 3.1400000000003274
+      },
+      {
+        "start": 2656.66,
+        "end": 2659.72,
+        "text": "And a lot of people will say that, just commercial one.",
+        "speaker": "speaker_2",
+        "duration": 3.0599999999999454
+      },
+      {
+        "start": 2661.2,
+        "end": 2664.46,
+        "text": "And a lot of distraction, I was saying.",
+        "speaker": "speaker_2",
+        "duration": 3.2600000000002183
+      },
+      {
+        "start": 2664.74,
+        "end": 2667.56,
+        "text": "I mean, I didn't mean commercials for that thing.",
+        "speaker": "speaker_2",
+        "duration": 2.8200000000001637
+      },
+      {
+        "start": 2668.04,
+        "end": 2670.82,
+        "text": "Because at the end of the day, we are doing business.",
+        "speaker": "speaker_2",
+        "duration": 2.7800000000002
+      },
+      {
+        "start": 2671.3,
+        "end": 2676.32,
+        "text": "But I think the intention and the value you have to be very, very clear about that.",
+        "speaker": "speaker_2",
+        "duration": 5.019999999999982
+      },
+      {
+        "start": 2677.48,
+        "end": 2678.78,
+        "text": "Thank you. 10 reads?",
+        "speaker": "speaker_2",
+        "duration": 1.300000000000182
+      },
+      {
+        "start": 2679.34,
+        "end": 2682.08,
+        "text": "Yes, sorry. That is a very fascinating story.",
+        "speaker": "speaker_2",
+        "duration": 2.7399999999997817
+      },
+      {
+        "start": 2682.08,
+        "end": 2687.2,
+        "text": "That is a very cool message that kind of gives you drive to continue.",
+        "speaker": "speaker_2",
+        "duration": 5.119999999999891
+      },
+      {
+        "start": 2687.56,
+        "end": 2688.92,
+        "text": "It is not going to be easy.",
+        "speaker": "speaker_2",
+        "duration": 1.3600000000001273
+      },
+      {
+        "start": 2689.76,
+        "end": 2691.54,
+        "text": "So that is very, very important.",
+        "speaker": "speaker_2",
+        "duration": 1.7799999999997453
+      },
+      {
+        "start": 2692.08,
+        "end": 2698.78,
+        "text": "I will say, there is a lot of program cases out there where if you have your very clear messaging,",
+        "speaker": "speaker_2",
+        "duration": 6.700000000000273
+      },
+      {
+        "start": 2699.1,
+        "end": 2707.3,
+        "text": "like a very clear product, as well, it is very easy for you to communicate that.",
+        "speaker": "speaker_2",
+        "duration": 8.200000000000273
+      },
+      {
+        "start": 2707.54,
+        "end": 2710.04,
+        "text": "And people understand what you are actually doing.",
+        "speaker": "speaker_2",
+        "duration": 2.5
+      },
+      {
+        "start": 2710.04,
+        "end": 2717.04,
+        "text": "Just almost like all eggs on one basket is a little bit better than trying to spread that out.",
+        "speaker": "speaker_2",
+        "duration": 7.0
+      },
+      {
+        "start": 2717.86,
+        "end": 2724.06,
+        "text": "There are many program cases where brands with single products have managed to sell huge volumes.",
+        "speaker": "speaker_2",
+        "duration": 6.199999999999818
+      },
+      {
+        "start": 2724.54,
+        "end": 2726.6,
+        "text": "So I probably do that.",
+        "speaker": "speaker_2",
+        "duration": 2.0599999999999454
+      },
+      {
+        "start": 2726.86,
+        "end": 2728.94,
+        "text": "I probably just about starting all over again.",
+        "speaker": "speaker_2",
+        "duration": 2.0799999999999272
+      },
+      {
+        "start": 2729.12,
+        "end": 2736.7,
+        "text": "I would definitely just focus on single product and communicating that as much as I can with consistency.",
+        "speaker": "speaker_2",
+        "duration": 7.579999999999927
+      },
+      {
+        "start": 2738.2,
+        "end": 2739.34,
+        "text": "The end.",
+        "speaker": "speaker_2",
+        "duration": 1.1400000000003274
+      },
+      {
+        "start": 2740.66,
+        "end": 2746.48,
+        "text": "So I think other than staying focused and having a very clear vision,",
+        "speaker": "speaker_2",
+        "duration": 5.820000000000164
+      },
+      {
+        "start": 2747.1,
+        "end": 2751.16,
+        "text": "as a startup who may not have a lot of resources,",
+        "speaker": "speaker_2",
+        "duration": 4.059999999999945
+      },
+      {
+        "start": 2751.68,
+        "end": 2758.32,
+        "text": "you can try to reach out to help from others like industry partners,",
+        "speaker": "speaker_2",
+        "duration": 6.640000000000327
+      },
+      {
+        "start": 2758.94,
+        "end": 2760.02,
+        "text": "like industry associations.",
+        "speaker": "speaker_2",
+        "duration": 1.0799999999999272
+      },
+      {
+        "start": 2760.02,
+        "end": 2765.66,
+        "text": "Even for us, we have very close relationship with a lot of industry,",
+        "speaker": "speaker_2",
+        "duration": 5.639999999999873
+      },
+      {
+        "start": 2766.0,
+        "end": 2767.08,
+        "text": "jewelry associations.",
+        "speaker": "speaker_2",
+        "duration": 1.0799999999999272
+      },
+      {
+        "start": 2768.7200000000003,
+        "end": 2771.88,
+        "text": "There is a lot of support and help.",
+        "speaker": "speaker_2",
+        "duration": 3.1599999999998545
+      },
+      {
+        "start": 2772.48,
+        "end": 2779.4,
+        "text": "Once you retail, you can see that a lot of organizations that are interviewing share the same vision.",
+        "speaker": "speaker_2",
+        "duration": 6.920000000000073
+      },
+      {
+        "start": 2779.92,
+        "end": 2782.7,
+        "text": "And I am sure there is a lot of collaboration opportunities.",
+        "speaker": "speaker_2",
+        "duration": 2.7799999999997453
+      },
+      {
+        "start": 2782.7,
+        "end": 2785.62,
+        "text": "You don't just work on it by yourself.",
+        "speaker": "speaker_2",
+        "duration": 2.9200000000000728
+      },
+      {
+        "start": 2785.86,
+        "end": 2789.9,
+        "text": "You can seek help and cooperate with others.",
+        "speaker": "speaker_2",
+        "duration": 4.039999999999964
+      },
+      {
+        "start": 2791.04,
+        "end": 2795.18,
+        "text": "As you share the same common vision, I am sure there are a lot of resources.",
+        "speaker": "speaker_2",
+        "duration": 4.139999999999873
+      },
+      {
+        "start": 2796.24,
+        "end": 2806.5,
+        "text": "For example, for a health sector in Europe, they actually have issued ESG Guard.",
+        "speaker": "speaker_2",
+        "duration": 10.260000000000218
+      },
+      {
+        "start": 2806.96,
+        "end": 2809.46,
+        "text": "And a lot of that is focused on health pay incentives.",
+        "speaker": "speaker_2",
+        "duration": 2.5
+      },
+      {
+        "start": 2809.46,
+        "end": 2816.04,
+        "text": "And I am sure there are other industries, associations, local ones,",
+        "speaker": "speaker_2",
+        "duration": 6.579999999999927
+      },
+      {
+        "start": 2816.28,
+        "end": 2819.08,
+        "text": "regional ones, that also support that.",
+        "speaker": "speaker_2",
+        "duration": 2.799999999999727
+      },
+      {
+        "start": 2819.44,
+        "end": 2823.96,
+        "text": "So I would encourage you to open yourself up and collaborate.",
+        "speaker": "speaker_2",
+        "duration": 4.519999999999982
+      },
+      {
+        "start": 2825.1800000000003,
+        "end": 2826.7,
+        "text": "Thank you very much.",
+        "speaker": "speaker_2",
+        "duration": 1.519999999999527
+      },
+      {
+        "start": 2826.92,
+        "end": 2828.4,
+        "text": "That was an excellent question.",
+        "speaker": "speaker_2",
+        "duration": 1.4800000000000182
+      },
+      {
+        "start": 2829.02,
+        "end": 2829.78,
+        "text": "Other questions?",
+        "speaker": "speaker_2",
+        "duration": 0.7600000000002183
+      },
+      {
+        "start": 2831.26,
+        "end": 2832.12,
+        "text": "Yes, please.",
+        "speaker": "speaker_2",
+        "duration": 0.8599999999996726
+      },
+      {
+        "start": 2835.8999999999996,
+        "end": 2837.16,
+        "text": "Hello, hello.",
+        "speaker": "moderator",
+        "duration": 1.2600000000002183
+      },
+      {
+        "start": 2837.52,
+        "end": 2841.82,
+        "text": "Next, I am also a graduate professor at the present.",
+        "speaker": "moderator",
+        "duration": 4.300000000000182
+      },
+      {
+        "start": 2842.08,
+        "end": 2847.64,
+        "text": "I would also like to ask more about sustainability practices.",
+        "speaker": "moderator",
+        "duration": 5.559999999999945
+      },
+      {
+        "start": 2848.38,
+        "end": 2851.96,
+        "text": "So besides like, feasibility, standards like that,",
+        "speaker": "moderator",
+        "duration": 3.5799999999999272
+      },
+      {
+        "start": 2852.38,
+        "end": 2856.24,
+        "text": "I would like to know in different parts of the supply chain,",
+        "speaker": "moderator",
+        "duration": 3.8599999999996726
+      },
+      {
+        "start": 2856.38,
+        "end": 2862.1,
+        "text": "how you engage your employees to involve in every part of the journey of work.",
+        "speaker": "moderator",
+        "duration": 5.7199999999998
+      },
+      {
+        "start": 2862.1,
+        "end": 2862.56,
+        "text": "How do you use it?",
+        "speaker": "moderator",
+        "duration": 0.4600000000000364
+      },
+      {
+        "start": 2862.74,
+        "end": 2864.38,
+        "text": "Could you please provide more insights with us?",
+        "speaker": "moderator",
+        "duration": 1.6400000000003274
+      },
+      {
+        "start": 2864.64,
+        "end": 2865.8,
+        "text": "This is a question for you.",
+        "speaker": "moderator",
+        "duration": 1.1600000000003092
+      },
+      {
+        "start": 2866.08,
+        "end": 2866.64,
+        "text": "Thank you.",
+        "speaker": "moderator",
+        "duration": 0.5599999999999454
+      },
+      {
+        "start": 2867.64,
+        "end": 2871.38,
+        "text": "How do you create the culture of sustainability living your company?",
+        "speaker": "moderator",
+        "duration": 3.7400000000002365
+      },
+      {
+        "start": 2874.44,
+        "end": 2875.0,
+        "text": "Leanne?",
+        "speaker": "moderator",
+        "duration": 0.5599999999999454
+      },
+      {
+        "start": 2875.8,
+        "end": 2876.94,
+        "text": "I was asked first.",
+        "speaker": "moderator",
+        "duration": 1.1399999999998727
+      },
+      {
+        "start": 2877.86,
+        "end": 2884.1,
+        "text": "Well, something very good question, because it is very important to engage everyone in the organization",
+        "speaker": "moderator",
+        "duration": 6.239999999999782
+      },
+      {
+        "start": 2884.1,
+        "end": 2888.38,
+        "text": "to help us bring forward our plan and ideas.",
+        "speaker": "moderator",
+        "duration": 4.2800000000002
+      },
+      {
+        "start": 2888.38,
+        "end": 2894.02,
+        "text": "And at TOTA4, we actually do it both ways.",
+        "speaker": "moderator",
+        "duration": 5.639999999999873
+      },
+      {
+        "start": 2894.16,
+        "end": 2895.48,
+        "text": "We talk down to Baltimore.",
+        "speaker": "moderator",
+        "duration": 1.3200000000001637
+      },
+      {
+        "start": 2896.18,
+        "end": 2900.68,
+        "text": "From TOTA, we engage all the departments and the leadership team.",
+        "speaker": "moderator",
+        "duration": 4.5
+      },
+      {
+        "start": 2900.98,
+        "end": 2904.62,
+        "text": "We have a research that exists in the community management committee",
+        "speaker": "moderator",
+        "duration": 3.6399999999998727
+      },
+      {
+        "start": 2904.62,
+        "end": 2910.14,
+        "text": "at the executive level to provide oversight of our system and community actions",
+        "speaker": "moderator",
+        "duration": 5.519999999999982
+      },
+      {
+        "start": 2910.14,
+        "end": 2914.94,
+        "text": "that involve all the different business units and departments and things like that.",
+        "speaker": "moderator",
+        "duration": 4.800000000000182
+      },
+      {
+        "start": 2915.94,
+        "end": 2921.7,
+        "text": "We also set up task forces, which will focus on a certain focused area.",
+        "speaker": "moderator",
+        "duration": 5.7599999999997635
+      },
+      {
+        "start": 2922.12,
+        "end": 2926.98,
+        "text": "And these task forces comprise members, again, across the organization.",
+        "speaker": "moderator",
+        "duration": 4.860000000000127
+      },
+      {
+        "start": 2927.6,
+        "end": 2934.52,
+        "text": "For example, on the sacred code alone, we engage people from productions,",
+        "speaker": "moderator",
+        "duration": 6.920000000000073
+      },
+      {
+        "start": 2935.76,
+        "end": 2942.12,
+        "text": "from sourcing to production and distribution and the branding.",
+        "speaker": "moderator",
+        "duration": 6.359999999999673
+      },
+      {
+        "start": 2943.12,
+        "end": 2949.86,
+        "text": "Everyone worked together to bring forward our cycle code, long-term code and end commitment.",
+        "speaker": "moderator",
+        "duration": 6.7400000000002365
+      },
+      {
+        "start": 2951.54,
+        "end": 2960.4,
+        "text": "Baltimore, we actually engage in a lot of internal engagement to help our employees understand",
+        "speaker": "moderator",
+        "duration": 8.860000000000127
+      },
+      {
+        "start": 2961.12,
+        "end": 2965.58,
+        "text": "and become aware of what sustainability needs for everyone.",
+        "speaker": "moderator",
+        "duration": 4.460000000000036
+      },
+      {
+        "start": 2966.14,
+        "end": 2971.08,
+        "text": "And why do we, as a company, want to do it, wasn't it for them?",
+        "speaker": "moderator",
+        "duration": 4.940000000000055
+      },
+      {
+        "start": 2971.08,
+        "end": 2975.64,
+        "text": "We want to be able to ensure that they understand and get and and",
+        "speaker": "moderator",
+        "duration": 4.559999999999945
+      },
+      {
+        "start": 2975.64,
+        "end": 2980.2,
+        "text": "and why into what we are doing and ultimately internalizing back",
+        "speaker": "moderator",
+        "duration": 4.559999999999945
+      },
+      {
+        "start": 2980.2,
+        "end": 2983.3,
+        "text": "sustainability into everything that we do.",
+        "speaker": "moderator",
+        "duration": 3.100000000000364
+      },
+      {
+        "start": 2984.18,
+        "end": 2990.46,
+        "text": "And we would invite experts to come share knowledge with us",
+        "speaker": "moderator",
+        "duration": 6.2800000000002
+      },
+      {
+        "start": 2990.46,
+        "end": 2995.22,
+        "text": "and we have ongoing communications about what we do in the system.",
+        "speaker": "moderator",
+        "duration": 4.7599999999997635
+      },
+      {
+        "start": 2995.5,
+        "end": 2998.16,
+        "text": "We tear it, we keep that informed on our progress.",
+        "speaker": "moderator",
+        "duration": 2.6599999999998545
+      },
+      {
+        "start": 2998.16,
+        "end": 3004.64,
+        "text": "So we want to be able to reach out to the organization,",
+        "speaker": "moderator",
+        "duration": 6.480000000000018
+      },
+      {
+        "start": 3005.06,
+        "end": 3007.42,
+        "text": "not just to let them know, but engage them.",
+        "speaker": "moderator",
+        "duration": 2.3600000000001273
+      },
+      {
+        "start": 3007.88,
+        "end": 3016.96,
+        "text": "And YouTube that would participate in our actions so that it becomes a very powerful force to bring forward our plan.",
+        "speaker": "moderator",
+        "duration": 9.079999999999927
+      },
+      {
+        "start": 3017.66,
+        "end": 3020.48,
+        "text": "And so I think it's important to get everyone involved.",
+        "speaker": "moderator",
+        "duration": 2.8200000000001637
+      },
+      {
+        "start": 3021.0,
+        "end": 3024.82,
+        "text": "And for an employer, I think it matters that their voice is heard,",
+        "speaker": "moderator",
+        "duration": 3.8200000000001637
+      },
+      {
+        "start": 3024.82,
+        "end": 3030.18,
+        "text": "and that they feel that they are actually a part of the work.",
+        "speaker": "moderator",
+        "duration": 5.359999999999673
+      },
+      {
+        "start": 3030.72,
+        "end": 3034.78,
+        "text": "Exactly. Yeah, they feel that they actually participate in the success of the company.",
+        "speaker": "moderator",
+        "duration": 4.0600000000004
+      },
+      {
+        "start": 3035.3,
+        "end": 3038.5,
+        "text": "I mean outside of the organization, we also engage our suppliers",
+        "speaker": "moderator",
+        "duration": 3.199999999999818
+      },
+      {
+        "start": 3038.5,
+        "end": 3042.82,
+        "text": "where we have best practice supply principles.",
+        "speaker": "moderator",
+        "duration": 4.320000000000164
+      },
+      {
+        "start": 3043.64,
+        "end": 3049.2,
+        "text": "And we would educate and engage with them to understand what our standards are",
+        "speaker": "moderator",
+        "duration": 5.559999999999945
+      },
+      {
+        "start": 3049.2,
+        "end": 3054.14,
+        "text": "and ensure they are aligned with us and we would review their practices",
+        "speaker": "moderator",
+        "duration": 4.940000000000055
+      },
+      {
+        "start": 3054.14,
+        "end": 3058.32,
+        "text": "and show them the improvement areas, provide change with them.",
+        "speaker": "moderator",
+        "duration": 4.180000000000291
+      },
+      {
+        "start": 3058.74,
+        "end": 3066.46,
+        "text": "So that in the broader, managing area, we also hope to create an established culture.",
+        "speaker": "moderator",
+        "duration": 7.720000000000255
+      },
+      {
+        "start": 3067.84,
+        "end": 3069.58,
+        "text": "Okay, Henry, it's your turn?",
+        "speaker": "moderator",
+        "duration": 1.7399999999997817
+      },
+      {
+        "start": 3070.26,
+        "end": 3072.04,
+        "text": "Sure. Yeah, okay.",
+        "speaker": "moderator",
+        "duration": 1.7799999999997453
+      },
+      {
+        "start": 3072.24,
+        "end": 3075.76,
+        "text": "So smaller companies, to mid-sized companies,",
+        "speaker": "moderator",
+        "duration": 3.5200000000004366
+      },
+      {
+        "start": 3075.76,
+        "end": 3081.26,
+        "text": "I think the importance of engaging volume employees is very important.",
+        "speaker": "moderator",
+        "duration": 5.5
+      },
+      {
+        "start": 3082.2,
+        "end": 3086.78,
+        "text": "Jewelry is there, there's quite a lot of technical parts in making jewelry.",
+        "speaker": "moderator",
+        "duration": 4.580000000000382
+      },
+      {
+        "start": 3087.06,
+        "end": 3089.6,
+        "text": "So if you're working with crossmen generally, they're all gone.",
+        "speaker": "moderator",
+        "duration": 2.5399999999999636
+      },
+      {
+        "start": 3090.1,
+        "end": 3092.72,
+        "text": "And then if you're doing social media or whatever,",
+        "speaker": "moderator",
+        "duration": 2.619999999999891
+      },
+      {
+        "start": 3093.0,
+        "end": 3096.32,
+        "text": "it's like marketing and things like that, you tend to be hiring young guys.",
+        "speaker": "moderator",
+        "duration": 3.3200000000001637
+      },
+      {
+        "start": 3096.62,
+        "end": 3100.44,
+        "text": "So it is important to engage them all together.",
+        "speaker": "moderator",
+        "duration": 3.8200000000001637
+      },
+      {
+        "start": 3103.9800000000005,
+        "end": 3111.34,
+        "text": "Educating the crossmen or who are the technical people of the importance of sustainability.",
+        "speaker": "speaker_2",
+        "duration": 7.359999999999673
+      },
+      {
+        "start": 3112.7400000000002,
+        "end": 3116.28,
+        "text": "Generally at a startup level, if you're hiring people,",
+        "speaker": "speaker_2",
+        "duration": 3.5399999999999636
+      },
+      {
+        "start": 3116.48,
+        "end": 3122.96,
+        "text": "they need to be quite passionate about trying to make change and trying to do better.",
+        "speaker": "speaker_2",
+        "duration": 6.480000000000018
+      },
+      {
+        "start": 3123.68,
+        "end": 3125.32,
+        "text": "It was quite important.",
+        "speaker": "speaker_2",
+        "duration": 1.6400000000003274
+      },
+      {
+        "start": 3125.32,
+        "end": 3134.56,
+        "text": "So yeah, hiring the right people is going to be a core to success.",
+        "speaker": "speaker_2",
+        "duration": 9.239999999999782
+      },
+      {
+        "start": 3135.2400000000002,
+        "end": 3136.4,
+        "text": "Thank you, Kathy.",
+        "speaker": "speaker_2",
+        "duration": 1.1599999999998545
+      },
+      {
+        "start": 3138.36,
+        "end": 3143.0,
+        "text": "So I have different approach, I will not different approach,",
+        "speaker": "speaker_2",
+        "duration": 4.639999999999873
+      },
+      {
+        "start": 3143.16,
+        "end": 3145.74,
+        "text": "because it's still like a one-man ban right now.",
+        "speaker": "speaker_2",
+        "duration": 2.5799999999999272
+      },
+      {
+        "start": 3146.16,
+        "end": 3149.12,
+        "text": "So I don't have any employee to engage with this moment.",
+        "speaker": "speaker_2",
+        "duration": 2.9600000000000364
+      },
+      {
+        "start": 3149.12,
+        "end": 3159.32,
+        "text": "But I do see my suppliers, my clients, and also all the collaborators as part of the journey to sustainability.",
+        "speaker": "speaker_2",
+        "duration": 10.200000000000273
+      },
+      {
+        "start": 3160.02,
+        "end": 3166.86,
+        "text": "So whenever I get a chance to spread the message, I'll just let them know what I want to do with the brand.",
+        "speaker": "speaker_2",
+        "duration": 6.8400000000001455
+      },
+      {
+        "start": 3167.04,
+        "end": 3169.12,
+        "text": "What I want to do with the knowledge that I know.",
+        "speaker": "speaker_2",
+        "duration": 2.0799999999999272
+      },
+      {
+        "start": 3169.76,
+        "end": 3175.16,
+        "text": "As my job is to knowledge from professionals, from their trade,",
+        "speaker": "speaker_2",
+        "duration": 5.399999999999636
+      },
+      {
+        "start": 3175.16,
+        "end": 3179.88,
+        "text": "to learn it from the seniors, as well as pass it down as well.",
+        "speaker": "speaker_2",
+        "duration": 4.720000000000255
+      },
+      {
+        "start": 3180.34,
+        "end": 3183.38,
+        "text": "Because I got it from free, I should do it for free as well.",
+        "speaker": "speaker_2",
+        "duration": 3.0399999999999636
+      },
+      {
+        "start": 3184.02,
+        "end": 3190.2,
+        "text": "And then part of the journey, I think it's really important to get the skill that knowledge can pass down.",
+        "speaker": "speaker_2",
+        "duration": 6.179999999999836
+      },
+      {
+        "start": 3190.56,
+        "end": 3195.64,
+        "text": "And together with the message that you want them to understand about whatever you do.",
+        "speaker": "speaker_2",
+        "duration": 5.079999999999927
+      },
+      {
+        "start": 3196.18,
+        "end": 3197.96,
+        "text": "There is an impact to other people.",
+        "speaker": "speaker_2",
+        "duration": 1.7800000000002
+      },
+      {
+        "start": 3197.96,
+        "end": 3201.32,
+        "text": "I think that's a spirit of sustainability.",
+        "speaker": "speaker_2",
+        "duration": 3.3600000000001273
+      },
+      {
+        "start": 3201.6,
+        "end": 3205.82,
+        "text": "Also being generous with your knowledge and being willing to share it.",
+        "speaker": "speaker_2",
+        "duration": 4.220000000000255
+      },
+      {
+        "start": 3206.18,
+        "end": 3211.22,
+        "text": "Because collecting action is needed for it to really have a strong impact.",
+        "speaker": "speaker_2",
+        "duration": 5.039999999999964
+      },
+      {
+        "start": 3211.48,
+        "end": 3215.88,
+        "text": "But we should not underestimate the strength of one person or one small group.",
+        "speaker": "speaker_2",
+        "duration": 4.400000000000091
+      },
+      {
+        "start": 3216.16,
+        "end": 3220.82,
+        "text": "Because together we will deliver something, you know, we create something beautiful.",
+        "speaker": "speaker_2",
+        "duration": 4.660000000000309
+      },
+      {
+        "start": 3221.36,
+        "end": 3224.48,
+        "text": "Now we have time for one more question, one last question.",
+        "speaker": "speaker_2",
+        "duration": 3.119999999999891
+      },
+      {
+        "start": 3224.48,
+        "end": 3228.64,
+        "text": "Any questions? No.",
+        "speaker": "speaker_2",
+        "duration": 4.1599999999998545
+      },
+      {
+        "start": 3229.1,
+        "end": 3231.24,
+        "text": "So I will ask the final question.",
+        "speaker": "speaker_2",
+        "duration": 2.1399999999998727
+      },
+      {
+        "start": 3231.88,
+        "end": 3239.12,
+        "text": "What is the 8th away, the most important lesson that you have learned in your sustainability journey?",
+        "speaker": "speaker_2",
+        "duration": 7.239999999999782
+      },
+      {
+        "start": 3239.26,
+        "end": 3240.82,
+        "text": "You are on different stages, right?",
+        "speaker": "speaker_2",
+        "duration": 1.5599999999999454
+      },
+      {
+        "start": 3241.4,
+        "end": 3247.88,
+        "text": "For example, Leon, you've been an expert for more than a decade, right?",
+        "speaker": "speaker_2",
+        "duration": 6.480000000000018
+      },
+      {
+        "start": 3247.88,
+        "end": 3252.82,
+        "text": "And then for Henry, you have been open-to-one businesses.",
+        "speaker": "speaker_2",
+        "duration": 4.940000000000055
+      },
+      {
+        "start": 3253.4,
+        "end": 3257.6,
+        "text": "And you're actually a member of the entrepreneur and you have a different perspective,",
+        "speaker": "speaker_2",
+        "duration": 4.199999999999818
+      },
+      {
+        "start": 3258.02,
+        "end": 3259.66,
+        "text": "a different place of looking at things.",
+        "speaker": "speaker_2",
+        "duration": 1.6399999999998727
+      },
+      {
+        "start": 3260.1,
+        "end": 3262.6,
+        "text": "And the gathering that you've said, you're a one-month person,",
+        "speaker": "speaker_2",
+        "duration": 2.5
+      },
+      {
+        "start": 3262.94,
+        "end": 3265.9,
+        "text": "but never on their desk and you're going to be doing that.",
+        "speaker": "speaker_2",
+        "duration": 2.9600000000000364
+      },
+      {
+        "start": 3266.36,
+        "end": 3271.36,
+        "text": "So what was the lesson that you learned in your sustainability journey?",
+        "speaker": "speaker_2",
+        "duration": 5.0
+      },
+      {
+        "start": 3272.26,
+        "end": 3274.16,
+        "text": "That is not because I'm voting online.",
+        "speaker": "speaker_2",
+        "duration": 1.8999999999996362
+      },
+      {
+        "start": 3276.68,
+        "end": 3281.82,
+        "text": "So one push of lesson that I learned is the clarity of intention.",
+        "speaker": "speaker_2",
+        "duration": 5.140000000000327
+      },
+      {
+        "start": 3282.92,
+        "end": 3286.2,
+        "text": "So to let people understand what's your key message.",
+        "speaker": "speaker_2",
+        "duration": 3.2799999999997453
+      },
+      {
+        "start": 3286.88,
+        "end": 3291.1,
+        "text": "Because a lot of people might not understand what you want to do, you don't let them know.",
+        "speaker": "speaker_2",
+        "duration": 4.2199999999998
+      },
+      {
+        "start": 3291.66,
+        "end": 3296.36,
+        "text": "Like at the very beginning, I was, before I started my business,",
+        "speaker": "speaker_2",
+        "duration": 4.700000000000273
+      },
+      {
+        "start": 3296.96,
+        "end": 3299.88,
+        "text": "I was wanting to follow the more commercial path.",
+        "speaker": "speaker_2",
+        "duration": 2.9200000000000728
+      },
+      {
+        "start": 3299.88,
+        "end": 3303.66,
+        "text": "It should be easy for me, it's more familiar,",
+        "speaker": "speaker_2",
+        "duration": 3.7799999999997453
+      },
+      {
+        "start": 3304.04,
+        "end": 3306.0,
+        "text": "because I was putting that kind of background.",
+        "speaker": "speaker_2",
+        "duration": 1.9600000000000364
+      },
+      {
+        "start": 3306.78,
+        "end": 3309.68,
+        "text": "But then because of the personal experience,",
+        "speaker": "speaker_2",
+        "duration": 2.899999999999636
+      },
+      {
+        "start": 3309.9,
+        "end": 3313.46,
+        "text": "it's a chef might have to be a more aggressive, more meaningful approach.",
+        "speaker": "speaker_2",
+        "duration": 3.5599999999999454
+      },
+      {
+        "start": 3314.08,
+        "end": 3316.42,
+        "text": "And then when I have that kind of share,",
+        "speaker": "speaker_2",
+        "duration": 2.3400000000001455
+      },
+      {
+        "start": 3316.66,
+        "end": 3321.1,
+        "text": "and then people keep asking me, why are you using these kind of jobs",
+        "speaker": "speaker_2",
+        "duration": 4.440000000000055
+      },
+      {
+        "start": 3321.1,
+        "end": 3323.56,
+        "text": "to assist a center focus?",
+        "speaker": "speaker_2",
+        "duration": 2.4600000000000364
+      },
+      {
+        "start": 3324.44,
+        "end": 3326.94,
+        "text": "Why do you pad them with the top 40 diamond?",
+        "speaker": "speaker_2",
+        "duration": 2.5
+      },
+      {
+        "start": 3326.94,
+        "end": 3328.54,
+        "text": "Don't you think it doesn't match?",
+        "speaker": "speaker_2",
+        "duration": 1.599999999999909
+      },
+      {
+        "start": 3330.04,
+        "end": 3334.3,
+        "text": "I'm like, that's not the key message that I want to bring out.",
+        "speaker": "speaker_2",
+        "duration": 4.260000000000218
+      },
+      {
+        "start": 3335.14,
+        "end": 3340.2,
+        "text": "Because I think true beauty doesn't exist in only one particular form.",
+        "speaker": "speaker_2",
+        "duration": 5.059999999999945
+      },
+      {
+        "start": 3340.92,
+        "end": 3344.72,
+        "text": "Just for example, when we talk about beauty in people,",
+        "speaker": "speaker_2",
+        "duration": 3.799999999999727
+      },
+      {
+        "start": 3345.1,
+        "end": 3348.5,
+        "text": "people might think about big eyes, chatchans, long legs.",
+        "speaker": "speaker_2",
+        "duration": 3.400000000000091
+      },
+      {
+        "start": 3349.04,
+        "end": 3350.38,
+        "text": "Why I don't have any of these?",
+        "speaker": "speaker_2",
+        "duration": 1.3400000000001455
+      },
+      {
+        "start": 3350.8,
+        "end": 3352.92,
+        "text": "But I do think it's beautiful in a way.",
+        "speaker": "speaker_2",
+        "duration": 2.119999999999891
+      },
+      {
+        "start": 3352.92,
+        "end": 3357.38,
+        "text": "And I do think everybody is beautiful in their own way.",
+        "speaker": "speaker_2",
+        "duration": 4.460000000000036
+      },
+      {
+        "start": 3357.66,
+        "end": 3361.32,
+        "text": "We just need to know what it is, and need to spread that message out.",
+        "speaker": "speaker_2",
+        "duration": 3.6600000000003092
+      },
+      {
+        "start": 3362.02,
+        "end": 3367.46,
+        "text": "And yeah, that's what I told that's beautiful right there.",
+        "speaker": "speaker_2",
+        "duration": 5.440000000000055
+      },
+      {
+        "start": 3367.96,
+        "end": 3369.82,
+        "text": "But focus is really important,",
+        "speaker": "speaker_2",
+        "duration": 1.8600000000001273
+      },
+      {
+        "start": 3370.1,
+        "end": 3372.48,
+        "text": "because there will be a lot of different noise out there.",
+        "speaker": "speaker_2",
+        "duration": 2.380000000000109
+      },
+      {
+        "start": 3373.42,
+        "end": 3375.0,
+        "text": "Thank you, thank you so much.",
+        "speaker": "speaker_2",
+        "duration": 1.5799999999999272
+      },
+      {
+        "start": 3375.3,
+        "end": 3375.6,
+        "text": "Henry?",
+        "speaker": "speaker_2",
+        "duration": 0.29999999999972715
+      },
+      {
+        "start": 3377.58,
+        "end": 3379.16,
+        "text": "Okay, so one of the lessons,",
+        "speaker": "speaker_2",
+        "duration": 1.5799999999999272
+      },
+      {
+        "start": 3379.16,
+        "end": 3380.9,
+        "text": "all the lessons I would say,",
+        "speaker": "speaker_2",
+        "duration": 1.7400000000002365
+      },
+      {
+        "start": 3381.94,
+        "end": 3384.5,
+        "text": "I've tried different initiatives in one way,",
+        "speaker": "speaker_2",
+        "duration": 2.5599999999999454
+      },
+      {
+        "start": 3384.86,
+        "end": 3388.08,
+        "text": "like I made me sourcing more sustainable groups",
+        "speaker": "speaker_2",
+        "duration": 3.2199999999998
+      },
+      {
+        "start": 3388.08,
+        "end": 3393.94,
+        "text": "and had expectations for them to do well, but fail.",
+        "speaker": "speaker_2",
+        "duration": 5.860000000000127
+      },
+      {
+        "start": 3394.7,
+        "end": 3400.94,
+        "text": "So I think one of the things is not to try to do too much at the same time.",
+        "speaker": "speaker_2",
+        "duration": 6.2400000000002365
+      },
+      {
+        "start": 3402.1400000000003,
+        "end": 3405.96,
+        "text": "Yes, your core messages, your branding, your clean messages,",
+        "speaker": "speaker_2",
+        "duration": 3.819999999999709
+      },
+      {
+        "start": 3405.96,
+        "end": 3410.1,
+        "text": "your super-wide, and I would just say,",
+        "speaker": "speaker_2",
+        "duration": 4.139999999999873
+      },
+      {
+        "start": 3410.24,
+        "end": 3411.86,
+        "text": "everything takes a little bit of time.",
+        "speaker": "speaker_2",
+        "duration": 1.6200000000003456
+      },
+      {
+        "start": 3412.12,
+        "end": 3413.9,
+        "text": "Everything takes a little bit consistency.",
+        "speaker": "speaker_2",
+        "duration": 1.7800000000002
+      },
+      {
+        "start": 3415.92,
+        "end": 3418.18,
+        "text": "Yeah, like, if there's a movie probably,",
+        "speaker": "speaker_2",
+        "duration": 2.2599999999997635
+      },
+      {
+        "start": 3418.4,
+        "end": 3424.0,
+        "text": "through NRL, I had five different things that we can talk about,",
+        "speaker": "speaker_2",
+        "duration": 5.599999999999909
+      },
+      {
+        "start": 3424.24,
+        "end": 3427.4,
+        "text": "but actually probably focusing on one.",
+        "speaker": "speaker_2",
+        "duration": 3.1600000000003092
+      }
+    ],
+    "speaker_stats": {
+      "moderator": {
+        "total_duration": 1275.1400000000087,
+        "segment_count": 456,
+        "total_text_length": 8411,
+        "texts": [
+          "의미 vem의",
+          "",
+          "파규가",
+          "식사 Andrew 중간 bem택으로",
+          "공급단 land위에",
+          "maternity aggregate",
+          "하고 계산 Elektore",
+          "미",
+          "GOD의 프로운에서 물어본다,",
+          "하나하나 Beau,",
+          "소 bashb laughing ball",
+          "우리 전fer연신의 고 them",
+          "urities 언급하고",
+          "MAX",
+          "facility 2입니다.",
+          "그녀와Р어이가",
+          "А",
+          "drug Painless leche",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "supports",
+          "ability",
+          "often",
+          "law",
+          "practices",
+          "mean",
+          "Fry means",
+          "advocates",
+          "",
+          "여자 ordered wie chain",
+          "자격의",
+          "1999MyMt",
+          "footsteps簡單植임 safe",
+          "crime jewelry",
+          "Sister는",
+          "phonetic싱한 크�acula잉 Impect에ung",
+          "가정 popping",
+          "",
+          "Bath is",
+          "Aldan",
+          "John",
+          "",
+          "",
+          "에폭tain",
+          "講어있고",
+          "",
+          "",
+          "",
+          "공연",
+          "대 Cook",
+          "our panel session",
+          "jun",
+          "ler",
+          "ingredients",
+          "Fra microscope",
+          "and to saat FIRian",
+          "press MC",
+          "please welcome",
+          "liyeon",
+          "from chalif",
+          "your review",
+          "Thank you everybody",
+          "You were absolutely",
+          "Thank you completely",
+          "zan to share in our",
+          "experiences and thoughts",
+          "importantly let me be",
+          "an Instruction of",
+          "what we do on destinations",
+          "",
+          "͜ater",
+          "아니에요,",
+          "아프리언트",
+          "저희 partnerships은",
+          "수의 targets abbreviation을 fascinating해",
+          "Dog.",
+          "rumors.",
+          "Coll circle or",
+          "트� balancing,",
+          "연구�ig motif을 이뤄 �ètres Inspired Precious Matter small spillion",
+          "of pages of Tracy'에 꿔 Brankey.",
+          "이 ersten fracture를",
+          "더 cet seitoki야로",
+          "자막진주.",
+          "milli Kil hips",
+          "apon disciplinary",
+          "oddly",
+          "거의",
+          "vi Active treasencial clubs는",
+          "務이 algunos 우리法명님로",
+          "더 많이",
+          "ным Kum END obra 관회를",
+          "제학구와",
+          "ClydALL",
+          "원",
+          "А",
+          "이 주식의",
+          "가장 중요한 예리입니다 심얼 teenagers",
+          "주류 wasn't-",
+          "전 cuid calcium 8147 조",
+          "항조",
+          "품새",
+          "usto",
+          "있네요.",
+          "전공으로 다른 clinics,",
+          "titt이 especialmente",
+          "ок우�ura인atterpartiuna 부족하고",
+          "zer기에 독간의",
+          "samerater nosci현 further",
+          "muniz",
+          "압행",
+          "Split",
+          "bubble firm 러시아 특집进군고도",
+          "이를Team아디와 왕지적 연 lifts",
+          "주황醫원과 업그레이드",
+          "",
+          "",
+          "Above",
+          "KELSEE",
+          "걸쾌한ание는��다 체� Koh Sea 도입의",
+          "alternation",
+          "евой 기",
+          "비 Al",
+          "고",
+          "GOTC Electric Fund引의,",
+          "Brad John Smaller Micro-Line VJi",
+          "Nós입니다.",
+          "Congratulations,",
+          "on telling ourgovernment company,",
+          "לכ건를 함께 conduc어",
+          "villa의 emphasizes",
+          "저는",
+          "결ardon CSV",
+          "thanks for the awesome.",
+          "thank you very much.",
+          "thank you.",
+          "I think you've proven that sustainability is an infinite journey.",
+          "it doesn't end.",
+          "it's a long-term plan from child life.",
+          "and I believe after that there will be another long-term plan coming up.",
+          "Okay, now our next panelist.",
+          "let's all welcome Henry.",
+          "Henry the Flores Yorms.",
+          "감사합니다",
+          "안녕하세요",
+          "여러분 스스로도",
+          "and",
+          "cl pm",
+          "",
+          "",
+          "",
+          "패 틞�",
+          "네",
+          "Snowrelle",
+          "ומר",
+          "그다음에",
+          "",
+          "어린 땐",
+          "",
+          "느낄",
+          "언れて",
+          "언れて",
+          "언れて",
+          "ello",
+          "mara",
+          "Ray",
+          "애",
+          "geldi는",
+          "브라ilib room은",
+          "우리 어느 addition",
+          "节다로 Kevin Horacker woolyg주의",
+          "사람들 його 언론에 Cad ad",
+          "더ения가",
+          "Aleconductive.",
+          "父 veggie는",
+          "en",
+          "ALK",
+          "그대의",
+          "웃고 있는",
+          "그리고",
+          "어쩌다려나 왜",
+          "Marshall을",
+          "circulating",
+          "Hinduly P tongue system",
+          "점점",
+          "lungen 대책하는",
+          "",
+          "과andy",
+          "셔콘은 이 작품에",
+          "이런 주 мо고",
+          "제가 Kristalai's Gemstone",
+          "injust요.",
+          "again",
+          "네이미 ее",
+          "",
+          "이스타를",
+          "",
+          "일자",
+          "잠� well",
+          "여깄",
+          "제 expands",
+          "요선",
+          "음료",
+          "ust",
+          "ꈌ",
+          "제",
+          "제",
+          "고보",
+          "안",
+          "맛있어요!",
+          "The World Foundry",
+          "",
+          "마유",
+          "온 gangs notation one or oneда제같이",
+          "fringe",
+          "쥬얼한",
+          "경인 achieve",
+          "너무 changer",
+          "Thank you very much Henry.",
+          "Our next panelists, Let's welcome Catherine of PICS,",
+          "I'll find youly one of the finalists for this Sustainability Awards 2025 by JWA Academy of LORIS WORKS.",
+          "Thank you so much Mary.",
+          "So before I start, let me ask you one question.",
+          "What makes something beautiful?",
+          "忍고도",
+          "유젝",
+          "그림이나",
+          "şu compliance",
+          "이번에는",
+          "그걸",
+          "",
+          "저희가",
+          "아주 큰 Sheila 라고 보시면",
+          "단일 scariestauf은",
+          "rada",
+          "Scandinavian literature,",
+          "hooks français의",
+          "ія이 어떻게 보itting다면 정권 사 등ý父 Panda는",
+          "Powerfulobil del Sal ع빔낸 강형 평가З상의 워 cors amencel",
+          "",
+          "100% 우리 launched",
+          "Piz Confessyour",
+          "göre",
+          "내",
+          "문제 Users' 후再见은 After War",
+          "",
+          "이분과 신공사 whole value",
+          "자서over",
+          "La yellSence medal",
+          "있어, 뭐 이유가 올튼яж개�anco식,",
+          "준비했을 때 gloraltres önem혀 지라니",
+          "이었어old's",
+          "뭐 대해서 저는",
+          "Kurdish sheep who knows what they're doing!",
+          "Animals have great quality and inclusion",
+          "건しょう 다른 thuackedie는",
+          "무� Europa разг엔 치당객의 수직한 평가의",
+          "마지막 기권에서 촬영할 유larını gospel입니다",
+          "너무 좋은 monotaur brig",
+          "",
+          "Carmen Crab",
+          "rescued",
+          "Да Much",
+          "나도",
+          "5",
+          "傑 parade",
+          "retrano",
+          "어",
+          "해주다가",
+          "identities Shengda가",
+          "장난ogue이Boyk",
+          "asthma",
+          "",
+          "thank you so much",
+          "다닌",
+          "저한夢",
+          "3iggs",
+          "평생",
+          "저희에 싸 usbt한 해달라는",
+          "대타수의 대한민국�의 세",
+          "아주",
+          "리마뚜 마",
+          "앞에서 듣기게 될 recorder이나 압제의 다ater Knight과ВTG VS R Dong Nah",
+          "그리고 압곡port לח해서",
+          "켜졌 Hilfe dressed PTSD를 inspired",
+          "그리고 요 zgAs",
+          "iper",
+          "� Même lange 출발 futhao",
+          "버전",
+          "지",
+          "매� tagged 다�iku Wonderful Skill Out of stool",
+          "예를 들어서 우리가 한 시간이나",
+          "ョiş센 아버지에 좋아요",
+          "제일 좋은 설계가 français",
+          "정전 수영ordre 주arioist",
+          "매� spawn",
+          "그리고",
+          "개인적으로",
+          "제가",
+          "네 이게 아무도",
+          "많은 � ASL 입안에 관합니다 이 등심을",
+          "명예 autop는 되게 봐야할 기회가 더",
+          "내가 Asians 시on Carol",
+          "Fall MI는",
+          "개인적인",
+          "normal",
+          "모든こと는 중국 Domensa 하고 palavras부 소가 심방 hotel Championship",
+          "또 다른 한국어 주� oğlum에서",
+          "SURI 링크yle 주셨어요.",
+          "미국마� bangs 노래,",
+          "이 is actually a more of us more mature",
+          "most of them are like 50s 60s years old",
+          "so they might not",
+          "they might not go up with terms or",
+          "they may not go up with terms of",
+          "sustainability Bye",
+          "why do we you",
+          "focus on theengers?",
+          "why do you blockon",
+          "right I'm trav",
+          "이 생각나—",
+          "indinger segment",
+          "WHAT Yep",
+          "AT Romania",
+          "모링이 굉장히 그램데요",
+          "제 utilizar 고�mentation",
+          "그리고 아 bills",
+          "vielä",
+          "Red Hot, 1pc, 7'0'10\", 남성군 agreement biting tablespoons 난이 FinN 하고 개봉해",
+          "저는 지금胃자로",
+          "евич이",
+          "prostu 여러 aired Kongdong에서",
+          "MORE INC의 현� Dae Nam에서",
+          "이것은 incarcerated입니다",
+          "nutritional content",
+          "",
+          "코치에 동의하는 시에",
+          "마음의",
+          "장 heard",
+          "wij",
+          "� groot",
+          "hosted",
+          "우리華ACT 에콤푬리스 그리고",
+          "조 weit 더",
+          "다ult through support",
+          "니프 です.",
+          "에플OUGH 21",
+          "",
+          "MRS를 다양한",
+          "배 surreal的是 가장 가지報说,",
+          "One should start with something they simply call as Bangtan,",
+          "나는 방지말로 ambiguous,",
+          "무게에",
+          "나는 우리는 인",
+          "I do think that impact,",
+          "well, first of all, the bigger your impact is supposed to be,",
+          "I suppose, but it doesn't mean that it makes small.",
+          "You don't have your impact on my company and I was doing a sample",
+          "that we are doing positive change.",
+          "And it takes time because as you can see,",
+          "even though it's my workshop or is the sharing session,",
+          "Security하고 in Italian and English話 finde it is not as entertaining as you can see,",
+          "1000 people came across the situation,",
+          "floods and all kinds of tat國家의",
+          "사람들의 Maurice Éallows",
+          "이 개가 virus을 침하러 있던 연기가",
+          "",
+          "할 수 약성과",
+          "간대 VS çıktı",
+          "아마 이 개의 발상",
+          "너무irl",
+          "companies company",
+          "MAX",
+          "비굣 Autumn",
+          "ого",
+          "지",
+          "저 smoked",
+          "식사 및",
+          "뭐",
+          "Central",
+          "",
+          "I'm Provided",
+          "넌 댓글 다",
+          "Wideьте 아직도",
+          "다시 말하면",
+          "감사합니다",
+          "나는",
+          "내가 보인 거 own",
+          "지 Piet",
+          "ürü",
+          "꿈과ици의",
+          "사실 대� lab에",
+          "함께",
+          "saturday",
+          "역시",
+          "ór퇴힌 assetsちは RH 미�няя 방향과",
+          "Hello, hello.",
+          "Next, I am also a graduate professor at the present.",
+          "I would also like to ask more about sustainability practices.",
+          "So besides like, feasibility, standards like that,",
+          "I would like to know in different parts of the supply chain,",
+          "how you engage your employees to involve in every part of the journey of work.",
+          "How do you use it?",
+          "Could you please provide more insights with us?",
+          "This is a question for you.",
+          "Thank you.",
+          "How do you create the culture of sustainability living your company?",
+          "Leanne?",
+          "I was asked first.",
+          "Well, something very good question, because it is very important to engage everyone in the organization",
+          "to help us bring forward our plan and ideas.",
+          "And at TOTA4, we actually do it both ways.",
+          "We talk down to Baltimore.",
+          "From TOTA, we engage all the departments and the leadership team.",
+          "We have a research that exists in the community management committee",
+          "at the executive level to provide oversight of our system and community actions",
+          "that involve all the different business units and departments and things like that.",
+          "We also set up task forces, which will focus on a certain focused area.",
+          "And these task forces comprise members, again, across the organization.",
+          "For example, on the sacred code alone, we engage people from productions,",
+          "from sourcing to production and distribution and the branding.",
+          "Everyone worked together to bring forward our cycle code, long-term code and end commitment.",
+          "Baltimore, we actually engage in a lot of internal engagement to help our employees understand",
+          "and become aware of what sustainability needs for everyone.",
+          "And why do we, as a company, want to do it, wasn't it for them?",
+          "We want to be able to ensure that they understand and get and and",
+          "and why into what we are doing and ultimately internalizing back",
+          "sustainability into everything that we do.",
+          "And we would invite experts to come share knowledge with us",
+          "and we have ongoing communications about what we do in the system.",
+          "We tear it, we keep that informed on our progress.",
+          "So we want to be able to reach out to the organization,",
+          "not just to let them know, but engage them.",
+          "And YouTube that would participate in our actions so that it becomes a very powerful force to bring forward our plan.",
+          "And so I think it's important to get everyone involved.",
+          "And for an employer, I think it matters that their voice is heard,",
+          "and that they feel that they are actually a part of the work.",
+          "Exactly. Yeah, they feel that they actually participate in the success of the company.",
+          "I mean outside of the organization, we also engage our suppliers",
+          "where we have best practice supply principles.",
+          "And we would educate and engage with them to understand what our standards are",
+          "and ensure they are aligned with us and we would review their practices",
+          "and show them the improvement areas, provide change with them.",
+          "So that in the broader, managing area, we also hope to create an established culture.",
+          "Okay, Henry, it's your turn?",
+          "Sure. Yeah, okay.",
+          "So smaller companies, to mid-sized companies,",
+          "I think the importance of engaging volume employees is very important.",
+          "Jewelry is there, there's quite a lot of technical parts in making jewelry.",
+          "So if you're working with crossmen generally, they're all gone.",
+          "And then if you're doing social media or whatever,",
+          "it's like marketing and things like that, you tend to be hiring young guys.",
+          "So it is important to engage them all together."
+        ],
+        "role": "사회자",
+        "sample_text": "And YouTube that would participate in our actions so that it becomes a very powerful force to bring ..."
+      },
+      "speaker_2": {
+        "total_duration": 479.5000000000002,
+        "segment_count": 127,
+        "total_text_length": 6819,
+        "texts": [
+          "platinum You also follow me to try that message",
+          "�keepers� empire의 일지를aced clause",
+          "하지만, if you want to stop in, because you know,",
+          "something that you are like, you're close to your heart,",
+          "you want to do something about it.",
+          "I think it's very important to state that you are true value.",
+          "What is important for you?",
+          "What is so important for you that you have to stop this business.",
+          "That you need to think about it.",
+          "And keep focusing on that path, because there will be a lot of challenges",
+          "and people will say that it is difficult.",
+          "And a lot of people will say that, just commercial one.",
+          "And a lot of distraction, I was saying.",
+          "I mean, I didn't mean commercials for that thing.",
+          "Because at the end of the day, we are doing business.",
+          "But I think the intention and the value you have to be very, very clear about that.",
+          "Thank you. 10 reads?",
+          "Yes, sorry. That is a very fascinating story.",
+          "That is a very cool message that kind of gives you drive to continue.",
+          "It is not going to be easy.",
+          "So that is very, very important.",
+          "I will say, there is a lot of program cases out there where if you have your very clear messaging,",
+          "like a very clear product, as well, it is very easy for you to communicate that.",
+          "And people understand what you are actually doing.",
+          "Just almost like all eggs on one basket is a little bit better than trying to spread that out.",
+          "There are many program cases where brands with single products have managed to sell huge volumes.",
+          "So I probably do that.",
+          "I probably just about starting all over again.",
+          "I would definitely just focus on single product and communicating that as much as I can with consistency.",
+          "The end.",
+          "So I think other than staying focused and having a very clear vision,",
+          "as a startup who may not have a lot of resources,",
+          "you can try to reach out to help from others like industry partners,",
+          "like industry associations.",
+          "Even for us, we have very close relationship with a lot of industry,",
+          "jewelry associations.",
+          "There is a lot of support and help.",
+          "Once you retail, you can see that a lot of organizations that are interviewing share the same vision.",
+          "And I am sure there is a lot of collaboration opportunities.",
+          "You don't just work on it by yourself.",
+          "You can seek help and cooperate with others.",
+          "As you share the same common vision, I am sure there are a lot of resources.",
+          "For example, for a health sector in Europe, they actually have issued ESG Guard.",
+          "And a lot of that is focused on health pay incentives.",
+          "And I am sure there are other industries, associations, local ones,",
+          "regional ones, that also support that.",
+          "So I would encourage you to open yourself up and collaborate.",
+          "Thank you very much.",
+          "That was an excellent question.",
+          "Other questions?",
+          "Yes, please.",
+          "Educating the crossmen or who are the technical people of the importance of sustainability.",
+          "Generally at a startup level, if you're hiring people,",
+          "they need to be quite passionate about trying to make change and trying to do better.",
+          "It was quite important.",
+          "So yeah, hiring the right people is going to be a core to success.",
+          "Thank you, Kathy.",
+          "So I have different approach, I will not different approach,",
+          "because it's still like a one-man ban right now.",
+          "So I don't have any employee to engage with this moment.",
+          "But I do see my suppliers, my clients, and also all the collaborators as part of the journey to sustainability.",
+          "So whenever I get a chance to spread the message, I'll just let them know what I want to do with the brand.",
+          "What I want to do with the knowledge that I know.",
+          "As my job is to knowledge from professionals, from their trade,",
+          "to learn it from the seniors, as well as pass it down as well.",
+          "Because I got it from free, I should do it for free as well.",
+          "And then part of the journey, I think it's really important to get the skill that knowledge can pass down.",
+          "And together with the message that you want them to understand about whatever you do.",
+          "There is an impact to other people.",
+          "I think that's a spirit of sustainability.",
+          "Also being generous with your knowledge and being willing to share it.",
+          "Because collecting action is needed for it to really have a strong impact.",
+          "But we should not underestimate the strength of one person or one small group.",
+          "Because together we will deliver something, you know, we create something beautiful.",
+          "Now we have time for one more question, one last question.",
+          "Any questions? No.",
+          "So I will ask the final question.",
+          "What is the 8th away, the most important lesson that you have learned in your sustainability journey?",
+          "You are on different stages, right?",
+          "For example, Leon, you've been an expert for more than a decade, right?",
+          "And then for Henry, you have been open-to-one businesses.",
+          "And you're actually a member of the entrepreneur and you have a different perspective,",
+          "a different place of looking at things.",
+          "And the gathering that you've said, you're a one-month person,",
+          "but never on their desk and you're going to be doing that.",
+          "So what was the lesson that you learned in your sustainability journey?",
+          "That is not because I'm voting online.",
+          "So one push of lesson that I learned is the clarity of intention.",
+          "So to let people understand what's your key message.",
+          "Because a lot of people might not understand what you want to do, you don't let them know.",
+          "Like at the very beginning, I was, before I started my business,",
+          "I was wanting to follow the more commercial path.",
+          "It should be easy for me, it's more familiar,",
+          "because I was putting that kind of background.",
+          "But then because of the personal experience,",
+          "it's a chef might have to be a more aggressive, more meaningful approach.",
+          "And then when I have that kind of share,",
+          "and then people keep asking me, why are you using these kind of jobs",
+          "to assist a center focus?",
+          "Why do you pad them with the top 40 diamond?",
+          "Don't you think it doesn't match?",
+          "I'm like, that's not the key message that I want to bring out.",
+          "Because I think true beauty doesn't exist in only one particular form.",
+          "Just for example, when we talk about beauty in people,",
+          "people might think about big eyes, chatchans, long legs.",
+          "Why I don't have any of these?",
+          "But I do think it's beautiful in a way.",
+          "And I do think everybody is beautiful in their own way.",
+          "We just need to know what it is, and need to spread that message out.",
+          "And yeah, that's what I told that's beautiful right there.",
+          "But focus is really important,",
+          "because there will be a lot of different noise out there.",
+          "Thank you, thank you so much.",
+          "Henry?",
+          "Okay, so one of the lessons,",
+          "all the lessons I would say,",
+          "I've tried different initiatives in one way,",
+          "like I made me sourcing more sustainable groups",
+          "and had expectations for them to do well, but fail.",
+          "So I think one of the things is not to try to do too much at the same time.",
+          "Yes, your core messages, your branding, your clean messages,",
+          "your super-wide, and I would just say,",
+          "everything takes a little bit of time.",
+          "Everything takes a little bit consistency.",
+          "Yeah, like, if there's a movie probably,",
+          "through NRL, I had five different things that we can talk about,",
+          "but actually probably focusing on one."
+        ],
+        "role": "발표자 2",
+        "sample_text": "But I do see my suppliers, my clients, and also all the collaborators as part of the journey to sust..."
+      }
+    },
+    "success": true
+  }
+}

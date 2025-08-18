@@ -1,0 +1,38 @@
+analysis:
+  confidence_threshold: 0.5
+  cross_validation: true
+  report_format: jewelry_standard
+engines:
+  audio:
+    enabled: true
+    language: ko
+    model: whisper-base
+  image:
+    enabled: true
+    languages:
+    - ko
+    - en
+    ocr_engine: easyocr
+  text:
+    enabled: true
+    language: ko
+    use_transformers: false
+  video:
+    enabled: true
+    sample_frames: 5
+output:
+  include_raw_data: true
+  output_format: json
+  save_intermediate: true
+processing:
+  max_workers: 4
+  memory_limit_mb: 2048
+  timeout_seconds: 300
+project:
+  domain: jewelry
+  name: 주얼리 컨퍼런스 분석 시스템
+  version: 1.0.0
+ui:
+  layout: four_step
+  theme: jewelry
+  title: JGA25 컨퍼런스 분석

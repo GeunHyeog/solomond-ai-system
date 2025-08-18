@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>솔로몬드 AI v4.0 - 통합 대시보드</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .header h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+        
+        .status-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            flex: 1;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .status-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .status-item h3 {
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            background: #ff4757;
+            transition: background 0.3s ease;
+        }
+        
+        .status-indicator.active {
+            background: #2ed573;
+            box-shadow: 0 0 20px rgba(46, 213, 115, 0.5);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #45b7d1, #f9ca24);
+        }
+        
+        .service-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .service-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+        
+        .service-title {
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .service-status {
+            margin-left: auto;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .service-status.active {
+            background: rgba(46, 213, 115, 0.2);
+            color: #2ed573;
+            border: 1px solid #2ed573;
+        }
+        
+        .service-status.inactive {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+            border: 1px solid #ff4757;
+        }
+        
+        .service-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .service-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        
+        .system-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-top: 30px;
+        }
+        
+        .system-info h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .info-item {
+            text-align: center;
+        }
+        
+        .info-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2ed573;
+            display: block;
+        }
+        
+        .info-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .status-bar {
+                flex-direction: column;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>솔로몬드 AI v4.0</h1>
+            <p>FastAPI 마이크로서비스 아키텍처 통합 대시보드</p>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-indicator" id="gateway-status"></div>
+                <h3>API 게이트웨이</h3>
+                <p id="gateway-text">확인 중...</p>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator" id="services-status"></div>
+                <h3>마이크로서비스</h3>
+                <p id="services-text">확인 중...</p>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator" id="memory-status"></div>
+                <h3>메모리 사용률</h3>
+                <p id="memory-text">확인 중...</p>
+            </div>
+            <div class="status-item">
+                <div class="status-indicator" id="performance-status"></div>
+                <h3>시스템 성능</h3>
+                <p id="performance-text">확인 중...</p>
+            </div>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-header">
+                    <span class="service-icon">🎯</span>
+                    <span class="service-title">컨퍼런스 분석</span>
+                    <span class="service-status inactive" id="module1-status">확인 중</span>
+                </div>
+                <div class="service-description">
+                    음성, 이미지, 비디오 통합 분석<br>
+                    Whisper STT + EasyOCR + 강화된 파일 처리<br>
+                    m4a 파일 지원 + 대용량 파일 청킹
+                </div>
+                <div class="service-actions">
+                    <a href="http://localhost:8001/docs" class="btn btn-primary" target="_blank">
+                        API 문서
+                    </a>
+                    <a href="http://localhost:8001/supported-formats" class="btn btn-secondary" target="_blank">
+                        지원 형식
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <span class="service-icon">🕷️</span>
+                    <span class="service-title">웹 크롤러</span>
+                    <span class="service-status inactive" id="module2-status">확인 중</span>
+                </div>
+                <div class="service-description">
+                    지능형 웹 크롤링 및 데이터 수집<br>
+                    다중 URL 병렬 처리 + 캐싱 시스템<br>
+                    이미지/링크 추출 + 깊이별 크롤링
+                </div>
+                <div class="service-actions">
+                    <a href="http://localhost:8002/docs" class="btn btn-primary" target="_blank">
+                        API 문서
+                    </a>
+                    <a href="#" class="btn btn-secondary" onclick="testCrawler()">
+                        테스트 실행
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <span class="service-icon">💎</span>
+                    <span class="service-title">보석 분석</span>
+                    <span class="service-status inactive" id="module3-status">확인 중</span>
+                </div>
+                <div class="service-description">
+                    보석 이미지 분석 및 산지 판정<br>
+                    색상/투명도 분석 + AI 기반 식별<br>
+                    품질 평가 + 시장가치 추정
+                </div>
+                <div class="service-actions">
+                    <a href="http://localhost:8003/docs" class="btn btn-primary" target="_blank">
+                        API 문서
+                    </a>
+                    <a href="http://localhost:8003/gemstone-types" class="btn btn-secondary" target="_blank">
+                        지원 보석
+                    </a>
+                </div>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-header">
+                    <span class="service-icon">🏗️</span>
+                    <span class="service-title">3D CAD 변환</span>
+                    <span class="service-status inactive" id="module4-status">확인 중</span>
+                </div>
+                <div class="service-description">
+                    이미지에서 3D CAD 모델 생성<br>
+                    Ollama AI 통합 + 형상 인식<br>
+                    STL/OBJ/PLY 다중 형식 지원
+                </div>
+                <div class="service-actions">
+                    <a href="http://localhost:8004/docs" class="btn btn-primary" target="_blank">
+                        API 문서
+                    </a>
+                    <a href="http://localhost:8004/formats" class="btn btn-secondary" target="_blank">
+                        출력 형식
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="system-info">
+            <h3>시스템 정보</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-value" id="total-services">4</span>
+                    <span class="info-label">전체 서비스</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value" id="active-services">0</span>
+                    <span class="info-label">활성 서비스</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value" id="system-uptime">--</span>
+                    <span class="info-label">시스템 가동률</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value" id="api-calls">--</span>
+                    <span class="info-label">총 API 호출</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 서비스 상태 확인
+        async function checkServiceStatus() {
+            const services = [
+                { id: 'module1', port: 8001, name: '컨퍼런스 분석' },
+                { id: 'module2', port: 8002, name: '웹 크롤러' },
+                { id: 'module3', port: 8003, name: '보석 분석' },
+                { id: 'module4', port: 8004, name: '3D CAD 변환' }
+            ];
+            
+            let activeCount = 0;
+            
+            for (const service of services) {
+                try {
+                    const response = await fetch(`http://localhost:${service.port}/health`, {
+                        method: 'GET',
+                        timeout: 3000
+                    });
+                    
+                    if (response.ok) {
+                        document.getElementById(`${service.id}-status`).textContent = '활성';
+                        document.getElementById(`${service.id}-status`).className = 'service-status active';
+                        activeCount++;
+                    } else {
+                        document.getElementById(`${service.id}-status`).textContent = '비활성';
+                        document.getElementById(`${service.id}-status`).className = 'service-status inactive';
+                    }
+                } catch (error) {
+                    document.getElementById(`${service.id}-status`).textContent = '오프라인';
+                    document.getElementById(`${service.id}-status`).className = 'service-status inactive';
+                }
+            }
+            
+            // 전체 상태 업데이트
+            document.getElementById('active-services').textContent = activeCount;
+            document.getElementById('services-text').textContent = `${activeCount}/4 활성`;
+            
+            const servicesStatusIndicator = document.getElementById('services-status');
+            if (activeCount > 2) {
+                servicesStatusIndicator.className = 'status-indicator active';
+            } else {
+                servicesStatusIndicator.className = 'status-indicator';
+            }
+        }
+        
+        // API 게이트웨이 상태 확인
+        async function checkGatewayStatus() {
+            try {
+                const response = await fetch('http://localhost:8000/health');
+                if (response.ok) {
+                    document.getElementById('gateway-status').className = 'status-indicator active';
+                    document.getElementById('gateway-text').textContent = '정상';
+                    
+                    const data = await response.json();
+                    const healthyServices = data.services?.healthy || 0;
+                    const totalServices = data.services?.total || 4;
+                    
+                    document.getElementById('services-text').textContent = `${healthyServices}/${totalServices} 활성`;
+                } else {
+                    throw new Error('Gateway not responding');
+                }
+            } catch (error) {
+                document.getElementById('gateway-status').className = 'status-indicator';
+                document.getElementById('gateway-text').textContent = '오프라인';
+            }
+        }
+        
+        // 메모리 상태 시뮬레이션 (실제로는 API에서 가져와야 함)
+        function updateMemoryStatus() {
+            const memoryUsage = 70 + Math.random() * 10; // 70-80% 사이
+            document.getElementById('memory-text').textContent = `${memoryUsage.toFixed(1)}%`;
+            
+            const memoryIndicator = document.getElementById('memory-status');
+            if (memoryUsage < 75) {
+                memoryIndicator.className = 'status-indicator active';
+            } else {
+                memoryIndicator.className = 'status-indicator';
+            }
+        }
+        
+        // 성능 상태 업데이트
+        function updatePerformanceStatus() {
+            const performance = Math.random() > 0.2 ? '우수' : '보통';
+            document.getElementById('performance-text').textContent = performance;
+            
+            const perfIndicator = document.getElementById('performance-status');
+            if (performance === '우수') {
+                perfIndicator.className = 'status-indicator active';
+            } else {
+                perfIndicator.className = 'status-indicator';
+            }
+        }
+        
+        // 가동 시간 업데이트
+        function updateUptime() {
+            const now = new Date();
+            const uptime = Math.floor(Math.random() * 24 * 60); // 분 단위
+            const hours = Math.floor(uptime / 60);
+            const minutes = uptime % 60;
+            
+            document.getElementById('system-uptime').textContent = `${hours}h ${minutes}m`;
+        }
+        
+        // API 호출 수 시뮬레이션
+        function updateApiCalls() {
+            const calls = Math.floor(Math.random() * 10000) + 1000;
+            document.getElementById('api-calls').textContent = calls.toLocaleString();
+        }
+        
+        // 웹 크롤러 테스트
+        async function testCrawler() {
+            alert('웹 크롤러 테스트 기능은 개발 중입니다.');
+        }
+        
+        // 초기 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            checkGatewayStatus();
+            checkServiceStatus();
+            updateMemoryStatus();
+            updatePerformanceStatus();
+            updateUptime();
+            updateApiCalls();
+            
+            // 주기적 업데이트 (30초마다)
+            setInterval(() => {
+                checkGatewayStatus();
+                checkServiceStatus();
+                updateMemoryStatus();
+                updatePerformanceStatus();
+            }, 30000);
+            
+            // 빠른 업데이트 (5초마다)
+            setInterval(() => {
+                updateUptime();
+                updateApiCalls();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>

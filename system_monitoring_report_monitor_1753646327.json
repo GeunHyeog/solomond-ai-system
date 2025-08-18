@@ -1,0 +1,233 @@
+{
+  "session_id": "monitor_1753646327",
+  "start_time": "2025-07-28T04:58:47.531887",
+  "monitoring_interval": 1.0,
+  "performance_data": [
+    {
+      "timestamp": 1753646327.8755944,
+      "cpu_percent": 22.4,
+      "memory_percent": 70.6,
+      "memory_available_gb": 4.068634033203125,
+      "process_memory_mb": 22.27734375,
+      "python_memory_mb": 0.014890670776367188,
+      "disk_read_mb": 2379480.8881835938,
+      "disk_write_mb": 1396501.8017578125,
+      "network_sent_mb": 6840.349678993225,
+      "network_recv_mb": 419.6514730453491,
+      "thread_count": 5,
+      "file_handles": 0
+    },
+    {
+      "timestamp": 1753646329.0447953,
+      "cpu_percent": 27.1,
+      "memory_percent": 70.9,
+      "memory_available_gb": 4.030860900878906,
+      "process_memory_mb": 23.85546875,
+      "python_memory_mb": 0.016292572021484375,
+      "disk_read_mb": 2379480.8881835938,
+      "disk_write_mb": 1396501.9111328125,
+      "network_sent_mb": 6840.3538427352905,
+      "network_recv_mb": 419.6542720794678,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.0,
+      "disk_write_speed": 0.09354679786883481,
+      "network_send_speed": 0.0035611861702648296,
+      "network_recv_speed": 0.0023939719216049646
+    },
+    {
+      "timestamp": 1753646330.218514,
+      "cpu_percent": 28.8,
+      "memory_percent": 70.8,
+      "memory_available_gb": 4.042049407958984,
+      "process_memory_mb": 22.30078125,
+      "python_memory_mb": 0.017333030700683594,
+      "disk_read_mb": 2379481.0756835938,
+      "disk_write_mb": 1396502.1025390625,
+      "network_sent_mb": 6840.354212760925,
+      "network_recv_mb": 419.6566581726074,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.159748670152529,
+      "disk_write_speed": 0.16307676744737334,
+      "network_send_speed": 0.00031525921640615463,
+      "network_recv_speed": 0.0020329344315675227
+    },
+    {
+      "timestamp": 1753646331.3959012,
+      "cpu_percent": 45.2,
+      "memory_percent": 70.9,
+      "memory_available_gb": 4.034515380859375,
+      "process_memory_mb": 23.09765625,
+      "python_memory_mb": 0.018259048461914062,
+      "disk_read_mb": 2379481.0756835938,
+      "disk_write_mb": 1396502.3603515625,
+      "network_sent_mb": 6840.361126899719,
+      "network_recv_mb": 419.6598243713379,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.0,
+      "disk_write_speed": 0.21897001409386188,
+      "network_send_speed": 0.005872442450063989,
+      "network_recv_speed": 0.002689173646098268
+    },
+    {
+      "timestamp": 1753646332.5719845,
+      "cpu_percent": 28.0,
+      "memory_percent": 70.6,
+      "memory_available_gb": 4.069183349609375,
+      "process_memory_mb": 23.9453125,
+      "python_memory_mb": 0.01924610137939453,
+      "disk_read_mb": 2379481.0795898438,
+      "disk_write_mb": 1396502.8291015625,
+      "network_sent_mb": 6840.361828804016,
+      "network_recv_mb": 419.66154384613037,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.0033214058158253716,
+      "disk_write_speed": 0.3985686978990446,
+      "network_send_speed": 0.0005968151075311215,
+      "network_recv_speed": 0.0014620348354328968
+    },
+    {
+      "timestamp": 1753646333.763906,
+      "cpu_percent": 34.2,
+      "memory_percent": 70.8,
+      "memory_available_gb": 4.0476531982421875,
+      "process_memory_mb": 23.9453125,
+      "python_memory_mb": 0.02048015594482422,
+      "disk_read_mb": 2379481.9858398438,
+      "disk_write_mb": 1396502.8408203125,
+      "network_sent_mb": 6840.365725517273,
+      "network_recv_mb": 419.66429138183594,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.7603269350132549,
+      "disk_write_speed": 0.009831813814826573,
+      "network_send_speed": 0.003269270121043406,
+      "network_recv_speed": 0.002305131477906523
+    },
+    {
+      "timestamp": 1753646334.9503007,
+      "cpu_percent": 25.7,
+      "memory_percent": 71.0,
+      "memory_available_gb": 4.017555236816406,
+      "process_memory_mb": 23.50390625,
+      "python_memory_mb": 0.02124309539794922,
+      "disk_read_mb": 2379482.5327148438,
+      "disk_write_mb": 1396503.1220703125,
+      "network_sent_mb": 6840.3695821762085,
+      "network_recv_mb": 419.6657066345215,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.46095536665259945,
+      "disk_write_speed": 0.2370627599927654,
+      "network_send_speed": 0.0032507385301742326,
+      "network_recv_speed": 0.0011929020719036996
+    },
+    {
+      "timestamp": 1753646336.1644454,
+      "cpu_percent": 20.0,
+      "memory_percent": 70.7,
+      "memory_available_gb": 4.055515289306641,
+      "process_memory_mb": 23.51171875,
+      "python_memory_mb": 0.022230148315429688,
+      "disk_read_mb": 2379482.5327148438,
+      "disk_write_mb": 1396503.1689453125,
+      "network_sent_mb": 6840.370289802551,
+      "network_recv_mb": 419.66967582702637,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.0,
+      "disk_write_speed": 0.03860742442010709,
+      "network_send_speed": 0.0005828187849877821,
+      "network_recv_speed": 0.0032691263923438664
+    },
+    {
+      "timestamp": 1753646337.344575,
+      "cpu_percent": 42.7,
+      "memory_percent": 70.7,
+      "memory_available_gb": 4.058128356933594,
+      "process_memory_mb": 24.30078125,
+      "python_memory_mb": 0.023242950439453125,
+      "disk_read_mb": 2379482.5327148438,
+      "disk_write_mb": 1396503.2392578125,
+      "network_sent_mb": 6840.374238014221,
+      "network_recv_mb": 419.6725072860718,
+      "thread_count": 5,
+      "file_handles": 0,
+      "disk_read_speed": 0.0,
+      "disk_write_speed": 0.05958032430257088,
+      "network_send_speed": 0.003345574850974439,
+      "network_recv_speed": 0.002399278196266452
+    }
+  ],
+  "optimization_events": [],
+  "system_health": {
+    "overall_health_score": 85,
+    "health_status": "양호",
+    "average_metrics": {
+      "avg_cpu_percent": 30.45555555555556,
+      "avg_memory_percent": 70.77777777777777,
+      "avg_process_memory_mb": 23.415364583333332,
+      "avg_thread_count": 5.0
+    },
+    "peak_metrics": {
+      "max_cpu_percent": 45.2,
+      "max_memory_percent": 71.0,
+      "max_process_memory_mb": 24.30078125
+    },
+    "optimization_events_count": 0,
+    "monitoring_duration_minutes": 0.15,
+    "recommendations": [
+      {
+        "category": "MEMORY",
+        "priority": "MEDIUM",
+        "issue": "높은 메모리 사용률 (70.8%)",
+        "recommendation": "메모리 사용량 최적화 필요",
+        "actions": [
+          "정기적인 가비지 컬렉션",
+          "메모리 누수 점검",
+          "데이터 구조 최적화"
+        ]
+      }
+    ]
+  },
+  "recommendations": [],
+  "baseline_performance": {
+    "timestamp": 1753646327.7053952,
+    "cpu_percent": 27.3,
+    "memory_percent": 70.6,
+    "memory_available_gb": 4.069648742675781,
+    "process_memory_mb": 22.8515625,
+    "python_memory_mb": 0.00699615478515625,
+    "disk_read_mb": 2379480.8569335938,
+    "disk_write_mb": 1396501.7392578125,
+    "network_sent_mb": 6840.349678993225,
+    "network_recv_mb": 419.6514730453491,
+    "thread_count": 4,
+    "file_handles": 0
+  },
+  "summary": {
+    "monitoring_duration_seconds": 9.0,
+    "samples_collected": 9,
+    "optimization_events": 0,
+    "performance_stats": {
+      "cpu": {
+        "average": 30.45555555555556,
+        "peak": 45.2,
+        "minimum": 20.0
+      },
+      "memory": {
+        "average": 70.77777777777777,
+        "peak": 71.0,
+        "minimum": 70.6
+      },
+      "process_memory": {
+        "average": 23.415364583333332,
+        "peak": 24.30078125,
+        "minimum": 22.27734375
+      }
+    }
+  }
+}

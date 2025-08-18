@@ -5,15 +5,15 @@ Image Processor for Solomond AI Platform
 레거시 호환성을 위한 기본 이미지 처리 모듈
 """
 
-import logging
 from typing import Optional, Dict, Any
+from utils.logger import get_logger
 
 class ImageProcessor:
     """이미지 처리기"""
     
     def __init__(self):
         self.supported_formats = ['jpg', 'jpeg', 'png', 'bmp', 'tiff']
-        logging.info("ImageProcessor 초기화 완료")
+        get_logger(__name__).info("ImageProcessor 초기화 완료")
     
     def process_image(self, image_data: Any) -> str:
         """이미지 데이터 처리"""

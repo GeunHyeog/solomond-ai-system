@@ -13,8 +13,8 @@ from enum import Enum
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Any, Tuple
 import json
-import logging
 from pathlib import Path
+from utils.logger import get_logger
 
 class JewelryCategory(Enum):
     """주얼리 카테고리 v2.3"""
@@ -81,10 +81,10 @@ class JewelryPromptOptimizerV23:
             "business_insight": 0.985,
             "market_analysis": 0.980
         }
-        self.logger = logging.getLogger(__name__)
+        self.logger = get_logger(__name__)
     
     def _load_templates(self) -> Dict[str, Dict[str, JewelryPromptTemplate]]:
-        """주얼리 프롬프트 템플릿 로드 v2.3"""
+        """주얼리 프롬프트 템플릿 로드 v2.3 - 대형 함수 (리팩토링 고려 대상)"""
         
         templates = {}
         

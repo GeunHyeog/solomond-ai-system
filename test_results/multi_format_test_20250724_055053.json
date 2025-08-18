@@ -1,0 +1,12 @@
+{
+  "pdf_test": {
+    "success": false,
+    "text_length": 0,
+    "keywords": []
+  },
+  "docx_test": {
+    "success": false,
+    "text_length": 0,
+    "keywords": []
+  }
+}

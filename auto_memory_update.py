@@ -93,7 +93,7 @@ def create_development_timeline(commits: List[Dict[str, str]]) -> List[Dict[str,
 
 def extract_current_capabilities() -> List[str]:
     """현재 시스템 기능 추출"""
-    project_root = Path("/home/solomond/claude/solomond-ai-system")
+    project_root = Path("/home/SOLOMONDd/claude/SOLOMONDd-ai-system")
     
     capabilities = []
     
@@ -116,7 +116,7 @@ def extract_current_capabilities() -> List[str]:
 def generate_memory_entities() -> List[Dict[str, Any]]:
     """MCP Memory용 엔티티 생성"""
     
-    project_root = "/home/solomond/claude/solomond-ai-system"
+    project_root = "/home/SOLOMONDd/claude/SOLOMONDd-ai-system"
     commits = get_recent_commits(project_root, 10)
     analysis = analyze_commit_patterns(commits)
     timeline = create_development_timeline(commits)
@@ -213,7 +213,7 @@ def main():
         "session_summary": "자동 메모리 동기화 완료 - 개발 단계 추적 활성화"
     }
     
-    output_file = Path("/home/solomond/claude/solomond-ai-system/memory_update.json")
+    output_file = Path("/home/SOLOMONDd/claude/SOLOMONDd-ai-system/memory_update.json")
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(memory_data, f, indent=2, ensure_ascii=False)
     

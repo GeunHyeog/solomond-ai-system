@@ -1,0 +1,673 @@
+{
+  "monitoring_session": {
+    "session_id": "advanced_monitor_1753673097",
+    "start_time": "2025-07-28T12:24:57.128812",
+    "predictions": [
+      {
+        "timestamp": 1753673117.353329,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.021212121212122653,
+          "current_value": 74.1,
+          "forecast_values": [
+            74.17333333333329,
+            74.15212121212117,
+            74.13090909090904,
+            74.10969696969693,
+            74.08848484848481
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 38.66540095479999,
+          "trend": 5.0910529547999985,
+          "forecast_values": [
+            39.17450625027999,
+            39.683611545759994,
+            40.19271684123999,
+            40.70182213671999,
+            41.210927432199995
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673118.707033,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.019999999999997412,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.1618181818182,
+            74.14181818181821,
+            74.12181818181821,
+            74.10181818181822,
+            74.08181818181822
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 35.82578066835999,
+          "trend": 0.023737068359999114,
+          "forecast_values": [
+            35.82815437519599,
+            35.83052808203199,
+            35.832901788867986,
+            35.83527549570399,
+            35.83764920253999
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673120.0640721,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.018531468531469458,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.15454545454544,
+            74.13601398601398,
+            74.1174825174825,
+            74.09895104895104,
+            74.08041958041957
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 34.43804646785199,
+          "trend": -6.193384052147998,
+          "forecast_values": [
+            33.81870806263719,
+            33.19936965742239,
+            32.58003125220759,
+            31.960692846992792,
+            31.34135444177799
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673121.6148353,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.010439560439559365,
+          "current_value": 74.4,
+          "forecast_values": [
+            74.21153846153847,
+            74.2010989010989,
+            74.19065934065935,
+            74.18021978021979,
+            74.16978021978024
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 38.17663252749639,
+          "trend": 1.154631163496397,
+          "forecast_values": [
+            38.292095643846025,
+            38.40755876019567,
+            38.52302187654531,
+            38.638484992894945,
+            38.75394810924459
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673122.9794393,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.010769230769234828,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.19780219780219,
+            74.18703296703295,
+            74.17626373626372,
+            74.16549450549448,
+            74.15472527472525
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 39.59364276924747,
+          "trend": 0.9282418144474747,
+          "forecast_values": [
+            39.686466950692214,
+            39.77929113213696,
+            39.87211531358171,
+            39.96493949502646,
+            40.057763676471204
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673124.3202214,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.008214285714283781,
+          "current_value": 74.3,
+          "forecast_values": [
+            74.21428571428574,
+            74.20607142857145,
+            74.19785714285717,
+            74.18964285714289,
+            74.1814285714286
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 38.245549938473225,
+          "trend": 2.4197692701132354,
+          "forecast_values": [
+            38.48752686548455,
+            38.72950379249587,
+            38.9714807195072,
+            39.21345764651852,
+            39.45543457352984
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673125.662208,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.008529411764705687,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.20250000000004,
+            74.19397058823535,
+            74.18544117647063,
+            74.17691176470593,
+            74.16838235294122
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 33.431884956931256,
+          "trend": -1.0061615109207338,
+          "forecast_values": [
+            33.33126880583918,
+            33.23065265474711,
+            33.130036503655035,
+            33.029420352562965,
+            32.92880420147089
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673127.1086354,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.008578431372549466,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.19338235294116,
+            74.18480392156862,
+            74.17622549019606,
+            74.1676470588235,
+            74.15906862745096
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 32.58231946985188,
+          "trend": -5.594313057644506,
+          "forecast_values": [
+            32.02288816408743,
+            31.46345685832298,
+            30.90402555255853,
+            30.34459424679408,
+            29.78516294102963
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673128.612393,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.008462332301338986,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.18627450980395,
+            74.17781217750262,
+            74.16934984520128,
+            74.16088751289995,
+            74.1524251805986
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 34.44762362889632,
+          "trend": -5.14601914035115,
+          "forecast_values": [
+            33.9330217148612,
+            33.418419800826086,
+            32.903817886790975,
+            32.389215972755856,
+            31.87461405872074
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673129.9548283,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.008245614035086732,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.18070175438592,
+            74.17245614035085,
+            74.16421052631576,
+            74.15596491228067,
+            74.14771929824558
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 34.58333654022742,
+          "trend": -3.662213398245804,
+          "forecast_values": [
+            34.217115200402844,
+            33.85089386057826,
+            33.484672520753676,
+            33.1184511809291,
+            32.75222984110452
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673131.3877509,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.007969924812032412,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.17631578947368,
+            74.16834586466165,
+            74.16037593984962,
+            74.15240601503758,
+            74.14443609022555
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 37.61833557815919,
+          "trend": 4.186450621227934,
+          "forecast_values": [
+            38.03698064028198,
+            38.455625702404774,
+            38.87427076452757,
+            39.292915826650365,
+            39.71156088877316
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673132.8230839,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.007662337662335497,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.17285714285717,
+            74.16519480519483,
+            74.15753246753249,
+            74.14987012987017,
+            74.14220779220783
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 40.10283490471143,
+          "trend": 7.520515434859547,
+          "forecast_values": [
+            40.854886448197384,
+            41.60693799168334,
+            42.35898953516929,
+            43.11104107865525,
+            43.8630926221412
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673134.2304275,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.00734048560135429,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.17012987012988,
+            74.16278938452854,
+            74.15544889892718,
+            74.14810841332583,
+            74.14076792772447
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 35.151984433298,
+          "trend": 0.7043608044016807,
+          "forecast_values": [
+            35.222420513738165,
+            35.29285659417833,
+            35.3632926746185,
+            35.43372875505867,
+            35.50416483549884
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      },
+      {
+        "timestamp": 1753673135.5918264,
+        "prediction_horizon_minutes": 5,
+        "memory_forecast": {
+          "method": "linear_trend",
+          "trend_slope": -0.007015810276680555,
+          "current_value": 74.2,
+          "forecast_values": [
+            74.16798418972331,
+            74.16096837944663,
+            74.15395256916995,
+            74.14693675889326,
+            74.13992094861658
+          ],
+          "forecast_steps": 5,
+          "trend_direction": "stable"
+        },
+        "cpu_forecast": {
+          "method": "exponential_smoothing",
+          "alpha": 0.3,
+          "current_smoothed": 33.78638910330859,
+          "trend": -0.7969474369188276,
+          "forecast_values": [
+            33.70669435961671,
+            33.62699961592483,
+            33.54730487223294,
+            33.46761012854106,
+            33.38791538484918
+          ],
+          "forecast_steps": 5
+        },
+        "resource_shortage_risk": {
+          "overall_risk_level": "low",
+          "memory_risk": "low",
+          "cpu_risk": "low",
+          "disk_risk": "low",
+          "estimated_time_to_critical": null,
+          "recommendations": []
+        },
+        "processing_time_estimate": null
+      }
+    ],
+    "alerts": [],
+    "optimizations": [],
+    "performance_trends": {}
+  },
+  "system_baseline": {
+    "cpu_percent": 47.239999999999995,
+    "memory_percent": 74.34,
+    "memory_used_gb": 10.30261459350586,
+    "process_memory_mb": 33.07109375,
+    "timestamp": 1753673104.3288522
+  },
+  "performance_history_summary": {
+    "total_samples": 23,
+    "monitoring_duration_minutes": 0.5366533557573955,
+    "data_quality_score": 1.0
+  },
+  "final_performance_trends": {
+    "analysis_timestamp": 1753673136.9339726,
+    "sample_count": 23,
+    "trends": {
+      "cpu_percent": {
+        "trend_slope": -0.20787878787878766,
+        "trend_direction": "decreasing",
+        "volatility": 9.13881283318572,
+        "current_value": 30.6,
+        "baseline_deviation_percent": -35.224386113463154,
+        "performance_grade": "D"
+      },
+      "memory_percent": {
+        "trend_slope": -0.004242424242421028,
+        "trend_direction": "stable",
+        "volatility": 0.0860232526704278,
+        "current_value": 74.2,
+        "baseline_deviation_percent": -0.1883239171374772,
+        "performance_grade": "A+"
+      },
+      "process_memory_mb": {
+        "trend_slope": -0.03664772727272667,
+        "trend_direction": "stable",
+        "volatility": 9.399398703315374,
+        "current_value": 43.91015625,
+        "baseline_deviation_percent": 32.775034844440235,
+        "performance_grade": "D"
+      }
+    }
+  },
+  "prediction_accuracy": {
+    "evaluation_method": "placeholder",
+    "sample_size": 14,
+    "average_accuracy": 0.85,
+    "note": "Prediction accuracy evaluation requires historical validation data"
+  },
+  "alert_summary": {
+    "total_alerts": 0,
+    "critical_alerts": 0,
+    "warning_alerts": 0
+  },
+  "optimization_summary": {
+    "total_optimizations": 0,
+    "successful_optimizations": 0
+  },
+  "base_monitor_report": {
+    "overall_health_score": 85,
+    "health_status": "양호",
+    "average_metrics": {
+      "avg_cpu_percent": 37.68,
+      "avg_memory_percent": 74.2,
+      "avg_process_memory_mb": 43.9,
+      "avg_thread_count": 18.8
+    },
+    "peak_metrics": {
+      "max_cpu_percent": 59.1,
+      "max_memory_percent": 74.3,
+      "max_process_memory_mb": 44.03515625
+    },
+    "optimization_events_count": 0,
+    "monitoring_duration_minutes": 0.43333333333333335,
+    "recommendations": [
+      {
+        "category": "MEMORY",
+        "priority": "MEDIUM",
+        "issue": "높은 메모리 사용률 (74.2%)",
+        "recommendation": "메모리 사용량 최적화 필요",
+        "actions": [
+          "정기적인 가비지 컬렉션",
+          "메모리 누수 점검",
+          "데이터 구조 최적화"
+        ]
+      }
+    ]
+  },
+  "recommendations": []
+}

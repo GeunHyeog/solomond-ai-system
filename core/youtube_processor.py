@@ -89,6 +89,7 @@ class YouTubeProcessor:
         """YouTube 영상 정보 가져오기"""
         if not YT_DLP_AVAILABLE:
             return {
+                "success": False,
                 "status": "error",
                 "error": "yt-dlp가 설치되지 않음",
                 "install_command": "pip install yt-dlp"
@@ -96,6 +97,7 @@ class YouTubeProcessor:
         
         if not self.is_youtube_url(url):
             return {
+                "success": False,
                 "status": "error",
                 "error": "유효하지 않은 YouTube URL"
             }
@@ -114,8 +116,7 @@ class YouTubeProcessor:
                 info = ydl.extract_info(url, download=False)
                 
                 # 필요한 정보만 추출
-                video_info = {
-                    "status": "success",
+                extracted_info = {
                     "video_id": info.get('id', ''),
                     "title": info.get('title', ''),
                     "description": info.get('description', ''),
@@ -132,27 +133,34 @@ class YouTubeProcessor:
                     "subtitles": list(info.get('subtitles', {}).keys())
                 }
                 
+                video_info = {
+                    "success": True,
+                    "status": "success", 
+                    "info": extracted_info
+                }
+                
                 # 지속 시간을 읽기 쉬운 형태로 변환
-                if video_info['duration']:
-                    duration_sec = video_info['duration']
+                if extracted_info['duration']:
+                    duration_sec = extracted_info['duration']
                     hours = duration_sec // 3600
                     minutes = (duration_sec % 3600) // 60
                     seconds = duration_sec % 60
                     
                     if hours > 0:
-                        video_info['duration_formatted'] = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
+                        extracted_info['duration_formatted'] = f"{hours:02d}:{minutes:02d}:{seconds:02d}"
                     else:
-                        video_info['duration_formatted'] = f"{minutes:02d}:{seconds:02d}"
+                        extracted_info['duration_formatted'] = f"{minutes:02d}:{seconds:02d}"
                 else:
-                    video_info['duration_formatted'] = "알 수 없음"
+                    extracted_info['duration_formatted'] = "알 수 없음"
                 
-                self.logger.info(f"[SUCCESS] 영상 정보 조회 완료: {video_info['title']}")
+                self.logger.info(f"[SUCCESS] 영상 정보 조회 완료: {extracted_info['title']}")
                 return video_info
                 
         except Exception as e:
             error_msg = f"YouTube 정보 조회 오류: {str(e)}"
             self.logger.error(f"[ERROR] {error_msg}")
             return {
+                "success": False,
                 "status": "error",
                 "error": error_msg,
                 "url": url

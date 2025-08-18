@@ -1,0 +1,17 @@
+{
+  "timestamp": "2025-07-30T16:52:51.082988",
+  "setup_results": {
+    "설정 파일 확인": true,
+    "의존성 설치": true,
+    "Supabase 설정": "manual_needed",
+    "통합 테스트": true,
+    "모듈 확인": true,
+    "시작 스크립트": true
+  },
+  "success_rate": 83.33333333333334,
+  "total_time_seconds": 10.586009,
+  "manual_steps_needed": [
+    "Supabase SQL 스키마 실행"
+  ],
+  "system_ready": true
+}

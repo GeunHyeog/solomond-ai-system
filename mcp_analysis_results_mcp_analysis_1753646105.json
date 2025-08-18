@@ -1,0 +1,167 @@
+{
+  "session_id": "mcp_analysis_1753646105",
+  "timestamp": "2025-07-28T04:55:04.835671",
+  "components": {
+    "sequential_thinking": true,
+    "perplexity": true,
+    "memory": true,
+    "github": false,
+    "notion": true,
+    "playwright": true,
+    "github_v2": true
+  },
+  "analysis_pipeline": [
+    {
+      "step": "sequential_thinking",
+      "phase": "audit_planning"
+    },
+    {
+      "step": "memory",
+      "phase": "historical_context"
+    },
+    {
+      "step": "perplexity",
+      "phase": "best_practices"
+    },
+    {
+      "step": "playwright",
+      "phase": "live_verification"
+    },
+    {
+      "step": "notion",
+      "phase": "audit_report"
+    }
+  ],
+  "results": {
+    "session_id": "mcp_analysis_1753646105",
+    "analysis_type": "comprehensive_audit",
+    "pipeline_steps": 5,
+    "successful_steps": 5,
+    "total_execution_time": 8.988380432128906e-05,
+    "pipeline_results": [
+      {
+        "phase": "audit_planning",
+        "thinking_process": [
+          {
+            "thought_number": 1,
+            "thought": "audit_planning 단계에서 우선 문제의 범위를 정의해야 한다.",
+            "next_thought_needed": true
+          },
+          {
+            "thought_number": 2,
+            "thought": "관련 데이터와 컨텍스트를 수집하고 분석의 목표를 명확히 한다.",
+            "next_thought_needed": true
+          },
+          {
+            "thought_number": 3,
+            "thought": "체계적인 접근 방법을 선택하고 실행 계획을 수립한다.",
+            "next_thought_needed": false
+          }
+        ],
+        "conclusions": [
+          "audit_planning를 위한 체계적 접근법 정의",
+          "명확한 분석 목표 설정",
+          "실행 가능한 계획 수립"
+        ],
+        "next_actions": [
+          "데이터 수집 및 검증",
+          "분석 도구 선택 및 준비",
+          "결과 검증 및 보완"
+        ],
+        "confidence_score": 0.85,
+        "execution_time": 1.6450881958007812e-05,
+        "step_name": "sequential_thinking"
+      },
+      {
+        "phase": "historical_context",
+        "operation": "retrieve",
+        "retrieved_nodes": [
+          {
+            "name": "이전 분석 세션",
+            "data": "과거 분석 결과 및 패턴"
+          },
+          {
+            "name": "사용자 선호도",
+            "data": "분석 설정 및 피드백"
+          },
+          {
+            "name": "시스템 성능",
+            "data": "처리 속도 및 정확도 기록"
+          }
+        ],
+        "retrieval_success": true,
+        "execution_time": 8.821487426757812e-06,
+        "step_name": "memory"
+      },
+      {
+        "phase": "best_practices",
+        "query": "시스템 감사와 성능 최적화의 업계 표준",
+        "findings": [
+          "best_practices와 관련된 최신 기술 동향 파악",
+          "업계 표준 및 베스트 프랙티스 수집",
+          "경쟁사 분석 및 시장 인사이트 획득"
+        ],
+        "sources": [
+          "업계 리포트 및 연구 자료",
+          "기술 문서 및 표준 가이드",
+          "전문가 의견 및 사례 연구"
+        ],
+        "key_insights": [
+          "AI 기반 분석 도구의 활용도 증가",
+          "실시간 처리와 확장성의 중요성",
+          "사용자 경험과 정확도의 균형"
+        ],
+        "relevance_score": 0.92,
+        "execution_time": 8.344650268554688e-06,
+        "step_name": "perplexity"
+      },
+      {
+        "phase": "live_verification",
+        "automation_tasks": [
+          "시스템 상태 확인",
+          "성능 모니터링",
+          "기능 검증"
+        ],
+        "collected_data": {
+          "pages_visited": 9,
+          "data_points": 45,
+          "screenshots": 6
+        },
+        "execution_time": 1.3589859008789062e-05,
+        "success_rate": 0.94,
+        "step_name": "playwright"
+      },
+      {
+        "phase": "audit_report",
+        "report_type": "시스템 감사 보고서",
+        "sections_created": [
+          "요약 및 개요",
+          "분석 방법론",
+          "주요 발견사항",
+          "권장사항",
+          "부록 및 참고자료"
+        ],
+        "pages_created": 1,
+        "blocks_added": 25,
+        "sharing_enabled": true,
+        "notion_url": "https://notion.so/analysis-report-1753646106",
+        "execution_time": 1.1682510375976562e-05,
+        "step_name": "notion"
+      }
+    ],
+    "summary": {
+      "total_insights": 3,
+      "knowledge_sources": 3,
+      "automation_tasks": 3,
+      "reports_generated": 1,
+      "data_points_collected": 45,
+      "recommendations": [
+        "MCP 도구들의 통합적 활용을 통한 분석 품질 향상",
+        "Sequential Thinking을 통한 체계적 문제 해결 접근",
+        "Perplexity를 활용한 최신 지식 및 트렌드 통합",
+        "Memory 시스템을 통한 컨텍스트 보존 및 활용",
+        "자동화된 보고서 생성으로 효율성 극대화"
+      ]
+    }
+  }
+}

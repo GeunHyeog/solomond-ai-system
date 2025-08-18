@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 SOLOMOND AI - 원클릭 시작</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        .start-button {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            border: none;
+            color: white;
+            padding: 25px 50px;
+            border-radius: 35px;
+            font-size: 2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            margin: 20px 0;
+            box-shadow: 0 20px 40px rgba(239, 68, 68, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .start-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 60px rgba(239, 68, 68, 0.6);
+        }
+        .start-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s;
+        }
+        .start-button:hover::before {
+            left: 100%;
+        }
+        .status {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            font-size: 1.1em;
+            display: none;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .instructions {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 0.95em;
+            text-align: left;
+        }
+        .instructions h3 {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+        .instructions li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        .instructions li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 SOLOMOND AI</h1>
+        <p>브라우저에서 바로 시작하는 AI 분석 시스템</p>
+        
+        <button class="start-button" onclick="startSystem()">
+            🚀 AI 시스템 시작
+        </button>
+        
+        <div class="status" id="status">
+            <div class="loading"></div>
+            <span id="statusText">시스템 시작 중...</span>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 사용법</h3>
+            <ul>
+                <li>위의 "🚀 AI 시스템 시작" 버튼 클릭</li>
+                <li>자동으로 서버 시작 및 브라우저 열림</li>
+                <li>"🏆 모듈1 AI 분석 시작" 클릭</li>
+                <li>32개 파일 로드하고 AI 분석 실행</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        async function startSystem() {
+            const statusDiv = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
+            
+            // 상태 표시
+            statusDiv.style.display = 'block';
+            statusText.textContent = '서버 시작 중...';
+            
+            try {
+                // 1단계: 서버 시작 시도
+                const startResponse = await fetch('http://localhost:8000/api/health').catch(() => null);
+                
+                if (!startResponse) {
+                    // 서버가 없으면 배치 파일 실행
+                    statusText.textContent = '배치 파일 실행 중...';
+                    
+                    // Windows 배치 파일 실행 (보안상 직접 실행 불가)
+                    alert('🚀 SOLOMOND AI 시작하기\n\n다음 중 하나를 실행해주세요:\n\n방법 1: "START_SOLOMOND_AI.bat" 더블클릭\n방법 2: 아래 명령을 터미널에서 실행\n   cd C:\\Users\\PC_58410\\solomond-ai-system\n   python simple_analysis.py');
+                    
+                    statusText.textContent = '수동 시작을 기다리는 중...';
+                    
+                    // 서버 시작을 기다림
+                    await waitForServer();
+                } else {
+                    // 서버가 이미 실행 중
+                    statusText.textContent = '서버 연결됨! 브라우저 열기...';
+                    window.open('http://localhost:8000', '_blank');
+                    statusText.textContent = '시스템 시작 완료!';
+                }
+                
+            } catch (error) {
+                statusText.textContent = '오류 발생: ' + error.message;
+            }
+        }
+        
+        async function waitForServer() {
+            const statusText = document.getElementById('statusText');
+            let attempts = 0;
+            const maxAttempts = 30;
+            
+            const checkServer = async () => {
+                try {
+                    const response = await fetch('http://localhost:8000/api/health');
+                    if (response.ok) {
+                        statusText.textContent = '서버 연결 성공! 브라우저 열기...';
+                        setTimeout(() => {
+                            window.open('http://localhost:8000', '_blank');
+                            statusText.textContent = '🎉 시스템 시작 완료!';
+                        }, 1000);
+                        return true;
+                    }
+                } catch (error) {
+                    // 서버 미시작
+                }
+                
+                attempts++;
+                if (attempts < maxAttempts) {
+                    statusText.textContent = `서버 시작 대기 중... (${attempts}/${maxAttempts})`;
+                    setTimeout(checkServer, 2000);
+                } else {
+                    statusText.textContent = '⚠️ 서버 시작 실패 - 수동으로 START_SOLOMOND_AI.bat를 실행해주세요';
+                }
+            };
+            
+            checkServer();
+        }
+    </script>
+</body>
+</html>

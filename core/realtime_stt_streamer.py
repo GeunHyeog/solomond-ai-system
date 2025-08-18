@@ -20,6 +20,8 @@ from typing import Dict, List, Optional
 import threading
 import queue
 from collections import deque
+from config.server_config import get_websocket_config
+from utils.logger import get_logger
 
 # 기존 시스템 모듈 import
 try:
@@ -126,6 +128,8 @@ class RealtimeSTTStreamer:
         except websockets.exceptions.ConnectionClosed:
             print(f"👋 클라이언트 {client_id} 연결 종료")
         except Exception as e:
+            logger = get_logger(__name__)
+            logger.error(f"클라이언트 {client_id} 오류: {e}")
             print(f"❌ 클라이언트 {client_id} 오류: {e}")
             await self.send_error(websocket, f"서버 오류: {str(e)}")
         finally:
@@ -411,7 +415,10 @@ class RealtimeSTTStreamer:
 class RealtimeSTTClient:
     """실시간 STT 클라이언트 (테스트용)"""
     
-    def __init__(self, server_url: str = "ws://localhost:8765"):
+    def __init__(self, server_url: str = None):
+        if server_url is None:
+            host, port = get_websocket_config()
+            server_url = f"ws://{host}:{port}"
         self.server_url = server_url
         self.websocket = None
         self.is_connected = False

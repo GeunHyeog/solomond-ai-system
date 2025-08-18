@@ -1,0 +1,19 @@
+{
+  "total_analyses": 1,
+  "module_stats": {
+    "conference": {
+      "count": 1,
+      "avg_processing_time": 45.2,
+      "success_rate": 0
+    }
+  },
+  "daily_stats": {
+    "2025-07-30": {
+      "count": 1,
+      "modules": {
+        "conference": 1
+      }
+    }
+  },
+  "last_updated": "2025-07-30T16:14:39.926493"
+}

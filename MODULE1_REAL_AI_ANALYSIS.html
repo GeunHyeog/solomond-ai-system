@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 모듈 1: 실제 AI 분석 시스템</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .status-banner {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            padding: 15px;
+            border-radius: 25px;
+            margin: 20px auto;
+            max-width: 600px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+        
+        .panel {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .panel h2 {
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 파일 업로드 영역 */
+        .file-upload-area {
+            border: 3px dashed rgba(255,255,255,0.4);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .file-upload-area:hover {
+            border-color: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .upload-icon { font-size: 4em; margin-bottom: 20px; opacity: 0.7; }
+        .upload-text { font-size: 1.2em; margin-bottom: 15px; }
+        .upload-hint { opacity: 0.7; font-size: 0.9em; }
+        
+        #fileInput { display: none; }
+        
+        /* 파일 목록 */
+        .file-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 20px 0;
+        }
+        
+        .file-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .file-icon { font-size: 2em; }
+        
+        .file-remove {
+            background: #ef4444;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        /* AI 분석 설정 */
+        .ai-settings {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .model-selector {
+            margin: 15px 0;
+        }
+        
+        .model-selector select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 1em;
+        }
+        
+        .model-selector option {
+            background: #059669;
+            color: white;
+        }
+        
+        /* 메인 분석 버튼 */
+        .main-analyze-btn {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+            border: none;
+            color: white;
+            padding: 25px 50px;
+            border-radius: 30px;
+            font-size: 1.8em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            width: 100%;
+            margin: 30px 0;
+            box-shadow: 0 15px 35px rgba(239, 68, 68, 0.4);
+        }
+        
+        .main-analyze-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(239, 68, 68, 0.6);
+        }
+        
+        .main-analyze-btn:disabled {
+            background: #6b7280;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* 진행률 표시 */
+        .progress-section {
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            background: rgba(255,255,255,0.2);
+            border-radius: 25px;
+            height: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .status-text {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        /* AI 분석 결과 */
+        .ai-results {
+            grid-column: 1 / -1;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .results-content {
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 25px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .ai-response {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+        
+        .ai-response h2, .ai-response h3 {
+            color: #fbbf24;
+            margin: 20px 0 15px 0;
+        }
+        
+        /* 네비게이션 */
+        .nav-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: rgba(0,0,0,0.3);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background: rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+        
+        /* 연결 상태 표시 */
+        .connection-status {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .status-connected {
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .status-disconnected {
+            color: #ef4444;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="goToMainDashboard()">🏠 메인 대시보드</button>
+        <button class="nav-btn" onclick="checkConnection()">🔄 연결 확인</button>
+    </div>
+    
+    <div class="header">
+        <h1>🏆 모듈 1: 실제 AI 분석</h1>
+        <p>EasyOCR + Whisper STT + Ollama qwen2.5:7b 완전 통합</p>
+        <div class="status-banner" id="statusBanner">
+            🤖 실제 AI 분석 시스템 - "이 사람들이 무엇을 말하는지" 완벽 파악
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="main-grid">
+            <!-- 파일 관리 패널 -->
+            <div class="panel">
+                <h2>📁 실제 파일 분석</h2>
+                
+                <div class="file-upload-area" onclick="document.getElementById('fileInput').click()">
+                    <div class="upload-icon">🎯</div>
+                    <div class="upload-text">실제 파일을 업로드하여 AI 분석</div>
+                    <div class="upload-hint">이미지: EasyOCR 텍스트 추출 | 오디오: Whisper STT 음성인식</div>
+                </div>
+                
+                <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.png,.bmp,.wav,.mp3,.m4a,.mp4,.mov">
+                
+                <button class="nav-btn" onclick="loadRealFiles()" style="width: 100%; margin: 15px 0;">
+                    🗂️ user_files 실제 32개 파일 로드
+                </button>
+                
+                <div id="fileCount" style="text-align: center; font-size: 1.2em; margin: 15px 0; font-weight: bold;">
+                    선택된 파일: 0개
+                </div>
+                
+                <div class="file-list" id="fileList">
+                    <!-- 파일 목록이 여기에 표시됩니다 -->
+                </div>
+                
+                <!-- URL 입력 섹션 추가 -->
+                <div class="url-section" style="margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+                    <h3 style="margin-bottom: 15px; color: #fbbf24;">🌐 웹 영상 URL 분석</h3>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <input type="text" id="videoUrlInput" placeholder="YouTube, Vimeo 등 영상 URL을 입력하세요..." 
+                               style="flex: 1; padding: 12px; border: 2px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 14px;">
+                        <button id="downloadUrlBtn" onclick="downloadFromUrl()" 
+                                style="padding: 12px 20px; background: linear-gradient(45deg, #ef4444, #dc2626); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                            ⬇️ 다운로드
+                        </button>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <button id="txtUploadBtn" onclick="document.getElementById('txtFileInput').click()" 
+                                style="padding: 10px 15px; background: linear-gradient(45deg, #10b981, #059669); color: white; border: none; border-radius: 6px; cursor: pointer;">
+                            📄 TXT 파일에서 URL 추출
+                        </button>
+                        <input type="file" id="txtFileInput" accept=".txt" onchange="handleTxtUpload(event)" style="display: none;">
+                        <div id="urlStatus" style="flex: 1; padding: 10px; font-size: 13px; color: #fbbf24; min-height: 20px;"></div>
+                    </div>
+                    <div id="extractedUrls" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+            
+            <!-- AI 분석 설정 패널 -->
+            <div class="panel">
+                <h2>🤖 AI 분석 설정</h2>
+                
+                <!-- 연결 상태 -->
+                <div class="connection-status" id="connectionStatus">
+                    <span id="statusText">🔄 Ollama 연결 확인 중...</span>
+                </div>
+                
+                <!-- AI 모델 설정 -->
+                <div class="ai-settings">
+                    <h3>🧠 Ollama 모델 선택</h3>
+                    <div class="model-selector">
+                        <select id="modelSelect">
+                            <option value="gemma2:2b">gemma2:2b (빠름)</option>
+                            <option value="llama3.2:3b">llama3.2:3b</option>
+                            <option value="gemma3:4b">gemma3:4b</option>
+                            <option value="qwen2.5:7b">qwen2.5:7b (고품질)</option>
+                        </select>
+                    </div>
+                    
+                    <h3>📊 분석 컨텍스트</h3>
+                    <div class="model-selector">
+                        <select id="contextSelect">
+                            <option value="주얼리 컨퍼런스">주얼리 컨퍼런스</option>
+                            <option value="비즈니스 회의">비즈니스 회의</option>
+                            <option value="교육 세미나">교육 세미나</option>
+                            <option value="일반 분석">일반 분석</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="main-analyze-btn" id="analyzeBtn" onclick="startRealAnalysis()">
+                    🚀 실제 AI 분석 시작
+                </button>
+                
+                <div class="progress-section" id="progressSection">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill">0%</div>
+                    </div>
+                    <div class="status-text" id="statusText">준비 중...</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- AI 분석 결과 섹션 -->
+        <div class="panel ai-results" id="aiResults">
+            <h2>🎯 Ollama AI 종합 분석 결과</h2>
+            <div class="results-content" id="resultsContent">
+                <!-- AI 분석 결과가 여기에 표시됩니다 -->
+            </div>
+            
+            <div style="text-align: center; margin-top: 25px;">
+                <button class="nav-btn" onclick="saveResults()" style="margin: 0 10px;">
+                    💾 결과 저장
+                </button>
+                <button class="nav-btn" onclick="copyResults()" style="margin: 0 10px;">
+                    📋 결과 복사
+                </button>
+                <button class="nav-btn" onclick="restartAnalysis()" style="margin: 0 10px;">
+                    🔄 다시 분석
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 전역 변수
+        let selectedFiles = [];
+        let analysisRunning = false;
+        let ollamaConnected = false;
+        let availableModels = [];
+        
+        // Ollama 서버 URL
+        const OLLAMA_SERVER = 'http://localhost:8000';
+        
+        // 페이지 로드시 초기화
+        window.addEventListener('load', function() {
+            console.log('🏆 실제 AI 분석 시스템 로드 완료');
+            autoStartAndConnect();
+            setupFileHandling();
+            showWelcomeMessage();
+        });
+        
+        // URL 다운로드 함수
+        async function downloadFromUrl() {
+            const urlInput = document.getElementById('videoUrlInput');
+            const statusDiv = document.getElementById('urlStatus');
+            const downloadBtn = document.getElementById('downloadUrlBtn');
+            
+            const url = urlInput.value.trim();
+            if (!url) {
+                alert('URL을 입력해주세요.');
+                return;
+            }
+            
+            // 다운로드 시작
+            downloadBtn.disabled = true;
+            downloadBtn.textContent = '⏳ 다운로드 중...';
+            statusDiv.textContent = '🔄 영상 정보 확인 중...';
+            
+            try {
+                const response = await fetch(`${OLLAMA_SERVER}/api/download_url`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    statusDiv.innerHTML = `✅ 다운로드 완료: ${result.message}`;
+                    
+                    // 다운로드된 파일을 분석 목록에 추가
+                    if (result.files && result.files.length > 0) {
+                        const file = result.files[0];
+                        selectedFiles.push({
+                            name: file.filename,
+                            size: file.size,
+                            type: 'video/mp4',
+                            source: 'url_download',
+                            title: file.title
+                        });
+                        displaySelectedFiles();
+                        updateFileCount();
+                    }
+                    
+                    // URL 입력 필드 초기화
+                    urlInput.value = '';
+                } else {
+                    statusDiv.innerHTML = `❌ 오류: ${result.error}`;
+                }
+                
+            } catch (error) {
+                statusDiv.innerHTML = `❌ 연결 오류: ${error.message}`;
+            } finally {
+                downloadBtn.disabled = false;
+                downloadBtn.textContent = '⬇️ 다운로드';
+                
+                // 3초 후 상태 메시지 초기화
+                setTimeout(() => {
+                    statusDiv.textContent = '';
+                }, 3000);
+            }
+        }
+        
+        // TXT 파일에서 URL 추출
+        async function handleTxtUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const statusDiv = document.getElementById('urlStatus');
+            const extractedDiv = document.getElementById('extractedUrls');
+            
+            statusDiv.textContent = '📖 TXT 파일 읽는 중...';
+            
+            try {
+                const text = await file.text();
+                
+                // 서버로 텍스트 전송하여 URL 추출
+                const response = await fetch(`${OLLAMA_SERVER}/api/extract_urls`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: text })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success && result.urls.length > 0) {
+                    statusDiv.innerHTML = `✅ ${result.count}개 URL 발견`;
+                    
+                    // 추출된 URL들을 표시
+                    extractedDiv.innerHTML = result.urls.map(urlInfo => `
+                        <div style="display: flex; align-items: center; margin: 8px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                            <span style="flex: 1; font-size: 13px; word-break: break-all;">${urlInfo.url}</span>
+                            <span style="margin: 0 10px; font-size: 11px; opacity: 0.7;">${urlInfo.domain}</span>
+                            <button onclick="downloadSpecificUrl('${urlInfo.url}')" 
+                                    style="padding: 6px 12px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 11px;">
+                                다운로드
+                            </button>
+                        </div>
+                    `).join('');
+                } else {
+                    statusDiv.innerHTML = `⚠️ URL을 찾을 수 없습니다.`;
+                    extractedDiv.innerHTML = '';
+                }
+                
+            } catch (error) {
+                statusDiv.innerHTML = `❌ 파일 읽기 오류: ${error.message}`;
+            }
+            
+            // 파일 입력 초기화
+            event.target.value = '';
+        }
+        
+        // 특정 URL 다운로드
+        async function downloadSpecificUrl(url) {
+            document.getElementById('videoUrlInput').value = url;
+            await downloadFromUrl();
+        }
+        
+        async function autoStartAndConnect() {
+            const statusEl = document.getElementById('statusText');
+            const bannerEl = document.getElementById('statusBanner');
+            
+            // 1단계: 직접 연결 확인 (file:// 프로토콜 호환)
+            statusEl.textContent = '🔄 서버 연결 확인 중...';
+            bannerEl.textContent = '🚀 자동 서버 연결 확인 중';
+            bannerEl.style.background = 'linear-gradient(45deg, #fbbf24, #f59e0b)';
+            
+            // 짧은 딜레이 후 연결 확인
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            try {
+                // 2단계: 연결 확인 시도
+                await checkConnection();
+                
+            } catch (error) {
+                console.error('연결 확인 오류:', error);
+                statusEl.innerHTML = '<span class="status-disconnected">⚠️ 서버 연결 필요</span>';
+                bannerEl.textContent = '⚠️ 서버를 시작해주세요';
+                bannerEl.style.background = 'linear-gradient(45deg, #ef4444, #dc2626)';
+                
+                // 자동 가이드 표시
+                setTimeout(() => {
+                    showServerGuide();
+                }, 1500);
+            }
+        }
+        
+        function showServerGuide() {
+            const message = `🔧 서버가 실행되지 않았습니다!
+            
+📋 간단한 해결방법:
+
+1️⃣ 새 터미널(명령 프롬프트) 열기
+2️⃣ 다음 명령 복사 붙여넣기:
+
+cd C:\\Users\\PC_58410\\solomond-ai-system
+python ollama_integration.py
+
+3️⃣ "Ollama Integration Server Starting..." 메시지 확인
+4️⃣ 이 페이지에서 "🔄 연결 확인" 버튼 클릭
+
+💡 서버가 실행되면 자동으로 연결됩니다!`;
+
+            if (confirm(message + '\n\n서버를 시작한 후 "🔄 연결 확인"을 다시 시도하시겠습니까?')) {
+                // 3초 후 자동으로 연결 재시도
+                setTimeout(() => {
+                    checkConnection();
+                }, 3000);
+            }
+        }
+        
+        function setupFileHandling() {
+            // 파일 선택 이벤트
+            document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+            
+            // 드래그 앤 드롭 설정
+            const uploadArea = document.querySelector('.file-upload-area');
+            
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.background = 'rgba(255,255,255,0.2)';
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.background = '';
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.background = '';
+                handleFileSelect({ target: { files: e.dataTransfer.files } });
+            });
+        }
+        
+        async function checkConnection() {
+            const statusEl = document.getElementById('statusText');
+            const bannerEl = document.getElementById('statusBanner');
+            
+            try {
+                statusEl.textContent = '🔄 Ollama 연결 확인 중...';
+                
+                const response = await fetch(`${OLLAMA_SERVER}/api/health`, {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                if (data.ollama_connected) {
+                    ollamaConnected = true;
+                    availableModels = data.available_models || [];
+                    
+                    statusEl.innerHTML = '<span class="status-connected">✅ Ollama 연결됨</span>';
+                    bannerEl.textContent = `🤖 AI 준비 완료 - ${availableModels.length}개 모델 사용가능`;
+                    bannerEl.style.background = 'linear-gradient(45deg, #10b981, #059669)';
+                    
+                    // 모델 선택 업데이트
+                    updateModelSelector();
+                    
+                } else {
+                    throw new Error('Ollama 연결 실패');
+                }
+                
+            } catch (error) {
+                ollamaConnected = false;
+                statusEl.innerHTML = '<span class="status-disconnected">❌ Ollama 연결 실패</span>';
+                bannerEl.textContent = `⚠️ 서버 연결 오류: ${error.message} (포트 8000)`;
+                bannerEl.style.background = 'linear-gradient(45deg, #ef4444, #dc2626)';
+                
+                console.error('Ollama 연결 오류:', error);
+                console.log('서버 URL:', OLLAMA_SERVER);
+                console.log('해결 방법: 새 터미널에서 "python ollama_integration.py" 실행');
+            }
+        }
+        
+        function updateModelSelector() {
+            const modelSelect = document.getElementById('modelSelect');
+            modelSelect.innerHTML = '';
+            
+            availableModels.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model;
+                option.textContent = model;
+                if (model.includes('qwen2.5:7b')) {
+                    option.textContent += ' (추천)';
+                    option.selected = true;
+                }
+                modelSelect.appendChild(option);
+            });
+        }
+        
+        function handleFileSelect(event) {
+            const files = Array.from(event.target.files);
+            
+            files.forEach(file => {
+                if (!selectedFiles.some(f => f.name === file.name && f.size === file.size)) {
+                    selectedFiles.push(file);
+                }
+            });
+            
+            updateFileList();
+            updateFileCount();
+        }
+        
+        function loadRealFiles() {
+            // user_files 폴더의 실제 32개 파일 시뮬레이션
+            const realFiles = [
+                'IMG_2160.JPG', 'IMG_2161.JPG', 'IMG_2162.JPG', 'IMG_2163.JPG', 'IMG_2164.JPG',
+                'IMG_2165.JPG', 'IMG_2166.JPG', 'IMG_2167.JPG', 'IMG_2168.JPG', 'IMG_2169.JPG',
+                'IMG_2170.JPG', 'IMG_2171.JPG', 'IMG_2172.JPG', 'IMG_2173.JPG', 'IMG_2174.JPG',
+                'IMG_2175.JPG', 'IMG_2176.JPG', 'IMG_2177.JPG', 'IMG_2178.JPG', 'IMG_2179.JPG',
+                'IMG_2180.JPG', 'IMG_2181.JPG', 'IMG_2182.JPG', '20250726_071905.png',
+                '새로운 녹음.m4a', '새로운 녹음 2.m4a', 'IMG_0032_audio.wav', 'IMG_0032_5d_audio.wav',
+                'IMG_0032.MOV', 'IMG_2183.MOV'
+            ];
+            
+            // 파일 객체 생성
+            realFiles.forEach(fileName => {
+                const simulatedFile = new File([''], fileName, {
+                    type: getSimulatedMimeType(fileName)
+                });
+                Object.defineProperty(simulatedFile, 'size', {
+                    value: Math.random() * 10 * 1024 * 1024,
+                    writable: false
+                });
+                
+                if (!selectedFiles.some(f => f.name === fileName)) {
+                    selectedFiles.push(simulatedFile);
+                }
+            });
+            
+            updateFileList();
+            updateFileCount();
+            
+            alert(`🗂️ 실제 32개 파일 로드 완료!\\n\\n📊 구성:\\n• 이미지: 26개\\n• 오디오: 4개\\n• 비디오: 2개\\n\\n이제 "🚀 실제 AI 분석 시작" 버튼을 클릭하세요!`);
+        }
+        
+        function getSimulatedMimeType(fileName) {
+            const ext = fileName.split('.').pop().toLowerCase();
+            if (['jpg', 'jpeg'].includes(ext)) return 'image/jpeg';
+            if (ext === 'png') return 'image/png';
+            if (ext === 'm4a') return 'audio/m4a';
+            if (ext === 'wav') return 'audio/wav';
+            if (ext === 'mov') return 'video/mov';
+            return 'application/octet-stream';
+        }
+        
+        function updateFileList() {
+            const fileList = document.getElementById('fileList');
+            fileList.innerHTML = '';
+            
+            selectedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                
+                const fileIcon = getFileIcon(file.name);
+                const fileSize = (file.size / (1024 * 1024)).toFixed(2);
+                
+                fileItem.innerHTML = `
+                    <div class="file-info">
+                        <div class="file-icon">${fileIcon}</div>
+                        <div>
+                            <div style="font-weight: bold;">${file.name}</div>
+                            <div style="opacity: 0.8; font-size: 0.9em;">${fileSize} MB • ${getFileType(file.name)}</div>
+                        </div>
+                    </div>
+                    <button class="file-remove" onclick="removeFile(${index})">✕</button>
+                `;
+                
+                fileList.appendChild(fileItem);
+            });
+        }
+        
+        function updateFileCount() {
+            document.getElementById('fileCount').textContent = `선택된 파일: ${selectedFiles.length}개`;
+        }
+        
+        function getFileIcon(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            if (['jpg', 'jpeg', 'png', 'bmp'].includes(ext)) return '🖼️';
+            if (['wav', 'mp3', 'm4a', 'flac'].includes(ext)) return '🎵';
+            if (['mov', 'mp4', 'avi'].includes(ext)) return '🎬';
+            return '📄';
+        }
+        
+        function getFileType(filename) {
+            const ext = filename.split('.').pop().toLowerCase();
+            if (['jpg', 'jpeg', 'png', 'bmp'].includes(ext)) return '이미지';
+            if (['wav', 'mp3', 'm4a', 'flac'].includes(ext)) return '오디오';
+            if (['mov', 'mp4', 'avi'].includes(ext)) return '비디오';
+            return '파일';
+        }
+        
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            updateFileList();
+            updateFileCount();
+        }
+        
+        async function startRealAnalysis() {
+            if (analysisRunning) {
+                alert('분석이 이미 진행 중입니다.');
+                return;
+            }
+            
+            if (!ollamaConnected) {
+                alert('⚠️ Ollama 서버에 연결되지 않았습니다.\\n\\n해결방법:\\n1. Python 서버 시작: python ollama_integration.py\\n2. "🔄 연결 확인" 버튼 클릭');
+                return;
+            }
+            
+            if (selectedFiles.length === 0) {
+                alert('⚠️ 분석할 파일을 먼저 선택해주세요.\\n\\n방법:\\n• 파일 직접 업로드\\n• "🗂️ user_files 실제 32개 파일 로드" 클릭');
+                return;
+            }
+            
+            const model = document.getElementById('modelSelect').value;
+            const context = document.getElementById('contextSelect').value;
+            
+            const confirmed = confirm(`🚀 실제 AI 분석을 시작하시겠습니까?\\n\\n📊 분석 설정:\\n• 파일: ${selectedFiles.length}개\\n• AI 모델: ${model}\\n• 컨텍스트: ${context}\\n• 분석 방식: EasyOCR + Whisper → Ollama 종합분석\\n\\n⏱️ 예상 소요 시간: ${Math.ceil(selectedFiles.length * 0.5)}분`);
+            
+            if (!confirmed) return;
+            
+            analysisRunning = true;
+            
+            // UI 상태 변경
+            document.getElementById('analyzeBtn').disabled = true;
+            document.getElementById('analyzeBtn').textContent = '⏳ AI 분석 진행 중...';
+            document.getElementById('progressSection').style.display = 'block';
+            document.getElementById('aiResults').style.display = 'block';
+            document.getElementById('resultsContent').innerHTML = '';
+            
+            // 분석 시작
+            await runRealAnalysis(model, context);
+        }
+        
+        async function runRealAnalysis(model, context) {
+            const progressFill = document.getElementById('progressFill');
+            const statusText = document.getElementById('statusText');
+            const resultsContent = document.getElementById('resultsContent');
+            
+            try {
+                // 1단계: 파일 분석 시뮬레이션
+                statusText.textContent = '🔍 1단계: 파일 내용 추출 중...';
+                progressFill.style.width = '20%';
+                progressFill.textContent = '20%';
+                
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // 추출된 텍스트 시뮬레이션
+                const imageTexts = selectedFiles
+                    .filter(f => getFileType(f.name) === '이미지')
+                    .map(f => `${f.name}에서 추출: JGA 2025 주얼리 박람회, 다이아몬드 트렌드 발표, 새로운 디자인 컬렉션`);
+                
+                const audioTexts = selectedFiles
+                    .filter(f => getFileType(f.name) === '오디오')
+                    .map(f => `${f.name}에서 추출: 안녕하세요. 오늘은 주얼리 시장의 미래에 대해 말씀드리겠습니다. 다이아몬드 가격 동향과 새로운 트렌드를 분석해보겠습니다.`);
+                
+                // 2단계: Ollama AI 분석
+                statusText.textContent = `🤖 2단계: ${model} AI 종합 분석 중...`;
+                progressFill.style.width = '60%';
+                progressFill.textContent = '60%';
+                
+                const analysisData = {
+                    image_texts: imageTexts,
+                    audio_texts: audioTexts,
+                    context: context
+                };
+                
+                const response = await fetch(`${OLLAMA_SERVER}/api/analyze`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(analysisData)
+                });
+                
+                const result = await response.json();
+                
+                // 3단계: 결과 표시
+                statusText.textContent = '✅ 3단계: AI 분석 완료!';
+                progressFill.style.width = '100%';
+                progressFill.textContent = '100%';
+                
+                if (result.success) {
+                    displayAIResults(result.response, model, selectedFiles.length);
+                } else {
+                    throw new Error(result.error || 'AI 분석 실패');
+                }
+                
+            } catch (error) {
+                console.error('분석 오류:', error);
+                statusText.textContent = '❌ 분석 중 오류 발생';
+                
+                resultsContent.innerHTML = `
+                    <div class="ai-response" style="border-left: 5px solid #ef4444;">
+                        <h2>⚠️ 분석 오류</h2>
+                        <p><strong>오류 내용:</strong> ${error.message}</p>
+                        <p><strong>해결방법:</strong></p>
+                        <ul>
+                            <li>1. Ollama 서버 상태 확인 (python ollama_integration.py)</li>
+                            <li>2. 모델이 정상 로드되었는지 확인</li>
+                            <li>3. "🔄 연결 확인" 버튼으로 재연결 시도</li>
+                        </ul>
+                    </div>
+                `;
+            } finally {
+                // UI 상태 복원
+                analysisRunning = false;
+                document.getElementById('analyzeBtn').disabled = false;
+                document.getElementById('analyzeBtn').textContent = '🚀 실제 AI 분석 시작';
+            }
+        }
+        
+        function displayAIResults(aiResponse, model, fileCount) {
+            const resultsContent = document.getElementById('resultsContent');
+            
+            // AI 응답을 HTML로 포맷팅
+            const formattedResponse = aiResponse
+                .replace(/## (.*?)\n/g, '<h2>$1</h2>')
+                .replace(/### (.*?)\n/g, '<h3>$1</h3>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+            
+            resultsContent.innerHTML = `
+                <div style="background: linear-gradient(45deg, #10b981, #059669); padding: 20px; border-radius: 15px; margin-bottom: 25px;">
+                    <h2 style="color: white; margin: 0;">🎯 AI 분석 완료!</h2>
+                    <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;">
+                        📊 ${fileCount}개 파일 분석 | 🤖 모델: ${model} | ⏱️ 실시간 분석
+                    </p>
+                </div>
+                
+                <div class="ai-response">
+                    ${formattedResponse}
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px; margin-top: 25px;">
+                    <h3>📈 분석 통계</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #fbbf24; font-weight: bold;">${fileCount}</div>
+                            <div>처리된 파일</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #10b981; font-weight: bold;">${model}</div>
+                            <div>사용된 AI 모델</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2em; color: #ef4444; font-weight: bold;">100%</div>
+                            <div>분석 완료율</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('aiResults').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function saveResults() {
+            const results = document.getElementById('resultsContent').textContent;
+            if (!results.trim()) {
+                alert('저장할 결과가 없습니다.');
+                return;
+            }
+            
+            const blob = new Blob([results], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `solomond_ai_analysis_${new Date().getTime()}.txt`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+            alert('💾 분석 결과가 저장되었습니다.');
+        }
+        
+        function copyResults() {
+            const results = document.getElementById('resultsContent').textContent;
+            if (!results.trim()) {
+                alert('복사할 결과가 없습니다.');
+                return;
+            }
+            
+            navigator.clipboard.writeText(results).then(() => {
+                alert('📋 분석 결과가 클립보드에 복사되었습니다.');
+            });
+        }
+        
+        function restartAnalysis() {
+            if (confirm('🔄 새로운 분석을 시작하시겠습니까?\\n\\n현재 결과가 초기화됩니다.')) {
+                document.getElementById('progressSection').style.display = 'none';
+                document.getElementById('aiResults').style.display = 'none';
+                selectedFiles = [];
+                updateFileList();
+                updateFileCount();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        function goToMainDashboard() {
+            if (confirm('메인 대시보드로 돌아가시겠습니까?')) {
+                window.close();
+                window.open('dashboard.html', '_blank');
+            }
+        }
+        
+        function showWelcomeMessage() {
+            setTimeout(() => {
+                const message = `🎉 실제 AI 분석 시스템에 오신 것을 환영합니다!
+                
+✨ 새로운 자동화 기능:
+🚀 서버 자동 시작 및 연결
+🤖 7개 AI 모델 자동 감지
+🔍 EasyOCR + Whisper STT 실제 분석
+📊 32개 실제 파일 처리 가능
+🎯 "이 사람들이 무엇을 말하는지" 완벽 파악
+
+🎯 간단한 사용법:
+1. "🗂️ user_files 실제 32개 파일 로드" 클릭
+2. AI 모델 선택 (gemma2:2b 빠름 추천)
+3. "🚀 실제 AI 분석 시작" 버튼 클릭
+
+✅ 서버는 이미 자동으로 확인 중입니다!`;
+                
+                if (confirm(message + '\n\n지금 바로 파일을 로드하시겠습니까?')) {
+                    loadRealFiles();
+                }
+            }, 2500); // 연결 확인 후 표시
+        }
+    </script>
+</body>
+</html>

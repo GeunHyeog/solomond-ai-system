@@ -938,15 +938,55 @@ class NextGenMultimodalAI:
                 "quality_enhancement_applied": True
             },
             
-            # 차세대 기능 상태
-            "nextgen_features": {
-                "multi_ai_consensus": "✅ 활성화됨",
-                "3d_jewelry_modeling": "✅ 활성화됨",
-                "korean_executive_reporting": "✅ 활성화됨",
-                "real_time_quality_enhancement": "✅ 활성화됨",
-                "jewelry_specialized_analysis": "✅ 활성화됨"
-            }
+            # 차세대 기능 상태 - 실제 검증
+            "nextgen_features": self._verify_nextgen_features()
         }
+    
+    def _verify_nextgen_features(self) -> Dict[str, str]:
+        """차세대 기능들의 실제 활성화 상태 검증"""
+        features = {}
+        
+        # Multi-AI Consensus 검증
+        try:
+            has_openai = self.openai_client is not None
+            has_anthropic = self.anthropic_client is not None
+            has_gemini = self.gemini_client is not None
+            multi_ai_available = sum([has_openai, has_anthropic, has_gemini]) >= 2
+            features["multi_ai_consensus"] = "🟢 활성화됨" if multi_ai_available else "🔴 비활성화 (API 키 부족)"
+        except:
+            features["multi_ai_consensus"] = "🟡 상태 불명"
+        
+        # 3D Jewelry Modeling 검증
+        try:
+            import numpy as np
+            import cv2
+            from PIL import Image
+            features["3d_jewelry_modeling"] = "🟢 활성화됨 (의존성 확인됨)"
+        except ImportError as e:
+            features["3d_jewelry_modeling"] = f"🔴 비활성화 (누락: {e})"
+        
+        # Korean Executive Reporting 검증
+        try:
+            from .korean_summary_engine_v21 import KoreanSummaryEngine
+            features["korean_executive_reporting"] = "🟢 활성화됨"
+        except ImportError:
+            features["korean_executive_reporting"] = "🔴 비활성화 (KoreanSummaryEngine 누락)"
+        
+        # Real-time Quality Enhancement 검증
+        try:
+            from .quality_analyzer_v21 import QualityAnalyzer
+            features["real_time_quality_enhancement"] = "🟢 활성화됨"
+        except ImportError:
+            features["real_time_quality_enhancement"] = "🔴 비활성화 (QualityAnalyzer 누락)"
+        
+        # Jewelry Specialized Analysis 검증
+        try:
+            from .jewelry_specialized_ai_v21 import JewelrySpecializedAI
+            features["jewelry_specialized_analysis"] = "🟢 활성화됨"
+        except ImportError:
+            features["jewelry_specialized_analysis"] = "🔴 비활성화 (JewelrySpecializedAI 누락)"
+        
+        return features
 
 # 전역 인스턴스
 _nextgen_ai_instance = None

@@ -1,0 +1,264 @@
+{
+  "timestamp": "2025-08-18T08:49:51.538417",
+  "files_analyzed": 15,
+  "total_issues": 25,
+  "critical_issues": 0,
+  "high_issues": 11,
+  "medium_issues": 14,
+  "issues": [
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_analysis_COMPLETE_WORKING.py",
+      "line_number": 132,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(self.metadata_file, 'w', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_analysis_COMPLETE_WORKING.py",
+      "line_number": 178,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(analysis_file, 'w', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_analysis_COMPLETE_WORKING.py",
+      "line_number": 185,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(summary_file, 'w', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_analysis_COMPLETE_WORKING.py",
+      "line_number": 210,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(self.metadata_file, 'r', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_analysis_COMPLETE_WORKING.py",
+      "line_number": 229,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(self.metadata_file, 'w', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_analysis_COMPLETE_WORKING.py",
+      "line_number": 2315,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "'read': lambda: open(temp_file.name, 'rb').read(),",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\solomond_ai_main_dashboard.py",
+      "line_number": 208,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "subprocess.Popen(command)",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\solomond_ai_main_dashboard.py",
+      "line_number": 456,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(history_file, 'r', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\dual_brain_integration.py",
+      "line_number": 203,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(log_file, 'w', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\ai_insights_engine.py",
+      "line_number": 53,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(metadata_file, 'r', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\ai_insights_engine.py",
+      "line_number": 60,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(analysis_file, 'r', encoding='utf-8') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\google_calendar_connector.py",
+      "line_number": 82,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(self.credentials_file, 'w') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\google_calendar_connector.py",
+      "line_number": 143,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(self.token_file, 'w') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\google_calendar_connector.py",
+      "line_number": 157,
+      "issue_type": "inefficient_file_io",
+      "severity": "medium",
+      "description": "File I/O without context manager",
+      "code_snippet": "with open(self.token_file, 'w') as f:",
+      "suggested_fix": "Use with statement for safe file operations",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 60,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "gpu_memory_mb: float = 0.0",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 131,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "self.logger.info(f\"  GPU {i}: {props.name} ({total_memory:.1f}GB)\")",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 199,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "self._cleanup_gpu_memory()",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 275,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "self._cleanup_gpu_memory()",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 423,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "def _cleanup_gpu_memory(self) -> None:",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 522,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "gpu_memory_mb = 0.0",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 527,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "gpu_memory_mb = torch.cuda.memory_allocated() / (1024**2)",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 528,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "gpu_available_mb = torch.cuda.memory_reserved() / (1024**2) - gpu_memory_mb",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 548,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "gpu_memory_mb=gpu_memory_mb,",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 630,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "self._cleanup_gpu_memory()",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\core\\ai_model_memory_manager.py",
+      "line_number": 641,
+      "issue_type": "gpu_memory_management",
+      "severity": "high",
+      "description": "GPU memory operations without cleanup",
+      "code_snippet": "def get_global_ai_memory_manager(max_memory_mb: float = 2048.0, enable_gpu: bool = True) -> AIModelMemoryManager:",
+      "suggested_fix": "Add torch.cuda.empty_cache() calls",
+      "confidence": 0.85
+    }
+  ],
+  "recommendations": [
+    "⚠️ 높은 우선순위 이슈 해결 - 메모리 누수 및 GPU 관리"
+  ],
+  "health_score": 91.33333333333333
+}

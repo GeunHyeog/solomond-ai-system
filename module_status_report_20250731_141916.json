@@ -1,0 +1,48 @@
+{
+  "timestamp": "2025-07-31T14:19:00.267150",
+  "modules": {
+    "module1_conference": {
+      "name": "컨퍼런스 분석",
+      "port": 8501,
+      "main_file_exists": true,
+      "optimized_file_exists": true,
+      "port_in_use": false,
+      "port_response": null,
+      "recommended_action": "실행 가능"
+    },
+    "module2_crawler": {
+      "name": "웹 크롤러",
+      "port": 8502,
+      "main_file_exists": true,
+      "optimized_file_exists": true,
+      "port_in_use": false,
+      "port_response": null,
+      "recommended_action": "실행 가능"
+    },
+    "module3_gemstone": {
+      "name": "보석 분석",
+      "port": 8503,
+      "main_file_exists": true,
+      "optimized_file_exists": true,
+      "port_in_use": false,
+      "port_response": null,
+      "recommended_action": "실행 가능"
+    },
+    "module4_3d_cad": {
+      "name": "3D CAD 변환",
+      "port": 8504,
+      "main_file_exists": true,
+      "optimized_file_exists": true,
+      "port_in_use": false,
+      "port_response": null,
+      "recommended_action": "실행 가능"
+    }
+  },
+  "running_processes": [],
+  "summary": {
+    "total_modules": 4,
+    "files_exist": 4,
+    "ports_available": 4,
+    "ports_in_use": 0
+  }
+}

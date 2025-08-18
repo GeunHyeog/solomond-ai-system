@@ -1,0 +1,264 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JGA25 컨퍼런스 마인드맵</title>
+    <style>
+        body { 
+            font-family: 'Malgun Gothic', Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 15px; 
+            padding: 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            text-align: center; 
+            color: #2E8B57; 
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        .mindmap { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 30px; 
+        }
+        .central-topic { 
+            background: linear-gradient(45deg, #2E8B57, #3CB371); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 15px; 
+            text-align: center; 
+            font-size: 18px; 
+            font-weight: bold; 
+            width: 300px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .branch { 
+            border: 3px solid #4682B4; 
+            border-radius: 10px; 
+            padding: 20px; 
+            margin: 15px; 
+            background: #f8f9fa;
+            flex: 1;
+            min-width: 280px;
+            transition: transform 0.3s ease;
+        }
+        .branch:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(70, 130, 180, 0.3);
+        }
+        .branch-title { 
+            background: #4682B4; 
+            color: white; 
+            padding: 10px; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            margin: -20px -20px 15px -20px;
+            text-align: center;
+        }
+        .sub-branch { 
+            margin: 15px 0; 
+            padding: 12px; 
+            background: #e3f2fd; 
+            border-radius: 8px;
+            border-left: 4px solid #9370DB;
+        }
+        .sub-title { 
+            font-weight: bold; 
+            color: #9370DB; 
+            margin-bottom: 8px;
+        }
+        .detail-item { 
+            background: #fff3e0; 
+            padding: 6px 10px; 
+            margin: 5px 0; 
+            border-radius: 5px; 
+            border-left: 3px solid #FF6347;
+            font-size: 14px;
+        }
+        .summary { 
+            background: #f0f8f0; 
+            padding: 20px; 
+            border-radius: 10px; 
+            margin-top: 30px; 
+            border: 2px solid #2E8B57;
+        }
+        .summary h3 { 
+            color: #2E8B57; 
+            margin-top: 0;
+        }
+        .summary ul { 
+            list-style-type: none; 
+            padding: 0;
+        }
+        .summary li { 
+            padding: 8px 0; 
+            border-bottom: 1px dotted #ddd;
+        }
+        .summary li:before { 
+            content: "💡 "; 
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JGA25 컨퍼런스 - 친환경 럭셔리 소비자 트렌드 마인드맵</h1>
+        
+        <div class="central-topic">
+            JGA25 컨퍼런스<br>
+            The Rise of the<br>
+            Eco-friendly Luxury Consumer
+        </div>
+        
+        <div class="mindmap">
+
+            <div class="branch">
+                <div class="branch-title">발표자 & 패널</div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">Lianne Ng</div>
+                    <div class="detail-item">Chow Tai Fook</div>
+                    <div class="detail-item">지속가능성 이사</div>
+                    <div class="detail-item">ESG 전략</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">Henry Tse</div>
+                    <div class="detail-item">Ancardi CEO</div>
+                    <div class="detail-item">럭셔리 브랜드</div>
+                    <div class="detail-item">친환경 전환</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">Catherine Siu</div>
+                    <div class="detail-item">전략 담당 VP</div>
+                    <div class="detail-item">시장 분석</div>
+                    <div class="detail-item">미래 전망</div>
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title">핵심 주제</div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">지속가능성</div>
+                    <div class="detail-item">ESG 경영</div>
+                    <div class="detail-item">친환경 소재</div>
+                    <div class="detail-item">윤리적 소싱</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">소비자 트렌드</div>
+                    <div class="detail-item">밀레니얼 세대</div>
+                    <div class="detail-item">가치 소비</div>
+                    <div class="detail-item">환경 인식</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">비즈니스 전환</div>
+                    <div class="detail-item">순환경제</div>
+                    <div class="detail-item">브랜드 포지셔닝</div>
+                    <div class="detail-item">혁신 전략</div>
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title">비즈니스 임팩트</div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">단기 효과</div>
+                    <div class="detail-item">5-10% 매출 증대</div>
+                    <div class="detail-item">프리미엄 가격</div>
+                    <div class="detail-item">신규 고객</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">장기 전략</div>
+                    <div class="detail-item">15-25% 성장</div>
+                    <div class="detail-item">시장 선도</div>
+                    <div class="detail-item">경쟁 우위</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">투자 영역</div>
+                    <div class="detail-item">R&D 확대</div>
+                    <div class="detail-item">공급망 혁신</div>
+                    <div class="detail-item">마케팅 강화</div>
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title">실행 계획</div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">즉시 실행</div>
+                    <div class="detail-item">ESG TF 구성</div>
+                    <div class="detail-item">파트너십 구축</div>
+                    <div class="detail-item">1-3개월</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">단기 이니셔티브</div>
+                    <div class="detail-item">제품 개발</div>
+                    <div class="detail-item">탄소 측정</div>
+                    <div class="detail-item">3-6개월</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">장기 전략</div>
+                    <div class="detail-item">모델 전환</div>
+                    <div class="detail-item">시스템 구축</div>
+                    <div class="detail-item">1-3년</div>
+                </div>
+            </div>
+
+            <div class="branch">
+                <div class="branch-title">콘텐츠 분석</div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">오디오 정보</div>
+                    <div class="detail-item">57.1분</div>
+                    <div class="detail-item">전체 세션 녹음</div>
+                    <div class="detail-item">높은 음성 활동</div>
+                </div>
+
+                <div class="sub-branch">
+                    <div class="sub-title">기술적 평가</div>
+                    <div class="detail-item">양호한 품질</div>
+                    <div class="detail-item">컨퍼런스 확인</div>
+                    <div class="detail-item">추가 분석 가능</div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="summary">
+            <h3>핵심 인사이트 요약</h3>
+            <ul>
+                <li>지속가능성이 주얼리 업계의 핵심 경쟁 요소로 부상</li>
+                <li>친환경 럭셔리 소비자 트렌드가 시장을 주도</li>
+                <li>ESG 경영 전환이 즉시 실행되어야 할 전략적 과제</li>
+                <li>단기 5-10%, 장기 15-25% 매출 증대 효과 예상</li>
+                <li>밀레니얼/Z세대를 겨냥한 차별화된 접근 전략 필요</li>
+            </ul>
+        </div>
+        
+        <div style="text-align: center; margin-top: 20px; color: #666;">
+            생성 일시: 2025-07-28 15:25:11
+        </div>
+    </div>
+</body>
+</html>

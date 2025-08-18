@@ -9,6 +9,7 @@ from fastapi import FastAPI, File, UploadFile, Form
 from fastapi.responses import HTMLResponse, JSONResponse
 import uvicorn
 import asyncio
+from config import SETTINGS
 
 # Whisper 설치 확인
 try:
@@ -232,7 +233,7 @@ if __name__ == "__main__":
     print("=" * 60)
     print(f"Whisper STT: {'✅ 사용 가능' if WHISPER_AVAILABLE else '❌ 설치 필요'}")
     print(f"접속 주소: http://localhost:8080")
-    print(f"테스트 URL: http://localhost:8080/test")
+    print(f"테스트 URL: http://f"localhost:{SETTINGS['PORT']}"/test")
     print("=" * 60)
     
     if not WHISPER_AVAILABLE:

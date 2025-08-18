@@ -1,0 +1,156 @@
+{
+  "test_timestamp": "2025-07-25T10:46:47.435754",
+  "test_summary": {
+    "total_files": 7,
+    "successful_tests": 0,
+    "failed_tests": 7,
+    "total_time": 0.0712285041809082
+  },
+  "file_tests": {
+    "text_consultation": {
+      "file_path": "test_data/jewelry_consultation_scenario.txt",
+      "file_type": "text_consultation",
+      "status": "error",
+      "start_time": 1753408007.4368527,
+      "processing_time": 0.023418188095092773,
+      "analysis_result": null,
+      "errors": [
+        "'ComprehensiveMessageExtractor' object has no attribute '_analyze_emotional_state'"
+      ],
+      "quality_metrics": {}
+    },
+    "text_inquiry": {
+      "file_path": "test_data/diamond_inquiry.txt",
+      "file_type": "text_inquiry",
+      "status": "error",
+      "start_time": 1753408007.4609082,
+      "processing_time": 0.005711078643798828,
+      "analysis_result": null,
+      "errors": [
+        "'ComprehensiveMessageExtractor' object has no attribute '_analyze_emotional_state'"
+      ],
+      "quality_metrics": {}
+    },
+    "text_description": {
+      "file_path": "test_data/jewelry_product_description.txt",
+      "file_type": "text_description",
+      "status": "error",
+      "start_time": 1753408007.4672947,
+      "processing_time": 0.007264852523803711,
+      "analysis_result": null,
+      "errors": [
+        "'ComprehensiveMessageExtractor' object has no attribute '_analyze_emotional_state'"
+      ],
+      "quality_metrics": {}
+    },
+    "document": {
+      "file_path": "test_data/jewelry_appraisal.docx",
+      "file_type": "document",
+      "status": "no_content",
+      "start_time": 1753408007.4751759,
+      "processing_time": 0,
+      "analysis_result": null,
+      "errors": [
+        "파일 내용을 읽을 수 없음"
+      ],
+      "quality_metrics": {}
+    },
+    "image": {
+      "file_path": "test_files/test_image.png",
+      "file_type": "image",
+      "status": "error",
+      "start_time": 1753408007.4800038,
+      "processing_time": 0.010006427764892578,
+      "analysis_result": null,
+      "errors": [
+        "'ComprehensiveMessageExtractor' object has no attribute '_analyze_emotional_state'"
+      ],
+      "quality_metrics": {}
+    },
+    "audio_wav": {
+      "file_path": "test_files/test_audio.wav",
+      "file_type": "audio_wav",
+      "status": "error",
+      "start_time": 1753408007.490614,
+      "processing_time": 0.00804901123046875,
+      "analysis_result": null,
+      "errors": [
+        "'ComprehensiveMessageExtractor' object has no attribute '_analyze_emotional_state'"
+      ],
+      "quality_metrics": {}
+    },
+    "audio_m4a": {
+      "file_path": "test_files/test_audio.m4a",
+      "file_type": "audio_m4a",
+      "status": "error",
+      "start_time": 1753408007.49928,
+      "processing_time": 0.0076868534088134766,
+      "analysis_result": null,
+      "errors": [
+        "'ComprehensiveMessageExtractor' object has no attribute '_analyze_emotional_state'"
+      ],
+      "quality_metrics": {}
+    }
+  },
+  "component_performance": {
+    "comprehensive_message_extractor": {
+      "status": "active",
+      "enhanced_features": true,
+      "mcp_integration_ready": true
+    },
+    "market_intelligence_engine": {
+      "status": "implemented",
+      "mcp_perplexity_ready": true
+    },
+    "intelligent_situation_analyzer": {
+      "status": "implemented",
+      "mcp_sequential_thinking_ready": true
+    },
+    "real_analysis_engine": {
+      "status": "active",
+      "integration_level": "partial"
+    }
+  },
+  "quality_assessment": {
+    "overall_success_rate": 0.0,
+    "average_completeness": 0,
+    "component_coverage": {
+      "basic_analysis": true,
+      "speaker_analysis": true,
+      "market_intelligence": true,
+      "situation_intelligence": true,
+      "final_insights": true
+    },
+    "identified_issues": [
+      "파일 처리 성공률이 80% 미만",
+      "분석 완성도가 70% 미만"
+    ],
+    "recommendations": [
+      "파일 처리 에러 핸들링 강화 필요",
+      "MCP 실제 연동 활성화 필요"
+    ]
+  },
+  "pipeline_analysis": {
+    "current_capability": "60-70%",
+    "bottlenecks": [
+      "text_consultation 처리 실패",
+      "text_inquiry 처리 실패",
+      "text_description 처리 실패",
+      "document 처리 실패",
+      "image 처리 실패",
+      "audio_wav 처리 실패",
+      "audio_m4a 처리 실패"
+    ],
+    "strengths": [],
+    "immediate_improvements": [
+      "MCP 실제 연동 활성화",
+      "에러 핸들링 강화",
+      "파일 처리 안정성 향상"
+    ],
+    "long_term_goals": [
+      "Ollama 통합으로 한국어 성능 향상",
+      "Speaker Diarization 정확도 개선",
+      "실시간 성능 최적화"
+    ]
+  }
+}

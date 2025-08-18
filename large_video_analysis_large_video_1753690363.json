@@ -1,0 +1,288 @@
+{
+  "session_id": "large_video_1753690363",
+  "start_time": "2025-07-28T17:12:43.534149",
+  "analysis_approach": "metadata_and_sampling",
+  "target_files": [
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\videos\\IMG_0032.MOV",
+      "file_name": "IMG_0032.MOV",
+      "file_size_gb": 3.2398617397993803,
+      "file_size_bytes": 3478775054,
+      "is_large_file": true,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\videos\\IMG_2183.MOV",
+      "file_name": "IMG_2183.MOV",
+      "file_size_gb": 0.012966827489435673,
+      "file_size_bytes": 13923025,
+      "is_large_file": false,
+      "priority": "medium"
+    }
+  ],
+  "final_results": {
+    "analysis_info": {
+      "session_id": "large_video_1753690363",
+      "analysis_timestamp": "2025-07-28T17:12:47.396271",
+      "target_file": "IMG_0032.MOV"
+    },
+    "metadata_analysis": {
+      "file_info": {
+        "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\videos\\IMG_0032.MOV",
+        "file_name": "IMG_0032.MOV",
+        "file_size_gb": 3.2398617397993803,
+        "file_size_bytes": 3478775054,
+        "is_large_file": true,
+        "priority": "high"
+      },
+      "video_metadata": {
+        "width": 1920,
+        "height": 1080,
+        "fps": 29.9651949671754,
+        "total_frames": 106671,
+        "duration_seconds": 3559.83,
+        "duration_minutes": 59.3305,
+        "quality": "HD",
+        "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+        "duration_ffmpeg": 3559.828345,
+        "bit_rate": 7817848,
+        "size": 3478775054,
+        "codec_name": "hevc",
+        "pixel_format": "yuv420p",
+        "color_space": "bt709",
+        "audio_codec": "aac",
+        "audio_channels": 1,
+        "audio_sample_rate": "44100"
+      },
+      "conference_assessment": {
+        "relevance_score": 90,
+        "relevance_level": "high",
+        "assessment_factors": [
+          "대용량 파일 (중요 콘텐츠 가능성)",
+          "장시간 영상 (컨퍼런스 형태)",
+          "HD 화질 (전문적 촬영)",
+          "표준 카메라 파일명 패턴"
+        ],
+        "is_likely_conference_video": true,
+        "recommended_analysis": "sample_extraction"
+      },
+      "processing_info": {
+        "analysis_method": "metadata_extraction",
+        "processing_time": 1.1056125164031982,
+        "tools_used": [
+          "opencv",
+          "ffmpeg"
+        ]
+      },
+      "status": "success"
+    },
+    "sample_extraction": {
+      "total_samples_extracted": 5,
+      "samples": [
+        {
+          "sample_id": 1,
+          "frame_number": 17778,
+          "timestamp": "0:09:53",
+          "sample_path": "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_01.jpg",
+          "frame_analysis": {
+            "dimensions": {
+              "width": 1920,
+              "height": 1080
+            },
+            "brightness": 99.51314412937244,
+            "edge_density": 0.06731433256172839,
+            "color_variance": 154907306885120.0,
+            "mean_color": [
+              92.32845727237654,
+              95.75613184799383,
+              110.45484326774691
+            ],
+            "presentation_likelihood": {
+              "likelihood_score": 35,
+              "likelihood_level": "low",
+              "assessment_factors": [
+                "중간 텍스트 밀도",
+                "16:9 프레젠테이션 비율"
+              ],
+              "is_likely_presentation": false
+            }
+          }
+        },
+        {
+          "sample_id": 2,
+          "frame_number": 35556,
+          "timestamp": "0:19:46",
+          "sample_path": "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_02.jpg",
+          "frame_analysis": {
+            "dimensions": {
+              "width": 1920,
+              "height": 1080
+            },
+            "brightness": 103.54901041666666,
+            "edge_density": 0.07864101080246913,
+            "color_variance": 162903059595264.0,
+            "mean_color": [
+              97.8491796875,
+              97.40024691358025,
+              115.39760464891975
+            ],
+            "presentation_likelihood": {
+              "likelihood_score": 60,
+              "likelihood_level": "medium",
+              "assessment_factors": [
+                "적정 밝기 (프레젠테이션 적합)",
+                "중간 텍스트 밀도",
+                "16:9 프레젠테이션 비율"
+              ],
+              "is_likely_presentation": true
+            }
+          }
+        },
+        {
+          "sample_id": 3,
+          "frame_number": 53334,
+          "timestamp": "0:29:39",
+          "sample_path": "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_03.jpg",
+          "frame_analysis": {
+            "dimensions": {
+              "width": 1920,
+              "height": 1080
+            },
+            "brightness": 102.0635038901749,
+            "edge_density": 0.05659384645061728,
+            "color_variance": 181096742387712.0,
+            "mean_color": [
+              106.24245997299383,
+              94.93548948688272,
+              105.01256221064814
+            ],
+            "presentation_likelihood": {
+              "likelihood_score": 60,
+              "likelihood_level": "medium",
+              "assessment_factors": [
+                "적정 밝기 (프레젠테이션 적합)",
+                "중간 텍스트 밀도",
+                "16:9 프레젠테이션 비율"
+              ],
+              "is_likely_presentation": true
+            }
+          }
+        },
+        {
+          "sample_id": 4,
+          "frame_number": 71112,
+          "timestamp": "0:39:33",
+          "sample_path": "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_04.jpg",
+          "frame_analysis": {
+            "dimensions": {
+              "width": 1920,
+              "height": 1080
+            },
+            "brightness": 101.64688705632716,
+            "edge_density": 0.059733314043209876,
+            "color_variance": 184136924921856.0,
+            "mean_color": [
+              104.95425733024692,
+              94.90662037037038,
+              105.0797834683642
+            ],
+            "presentation_likelihood": {
+              "likelihood_score": 60,
+              "likelihood_level": "medium",
+              "assessment_factors": [
+                "적정 밝기 (프레젠테이션 적합)",
+                "중간 텍스트 밀도",
+                "16:9 프레젠테이션 비율"
+              ],
+              "is_likely_presentation": true
+            }
+          }
+        },
+        {
+          "sample_id": 5,
+          "frame_number": 88890,
+          "timestamp": "0:49:26",
+          "sample_path": "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_05.jpg",
+          "frame_analysis": {
+            "dimensions": {
+              "width": 1920,
+              "height": 1080
+            },
+            "brightness": 102.16433609825101,
+            "edge_density": 0.060398341049382714,
+            "color_variance": 157888853049344.0,
+            "mean_color": [
+              105.41076147762345,
+              95.25851658950617,
+              105.82373022762346
+            ],
+            "presentation_likelihood": {
+              "likelihood_score": 60,
+              "likelihood_level": "medium",
+              "assessment_factors": [
+                "적정 밝기 (프레젠테이션 적합)",
+                "중간 텍스트 밀도",
+                "16:9 프레젠테이션 비율"
+              ],
+              "is_likely_presentation": true
+            }
+          }
+        }
+      ],
+      "extraction_info": {
+        "total_frames": 106671,
+        "sample_interval": 17778,
+        "processing_time": 2.6479923725128174
+      },
+      "status": "success"
+    },
+    "comprehensive_summary": {
+      "file_summary": {
+        "name": "IMG_0032.MOV",
+        "size_gb": 3.2398617397993803,
+        "duration_minutes": 59.3305,
+        "resolution": "1920x1080",
+        "quality": "HD",
+        "format": "mov,mp4,m4a,3gp,3g2,mj2"
+      },
+      "content_analysis": {
+        "conference_relevance": "high",
+        "presentation_frames_ratio": "4/5",
+        "average_brightness": 101.8,
+        "average_text_density": 0.065,
+        "video_type_assessment": "컨퍼런스 발표 영상 (높은 확률)"
+      },
+      "technical_assessment": {
+        "codec": "hevc",
+        "bitrate_mbps": 7.8,
+        "audio_quality": "Mono",
+        "overall_quality": "HD"
+      },
+      "analysis_insights": [
+        "59분 장시간 영상에서 80% 프레젠테이션 화면 감지",
+        "대용량 파일 (3.2GB) - 고품질 또는 장시간 콘텐츠"
+      ],
+      "recommended_actions": [
+        "전체 영상에 대한 상세 STT 분석 권장",
+        "오디오 분석과 연계하여 종합적 컨퍼런스 인사이트 도출",
+        "이미지 OCR 결과와 교차 검증"
+      ],
+      "sample_extraction_summary": {
+        "total_samples": 5,
+        "presentation_samples": 4,
+        "sample_files": [
+          "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_01.jpg",
+          "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_02.jpg",
+          "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_03.jpg",
+          "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_04.jpg",
+          "C:\\Users\\PC_58410\\solomond-ai-system\\video_sample_large_video_1753690363_05.jpg"
+        ]
+      }
+    },
+    "processing_performance": {
+      "total_analysis_time": 4.3962860107421875,
+      "analysis_efficiency": "3.24GB 파일 분석 완료"
+    }
+  },
+  "completion_time": "2025-07-28T17:12:47.396346"
+}

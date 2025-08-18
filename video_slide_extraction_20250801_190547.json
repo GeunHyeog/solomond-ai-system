@@ -1,0 +1,69 @@
+{
+  "video_path": "C:/Users/PC_58410/solomond-ai-system/user_files/JGA2025_D1/IMG_0032.MOV",
+  "video_info": {
+    "fps": 29.9651949671754,
+    "frame_count": 106671,
+    "width": 1920,
+    "height": 1080,
+    "duration": 3559.83
+  },
+  "slide_candidates": 7620,
+  "slide_transitions": [
+    {
+      "slide_number": 1,
+      "start_time": 0.0,
+      "duration": 3559.6631397474475,
+      "end_time": 3559.6631397474475,
+      "frame_idx": 0,
+      "frame_path": "extracted_slides\\slide_000000_00m00s.jpg",
+      "confidence": 1.0,
+      "extracted_text": "The Rise of the Eco-Friendly Luxury Consumer Director of Sudainability",
+      "matched_reference": {
+        "reference_index": 0,
+        "reference_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+        "image_similarity": 0.798273054553684,
+        "text_similarity": 0.3333333333333333,
+        "match_confidence": 0.798273054553684
+      }
+    }
+  ],
+  "matched_slides": [
+    {
+      "slide_number": 1,
+      "start_time": 0.0,
+      "duration": 3559.6631397474475,
+      "end_time": 3559.6631397474475,
+      "frame_idx": 0,
+      "frame_path": "extracted_slides\\slide_000000_00m00s.jpg",
+      "confidence": 1.0,
+      "extracted_text": "The Rise of the Eco-Friendly Luxury Consumer Director of Sudainability",
+      "matched_reference": {
+        "reference_index": 0,
+        "reference_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+        "image_similarity": 0.798273054553684,
+        "text_similarity": 0.3333333333333333,
+        "match_confidence": 0.798273054553684
+      }
+    }
+  ],
+  "slide_timeline": {
+    "total_slides": 1,
+    "total_duration": 3559.83,
+    "average_slide_duration": 3559.83,
+    "timeline_events": [
+      {
+        "slide_number": 1,
+        "start_time": 0.0,
+        "end_time": 3559.6631397474475,
+        "duration": 3559.6631397474475,
+        "start_time_formatted": "00:00",
+        "end_time_formatted": "59:19",
+        "confidence": 1.0,
+        "has_reference_match": true,
+        "extracted_text_preview": "The Rise of the Eco-Friendly Luxury Consumer Director of Sudainability"
+      }
+    ]
+  },
+  "processing_time": 1404.5521290302277,
+  "timestamp": "2025-08-01T19:05:47.278075"
+}

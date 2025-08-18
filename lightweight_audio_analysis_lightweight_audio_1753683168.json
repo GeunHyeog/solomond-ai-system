@@ -1,0 +1,41 @@
+{
+  "analysis_info": {
+    "session_id": "lightweight_audio_1753683168",
+    "analysis_approach": "lightweight_metadata_only",
+    "timestamp": "2025-07-28T15:12:53.853312"
+  },
+  "metadata_analysis": {
+    "file_info": {
+      "file_name": "새로운 녹음.m4a",
+      "file_size_mb": 27.15093421936035,
+      "total_duration_seconds": 3427.7,
+      "total_duration_minutes": 57.12833333333333,
+      "sample_rate": 16000
+    },
+    "audio_features": {
+      "energy_level": 0.10918066650629044,
+      "zero_crossing_rate": 0.13162459188432835,
+      "spectral_centroid": 1703.5333003299618,
+      "mfcc_features": [
+        -166.99729919433594,
+        96.38599395751953,
+        -7.236724853515625,
+        19.0772647857666,
+        -8.913857460021973,
+        -6.302159786224365,
+        -7.754578113555908,
+        -10.681809425354004,
+        -4.929434299468994,
+        -1.5572593212127686,
+        -6.6980767250061035,
+        -4.541965961456299,
+        -5.0912766456604
+      ],
+      "audio_quality": "good"
+    },
+    "voice_activity": {
+      "voice_ratio": 0.6997998665777185,
+      "voice_segments_count": 0,
+      "longest_voice_segment": 0,
+      "total_voice_time": 0,
+      "is_voice_content": 

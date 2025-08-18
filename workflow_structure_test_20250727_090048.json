@@ -1,0 +1,168 @@
+{
+  "extraction": {
+    "audio": {
+      "speakers": {
+        "화자_1": {
+          "texts": [
+            {
+              "text": "안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.",
+              "timestamp": 0,
+              "file": "새로운 녹음.m4a"
+            },
+            {
+              "text": "첫 번째 안건에 대해서 논의해보겠습니다.",
+              "timestamp": 10,
+              "file": "새로운 녹음.m4a"
+            }
+          ],
+          "topics": [
+            [
+              "비즈니스",
+              2
+            ],
+            [
+              "운영",
+              1
+            ]
+          ],
+          "speaking_time": 15.5,
+          "files": "{'새로운 녹음.m4a'}"
+        },
+        "화자_2": {
+          "texts": [
+            {
+              "text": "네, 안녕하세요. 준비된 자료가 있습니다.",
+              "timestamp": 5,
+              "file": "새로운 녹음.m4a"
+            },
+            {
+              "text": "예산 관련해서 질문이 있는데요.",
+              "timestamp": 20,
+              "file": "새로운 녹음 2.m4a"
+            }
+          ],
+          "topics": [
+            [
+              "비즈니스",
+              1
+            ],
+            [
+              "기술",
+              1
+            ]
+          ],
+          "speaking_time": 8.2,
+          "files": "{'새로운 녹음 2.m4a', '새로운 녹음.m4a'}"
+        }
+      },
+      "statistics": {
+        "화자_1": {
+          "utterance_count": 2,
+          "speech_style": "격식체"
+        },
+        "화자_2": {
+          "utterance_count": 2,
+          "speech_style": "질문형"
+        }
+      },
+      "conversation_flow": [
+        {
+          "speaker": "화자_1",
+          "text": "안녕하세요. 오늘 회의에 참석해 주셔서 감사합니다.",
+          "timestamp": 0
+        },
+        {
+          "speaker": "화자_2",
+          "text": "네, 안녕하세요. 준비된 자료가 있습니다.",
+          "timestamp": 5
+        }
+      ]
+    },
+    "image": {
+      "extracted_texts": [
+        {
+          "file": "IMG_2160.JPG",
+          "text": "주얼리 전시회 2025",
+          "confidence": 0.95
+        },
+        {
+          "file": "IMG_2161.JPG",
+          "text": "골드 반지 세트",
+          "confidence": 0.88
+        },
+        {
+          "file": "IMG_2162.JPG",
+          "text": "다이아몬드 목걸이",
+          "confidence": 0.92
+        }
+      ],
+      "total_blocks": 3
+    },
+    "video": [
+      {
+        "file": "IMG_0032.MOV",
+        "size_mb": 45.2,
+        "estimated_content": "주얼리 촬영 영상"
+      },
+      {
+        "file": "IMG_2183.MOV",
+        "size_mb": 32.1,
+        "estimated_content": "제품 시연 영상"
+      }
+    ],
+    "total_files": 7
+  },
+  "synthesis": {
+    "overview": {
+      "total_sources": 3,
+      "audio_speakers": 2,
+      "image_texts": 3,
+      "video_files": 2,
+      "analysis_timestamp": "2025-07-27T09:00:47.960917"
+    },
+    "speaker_insights": {
+      "화자_1": {
+        "utterance_count": 2,
+        "main_topics": [
+          "비즈니스",
+          "운영"
+        ],
+        "speaking_time": 15.5
+      },
+      "화자_2": {
+        "utterance_count": 2,
+        "main_topics": [
+          "비즈니스",
+          "기술"
+        ],
+        "speaking_time": 8.2
+      }
+    },
+    "visual_content": [
+      {
+        "source": "IMG_2160.JPG",
+        "content": "주얼리 전시회 2025",
+        "confidence": 0.95
+      },
+      {
+        "source": "IMG_2161.JPG",
+        "content": "골드 반지 세트",
+        "confidence": 0.88
+      },
+      {
+        "source": "IMG_2162.JPG",
+        "content": "다이아몬드 목걸이",
+        "confidence": 0.92
+      }
+    ],
+    "integration_score": 100
+  },
+  "full_script": "# 종합 상황 분석 풀스크립트\n생성일시: 2025-07-27 09:00:47\n============================================================\n\n## [분석 개요]\n- 총 소스 유형: 3개\n- 감지된 화자: 2명\n- 추출된 텍스트: 3개\n- 비디오 파일: 2개\n\n## [화자별 분석]\n\n### 화자_1\n- 발언 횟수: 2회\n- 총 발언 시간: 15.5초\n- 주요 주제: 비즈니스, 운영\n\n### 화자_2\n- 발언 횟수: 2회\n- 총 발언 시간: 8.2초\n- 주요 주제: 비즈니스, 기술\n\n## [시각적 콘텐츠]\n\n1. IMG_2160.JPG\n   내용: 주얼리 전시회 2025\n   신뢰도: 0.95\n\n2. IMG_2161.JPG\n   내용: 골드 반지 세트\n   신뢰도: 0.88\n\n3. IMG_2162.JPG\n   내용: 다이아몬드 목걸이\n   신뢰도: 0.92\n\n## [종합 평가]\n- 통합 분석 점수: 100/100\n- 평가: 매우 우수한 다중 소스 통합 분석\n\n============================================================\n스크립트 생성 완료: 2025-07-27 09:00:47",
+  "summary": "# [종합 상황 분석 요약본]\n요약 생성일시: 2025-07-27 09:00:47\n\n## [핵심 지표]\n- 분석 소스: 3개 유형\n- 참여 화자: 2명\n- 텍스트 추출: 3개 블록\n\n## [주요 발견사항]\n- 가장 활발한 화자: 화자_1\n- 총 대화 시간: 23.7초\n\n## [분석 품질]: 100/100\n- 우수 - 모든 소스가 잘 통합되어 분석됨\n\n## [권장 사항]\n- 정기적 분석을 통한 패턴 추적 권장\n- 화자별 역할 분석 고려\n\n---\n요약 완료: 2025-07-27 09:00:47",
+  "speaker_integration": {
+    "status": "success",
+    "speakers_detected": 2,
+    "analysis_count": 2,
+    "test_segments": 3
+  }
+}

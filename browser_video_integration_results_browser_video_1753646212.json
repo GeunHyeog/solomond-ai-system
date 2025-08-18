@@ -1,0 +1,642 @@
+{
+  "session_id": "browser_video_1753646212",
+  "timestamp": "2025-07-28T04:56:52.446401",
+  "browser_state": "ready",
+  "video_processor_state": "ready",
+  "collected_data": [],
+  "analysis_results": {
+    "session_id": "browser_video_1753646212",
+    "total_urls": 4,
+    "processed_urls": 4,
+    "successful_analyses": 3,
+    "url_results": [
+      {
+        "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        "discovery_result": {
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "page_title": "동영상 페이지 - watch?v=dQw4w9WgXcQ",
+          "discovered_videos": [
+            {
+              "video_id": "dQw4w9WgXcQ",
+              "title": "발견된 YouTube 동영상",
+              "duration": "3:32",
+              "thumbnail_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ/thumbnail.jpg",
+              "player_element": "#movie_player",
+              "quality_options": [
+                "720p",
+                "480p",
+                "360p"
+              ]
+            }
+          ],
+          "platform_type": "youtube",
+          "discovery_time": 1753646212.4464579
+        },
+        "video_analyses": [
+          {
+            "video_id": "dQw4w9WgXcQ",
+            "analysis_type": "browser_integrated",
+            "input_data": {
+              "video_metadata": {
+                "video_id": "dQw4w9WgXcQ",
+                "title": "발견된 YouTube 동영상",
+                "duration": "3:32",
+                "thumbnail_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ/thumbnail.jpg",
+                "player_element": "#movie_player",
+                "quality_options": [
+                  "720p",
+                  "480p",
+                  "360p"
+                ]
+              },
+              "screenshots": [
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_0s.png",
+                  "timestamp_seconds": 0,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_30s.png",
+                  "timestamp_seconds": 30,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_60s.png",
+                  "timestamp_seconds": 60,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_90s.png",
+                  "timestamp_seconds": 90,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_120s.png",
+                  "timestamp_seconds": 120,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                }
+              ],
+              "browser_metadata": {
+                "current_time": 0,
+                "duration": 212,
+                "volume": 1.0,
+                "playback_rate": 1.0,
+                "is_playing": false,
+                "is_muted": false,
+                "video_width": 1280,
+                "video_height": 720,
+                "buffered_ranges": [
+                  [
+                    0,
+                    30
+                  ]
+                ],
+                "network_state": "loaded"
+              },
+              "player_info": {
+                "player_type": "youtube",
+                "controls_visible": true,
+                "fullscreen_available": true,
+                "quality_control": true
+              }
+            },
+            "analysis_components": {
+              "visual_analysis": true,
+              "audio_analysis": false,
+              "metadata_analysis": true,
+              "context_analysis": true
+            },
+            "results": {
+              "metadata": {
+                "duration_consistency": {
+                  "browser_duration": 212,
+                  "platform_duration": 212,
+                  "consistent": true
+                },
+                "quality_assessment": {
+                  "resolution": "1280x720",
+                  "quality_options": 3,
+                  "player_features": 3
+                },
+                "platform_optimization": {
+                  "platform": "custom",
+                  "player_type": "youtube",
+                  "optimized_for_platform": true
+                }
+              },
+              "visual": {
+                "captured_frames": 5,
+                "total_coverage_seconds": 120,
+                "average_file_size_kb": 150.0,
+                "frame_analysis": [
+                  {
+                    "timestamp": 0,
+                    "estimated_content": "프레임 1 - 0초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_0s.png"
+                  },
+                  {
+                    "timestamp": 30,
+                    "estimated_content": "프레임 2 - 30초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_30s.png"
+                  },
+                  {
+                    "timestamp": 60,
+                    "estimated_content": "프레임 3 - 60초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_60s.png"
+                  },
+                  {
+                    "timestamp": 90,
+                    "estimated_content": "프레임 4 - 90초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_90s.png"
+                  },
+                  {
+                    "timestamp": 120,
+                    "estimated_content": "프레임 5 - 120초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_dQw4w9WgXcQ_120s.png"
+                  }
+                ]
+              },
+              "enhanced": {
+                "processor_capabilities": {
+                  "supported_formats": [
+                    ".mp4",
+                    ".avi",
+                    ".mov",
+                    ".mkv",
+                    ".webm",
+                    ".flv",
+                    ".wmv",
+                    ".m4v",
+                    ".3gp",
+                    ".ogv",
+                    ".ts",
+                    ".mts"
+                  ],
+                  "max_file_size_gb": 10.0,
+                  "max_duration_minutes": 120.0,
+                  "chunk_duration_seconds": 60,
+                  "url_platforms": [
+                    "youtube.com",
+                    "youtu.be",
+                    "vimeo.com",
+                    "dailymotion.com",
+                    "twitch.tv",
+                    "tiktok.com",
+                    "instagram.com"
+                  ],
+                  "dependencies": {
+                    "opencv": true,
+                    "moviepy": true,
+                    "yt_dlp": true,
+                    "ffmpeg": true
+                  },
+                  "context_support": true
+                },
+                "context_applied": true,
+                "processing_recommendations": [
+                  "브라우저 메타데이터 활용한 정확한 길이 측정",
+                  "스크린샷 기반 키 프레임 추출",
+                  "플랫폼별 최적화된 분석 전략"
+                ]
+              }
+            },
+            "processing_time": 0.00020384788513183594,
+            "quality_score": 0.75
+          }
+        ],
+        "processing_time": 0.0024275779724121094,
+        "status": "success"
+      },
+      {
+        "url": "https://vimeo.com/123456789",
+        "discovery_result": {
+          "url": "https://vimeo.com/123456789",
+          "page_title": "동영상 페이지 - 123456789",
+          "discovered_videos": [
+            {
+              "video_id": "123456789",
+              "title": "발견된 Vimeo 동영상",
+              "duration": "5:42",
+              "thumbnail_url": "https://vimeo.com/123456789/thumbnail.jpg",
+              "player_element": ".vp-video-wrapper",
+              "quality_options": [
+                "1080p",
+                "720p",
+                "480p"
+              ]
+            }
+          ],
+          "platform_type": "vimeo",
+          "discovery_time": 1753646212.448898
+        },
+        "video_analyses": [
+          {
+            "video_id": "123456789",
+            "analysis_type": "browser_integrated",
+            "input_data": {
+              "video_metadata": {
+                "video_id": "123456789",
+                "title": "발견된 Vimeo 동영상",
+                "duration": "5:42",
+                "thumbnail_url": "https://vimeo.com/123456789/thumbnail.jpg",
+                "player_element": ".vp-video-wrapper",
+                "quality_options": [
+                  "1080p",
+                  "720p",
+                  "480p"
+                ]
+              },
+              "screenshots": [
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_0s.png",
+                  "timestamp_seconds": 0,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_30s.png",
+                  "timestamp_seconds": 30,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_60s.png",
+                  "timestamp_seconds": 60,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_90s.png",
+                  "timestamp_seconds": 90,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_120s.png",
+                  "timestamp_seconds": 120,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                }
+              ],
+              "browser_metadata": {
+                "current_time": 0,
+                "duration": 342,
+                "volume": 1.0,
+                "playback_rate": 1.0,
+                "is_playing": false,
+                "is_muted": false,
+                "video_width": 1280,
+                "video_height": 720,
+                "buffered_ranges": [
+                  [
+                    0,
+                    30
+                  ]
+                ],
+                "network_state": "loaded"
+              },
+              "player_info": {
+                "player_type": "vimeo",
+                "controls_visible": true,
+                "fullscreen_available": true,
+                "quality_control": true
+              }
+            },
+            "analysis_components": {
+              "visual_analysis": true,
+              "audio_analysis": false,
+              "metadata_analysis": true,
+              "context_analysis": true
+            },
+            "results": {
+              "metadata": {
+                "duration_consistency": {
+                  "browser_duration": 342,
+                  "platform_duration": 342,
+                  "consistent": true
+                },
+                "quality_assessment": {
+                  "resolution": "1280x720",
+                  "quality_options": 3,
+                  "player_features": 3
+                },
+                "platform_optimization": {
+                  "platform": "custom",
+                  "player_type": "vimeo",
+                  "optimized_for_platform": true
+                }
+              },
+              "visual": {
+                "captured_frames": 5,
+                "total_coverage_seconds": 120,
+                "average_file_size_kb": 150.0,
+                "frame_analysis": [
+                  {
+                    "timestamp": 0,
+                    "estimated_content": "프레임 1 - 0초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_0s.png"
+                  },
+                  {
+                    "timestamp": 30,
+                    "estimated_content": "프레임 2 - 30초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_30s.png"
+                  },
+                  {
+                    "timestamp": 60,
+                    "estimated_content": "프레임 3 - 60초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_60s.png"
+                  },
+                  {
+                    "timestamp": 90,
+                    "estimated_content": "프레임 4 - 90초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_90s.png"
+                  },
+                  {
+                    "timestamp": 120,
+                    "estimated_content": "프레임 5 - 120초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_123456789_120s.png"
+                  }
+                ]
+              },
+              "enhanced": {
+                "processor_capabilities": {
+                  "supported_formats": [
+                    ".mp4",
+                    ".avi",
+                    ".mov",
+                    ".mkv",
+                    ".webm",
+                    ".flv",
+                    ".wmv",
+                    ".m4v",
+                    ".3gp",
+                    ".ogv",
+                    ".ts",
+                    ".mts"
+                  ],
+                  "max_file_size_gb": 10.0,
+                  "max_duration_minutes": 120.0,
+                  "chunk_duration_seconds": 60,
+                  "url_platforms": [
+                    "youtube.com",
+                    "youtu.be",
+                    "vimeo.com",
+                    "dailymotion.com",
+                    "twitch.tv",
+                    "tiktok.com",
+                    "instagram.com"
+                  ],
+                  "dependencies": {
+                    "opencv": true,
+                    "moviepy": true,
+                    "yt_dlp": true,
+                    "ffmpeg": true
+                  },
+                  "context_support": true
+                },
+                "context_applied": true,
+                "processing_recommendations": [
+                  "브라우저 메타데이터 활용한 정확한 길이 측정",
+                  "스크린샷 기반 키 프레임 추출",
+                  "플랫폼별 최적화된 분석 전략"
+                ]
+              }
+            },
+            "processing_time": 0.00014352798461914062,
+            "quality_score": 0.75
+          }
+        ],
+        "processing_time": 0.0006096363067626953,
+        "status": "success"
+      },
+      {
+        "url": "https://example.com/custom-video-player",
+        "discovery_result": {
+          "url": "https://example.com/custom-video-player",
+          "page_title": "동영상 페이지 - custom-video-player",
+          "discovered_videos": [
+            {
+              "video_id": "custom_video_1",
+              "title": "발견된 커스텀 동영상",
+              "duration": "4:15",
+              "thumbnail_url": "https://example.com/custom-video-player/video_thumb.jpg",
+              "player_element": "video",
+              "quality_options": [
+                "auto"
+              ]
+            }
+          ],
+          "platform_type": "custom",
+          "discovery_time": 1753646212.449517
+        },
+        "video_analyses": [
+          {
+            "video_id": "custom_video_1",
+            "analysis_type": "browser_integrated",
+            "input_data": {
+              "video_metadata": {
+                "video_id": "custom_video_1",
+                "title": "발견된 커스텀 동영상",
+                "duration": "4:15",
+                "thumbnail_url": "https://example.com/custom-video-player/video_thumb.jpg",
+                "player_element": "video",
+                "quality_options": [
+                  "auto"
+                ]
+              },
+              "screenshots": [
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_0s.png",
+                  "timestamp_seconds": 0,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_30s.png",
+                  "timestamp_seconds": 30,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_60s.png",
+                  "timestamp_seconds": 60,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_90s.png",
+                  "timestamp_seconds": 90,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                },
+                {
+                  "path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_120s.png",
+                  "timestamp_seconds": 120,
+                  "size_bytes": 153600,
+                  "resolution": "1280x720"
+                }
+              ],
+              "browser_metadata": {
+                "current_time": 0,
+                "duration": 255,
+                "volume": 1.0,
+                "playback_rate": 1.0,
+                "is_playing": false,
+                "is_muted": false,
+                "video_width": 1280,
+                "video_height": 720,
+                "buffered_ranges": [
+                  [
+                    0,
+                    30
+                  ]
+                ],
+                "network_state": "loaded"
+              },
+              "player_info": {
+                "player_type": "html5",
+                "controls_visible": true,
+                "fullscreen_available": true,
+                "quality_control": false
+              }
+            },
+            "analysis_components": {
+              "visual_analysis": true,
+              "audio_analysis": false,
+              "metadata_analysis": true,
+              "context_analysis": true
+            },
+            "results": {
+              "metadata": {
+                "duration_consistency": {
+                  "browser_duration": 255,
+                  "platform_duration": 255,
+                  "consistent": true
+                },
+                "quality_assessment": {
+                  "resolution": "1280x720",
+                  "quality_options": 1,
+                  "player_features": 2
+                },
+                "platform_optimization": {
+                  "platform": "custom",
+                  "player_type": "html5",
+                  "optimized_for_platform": true
+                }
+              },
+              "visual": {
+                "captured_frames": 5,
+                "total_coverage_seconds": 120,
+                "average_file_size_kb": 150.0,
+                "frame_analysis": [
+                  {
+                    "timestamp": 0,
+                    "estimated_content": "프레임 1 - 0초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_0s.png"
+                  },
+                  {
+                    "timestamp": 30,
+                    "estimated_content": "프레임 2 - 30초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_30s.png"
+                  },
+                  {
+                    "timestamp": 60,
+                    "estimated_content": "프레임 3 - 60초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_60s.png"
+                  },
+                  {
+                    "timestamp": 90,
+                    "estimated_content": "프레임 4 - 90초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_90s.png"
+                  },
+                  {
+                    "timestamp": 120,
+                    "estimated_content": "프레임 5 - 120초 지점",
+                    "file_path": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\browser_video_screenshots\\screenshot_custom_video_1_120s.png"
+                  }
+                ]
+              },
+              "enhanced": {
+                "processor_capabilities": {
+                  "supported_formats": [
+                    ".mp4",
+                    ".avi",
+                    ".mov",
+                    ".mkv",
+                    ".webm",
+                    ".flv",
+                    ".wmv",
+                    ".m4v",
+                    ".3gp",
+                    ".ogv",
+                    ".ts",
+                    ".mts"
+                  ],
+                  "max_file_size_gb": 10.0,
+                  "max_duration_minutes": 120.0,
+                  "chunk_duration_seconds": 60,
+                  "url_platforms": [
+                    "youtube.com",
+                    "youtu.be",
+                    "vimeo.com",
+                    "dailymotion.com",
+                    "twitch.tv",
+                    "tiktok.com",
+                    "instagram.com"
+                  ],
+                  "dependencies": {
+                    "opencv": true,
+                    "moviepy": true,
+                    "yt_dlp": true,
+                    "ffmpeg": true
+                  },
+                  "context_support": true
+                },
+                "context_applied": true,
+                "processing_recommendations": [
+                  "브라우저 메타데이터 활용한 정확한 길이 측정",
+                  "스크린샷 기반 키 프레임 추출",
+                  "플랫폼별 최적화된 분석 전략"
+                ]
+              }
+            },
+            "processing_time": 0.00010228157043457031,
+            "quality_score": 0.75
+          }
+        ],
+        "processing_time": 0.0004887580871582031,
+        "status": "success"
+      },
+      {
+        "url": "https://brightcove.net/player/demo",
+        "discovery_result": {
+          "url": "https://brightcove.net/player/demo",
+          "page_title": "동영상 페이지 - demo",
+          "discovered_videos": [],
+          "platform_type": "brightcove",
+          "discovery_time": 1753646212.4500148
+        },
+        "video_analyses": [],
+        "processing_time": 1.0251998901367188e-05,
+        "status": "success"
+      }
+    ],
+    "performance_summary": {
+      "total_time": 0.0035800933837890625,
+      "average_time_per_url": 0.0008950233459472656,
+      "success_rate": 1.0,
+      "analysis_efficiency": 0.75
+    }
+  },
+  "performance_metrics": {
+    "total_time": 0.0035800933837890625,
+    "average_time_per_url": 0.0008950233459472656,
+    "success_rate": 1.0,
+    "analysis_efficiency": 0.75
+  }
+}

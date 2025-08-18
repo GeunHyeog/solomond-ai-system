@@ -1,0 +1,101 @@
+{
+  "test_type": "slide_analysis_test",
+  "slides_processed": [
+    "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+    "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+    "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2161.JPG",
+    "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2161.JPG",
+    "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2162.JPG"
+  ],
+  "analysis_result": {
+    "total_slides": 5,
+    "processed_slides": 5,
+    "slide_analyses": [
+      {
+        "slide_number": 1,
+        "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+        "text": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY",
+        "text_length": 177,
+        "confidence": 0.5803983699950578,
+        "slide_type": "general",
+        "key_points": [],
+        "ocr_results_count": 36
+      },
+      {
+        "slide_number": 2,
+        "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+        "text": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY",
+        "text_length": 177,
+        "confidence": 0.5803983699950578,
+        "slide_type": "general",
+        "key_points": [],
+        "ocr_results_count": 36
+      },
+      {
+        "slide_number": 3,
+        "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2161.JPG",
+        "text": "ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller",
+        "text_length": 376,
+        "confidence": 0.6552505284287116,
+        "slide_type": "general",
+        "key_points": [
+          "3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller"
+        ],
+        "ocr_results_count": 48
+      },
+      {
+        "slide_number": 4,
+        "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2161.JPG",
+        "text": "ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller",
+        "text_length": 376,
+        "confidence": 0.6552505284287116,
+        "slide_type": "general",
+        "key_points": [
+          "3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller"
+        ],
+        "ocr_results_count": 48
+      },
+      {
+        "slide_number": 5,
+        "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2162.JPG",
+        "text": "The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19 / 6 / 2025 (Thursday) The Hall 1B 2.3Opm 3.3Opm HKCEC informam Jewellery ' ' ' ~ Stage,",
+        "text_length": 288,
+        "confidence": 0.5846978587731354,
+        "slide_type": "general",
+        "key_points": [
+          "3Opm HKCEC informam Jewellery ' ' ' ~ Stage,"
+        ],
+        "ocr_results_count": 40
+      }
+    ],
+    "total_analysis": {
+      "total_words": 221,
+      "type_distribution": {
+        "general": 5
+      },
+      "topic_analysis": {
+        "eco_keywords": 8,
+        "luxury_keywords": 12,
+        "topic_relevance": 9.049773755656108,
+        "main_theme": "eco_luxury"
+      },
+      "structure_score": 0,
+      "presentation_flow": {
+        "flow_sequence": [
+          "general",
+          "general",
+          "general",
+          "general",
+          "general"
+        ],
+        "has_introduction": false,
+        "has_content": false,
+        "has_conclusion": false,
+        "flow_score": 0.0
+      }
+    },
+    "combined_text": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19 / 6 / 2025 (Thursday) The Hall 1B 2.3Opm 3.3Opm HKCEC informam Jewellery ' ' ' ~ Stage,"
+  },
+  "processing_time": 213.79892301559448,
+  "timestamp": "2025-08-01T18:21:17.816944"
+}

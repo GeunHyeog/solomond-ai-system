@@ -1,0 +1,197 @@
+{
+  "filename": "새로운 녹음 2.m4a",
+  "total_duration": 0,
+  "segments_count": 16,
+  "speaker_analysis": {
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 2.82,
+        "duration": 2.82,
+        "text": "bu와 01은 여러분은 믹서합니다",
+        "speaker": "moderator",
+        "text_length": 18,
+        "silence_before": 0
+      },
+      {
+        "start": 2.82,
+        "end": 5.56,
+        "duration": 2.7399999999999998,
+        "text": "각 SeninЀ수들이",
+        "speaker": "moderator",
+        "text_length": 11,
+        "silence_before": 0.0
+      },
+      {
+        "start": 8.54,
+        "end": 11.34,
+        "duration": 2.8000000000000007,
+        "text": "은성이 인정하고",
+        "speaker": "moderator",
+        "text_length": 8,
+        "silence_before": 2.9799999999999995
+      },
+      {
+        "start": 11.34,
+        "end": 15.06,
+        "duration": 3.7200000000000006,
+        "text": "� sweater,",
+        "speaker": "moderator",
+        "text_length": 10,
+        "silence_before": 0.0
+      },
+      {
+        "start": 15.06,
+        "end": 26.12,
+        "duration": 11.06,
+        "text": "nag lo ​​",
+        "speaker": "moderator",
+        "text_length": 9,
+        "silence_before": 0.0
+      },
+      {
+        "start": 26.12,
+        "end": 27.84,
+        "duration": 1.7199999999999989,
+        "text": "E Bret Bulval, round specialLY",
+        "speaker": "moderator",
+        "text_length": 30,
+        "silence_before": 0.0
+      },
+      {
+        "start": 38.56,
+        "end": 41.18,
+        "duration": 2.6199999999999974,
+        "text": "닫는 것은",
+        "speaker": "moderator",
+        "text_length": 5,
+        "silence_before": 10.720000000000002
+      },
+      {
+        "start": 41.18,
+        "end": 46.46,
+        "duration": 5.280000000000001,
+        "text": "가장 sole-,",
+        "speaker": "moderator",
+        "text_length": 9,
+        "silence_before": 0.0
+      },
+      {
+        "start": 46.46,
+        "end": 47.26,
+        "duration": 0.7999999999999972,
+        "text": "ஆ유의",
+        "speaker": "moderator",
+        "text_length": 3,
+        "silence_before": 0.0
+      },
+      {
+        "start": 47.26,
+        "end": 49.64,
+        "duration": 2.3800000000000026,
+        "text": "아 Hyeyeon의",
+        "speaker": "moderator",
+        "text_length": 10,
+        "silence_before": 0.0
+      },
+      {
+        "start": 49.64,
+        "end": 54.4,
+        "duration": 4.759999999999998,
+        "text": "Snatch",
+        "speaker": "moderator",
+        "text_length": 6,
+        "silence_before": 0.0
+      },
+      {
+        "start": 54.4,
+        "end": 56.02,
+        "duration": 1.6200000000000045,
+        "text": "Ree Ann Peng",
+        "speaker": "moderator",
+        "text_length": 12,
+        "silence_before": 0.0
+      },
+      {
+        "start": 56.02,
+        "end": 56.1,
+        "duration": 0.0799999999999983,
+        "text": "ISита",
+        "speaker": "moderator",
+        "text_length": 5,
+        "silence_before": 0.0
+      },
+      {
+        "start": 53.68000000000001,
+        "end": 55.86,
+        "duration": 2.1799999999999926,
+        "text": "crust Engineers",
+        "speaker": "moderator",
+        "text_length": 15,
+        "silence_before": -2.4199999999999946
+      },
+      {
+        "start": 56.1,
+        "end": 61.28,
+        "duration": 5.18,
+        "text": "너무 했죠, Thank you and thank you for being such a wonderful audience",
+        "speaker": "moderator",
+        "text_length": 66,
+        "silence_before": 0.240000000000002
+      },
+      {
+        "start": 61.28,
+        "end": 63.88,
+        "duration": 2.6000000000000014,
+        "text": "Thank you, Thank you",
+        "speaker": "moderator",
+        "text_length": 20,
+        "silence_before": 0.0
+      }
+    ],
+    "statistics": {
+      "moderator": {
+        "duration": 52.35999999999999,
+        "count": 16,
+        "texts": [
+          "bu와 01은 여러분은 믹서합니다",
+          "각 SeninЀ수들이",
+          "은성이 인정하고",
+          "� sweater,",
+          "nag lo ​​",
+          "E Bret Bulval, round specialLY",
+          "닫는 것은",
+          "가장 sole-,",
+          "ஆ유의",
+          "아 Hyeyeon의",
+          "Snatch",
+          "Ree Ann Peng",
+          "ISита",
+          "crust Engineers",
+          "너무 했죠, Thank you and thank you for being such a wonderful audience",
+          "Thank you, Thank you"
+        ]
+      },
+      "speaker1": {
+        "duration": 0,
+        "count": 0,
+        "texts": []
+      },
+      "speaker2": {
+        "duration": 0,
+        "count": 0,
+        "texts": []
+      },
+      "speaker3": {
+        "duration": 0,
+        "count": 0,
+        "texts": []
+      }
+    },
+    "role_assignments": {
+      "moderator": "사회자"
+    }
+  },
+  "full_text": " bu와 01은 여러분은 믹서합니다 각 SeninЀ수들이 은성이 인정하고� sweater, nag lo ​​ E Bret Bulval, round specialLY 닫는 것은 가장 sole-, ஆ유의 아 Hyeyeon의Snatch Ree Ann Peng ISита crust Engineers 너무 했죠, Thank you and thank you for being such a wonderful audience Thank you, Thank you",
+  "success": true
+}

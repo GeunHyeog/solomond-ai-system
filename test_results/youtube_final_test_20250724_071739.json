@@ -1,0 +1,16 @@
+{
+  "test_results": {
+    "url_validation": true,
+    "metadata_extraction": false,
+    "content_analysis": false,
+    "system_integration": true
+  },
+  "success_rate": 50.0,
+  "test_timestamp": "2025-07-24T07:17:39.742421",
+  "component_analysis": {
+    "url_validation": true,
+    "metadata_extraction": false,
+    "content_analysis": false,
+    "system_integration": true
+  }
+}

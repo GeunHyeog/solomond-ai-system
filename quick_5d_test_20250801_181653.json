@@ -1,0 +1,60 @@
+{
+  "test_type": "quick_5d_validation",
+  "sources": {
+    "video": true,
+    "audio": false,
+    "transcript": true,
+    "slides": true
+  },
+  "slide_files_count": 48,
+  "transcript_analysis": {
+    "stats": {
+      "word_count": 31,
+      "line_count": 5,
+      "char_count": 221
+    },
+    "speaker_markers": [
+      {
+        "position": 5,
+        "text": "Speaker 1:",
+        "type": "explicit_speaker",
+        "confidence": 0.8
+      },
+      {
+        "position": 90,
+        "text": "Speaker 2:",
+        "type": "explicit_speaker",
+        "confidence": 0.8
+      },
+      {
+        "position": 101,
+        "text": "Thank you",
+        "type": "transition_marker",
+        "confidence": 0.6
+      },
+      {
+        "position": 158,
+        "text": "Speaker 3:",
+        "type": "explicit_speaker",
+        "confidence": 0.8
+      }
+    ],
+    "topic_analysis": {
+      "eco_keywords": 2,
+      "luxury_keywords": 3,
+      "topic_relevance": 16.129032258064516,
+      "main_theme": "general"
+    },
+    "structure_analysis": {
+      "paragraph_count": 1,
+      "sentence_count": 4,
+      "avg_paragraph_length": 31.0,
+      "has_introduction": true,
+      "has_conclusion": true,
+      "structure_score": 1.0
+    },
+    "estimated_speakers": 4
+  },
+  "processing_time": 0.005974769592285156,
+  "timestamp": "2025-08-01T18:16:53.917436"
+}

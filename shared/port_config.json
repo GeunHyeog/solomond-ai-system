@@ -1,0 +1,56 @@
+{
+  "main_dashboard": {
+    "name": "메인 대시보드",
+    "type": "main_dashboard",
+    "preferred_port": 8500,
+    "actual_port": 8512,
+    "status": "active",
+    "pid": 100344,
+    "last_updated": "2025-08-02T20:01:07.214388"
+  },
+  "conference_analysis": {
+    "name": "컨퍼런스 분석",
+    "type": "conference_analysis",
+    "preferred_port": 8501,
+    "actual_port": 8501,
+    "status": "active",
+    "pid": 35404,
+    "last_updated": "2025-08-02T20:01:07.214400"
+  },
+  "web_crawler": {
+    "name": "웹 크롤러",
+    "type": "web_crawler",
+    "preferred_port": 8502,
+    "actual_port": null,
+    "status": "inactive",
+    "pid": null,
+    "last_updated": "2025-08-02T20:01:07.214406"
+  },
+  "gemstone_analyzer": {
+    "name": "보석 분석",
+    "type": "gemstone_analyzer",
+    "preferred_port": 8503,
+    "actual_port": null,
+    "status": "inactive",
+    "pid": null,
+    "last_updated": "2025-08-02T20:01:07.214410"
+  },
+  "image_to_cad": {
+    "name": "3D CAD 변환",
+    "type": "image_to_cad",
+    "preferred_port": 8504,
+    "actual_port": null,
+    "status": "inactive",
+    "pid": null,
+    "last_updated": "2025-08-02T20:01:07.214414"
+  },
+  "performance_optimized": {
+    "name": "성능 최적화 컨퍼런스",
+    "type": "conference_performance",
+    "preferred_port": 8505,
+    "actual_port": null,
+    "status": "inactive",
+    "pid": null,
+    "last_updated": "2025-08-02T20:01:07.214417"
+  }
+}

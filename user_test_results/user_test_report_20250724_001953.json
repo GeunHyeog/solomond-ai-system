@@ -1,0 +1,135 @@
+{
+  "test_summary": {
+    "total_tests": 5,
+    "successful_tests": 4,
+    "success_rate": 80.0,
+    "avg_processing_time": 0.0008406639099121094,
+    "avg_accuracy": 20.0,
+    "performance_grade": "D (대폭 개선 필요)"
+  },
+  "detailed_results": [
+    {
+      "scenario_name": "고객 상담 녹음 분석",
+      "file_type": "audio",
+      "content_type": "customer_consultation",
+      "start_time": "2025-07-24T00:19:53.627886",
+      "success": false,
+      "processing_time": 0.002092599868774414,
+      "insights_found": [],
+      "accuracy_score": 0,
+      "error_message": "'RealAnalysisEngine' object has no attribute 'analyze_text_comprehensive'",
+      "performance_metrics": {},
+      "end_time": "2025-07-24T00:19:53.629978"
+    },
+    {
+      "scenario_name": "보석 감정서 이미지 분석",
+      "file_type": "image",
+      "content_type": "certification_analysis",
+      "start_time": "2025-07-24T00:19:53.632239",
+      "success": true,
+      "processing_time": 0.0006015300750732422,
+      "insights_found": [
+        "다이아몬드 4C 등급: Excellent",
+        "캐럿: 1.01ct",
+        "컬러: F 등급",
+        "클래리티: VS1 등급",
+        "감정기관: GIA (신뢰도 최상)"
+      ],
+      "accuracy_score": 50.0,
+      "error_message": null,
+      "performance_metrics": {},
+      "ocr_text": "GIA DIAMOND GRADING REPORT\n        GIA 2234567890\n        \n        Shape and Cutting Style: Round Brilliant\n        Carat Weight: 1.01\n        Color Grade: F\n        Clarity Grade: VS1\n        Cut Grade: Excellent\n        \n        Measurements: 6.45 - 6.48 x 3.98 mm\n        Polish: Excellent\n        Symmetry: Excellent\n        Fluorescence: None",
+      "ocr_accuracy": 95,
+      "certificate_type": "GIA Diamond Grading Report",
+      "end_time": "2025-07-24T00:19:53.632839"
+    },
+    {
+      "scenario_name": "매장 교육 동영상 분석",
+      "file_type": "video",
+      "content_type": "training_material",
+      "start_time": "2025-07-24T00:19:53.636439",
+      "success": true,
+      "processing_time": 0.0005583763122558594,
+      "insights_found": [
+        "교육 주제: 다이아몬드 4C 완벽 가이드",
+        "주요 토픽 4개 식별",
+        "핵심 포인트 4개 추출",
+        "교육 효과: 높음 (구조화된 내용)",
+        "실무 적용성: 우수"
+      ],
+      "accuracy_score": 25.0,
+      "error_message": null,
+      "performance_metrics": {},
+      "video_duration": 8,
+      "topics_covered": [
+        "캐럿(Carat) - 다이아몬드의 무게",
+        "컬러(Color) - D부터 Z까지의 색상 등급",
+        "클래리티(Clarity) - FL부터 I3까지의 투명도",
+        "컷(Cut) - 광채와 불꽃을 결정하는 요소"
+      ],
+      "key_points": [
+        "4C는 다이아몬드 가치를 결정하는 국제 표준",
+        "GIA 기준이 세계적으로 가장 신뢰받음",
+        "고객에게 설명할 때는 시각적 자료 활용 필수",
+        "예산에 따른 4C 균형점 찾기가 중요"
+      ],
+      "end_time": "2025-07-24T00:19:53.636997"
+    },
+    {
+      "scenario_name": "온라인 상품 리뷰 분석",
+      "file_type": "document",
+      "content_type": "customer_feedback",
+      "start_time": "2025-07-24T00:19:53.640449",
+      "success": true,
+      "processing_time": 0.0004687309265136719,
+      "insights_found": [
+        "전체 만족도: 66.7% (2/3)",
+        "주요 만족 요인: 친절한 서비스, 제품 품질, 전문적 설명",
+        "개선 필요 영역: 배송 속도, A/S 응답 시간",
+        "고객 니즈: 시각적 크기감, 빠른 소통",
+        "비즈니스 제안: 배송 프로세스 개선, 고객 소통 강화"
+      ],
+      "accuracy_score": 25.0,
+      "error_message": null,
+      "performance_metrics": {},
+      "total_reviews_analyzed": 156,
+      "satisfaction_rate": 66.66666666666666,
+      "key_feedback_themes": [
+        "서비스",
+        "품질",
+        "배송",
+        "소통"
+      ],
+      "end_time": "2025-07-24T00:19:53.640917"
+    },
+    {
+      "scenario_name": "복합 미디어 종합 분석",
+      "file_type": "mixed",
+      "content_type": "comprehensive_analysis",
+      "start_time": "2025-07-24T00:19:53.643746",
+      "success": true,
+      "processing_time": 0.0004820823669433594,
+      "insights_found": [
+        "시장 기회: 프리미엄 시장 확대 기회 포착됨",
+        "타겟 고객: 30-40대 고소득층, 특별한 날 구매 성향",
+        "차별화 포인트: 개인 맞춤 서비스, 전문 상담",
+        "마케팅 전략: 디지털 채널 강화, 체험형 매장",
+        "예상 ROI: 18개월 내 투자 회수 가능"
+      ],
+      "accuracy_score": 0.0,
+      "error_message": null,
+      "performance_metrics": {},
+      "components_analyzed": 3,
+      "business_context": "신제품 론칭 프로젝트",
+      "cross_media_correlation": true,
+      "end_time": "2025-07-24T00:19:53.644228"
+    }
+  ],
+  "recommendations": [
+    "1개 실패 시나리오에 대한 에러 처리 개선 필요",
+    "5개 시나리오의 정확도 개선 필요",
+    "모델 재훈련 또는 파라미터 튜닝 고려",
+    "시스템 리소스 최적화 검토"
+  ],
+  "test_timestamp": "2025-07-24T00:19:53.662052"
+}

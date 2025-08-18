@@ -427,9 +427,10 @@ import json
 import time
 import os
 from pathlib import Path
+from config import SETTINGS
 
 class APITestClient:
-    def __init__(self, base_url="http://localhost:8000"):
+    def __init__(self, base_url="http://f"localhost:{SETTINGS['PORT']}""):
         self.base_url = base_url
         
     def test_health(self):

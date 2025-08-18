@@ -1,0 +1,42 @@
+# SOLOMOND AI - uv 고속 설치용 패키지들
+# 일반적이고 안정적인 패키지들 (39.8배 빠름)
+
+# 웹 프레임워크 (안정적)
+streamlit>=1.28.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# 데이터 처리 (검증된 조합)
+pandas>=2.1.0
+numpy>=1.24.0
+requests>=2.31.0
+
+# 파일 처리
+python-multipart>=0.0.6
+aiofiles>=23.2.1
+
+# 시스템 도구
+psutil>=5.9.6
+python-dotenv>=1.0.0
+loguru>=0.7.2
+
+# 웹 클라이언트
+httpx>=0.25.0
+
+# 타임존/JSON 처리
+pytz>=2023.3
+pydantic>=2.5.0
+jinja2>=3.1.2
+
+# 비동기 처리
+asyncio-timeout>=4.0.3
+
+# 이미지 처리 (기본)
+Pillow>=10.1.0
+
+# 보안 (표준)
+cryptography>=41.0.0
+
+# 개발 도구
+black>=23.11.0
+isort>=5.12.0

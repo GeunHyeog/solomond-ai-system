@@ -36,6 +36,14 @@ class DocumentProcessor:
         self.supported_formats = []
         
         # 지원 형식 확인
+        # 기본 텍스트 파일 지원 (항상 가능)
+        self.supported_formats.extend(['.txt'])
+        self.logger.info("[INFO] TXT 처리 지원 (내장)")
+        
+        # JSON 파일 지원 (기본 내장)
+        self.supported_formats.extend(['.json'])
+        self.logger.info("[INFO] JSON 처리 지원 (내장)")
+        
         if PDF_AVAILABLE:
             self.supported_formats.extend(['.pdf'])
             self.logger.info("[INFO] PDF 처리 지원 (PyMuPDF)")
@@ -66,6 +74,23 @@ class DocumentProcessor:
             logger.addHandler(handler)
             logger.setLevel(logging.INFO)
         return logger
+    
+    def process_pdf(self, file_path: str) -> Dict[str, Any]:
+        """PDF 파일 처리 (호환성 메서드)"""
+        result = self.extract_text_from_pdf(file_path)
+        if result.get("status") == "success":
+            return {
+                "success": True,
+                "content": result["extracted_text"],
+                "metadata": result.get("metadata", {}),
+                "page_count": result.get("page_count", 0)
+            }
+        else:
+            return {
+                "success": False,
+                "error": result.get("error", "Unknown error"),
+                "content": ""
+            }
     
     def extract_text_from_pdf(self, file_path: str) -> Dict[str, Any]:
         """PDF에서 텍스트 추출"""
@@ -132,6 +157,23 @@ class DocumentProcessor:
                 "status": "error",
                 "error": error_msg,
                 "file_path": file_path
+            }
+    
+    def process_docx(self, file_path: str) -> Dict[str, Any]:
+        """DOCX 파일 처리 (호환성 메서드)"""
+        result = self.extract_text_from_docx(file_path)
+        if result.get("status") == "success":
+            return {
+                "success": True,
+                "content": result["extracted_text"],
+                "metadata": result.get("metadata", {}),
+                "paragraph_count": result.get("paragraph_count", 0)
+            }
+        else:
+            return {
+                "success": False,
+                "error": result.get("error", "Unknown error"),
+                "content": ""
             }
     
     def extract_text_from_docx(self, file_path: str) -> Dict[str, Any]:
@@ -231,6 +273,155 @@ class DocumentProcessor:
                 "error": error_msg,
                 "file_path": file_path
             }
+            
+    def extract_text_from_txt(self, file_path: str) -> Dict[str, Any]:
+        """TXT 파일에서 텍스트 추출"""
+        try:
+            self.logger.info(f"[INFO] TXT 파일 처리 시작: {os.path.basename(file_path)}")
+            
+            # 여러 인코딩 시도
+            encodings = ['utf-8', 'utf-8-sig', 'cp949', 'euc-kr', 'latin1']
+            extracted_text = ""
+            used_encoding = "utf-8"
+            
+            for encoding in encodings:
+                try:
+                    with open(file_path, 'r', encoding=encoding) as file:
+                        extracted_text = file.read()
+                        used_encoding = encoding
+                        break
+                except (UnicodeDecodeError, UnicodeError):
+                    continue
+            
+            if not extracted_text:
+                raise Exception("모든 인코딩 시도 실패")
+            
+            # 빈 파일 체크
+            if not extracted_text.strip():
+                return {
+                    "status": "partial_success",
+                    "warning": "빈 텍스트 파일입니다.",
+                    "file_path": file_path,
+                    "file_type": "txt",
+                    "extracted_text": "",
+                    "total_characters": 0,
+                    "encoding_used": used_encoding,
+                    "metadata": {
+                        "file_size": os.path.getsize(file_path),
+                        "line_count": 0
+                    }
+                }
+            
+            # 성공 결과 반환
+            line_count = len(extracted_text.splitlines())
+            result = {
+                "status": "success",
+                "file_path": file_path,
+                "file_type": "txt",
+                "extracted_text": extracted_text,
+                "total_characters": len(extracted_text),
+                "encoding_used": used_encoding,
+                "metadata": {
+                    "file_size": os.path.getsize(file_path),
+                    "line_count": line_count,
+                    "encoding_detection": used_encoding
+                }
+            }
+            
+            self.logger.info(f"[SUCCESS] TXT 파일 처리 완료: {len(extracted_text)}자 추출")
+            return result
+            
+        except Exception as e:
+            error_msg = f"TXT 처리 오류: {str(e)}"
+            self.logger.error(f"[ERROR] {error_msg}")
+            return {
+                "status": "error",
+                "error": error_msg,
+                "file_path": file_path,
+                "file_type": "txt"
+            }
+    
+    def extract_text_from_json(self, file_path: str) -> Dict[str, Any]:
+        """JSON 파일에서 텍스트 추출"""
+        try:
+            import json
+            self.logger.info(f"[INFO] JSON 파일 처리 시작: {os.path.basename(file_path)}")
+            
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            
+            # JSON 데이터를 읽기 쉬운 텍스트로 변환
+            def json_to_text(obj, depth=0):
+                indent = "  " * depth
+                if isinstance(obj, dict):
+                    text_parts = []
+                    for key, value in obj.items():
+                        if isinstance(value, (dict, list)):
+                            text_parts.append(f"{indent}{key}:")
+                            text_parts.append(json_to_text(value, depth + 1))
+                        else:
+                            text_parts.append(f"{indent}{key}: {value}")
+                    return "\n".join(text_parts)
+                elif isinstance(obj, list):
+                    text_parts = []
+                    for i, item in enumerate(obj):
+                        if isinstance(item, (dict, list)):
+                            text_parts.append(f"{indent}[{i}]:")
+                            text_parts.append(json_to_text(item, depth + 1))
+                        else:
+                            text_parts.append(f"{indent}[{i}]: {item}")
+                    return "\n".join(text_parts)
+                else:
+                    return f"{indent}{obj}"
+            
+            extracted_text = json_to_text(data)
+            
+            # 메타데이터 생성
+            def count_items(obj):
+                if isinstance(obj, dict):
+                    return sum(count_items(v) for v in obj.values()) + len(obj)
+                elif isinstance(obj, list):
+                    return sum(count_items(v) for v in obj) + len(obj)
+                else:
+                    return 1
+            
+            metadata = {
+                "file_path": file_path,
+                "file_size": os.path.getsize(file_path),
+                "encoding": "utf-8",
+                "total_items": count_items(data),
+                "root_type": type(data).__name__
+            }
+            
+            result = {
+                "status": "success",
+                "extracted_text": extracted_text,
+                "file_type": "json",
+                "text_length": len(extracted_text),
+                "metadata": metadata
+            }
+            
+            self.logger.info(f"[SUCCESS] JSON 파일 처리 완료: {len(extracted_text)}자 추출")
+            return result
+            
+        except json.JSONDecodeError as e:
+            error_msg = f"JSON 파싱 오류: {str(e)}"
+            self.logger.error(f"[ERROR] {error_msg}")
+            return {
+                "status": "error",
+                "error": error_msg,
+                "file_path": file_path,
+                "file_type": "json"
+            }
+        except Exception as e:
+            error_msg = f"JSON 파일 처리 오류: {str(e)}"
+            self.logger.error(f"[ERROR] {error_msg}")
+            return {
+                "status": "error",
+                "error": error_msg,
+                "file_path": file_path,
+                "file_type": "json"
+            }
     
     def process_document(self, file_path: str) -> Dict[str, Any]:
         """문서 파일 처리 (자동 형식 감지)"""
@@ -250,7 +441,11 @@ class DocumentProcessor:
             }
         
         # 파일 형식에 따른 처리
-        if file_ext == ".pdf":
+        if file_ext == ".txt":
+            return self.extract_text_from_txt(file_path)
+        elif file_ext == ".json":
+            return self.extract_text_from_json(file_path)
+        elif file_ext == ".pdf":
             return self.extract_text_from_pdf(file_path)
         elif file_ext == ".docx":
             return self.extract_text_from_docx(file_path)

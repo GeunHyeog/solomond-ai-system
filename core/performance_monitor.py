@@ -6,8 +6,8 @@
 
 import json
 import time
-import logging
 from typing import Dict, List, Any, Optional
+from utils.logger import get_logger
 from datetime import datetime, timedelta
 from pathlib import Path
 import threading
@@ -50,16 +50,9 @@ class PerformanceMonitor:
         
         self.logger.info("🔍 성능 모니터링 시스템 초기화 완료")
     
-    def _setup_logging(self) -> logging.Logger:
+    def _setup_logging(self):
         """로깅 설정"""
-        logger = logging.getLogger(f'{__name__}.PerformanceMonitor')
-        if not logger.handlers:
-            handler = logging.StreamHandler()
-            formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-            handler.setFormatter(formatter)
-            logger.addHandler(handler)
-            logger.setLevel(logging.INFO)
-        return logger
+        return get_logger(f'{__name__}.PerformanceMonitor')
     
     def record_analysis(self, file_name: str, file_type: str, 
                        processing_time: float, status: str, 

@@ -1,0 +1,610 @@
+{
+  "sources": {
+    "video": true,
+    "audio": false,
+    "transcript": true
+  },
+  "individual_analyses": {
+    "video": {
+      "video_info": {
+        "fps": 29.9651949671754,
+        "frame_count": 106671,
+        "width": 1920,
+        "height": 1080,
+        "duration": 3559.83,
+        "file_size": 3317.6184215545654
+      },
+      "transcription": {
+        "text": " Thank you. Now, Leanne has been the director of Sustainability, a child-type of dual-regroup since November 2023, overseeing the group sustainability strategy development and action-clone implementation across the organization, driving impactful progress in sustainable development. Before joining child-type who, Leanne worked as a sustainability advisor at the purpose business. From 2015 to 2009, she was director of external affairs and sustainability at Baita's own, where she led sustainability strategy development and communications. She also drove waste reduction initiatives, including supporting the establishment of Hong Kong's first beverage-partun recycling facility. Wow. And prior to taking up Sustainability roles, Leanne's",
+        "segments": [
+          {
+            "id": 0,
+            "seek": 0,
+            "start": 0.0,
+            "end": 3.0,
+            "text": " Thank you.",
+            "tokens": [
+              50364,
+              1044,
+              291,
+              13,
+              50514
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46606885233233053,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5388615727424622
+          },
+          {
+            "id": 1,
+            "seek": 0,
+            "start": 3.0,
+            "end": 9.16,
+            "text": " Now, Leanne has been the director of Sustainability, a child-type of dual-regroup",
+            "tokens": [
+              50514,
+              823,
+              11,
+              1456,
+              12674,
+              575,
+              668,
+              264,
+              5391,
+              295,
+              34407,
+              2310,
+              11,
+              257,
+              1440,
+              12,
+              20467,
+              295,
+              11848,
+              12,
+              265,
+              17377,
+              50822
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46606885233233053,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5388615727424622
+          },
+          {
+            "id": 2,
+            "seek": 0,
+            "start": 9.16,
+            "end": 16.88,
+            "text": " since November 2023, overseeing the group sustainability strategy development and action-clone",
+            "tokens": [
+              50822,
+              1670,
+              7674,
+              44377,
+              11,
+              11916,
+              14667,
+              264,
+              1594,
+              16360,
+              5206,
+              3250,
+              293,
+              3069,
+              12,
+              3474,
+              546,
+              51208
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46606885233233053,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5388615727424622
+          },
+          {
+            "id": 3,
+            "seek": 0,
+            "start": 16.88,
+            "end": 24.52,
+            "text": " implementation across the organization, driving impactful progress in sustainable development.",
+            "tokens": [
+              51208,
+              11420,
+              2108,
+              264,
+              4475,
+              11,
+              4840,
+              30842,
+              4205,
+              294,
+              11235,
+              3250,
+              13,
+              51590
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46606885233233053,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5388615727424622
+          },
+          {
+            "id": 4,
+            "seek": 2452,
+            "start": 24.52,
+            "end": 30.32,
+            "text": " Before joining child-type who, Leanne worked as a sustainability advisor at the purpose",
+            "tokens": [
+              50364,
+              4546,
+              5549,
+              1440,
+              12,
+              20467,
+              567,
+              11,
+              1456,
+              12674,
+              2732,
+              382,
+              257,
+              16360,
+              19161,
+              412,
+              264,
+              4334,
+              50654
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.41134726833289775,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06291888654232025
+          },
+          {
+            "id": 5,
+            "seek": 2452,
+            "start": 30.32,
+            "end": 31.32,
+            "text": " business.",
+            "tokens": [
+              50654,
+              1606,
+              13,
+              50704
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.41134726833289775,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06291888654232025
+          },
+          {
+            "id": 6,
+            "seek": 2452,
+            "start": 31.32,
+            "end": 40.24,
+            "text": " From 2015 to 2009, she was director of external affairs and sustainability at Baita's own,",
+            "tokens": [
+              50704,
+              3358,
+              7546,
+              281,
+              11453,
+              11,
+              750,
+              390,
+              5391,
+              295,
+              8320,
+              17478,
+              293,
+              16360,
+              412,
+              363,
+              1001,
+              64,
+              311,
+              1065,
+              11,
+              51150
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.41134726833289775,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06291888654232025
+          },
+          {
+            "id": 7,
+            "seek": 2452,
+            "start": 40.24,
+            "end": 44.480000000000004,
+            "text": " where she led sustainability strategy development and communications.",
+            "tokens": [
+              51150,
+              689,
+              750,
+              4684,
+              16360,
+              5206,
+              3250,
+              293,
+              15163,
+              13,
+              51362
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.41134726833289775,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06291888654232025
+          },
+          {
+            "id": 8,
+            "seek": 2452,
+            "start": 44.480000000000004,
+            "end": 50.0,
+            "text": " She also drove waste reduction initiatives, including supporting the establishment",
+            "tokens": [
+              51362,
+              1240,
+              611,
+              13226,
+              5964,
+              11004,
+              16194,
+              11,
+              3009,
+              7231,
+              264,
+              20971,
+              51638
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.41134726833289775,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06291888654232025
+          },
+          {
+            "id": 9,
+            "seek": 5000,
+            "start": 50.0,
+            "end": 55.0,
+            "text": " of Hong Kong's first beverage-partun recycling facility.",
+            "tokens": [
+              50364,
+              295,
+              8868,
+              9832,
+              311,
+              700,
+              35519,
+              12,
+              6971,
+              409,
+              23363,
+              8973,
+              13,
+              50614
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4923218450238628,
+            "compression_ratio": 1.116504854368932,
+            "no_speech_prob": 0.42281776666641235
+          },
+          {
+            "id": 10,
+            "seek": 5000,
+            "start": 55.0,
+            "end": 56.0,
+            "text": " Wow.",
+            "tokens": [
+              50614,
+              3153,
+              13,
+              50664
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4923218450238628,
+            "compression_ratio": 1.116504854368932,
+            "no_speech_prob": 0.42281776666641235
+          },
+          {
+            "id": 11,
+            "seek": 5600,
+            "start": 56.0,
+            "end": 60.0,
+            "text": " And prior to taking up Sustainability roles, Leanne's",
+            "tokens": [
+              50364,
+              400,
+              4059,
+              281,
+              1940,
+              493,
+              34407,
+              2310,
+              9604,
+              11,
+              1456,
+              12674,
+              311
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.49455669948032926,
+            "compression_ratio": 0.8688524590163934,
+            "no_speech_prob": 0.7742548584938049
+          }
+        ],
+        "language": "en"
+      },
+      "visual_analysis": {
+        "estimated_speakers": 1,
+        "face_detections": 6,
+        "max_faces_detected": 1,
+        "avg_faces": 1.0
+      },
+      "source": "video"
+    },
+    "transcript": {
+      "stats": {
+        "total_length": 948,
+        "word_count": 129,
+        "line_count": 17
+      },
+      "speaker_markers": [
+        {
+          "position": 5,
+          "text": "Speaker 1:",
+          "type": "explicit_marker"
+        },
+        {
+          "position": 295,
+          "text": "Speaker 2:",
+          "type": "explicit_marker"
+        },
+        {
+          "position": 613,
+          "text": "Speaker 3:",
+          "type": "explicit_marker"
+        }
+      ],
+      "topic_transitions": [
+        {
+          "position": 173,
+          "text": "First",
+          "type": "topic_transition"
+        },
+        {
+          "position": 306,
+          "text": "Thank you",
+          "type": "topic_transition"
+        },
+        {
+          "position": 339,
+          "text": "Now",
+          "type": "topic_transition"
+        },
+        {
+          "position": 344,
+          "text": "moving on",
+          "type": "topic_transition"
+        },
+        {
+          "position": 714,
+          "text": "First",
+          "type": "topic_transition"
+        },
+        {
+          "position": 773,
+          "text": "Second",
+          "type": "topic_transition"
+        },
+        {
+          "position": 828,
+          "text": "In conclusion",
+          "type": "topic_transition"
+        }
+      ],
+      "estimated_speakers": 3,
+      "segments": [
+        {
+          "start_pos": 5,
+          "end_pos": 173,
+          "text": "Speaker 1: Welcome everyone to today's presentation on The Rise of the Eco-Friendly Luxury Consumer. \n    I'm excited to share our research findings with you.",
+          "word_count": 24,
+          "speaker": "speaker_1",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 173,
+          "end_pos": 295,
+          "text": "First, let me introduce the concept of sustainable luxury. As consumers become more environmentally conscious...",
+          "word_count": 15,
+          "speaker": "speaker_2",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 295,
+          "end_pos": 306,
+          "text": "Speaker 2:",
+          "word_count": 2,
+          "speaker": "speaker_3",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 306,
+          "end_pos": 339,
+          "text": "Thank you for that introduction.",
+          "word_count": 5,
+          "speaker": "speaker_1",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 339,
+          "end_pos": 344,
+          "text": "Now,",
+          "word_count": 1,
+          "speaker": "speaker_2",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 344,
+          "end_pos": 613,
+          "text": "moving on to the market analysis.\n    Our data shows a significant shift in consumer behavior over the past five years.\n    \n    The luxury market has traditionally been resistant to change, but we're seeing unprecedented adoption of eco-friendly practices...",
+          "word_count": 37,
+          "speaker": "speaker_3",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 613,
+          "end_pos": 714,
+          "text": "Speaker 3: Building on that analysis, let me present our recommendations for luxury brands.",
+          "word_count": 14,
+          "speaker": "speaker_1",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 714,
+          "end_pos": 773,
+          "text": "First, transparency in supply chain management is crucial.",
+          "word_count": 8,
+          "speaker": "speaker_2",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 773,
+          "end_pos": 828,
+          "text": "Second, investing in sustainable materials...",
+          "word_count": 5,
+          "speaker": "speaker_3",
+          "confidence": 0.8999999999999999,
+          "modality": "integrated"
+        },
+        {
+          "start_pos": 828,
+          "end_pos": 948,
+          "text": "In conclusion, the eco-friendly luxury consumer represents not just a trend, but a fundamental shift in the market.",
+          "word_count": 18,
+          "speaker": "speaker_1",
+          "confidence": 0.8,
+          "modality": "integrated"
+        }
+      ],
+      "source": "transcript"
+    }
+  },
+  "integrated_result": {
+    "final_speaker_count": 3,
+    "speaker_estimates": {
+      "visual": 1,
+      "transcript": 3,
+      "stt": 2
+    },
+    "confidence": 0.9,
+    "integrated_segments": [
+      {
+        "start_pos": 5,
+        "end_pos": 173,
+        "text": "Speaker 1: Welcome everyone to today's presentation on The Rise of the Eco-Friendly Luxury Consumer. \n    I'm excited to share our research findings with you.",
+        "word_count": 24,
+        "speaker": "speaker_1",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 173,
+        "end_pos": 295,
+        "text": "First, let me introduce the concept of sustainable luxury. As consumers become more environmentally conscious...",
+        "word_count": 15,
+        "speaker": "speaker_2",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 295,
+        "end_pos": 306,
+        "text": "Speaker 2:",
+        "word_count": 2,
+        "speaker": "speaker_3",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 306,
+        "end_pos": 339,
+        "text": "Thank you for that introduction.",
+        "word_count": 5,
+        "speaker": "speaker_1",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 339,
+        "end_pos": 344,
+        "text": "Now,",
+        "word_count": 1,
+        "speaker": "speaker_2",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 344,
+        "end_pos": 613,
+        "text": "moving on to the market analysis.\n    Our data shows a significant shift in consumer behavior over the past five years.\n    \n    The luxury market has traditionally been resistant to change, but we're seeing unprecedented adoption of eco-friendly practices...",
+        "word_count": 37,
+        "speaker": "speaker_3",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 613,
+        "end_pos": 714,
+        "text": "Speaker 3: Building on that analysis, let me present our recommendations for luxury brands.",
+        "word_count": 14,
+        "speaker": "speaker_1",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 714,
+        "end_pos": 773,
+        "text": "First, transparency in supply chain management is crucial.",
+        "word_count": 8,
+        "speaker": "speaker_2",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 773,
+        "end_pos": 828,
+        "text": "Second, investing in sustainable materials...",
+        "word_count": 5,
+        "speaker": "speaker_3",
+        "confidence": 0.8999999999999999,
+        "modality": "integrated"
+      },
+      {
+        "start_pos": 828,
+        "end_pos": 948,
+        "text": "In conclusion, the eco-friendly luxury consumer represents not just a trend, but a fundamental shift in the market.",
+        "word_count": 18,
+        "speaker": "speaker_1",
+        "confidence": 0.8,
+        "modality": "integrated"
+      }
+    ],
+    "modalities_used": [
+      "video",
+      "transcript"
+    ]
+  },
+  "processing_time": 11.374375104904175,
+  "timestamp": "2025-08-01T16:07:08.391404"
+}

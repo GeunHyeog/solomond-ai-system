@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 
 from demo_capture_system import DemoCaptureSystem
+from config import SETTINGS
 
 async def auto_demo_capture():
     """자동 시연 캐쳐 (5분간)"""
@@ -22,7 +23,7 @@ async def auto_demo_capture():
     print()
     
     # 기본 설정
-    url = "http://localhost:8503"
+    url = "http://f"localhost:{SETTINGS['PORT']}""
     duration = 5  # 5분
     
     print(f"🚀 자동 설정:")

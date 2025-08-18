@@ -5,8 +5,8 @@
 """
 
 import os
-import logging
 import traceback
+from utils.logger import get_logger
 import sys
 from typing import Dict, Any, Optional, List, Callable
 from datetime import datetime
@@ -77,17 +77,9 @@ class EnhancedErrorHandler:
         # 에러별 해결방안 데이터베이스
         self.solution_database = self._build_solution_database()
     
-    def _setup_logging(self, log_file: str = None) -> logging.Logger:
+    def _setup_logging(self, log_file: str = None):
         """로깅 설정"""
-        logger = logging.getLogger(f'{__name__}.EnhancedErrorHandler')
-        
-        if not logger.handlers:
-            # 콘솔 핸들러
-            console_handler = logging.StreamHandler()
-            console_formatter = logging.Formatter(
-                '%(asctime)s - 🚨 ERROR - %(levelname)s - %(message)s'
-            )
-            console_handler.setFormatter(console_formatter)
+        return get_logger(f'{__name__}.EnhancedErrorHandler')
             logger.addHandler(console_handler)
             
             # 파일 핸들러 (선택적)

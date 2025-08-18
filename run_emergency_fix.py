@@ -19,6 +19,7 @@ import sys
 import os
 from pathlib import Path
 import time
+from config import SETTINGS
 
 def run_emergency_fix():
     """긴급 복구 시스템 실행"""
@@ -77,7 +78,7 @@ def run_emergency_fix():
     # Streamlit 실행
     print("\n🚀 긴급 복구 시스템 실행 중...")
     print("🌐 브라우저에서 자동으로 열립니다...")
-    print("📍 URL: http://localhost:8501")
+    print("📍 URL: http://f"localhost:{SETTINGS['PORT']}"")
     print("\n🚨 치명적 문제들이 해결됩니다:")
     print("   ✅ 멀티파일 업로드")
     print("   ✅ 실제 AI 분석")

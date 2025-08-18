@@ -1,0 +1,50 @@
+{
+  "version": "4.0.1",
+  "last_updated": "2025-08-08",
+  "streamlit_upload_types": {
+    "audio": ["mp3", "wav", "m4a", "flac", "ogg", "aac"],
+    "video": ["mov", "mp4", "avi", "mkv", "webm", "wmv", "flv"],
+    "image": ["jpg", "jpeg", "png", "bmp", "tiff", "gif", "webp"],
+    "text": ["txt", "md", "pdf", "docx", "rtf", "odt"],
+    "archive": ["zip", "7z", "tar", "gz", "rar"]
+  },
+  "backend_processing_support": {
+    "audio": {
+      "engine": "whisper_stt",
+      "supported_formats": ["mp3", "wav", "m4a", "flac", "ogg"],
+      "max_duration_minutes": 120
+    },
+    "video": {
+      "engine": "ffmpeg_audio_extraction",
+      "supported_formats": ["mov", "mp4", "avi", "mkv", "webm"],
+      "max_size_mb": 500,
+      "audio_extraction": true
+    },
+    "image": {
+      "engine": "easyocr",
+      "supported_formats": ["jpg", "jpeg", "png", "bmp", "tiff"],
+      "max_resolution": "4K"
+    },
+    "text": {
+      "engine": "direct_read",
+      "encoding_support": ["utf-8", "cp949", "euc-kr", "utf-16"],
+      "max_size_mb": 10
+    }
+  },
+  "upload_limits": {
+    "max_file_size_mb": 200,
+    "max_files_count": 50,
+    "max_total_size_mb": 2000
+  },
+  "error_handling": {
+    "unsupported_file_action": "show_conversion_guide",
+    "size_limit_exceeded_action": "chunk_upload",
+    "network_error_action": "local_fallback"
+  },
+  "anti_loop_measures": {
+    "prevent_platform_switching": true,
+    "auto_expand_file_types": true,
+    "proactive_error_prevention": true,
+    "user_feedback_integration": true
+  }
+}

@@ -12,6 +12,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent))
 
 from demo_capture_system import DemoCaptureSystem
+from config import SETTINGS
 
 async def quick_demo_capture():
     """빠른 시연 캐쳐"""
@@ -25,7 +26,7 @@ async def quick_demo_capture():
     print("⚙️ 캐쳐 설정:")
     
     # URL 확인
-    url = input("Streamlit URL (엔터시 기본값: http://localhost:8503): ").strip()
+    url = input("Streamlit URL (엔터시 기본값: http://f"localhost:{SETTINGS['PORT']}"): ").strip()
     if not url:
         url = "http://localhost:8503"
     

@@ -1,0 +1,4693 @@
+{
+  "troubleshooting_info": {
+    "session_id": "audio_stt_troubleshoot_1753682957",
+    "problems_identified": [
+      {
+        "type": "model_size",
+        "description": "Whisper base 모델 사용 중 - 더 작은 모델로 최적화 가능",
+        "severity": "medium",
+        "solution": "use_tiny_model"
+      }
+    ],
+    "solutions_applied": [
+      "CPU 모드 강제 및 스레드 제한",
+      "메모리 가비지 컬렉션",
+      "Whisper tiny 모델 사용 (메모리 절약)"
+    ],
+    "system_info": {
+      "memory": {
+        "total_gb": 13.86,
+        "available_gb": 4.03,
+        "used_percent": 70.9,
+        "free_gb": 4.03
+      },
+      "cpu": {
+        "count": 12,
+        "usage_percent": 34.2
+      },
+      "disk": {
+        "free_gb": 161.82,
+        "total_gb": 476.05
+      }
+    }
+  },
+  "stt_result": {
+    "text": "수스템아빌리티 스튜라티지대velopment and action planning implementation across the organization. 드라디인 파악후러우스 인수스템아벌 development Before joining child type group, Leon worked as a sustainability advisor at the purpose business. From 2015 to 2000만 원 which he was director of external affairs and sustainability at the white assault where she led sustainability strategy development and communications. She also drove waste reduction initiatives including supporting establishment of Hong Kong's first beverage partner recycling facility. Wow. And prior to taking up sustainability roles The S. career span corporate communications and poverty, government and committee affairs having worked at different multinational companies. So Leon, our next panelist a very, very young entrepreneur please welcome Ms. Henry Cerv. Now Henry has found that not one not two but three companies. So as you can see, Henry actually is CEO of Uncarbid which is a wholesale jewelry company, NRL which is a retail brand and they have a store at K11 and also Jordan, JR and E. So Henry has actually been from a family of dualaires and he represents the new brand, the next generation of dualaires. He joined the family business early and I was over two decades of experience in sourcing, manufacturing and retail, including collaborations with prestigious luxury brands. Driven by a passion for innovation he found that NRL to redefine the jewelry industry by championing transparency, sustainability and ethical practices. To partnerships with organizations like Moyra Gems, Henry actively empowers women, miners and advocates for responsible sourcing by implementing an affordable duet to consumer model, Henry ensures fabulous jewelry is accessible to women everywhere. So Henry said, and last but not least, we have Ms. Catherine show of the ICS crying jewelry. A Katherine has combined her passion for jewelry design with entrepreneurship by establishing her own brand. She's a graduate of GIA, a graduate geomologies and a jewelry artisan with nearly 15 years of experience. She was born in Hong Kong and educated in New Zealand with a double major in marketing and international business from the University of Auckland. Katherine believes all natural creations are the perfect combination of art and science driven by curiosity and spas commerce, gemology, design, and craftsmanship. Welcome, Katherine. Now, before we start our panel session, each of our resource persons will deliver a brief presentation and to kick start the presentation, please welcome Leon from Child by Hope, Jewelry Group. Thank you, everybody, who's up to Lynn. Thank you for your opportunity for us to share our experience and thoughts with you. So let me give you an introduction of what we do on sustainable. As a company that is 96 years of age, we've always focused on winning the trust of all our customers and other stakeholders. We've been visioning to be the leading global jury brand and just trust by all generation. And with sustainable IT, we want to focus especially on our future generation. As our sustainable IT partners reflect, we want to be able to work together with different stakeholders in the industry to bring about sustainable transformation of the jury industry. So as you have shaped, we more to sustainable future for every generation. So last year, we have reviewed our 10-year commitment, which was established in 2019 to baby review. 보�assis催에서 멋있게yuál을 interpret는지 여섯월 어떤 다른 프로 begin인 Analytics 사람과Jam Targetiya가 무�uccร thirds when Top Spirit 다시 말씀드렸는데 경우 3분정 점으로 multiplestro safely Brent선호 그 새와 인 기회품 들으세요. 평상时间 If opponent strik�킹을 오지만 비가ohner과입니다. Iowa로 연하 ovat 섹시시와 야식적인 식당의 측�Turn 에셔� Breathe씨가를 들어갔다면 그 전통에도 시원 doctrines이 있게 해도 저는FS merit chang은 어떻게 본 적은 그인팩, 아프리스러운, as mentioned, we aim at achieving that 0 by 20% 9 with different initiatives that would include also reducing how far-far environmental impact of our packaging with two rows by 2030. Another area that we are looking at lower with, you know, impact is on the use of harmful substances in your reproduction that is a very common that effected process where different chemicals are induced and we want to enhance the safety and reduce environmental impact by replacing or reducing the use of those harmful substances. For people, we cover our bodies out. own people, but everyone involved in our supply chain and also the broader community to ensure that we protect the human rights and ensure that we make the practices along the very chain. We also focus on enhancing the family well-being of our employees and everyone in the community. As a Chinese jury company, we of course see that as our responsibility to preserve and promote the appreciation of Chinese culture and also to enhance the heritage of a Chinese goal jury crossmanship. To ensure the sustainable development of the industry and also of society, grooming the next generation developing future talents is also an important aspect. So that's another focus area of our people's strategy. As an industry leader for many years, we also see it as the responsibility to share our practices, share our innovation with the industry and work together, hopefully to raise environmental and response of practices, standards and industry. So we're looking to establish recycled clothes. Chenders and traceable clothes, standards and also clean that should stand out with more state, safer, hemico-decent manufacturing of our products. We already seen some of two requests made where we respond a hundred percent recycled collection or no-lock products. And we're seeing very good response for our consumers. We are also looking at understanding or delivering a mission that we're working on, or to perform the combination plan. And we have engaged in partnership, such as the policy museum in bidding and Hong Kong and we are seeing collaborations, such as the launch of our policy museum collection, which has been very popular on customers. And so we hope you can share your... Thank you. Jac자 고개를 끝내고 laisser prayed 여러분, 저희가 오늘 clamon specialств을 잃に 77명을 Hawaii 하신 sven Pennsy어를 Pokémon 그렇게 샀습니다 여러분, bå고 삼고 남는편의 따로 좋아지는 게 말할 것입니다 여러분 감사합니다 faced the creativity journey. 함께�대전히 또 살고있고, 를 인가로 provider to be in another with other staff. 그러고, 아예 이 quietly 가는 마음까지 많이 행복한 제거예요 이 질무시는 craving stories. 사 . 대환 안녕 startups Francis 니거거 Look 명지 유지지 사진에 подум하며 emergency 쟤 하나의 선택, 제 jap prepare시기가 découvrir 인위회술에 대해 정치해서 statute가 우리가feeding 받은 dose Drn'이라는 actions을 Folks House의 요게를 입thy Analysis Instead,outh Amongst theıma있는тив tapa 매우인이lly Amongst the 어떻게 이야기를 공연하면서 업로겐트입니다, 이제 준비한 글� الر키트 «한방송», 이제 어떤 이야기로 백 afterwards 분밍 철 dus에다 재현앤에 Johnson의 호도재기 중 서hel represent 그래서發자 서hel WOANG 서평 Bear Thor который 같이 있는 악ar 스 sodium 레전보 장난 indie innerhalb An的時候 다 The Electro 그 여길 preached 다있나요.HAHA devrait 여기 enrolled 제 whatsapp도 länger 하는 프로그램을 다Sorry 정말 duty heck 그� 다시 후�UB Lloyd 버치로 �usanjas looking toain 그ouse의 음arre다의 직업을 필요한다고 하기 counterhow 다른 막ией에서 어떻게 도기냐면 시 obsessed personal 사람이라LED 약간 institute 무선을 할 수 있금 다냐 같은 응 época denn 저희 основ의 아래에서에는IAN OEMO지능이 meillä의 늘려서owane 1 narrow calculation 올려올까요? 반ظ구를 기대 부탁드립니다.lets from the right spot 해서 말해서 1ne의 의미입니다 Patience & 매일�vis음ex은이더니 한번 관남 sin 그리고 나 아빠는 대정비디오ement 어떻게 생각해 Operational to my uly非? 이해 Wesley이한테 몇 시가hire 말씀드렸다고 해서 아마 집이 진짜의 필요의 방 지목 dem compounds veggies 샘 Mage Fair general level fundamental I- Dec, pode의 그럼 나가말고 제가Kit creditPress을 일부러 있는 공주인들이 진짜 많이ルク이었습니다 동risingoser milit模가 expectance ㅇ dipping in 사타이 보내어 그저 поговорout 즐거 블리브�äm스 누군가이 항상 이런가 hecho Á strengthened 항상 소금\u0014고 가고 Monica에게 향으로 promised to make a change for the life as well 그래서 그렇게 정해상 accounts가pack éc이든 그의 좀 생각하시면 나온 그런 건 남성이 저는 면 In 조재원 Tory 북한hold 너무 잘 추� kap tren cours 그래도 합 THE fishesKing도oeiyana 마리�often은 strange tofiyante를 중하이라이탈을 만들었는데요 nhưng snorewell reduz는tersassador 많은 구입 선adores와 감정을 helps our workshop to do the hand roofting colours themselves, not kept for them to experience something new.than otherуж decks, the fabrics should be had, what's like working behind the theme, so it's also another Side todo, Simple Gene인 임을 더 널 보다, 시기가 Barack희되어 떨어져 throughout the industrial grantires for the outstanding energy. So we will deliver some good Cabaki up,Th radically different咱 JD bucket. 아 hm 한 이 grind undergoing 이 separating 부 teacher in a gathering ㅐ, 찾을 중igent 엔어 대패 잘하는 premiillation 심하게 고으면 잘 못해요 끝 나 지금 전 컸에 정해봤 przypadTAKE Namesenups puzzle 넓은 거금 smoothie 그래서 그런가를 overs三 more 핵 미국에 내보번에 그래서 explains the details 두 번째 안무 할 수 있는 것에 정말άλisé 나는 3번 에인닉이줘 정말 Tapi 내가 밑에 계속 돌�gram � unemployed 여전하게 제대로 샀다 전ались 주저 lives 칵 에이 condemn T3 bestenrivond tive 생각이 힘려고 했는데요, 새벽에 undermine 친구와 wi crazy feel 이edly 그렸마일에서 foundational 싶습니다 저는 사랑<|kk|> 많이 것аци�을 끊인 거까지 coated diplom하고 우리는 UCating Annie bypasseri هي 그 사랑에서 저 from our 어떻게 할 때 제 모습을 가는 분들이 Бог 알�conduct 이야기 하 intment은 중 wipe이 살짝데긴 Muy아요. 여기까지 왔을 때 입에 placed 함께zuge지 않는 면을 다시 constructing 도pop을 되긴 시작지만 sup naturale western 신난 여행도씩 사용ת boundaries 좋 buckrop 예전에 가요 도pop의 의미가 angel이를 일어난 수를 모두 함께도 공수접 kasih Captain 근데 계란이 열� で 3개 정도 주는 것을 세 paradise 2개 전랭탄 speak 이건 오늘 따뜻한 상상키는 약목에서 흡정 pirate 오전 üst arrowsdathers 두 개 그리고 더 방해 그리고 달월 센스 그 다음 제 입에서 바� isolation 그리고 저희의 피치였드 너무 already work together 그리고 알OULD에 가장 요리를 researching 데스 IPạ 당이네 our four80 방 FDA 네 wi joy 연애 굉장히 프�現트 � nhân 슈비 5 software의 excuseags accord은 정말 우려지 homes כ Sleep끈 수 점점 떡볶에arios을 했으며뎌끈습니다. lieu��는лед grad때 열어줘는데요. 우리가 해야될 가운데 두 분 Big Boss의 띄cker 스위 inspired 40% 538. 쟤 생각하셔서 랄랄�important 네 같은 부모�오. 우리 한국인들은 지금 나머지, injected Bank in ваш businesses을 쓰네요. 다시ares, Apart OF게만 적응할 때 조금 더 많은데오 아이커 다 HOLY 난 참는 걸 hypoth pum Puerto RTM 그랬어요. 비Windows은 soufferteil Kapital 이� kardeşim 다시 options to stop us including 제로계에 comun하셔야 되고 계산을 나타낼 때 위험한 것분에 계시는 강의 Our flavored조에서 스썴으로 Canton구화 Ik 공통된 역시 문<|ja|>임적�eters 방어치는데 이게centered 코디 mucha 정상 pow 용손 채 cook!!! 저는 밀드 아 zat하기 발견 아니면 돼�� thorac 제가 말씀을 드문에ности overwhelmed 저는 Unknown greatly Nerning이 되었습니다 memories 비주얼 Anda contradеш시다 특히 부 jednak 최업이다 위rates에를 에서 모를 예수인데요 그렇게 많지는 않죠?하시는ång도록 � помощ요? 얘 말 오빠가 있을 것 같 Ubisoft 명예인의 상큼은 cô squash이了吧 ourselves 좋 пал 많이 지키거든요 가 ries글�ständ이 강구제 yahie Critical 하면 좀 그렇다고줘요, 제가 Montgomery도 document 번역kan에 오일이 확대함이 좀 크리겠습니다 이 beaut 24분 600분 이쁘게 하나도 더 좋습니다 응이들만에게odzi 저는 진짜 진마성 glaubey 그 produce, bathじゃない 저는TORU tem미 인간 часто at maison 저는 여기 기본rare, 저희 mateix의 벅 charts.zon Não Moi 제가 보기 위해 아 Declaration 왜 그래도 hätten 까지도 remove the socks? 근데 지금 너무 배가 가능했어요 나짴쀕 이제 옛날 영상에서 저렴하고 indigenous Their todos 그런 경 founding인 муж salon 그넣이지 shredagog essas homing имеет 풀리 진지 우주 무너imer은 달�war하고 비 ráp종 certainty 정상은 흥분이 됐습니다도 좋은데 고민하길 바를 것이라고 합니다 생각을 마 bladder jam스틜믴�ינו 그들의 많은 것은 othered 장ended� dikk시할했었습니다 왜냐하면 이varierte 제 빛이 preachingAfter 사� badly, twitz común gland을 Hun이 준비할 때 우리 전원 полез pause.... 통과하는 где 생태venge 탑이 in-person 큰 birch 다리는 세상에hhh 뭘 했기간 크메П보드링도 lament에 공감하고 trata our word 오버님 소리 저는 거 면 terribly Much 나는 너가 그만 죽이지 너무 힐 너무 쉽진 생각던 그런데 땅세 웃제 이리야�arest 없이 그래도 아주 중요한 건 요sto 행위자로 같은 사람이ств에 왔는데 바람 Ferguson 정 York 정rad도 일자가 생기는 Cyrus 이짜라고 이게 create a new level 감겨서 한 Aku 2스트 여험을get를 사면 Tails 청담 strong. 창담 타이틀 endurance 하는 terrain 노�nio 최희씨는�이 묻혀져es다는 게 굉장히�결인느낌 Back Band SCOTT 학생 Augiefs 이브를 등등적인 박 sor은 아무도blem 몾 headed into a 47' tent 지켜�資험 주� będą 그 형들은 Dragonshaving illion multitude believes es multiplicity가 있는 merits with respect to an intent that is passing through Quantum meeting. 및도착 muitos 실제 준비 중idden contra오마 Natomiast 시청자께서 밥실상을jets 하시는 depending 인생을 incurłada 역할 정도가 그러면 또 금방 드라리 mogelijk 보면 이미 알고 believe that 근데 even at an startup level, there are companies that you can work with to take on those initiatives. So, this is certainly... yeah, there's possibility as well. I've been trying really hard to kind of do that. And so that's more traceable. So that you do know that it's not like dying in there. You do know that it's... Yeah, and the child they were and things like that. So, it's important, I think, and as you can see, the big companies are taking their own thing. This... To make it more sustainable. So, more and more solutions will come, I believe. And... Okay. Thank you. Can't believe? I just think... Even had... Well, of course, potato you are more in-pat is supposed to be... But it doesn't mean that being small, you don't have your impact on my company and myself is a lot of example. That we are... We are in a positive change. And it takes time because as you can see, even though it's my workshop, always the sharing session, it is like... I cannot entertain like 1,000,000 people. But every time every piece of feeler, every person that I encounter... I square this message. And this message on the scene. And I think it's take all beyond just the general in the share. Of course, I mean the druid in the share. Of course, what is not clear. And eventually this message will go beyond that. And I do find that the impact doesn't... It doesn't have to be... I mean, we just have to be big to give impact. Any one can do something. Thank you. Now before we open the floor, who questions, I would like to ask Henry, who is one question. You are second generation jeweler, right? Because your father was a bold spirit in all of those. And then you became an entrepreneur, you're spoken three companies. He started a difference between... You're that generation and your generation. What are the new things that you are bringing to the table? We're within the context of sustainability. Sure. Yeah, like definitely very different. I guess back in the day, there was a lot of handmade woods. My dad's side and his across<|ko|><|ko|>, and he's got into retail and things. Jewelry is generally a family past-down business. It's expensive to be in Jewelry to be in fine jewelry. So it's tends to be quite traditional setups. And innovation seems to come a little bit slower. Because of this, your younger generation is not waking up and saying, Oh, let's go create a fine jewelry graph. Because it's... viral parl Legal가?... aleimos가 labeledite Concusion 그건 Nope Such 미션 저은 Vince 부탁드립니다 저의 set 점과 찍는 과정을 당연히 Lucky제 정의한 주word에서 인공적 가능한 편이 있었구나 무대를 사람들도 안 하고 onder가심을 했죠. 38 Fortunately, 인식이 되게 고향하네요. 다들 다قول는 똑같은 채 WILLIAM, happilyopus와 비위가 잘umental 씨와 밝힐 것들이 còn 조금 nessa Kook기점에서 엄청 hatchperson을 많이 설명해고 우리 채널 발�isionrichten 근데 그냥 보면 뭔가 봤어요 제가 지지 stretching 전 Whole 방에 제�conom은ấu�zel denyacy가 우린 우리가 장면을 잘 하 wiem 하지만 WHAT SUSP DAN Catko는itäten과 lettingidade할 수の 자기yse 같은 느낌으로 решил 슬슬 당신부터antas 진wic을 이렇게 드렸어요 PP2 유명한 팀에게 모인 스타버 λ이라고 Dieses domains 이게 접근을 하고 뭐가 붙来了? 제가 Luigi의 공격,... 아직us 이 것들을 쫙 매달 minority의 기회가 없는quer여 국사로 한 번씩 내려오고 정말 생각이 불하시면서 뒤로 depending Parker의 밀착으로 « 멈추고 계십시오. significa LGBTQ2 FabYNANG입니다.) 이� Rolle의 Tweery Capon 여러분, 지금 내éré 650임장에 코가 말이한데..\" 상 そう 달iston 효과적인 Corey 조작적인 다른 수� unle담이 떨어졌습니다 various evil future Miller 생애에게 만�bere principe моз금 어렵 ELS ПрolithоВер �iant 있고 전에 당시에 부담을 십�ogy Profis, 하는데aringestyle coolingipper 좋으신 것은 normal. 위 senin 갈라고 있어요. ceuxyson 멤버가 저녁시는미의 서울의 디랩이 되어들ayan 영장에서 보이�formation, 언시�hard들의 MarketMapping thank you. billion명을וך 괜찮게 measure Jeremy Town. 쟤럭uing 인해 InnenЙ화 스토리 시계 erfolgreich은 1명이 Marine 이제il ignite our deal entrepreneurial sage과 tener 착스트 Vision원으로 Strategy 특ucker에 개�OOM 하였기에 잔션은 좀 많이 요청했던 음악에 알아� authentic한다고by smellry 그 영상을 магазbeat하는데 그건 realmente decisruct OS relativ 그거 많은데 어떻게 알지 않았나요? 뭐에요? 저는 인터뷰에는 Whale Sation ㅇ 또 그대로 더 오래chten 있어요 그래서 먹기üss을 mont accommodate Tenod 하UNKNOWN potentialco는 친절했지만 여기가warz현된다고 했고 이것은anz Talentaval Hope if you enjoy this, Peace- smartphone입니다. talked이브 레 emulate전 일程에요. 위로 남은 뜻 важ essas 개리 플리색이예요.ari sont 스토눈동상 에 whack 가장 important in the organization to help us bring forward our plan like this. And talk about what we actually do with what we talk about, from talk about we engage all of the partners who had some leadership team. We have our push-day existing opportunity management activity at the executive level to provide oversight of our system of media actions at involved all the different business related to the partners and the developed. We also set up task forces reach out which will focus on the search and focus area. And these task forces comprise members, again, across the organization. On, for example, on the stakeholder alone, we engage people from protections from sourcing to protection. We put that share and description and the right thing. Everyone worked together to improve our society. Along to people and family. Ultimately, we actually engage in a lot of internal engagement to help our employees understand and become aware of what system and pity means to everyone. And why do we as a company wanted to do with what's in it for them. We want to be able to ensure that they understand and get an environment to what we are doing. And ultimately internalizing that system ability into everything that we do. And we would invite experts to come share knowledge with us and we have ongoing communications of all of you. Do, we need to be able to do this in the future. We are keeping the informed of our work. So we wanted to be able to do this. 한국uppay votes meer â제уз으로organization일 drain multic어�upa는 국기 Distanceใหó이 키우기iędzy 앙터리โ contacting 테라 2014 discrimination 다양한 � Rodriguez 예를 들어서 몇 Mohday 그래서 really needed to major 곧 Prom각 저는 중국 records에 우와 전 foam 등판을 저희가 여기를 반호할 Following�들 중입니다. 그런데 아직도 그런 상황에 따라 격� нами한 역시 lighting가진짜onde chatters crowds를 같이buzzer�鹿을 NATO를 예상가<|ja|> write &idge 표�부터 냣가면 나도 네 응friends 전재미들 generally 이들이 여ального 편집도 되었던 것 같아요, alkali과 spray를 사원로우면 a Perhaps야, 마 Cou batch이 Insert도 공개되기 into행η도 Me collect Great Bryan 위 OLED & power built toE 오늘은 E 100kg sabemos hipp视life 제 데도 이야기 잘 들렸 orph子 이런 집 이렇게 이상해 나오는 hora 어떻게 일visible 고 Roz infection World omg 이런 recreation 너 나쁘지 York 아까 제가 abandon nuevas zawrag 다음으로 저의 건가우 조정 저는 도착시 이래 그리고 그 선배님에게selloud pro bland입니다 발동czas 오�igor결아 곳 단ственный пос태 그래서 그러다 오ятно 대외� Northeast 조금 사 worden적으로 살았네요 아 전남 공항을 가지고 오학료 Made from 여기는 불붕을 남는場에서 Also, 얘가 곳 좋아하는 괴로운 귀신이 누굴지 않아 무슨icion?chen 수근을 이벤트하고 envision ai 네. 안녕하세요? 네 trials 그리고 Inside sinner 네 목으로 해도 beside 그리고 그리고 있습니다 여러분 Regarding 네 아니 네 하면 네orp 반 똑같 저는 인천에서 규모 오� marine 방식도 입속됩니다 사람마다 더 », 사람들은Regç니enz 저희가 lathe 좋은 명셋600만 sequencing 다음 헷에 제갈비 시 nervous는 itu 말하지 않았을까 왜냐하면, tablets 들리는 이거 Development란입니다. 그 상자 hasht RS의 preheated Sort호 문화의 보집을 Forage, 그 하과를 어떻게 updbare 플로�zug�sey 사49이 있었는데요.itated in a movie with a secret in the park detmer 자막의 M aud angled 인생이あります пок사 Cau magist 어묵 heat�� 저 분한테 말하는 모습은 분ẫn 다 또는 원 Employera 같이 집 들어가는 네 기SI bod 제 wegen 홈 부 Nat 산18 맞아요 agencies 마지만 저는 학교에 대기할 때аждational approval에 대한 얼굴을 Incor선한다면 다 속 못 MeanTrue 이번 어떤",
+    "segments": [
+      {
+        "start": 0.0,
+        "end": 2.88,
+        "text": "수스템아빌리티 스튜라티지대velopment",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 2.88,
+        "end": 7.0200000000000005,
+        "text": "and action planning implementation across the organization.",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 7.0200000000000005,
+        "end": 11.28,
+        "text": "드라디인 파악후러우스 인수스템아벌 development",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 11.28,
+        "end": 13.48,
+        "text": "Before joining child type group,",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 13.48,
+        "end": 16.46,
+        "text": "Leon worked as a sustainability advisor",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 16.46,
+        "end": 18.46,
+        "text": "at the purpose business.",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 18.46,
+        "end": 21.240000000000002,
+        "text": "From 2015 to 2000만 원",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 21.240000000000002,
+        "end": 24.2,
+        "text": "which he was director of external affairs",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 24.2,
+        "end": 27.14,
+        "text": "and sustainability at the white assault",
+        "confidence": -0.9482416639141008
+      },
+      {
+        "start": 27.14,
+        "end": 31.380000000000003,
+        "text": "where she led sustainability strategy development and communications.",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 31.380000000000003,
+        "end": 34.18,
+        "text": "She also drove waste reduction initiatives",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 34.18,
+        "end": 36.980000000000004,
+        "text": "including supporting establishment",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 36.980000000000004,
+        "end": 42.02,
+        "text": "of Hong Kong's first beverage partner recycling facility.",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 42.02,
+        "end": 43.22,
+        "text": "Wow.",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 43.22,
+        "end": 46.46,
+        "text": "And prior to taking up sustainability roles",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 46.46,
+        "end": 49.34,
+        "text": "The S. career span corporate communications",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 49.34,
+        "end": 52.5,
+        "text": "and poverty, government and committee affairs",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 52.5,
+        "end": 55.94,
+        "text": "having worked at different multinational companies.",
+        "confidence": -0.5267051986501187
+      },
+      {
+        "start": 55.94,
+        "end": 61.42,
+        "text": "So Leon, our next panelist",
+        "confidence": -0.5753531319754465
+      },
+      {
+        "start": 61.42,
+        "end": 65.06,
+        "text": "a very, very young entrepreneur",
+        "confidence": -0.5753531319754465
+      },
+      {
+        "start": 65.06,
+        "end": 68.86,
+        "text": "please welcome Ms. Henry Cerv.",
+        "confidence": -0.5753531319754465
+      },
+      {
+        "start": 68.86,
+        "end": 75.9,
+        "text": "Now Henry has found that not one not two but three companies.",
+        "confidence": -0.5753531319754465
+      },
+      {
+        "start": 75.9,
+        "end": 78.7,
+        "text": "So as you can see, Henry actually",
+        "confidence": -0.5753531319754465
+      },
+      {
+        "start": 78.7,
+        "end": 84.62,
+        "text": "is CEO of Uncarbid which is a wholesale jewelry company,",
+        "confidence": -0.5753531319754465
+      },
+      {
+        "start": 84.62,
+        "end": 87.5,
+        "text": "NRL which is a retail brand",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 87.5,
+        "end": 89.58,
+        "text": "and they have a store at K11",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 89.58,
+        "end": 92.38000000000001,
+        "text": "and also Jordan, JR and E.",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 92.38000000000001,
+        "end": 96.94,
+        "text": "So Henry has actually been",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 98.22,
+        "end": 101.26,
+        "text": "from a family of dualaires",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 101.26,
+        "end": 103.06,
+        "text": "and he represents the new brand,",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 103.06,
+        "end": 105.54,
+        "text": "the next generation of dualaires.",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 105.54,
+        "end": 107.5,
+        "text": "He joined the family business early",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 107.5,
+        "end": 111.26,
+        "text": "and I was over two decades of experience in sourcing,",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 111.26,
+        "end": 113.5,
+        "text": "manufacturing and retail,",
+        "confidence": -0.4900063224460768
+      },
+      {
+        "start": 113.5,
+        "end": 118.06,
+        "text": "including collaborations with prestigious luxury brands.",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 118.06,
+        "end": 120.94,
+        "text": "Driven by a passion for innovation",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 120.94,
+        "end": 123.26,
+        "text": "he found that NRL to redefine",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 123.26,
+        "end": 127.46000000000001,
+        "text": "the jewelry industry by championing transparency,",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 127.46000000000001,
+        "end": 131.3,
+        "text": "sustainability and ethical practices.",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 131.3,
+        "end": 135.3,
+        "text": "To partnerships with organizations like Moyra Gems,",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 135.3,
+        "end": 138.7,
+        "text": "Henry actively empowers women, miners",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 138.7,
+        "end": 141.9,
+        "text": "and advocates for responsible sourcing",
+        "confidence": -0.34341377961008174
+      },
+      {
+        "start": 141.9,
+        "end": 144.46,
+        "text": "by implementing an affordable duet",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 144.46,
+        "end": 148.06,
+        "text": "to consumer model, Henry ensures fabulous",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 148.06,
+        "end": 151.3,
+        "text": "jewelry is accessible to women everywhere.",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 151.3,
+        "end": 152.82,
+        "text": "So Henry said,",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 154.3,
+        "end": 156.86,
+        "text": "and last but not least,",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 156.86,
+        "end": 161.86,
+        "text": "we have Ms. Catherine show of the ICS crying jewelry.",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 163.86,
+        "end": 166.98000000000002,
+        "text": "A Katherine has combined her passion",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 166.98000000000002,
+        "end": 169.9,
+        "text": "for jewelry design with entrepreneurship",
+        "confidence": -0.460368898179796
+      },
+      {
+        "start": 169.9,
+        "end": 172.86,
+        "text": "by establishing her own brand.",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 172.86,
+        "end": 176.66,
+        "text": "She's a graduate of GIA, a graduate geomologies",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 176.66,
+        "end": 181.54000000000002,
+        "text": "and a jewelry artisan with nearly 15 years of experience.",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 181.54000000000002,
+        "end": 184.98000000000002,
+        "text": "She was born in Hong Kong and educated in New Zealand",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 184.98000000000002,
+        "end": 187.54000000000002,
+        "text": "with a double major in marketing",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 187.54000000000002,
+        "end": 191.3,
+        "text": "and international business from the University of Auckland.",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 191.3,
+        "end": 194.3,
+        "text": "Katherine believes all natural creations",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 194.3,
+        "end": 197.94,
+        "text": "are the perfect combination of art and science",
+        "confidence": -0.21872800046747382
+      },
+      {
+        "start": 197.94,
+        "end": 201.82,
+        "text": "driven by curiosity and spas commerce,",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 201.82,
+        "end": 204.78,
+        "text": "gemology, design, and craftsmanship.",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 204.78,
+        "end": 206.14,
+        "text": "Welcome, Katherine.",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 208.14,
+        "end": 210.57999999999998,
+        "text": "Now, before we start our panel session,",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 210.57999999999998,
+        "end": 215.46,
+        "text": "each of our resource persons will deliver a brief presentation",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 215.46,
+        "end": 218.74,
+        "text": "and to kick start the presentation, please welcome Leon",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 218.74,
+        "end": 220.62,
+        "text": "from Child by Hope, Jewelry Group.",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 222.22,
+        "end": 224.38,
+        "text": "Thank you, everybody, who's up to Lynn.",
+        "confidence": -0.523091691263606
+      },
+      {
+        "start": 227.94,
+        "end": 232.94,
+        "text": "Thank you for your opportunity for us to share our experience",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 233.54,
+        "end": 234.82,
+        "text": "and thoughts with you.",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 234.82,
+        "end": 238.42,
+        "text": "So let me give you an introduction",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 238.42,
+        "end": 240.62,
+        "text": "of what we do on sustainable.",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 243.82,
+        "end": 247.38,
+        "text": "As a company that is 96 years of age,",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 247.38,
+        "end": 251.46,
+        "text": "we've always focused on winning the trust of all our customers",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 251.46,
+        "end": 253.3,
+        "text": "and other stakeholders.",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 253.3,
+        "end": 257.74,
+        "text": "We've been visioning to be the leading global jury brand",
+        "confidence": -0.4111019400663154
+      },
+      {
+        "start": 257.74,
+        "end": 261.98,
+        "text": "and just trust by all generation.",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 261.98,
+        "end": 265.42,
+        "text": "And with sustainable IT, we want to focus",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 265.42,
+        "end": 267.94,
+        "text": "especially on our future generation.",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 269.34000000000003,
+        "end": 272.14,
+        "text": "As our sustainable IT partners reflect,",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 272.14,
+        "end": 274.34000000000003,
+        "text": "we want to be able to work together",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 274.34000000000003,
+        "end": 276.62,
+        "text": "with different stakeholders in the industry",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 276.62,
+        "end": 279.42,
+        "text": "to bring about sustainable transformation",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 279.42,
+        "end": 281.38,
+        "text": "of the jury industry.",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 281.38,
+        "end": 283.14,
+        "text": "So as you have shaped, we more",
+        "confidence": -0.41829361150294175
+      },
+      {
+        "start": 283.14,
+        "end": 287.21999999999997,
+        "text": "to sustainable future for every generation.",
+        "confidence": -0.5276407665676541
+      },
+      {
+        "start": 289.46,
+        "end": 293.26,
+        "text": "So last year, we have reviewed our 10-year commitment,",
+        "confidence": -0.5276407665676541
+      },
+      {
+        "start": 293.26,
+        "end": 298.26,
+        "text": "which was established in 2019 to baby review.",
+        "confidence": -0.5276407665676541
+      },
+      {
+        "start": 300.0,
+        "end": 303.88,
+        "text": "보�assis催에서 멋있게yuál을 interpret는지",
+        "confidence": -6.022334759051983
+      },
+      {
+        "start": 303.88,
+        "end": 306.56,
+        "text": "여섯월 어떤 다른 프로 begin인 Analytics",
+        "confidence": -6.022334759051983
+      },
+      {
+        "start": 306.56,
+        "end": 322.46,
+        "text": "사람과Jam Targetiya가",
+        "confidence": -6.022334759051983
+      },
+      {
+        "start": 322.46,
+        "end": 324.42,
+        "text": "무�uccร thirds when Top Spirit",
+        "confidence": -6.022334759051983
+      },
+      {
+        "start": 324.42,
+        "end": 325.22,
+        "text": "다시 말씀드렸는데",
+        "confidence": -6.022334759051983
+      },
+      {
+        "start": 325.22,
+        "end": 349.08,
+        "text": "경우 3분정 점으로 multiplestro safely",
+        "confidence": -5.634310795710637
+      },
+      {
+        "start": 349.08,
+        "end": 373.76,
+        "text": "Brent선호",
+        "confidence": -4.623935699462891
+      },
+      {
+        "start": 373.76,
+        "end": 377.16,
+        "text": "그 새와 인 기회품 들으세요.",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 377.56,
+        "end": 380.78,
+        "text": "평상时间 If opponent strik�킹을 오지만",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 381.16,
+        "end": 384.2,
+        "text": "비가ohner과입니다.",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 385.54,
+        "end": 387.96000000000004,
+        "text": "Iowa로 연하 ovat 섹시시와 야식적인 식당의",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 388.56,
+        "end": 390.64,
+        "text": "측�Turn 에셔� Breathe씨가를",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 390.8,
+        "end": 394.28,
+        "text": "들어갔다면 그 전통에도",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 394.4,
+        "end": 395.88,
+        "text": "시원 doctrines이 있게 해도",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 396.0,
+        "end": 399.74,
+        "text": "저는FS merit chang은",
+        "confidence": -5.651105326990927
+      },
+      {
+        "start": 399.74,
+        "end": 410.91999999999996,
+        "text": "어떻게 본 적은",
+        "confidence": -3.4635212421417236
+      },
+      {
+        "start": 410.92,
+        "end": 412.46000000000004,
+        "text": "그인팩, 아프리스러운,",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 412.46000000000004,
+        "end": 413.24,
+        "text": "as mentioned,",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 413.24,
+        "end": 416.56,
+        "text": "we aim at achieving that 0 by 20% 9",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 416.56,
+        "end": 418.52,
+        "text": "with different initiatives",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 418.52,
+        "end": 421.42,
+        "text": "that would include also reducing",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 421.42,
+        "end": 423.46000000000004,
+        "text": "how far-far environmental impact",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 423.46000000000004,
+        "end": 426.34000000000003,
+        "text": "of our packaging with two rows by 2030.",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 426.34000000000003,
+        "end": 429.34000000000003,
+        "text": "Another area that we are looking at lower",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 429.34000000000003,
+        "end": 429.78,
+        "text": "with, you know,",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 429.78,
+        "end": 432.03999999999996,
+        "text": "impact is on the use of",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 432.03999999999996,
+        "end": 435.14,
+        "text": "harmful substances in your reproduction",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 435.14,
+        "end": 438.34000000000003,
+        "text": "that is a very common",
+        "confidence": -0.9131468230602788
+      },
+      {
+        "start": 438.34000000000003,
+        "end": 442.06,
+        "text": "that effected process where different chemicals are induced",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 442.06,
+        "end": 444.42,
+        "text": "and we want to enhance the safety",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 444.42,
+        "end": 448.02,
+        "text": "and reduce environmental impact by replacing",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 448.02,
+        "end": 451.02,
+        "text": "or reducing the use of those harmful substances.",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 451.02,
+        "end": 454.74,
+        "text": "For people, we cover our bodies out.",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 454.74,
+        "end": 458.74,
+        "text": "own people, but everyone involved in our supply chain",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 458.74,
+        "end": 460.82,
+        "text": "and also the broader community",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 460.82,
+        "end": 464.34000000000003,
+        "text": "to ensure that we protect the human rights",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 464.34000000000003,
+        "end": 466.62,
+        "text": "and ensure that we make the practices",
+        "confidence": -0.5610730912950304
+      },
+      {
+        "start": 466.62,
+        "end": 468.62,
+        "text": "along the very chain.",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 468.62,
+        "end": 472.14,
+        "text": "We also focus on enhancing the family well-being",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 472.14,
+        "end": 476.38,
+        "text": "of our employees and everyone in the community.",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 476.38,
+        "end": 479.82,
+        "text": "As a Chinese jury company, we of course see that",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 479.82,
+        "end": 482.86,
+        "text": "as our responsibility to preserve",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 482.86,
+        "end": 487.02,
+        "text": "and promote the appreciation of Chinese culture",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 487.02,
+        "end": 491.5,
+        "text": "and also to enhance the heritage of a Chinese",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 491.5,
+        "end": 495.34000000000003,
+        "text": "goal jury crossmanship.",
+        "confidence": -0.48952001257787775
+      },
+      {
+        "start": 495.34000000000003,
+        "end": 498.94,
+        "text": "To ensure the sustainable development of the industry",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 498.94,
+        "end": 501.58000000000004,
+        "text": "and also of society,",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 501.58000000000004,
+        "end": 506.06,
+        "text": "grooming the next generation developing future talents",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 506.06,
+        "end": 507.82,
+        "text": "is also an important aspect.",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 507.82,
+        "end": 512.94,
+        "text": "So that's another focus area of our people's strategy.",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 512.94,
+        "end": 516.7,
+        "text": "As an industry leader for many years,",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 516.7,
+        "end": 519.26,
+        "text": "we also see it as the responsibility",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 519.26,
+        "end": 520.8199999999999,
+        "text": "to share our practices,",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 520.8199999999999,
+        "end": 523.1800000000001,
+        "text": "share our innovation with the industry",
+        "confidence": -0.3311045283362979
+      },
+      {
+        "start": 523.1800000000001,
+        "end": 524.78,
+        "text": "and work together,",
+        "confidence": -0.7218522372311109
+      },
+      {
+        "start": 524.78,
+        "end": 528.46,
+        "text": "hopefully to raise environmental and response",
+        "confidence": -0.7218522372311109
+      },
+      {
+        "start": 528.46,
+        "end": 531.4200000000001,
+        "text": "of practices, standards and industry.",
+        "confidence": -0.7218522372311109
+      },
+      {
+        "start": 531.4200000000001,
+        "end": 534.78,
+        "text": "So we're looking to establish recycled clothes.",
+        "confidence": -0.7218522372311109
+      },
+      {
+        "start": 534.78,
+        "end": 537.26,
+        "text": "Chenders and traceable clothes, standards",
+        "confidence": -0.7218522372311109
+      },
+      {
+        "start": 537.26,
+        "end": 541.4200000000001,
+        "text": "and also clean that should stand out with more",
+        "confidence": -0.7218522372311109
+      },
+      {
+        "start": 541.4200000000001,
+        "end": 549.4200000000001,
+        "text": "state, safer, hemico-decent manufacturing of our products.",
+        "confidence": -0.7218522372311109
+      },
+      {
+        "start": 549.42,
+        "end": 551.9,
+        "text": "We already seen some of two requests",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 551.9,
+        "end": 558.46,
+        "text": "made where we respond a hundred percent recycled collection",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 558.46,
+        "end": 560.22,
+        "text": "or no-lock products.",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 560.22,
+        "end": 564.22,
+        "text": "And we're seeing very good response for our consumers.",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 564.22,
+        "end": 567.3399999999999,
+        "text": "We are also looking at understanding",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 567.3399999999999,
+        "end": 569.8199999999999,
+        "text": "or delivering a mission that we're working on,",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 569.8199999999999,
+        "end": 573.98,
+        "text": "or to perform the combination plan.",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 573.98,
+        "end": 576.54,
+        "text": "And we have engaged in partnership,",
+        "confidence": -0.5978735935540846
+      },
+      {
+        "start": 576.54,
+        "end": 581.6600000000001,
+        "text": "such as the policy museum in bidding and Hong Kong",
+        "confidence": -0.45990856623245496
+      },
+      {
+        "start": 581.6600000000001,
+        "end": 584.94,
+        "text": "and we are seeing collaborations,",
+        "confidence": -0.45990856623245496
+      },
+      {
+        "start": 584.94,
+        "end": 588.94,
+        "text": "such as the launch of our policy museum collection,",
+        "confidence": -0.45990856623245496
+      },
+      {
+        "start": 588.94,
+        "end": 592.94,
+        "text": "which has been very popular on customers.",
+        "confidence": -0.45990856623245496
+      },
+      {
+        "start": 592.94,
+        "end": 599.34,
+        "text": "And so we hope you can share your...",
+        "confidence": -0.45990856623245496
+      },
+      {
+        "start": 599.34,
+        "end": 599.9000000000001,
+        "text": "Thank you.",
+        "confidence": -0.45990856623245496
+      },
+      {
+        "start": 600.0,
+        "end": 604.5,
+        "text": "Jac자 고개를 끝내고 laisser prayed",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 604.5,
+        "end": 609.74,
+        "text": "여러분, 저희가 오늘 clamon specialств을 잃に",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 609.74,
+        "end": 613.42,
+        "text": "77명을 Hawaii 하신 sven Pennsy어를",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 613.42,
+        "end": 618.38,
+        "text": "Pokémon 그렇게 샀습니다",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 618.38,
+        "end": 620.38,
+        "text": "여러분, bå고 삼고",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 620.38,
+        "end": 622.38,
+        "text": "남는편의 따로 좋아지는 게",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 623.02,
+        "end": 624.7,
+        "text": "말할 것입니다",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 624.7,
+        "end": 629.14,
+        "text": "여러분 감사합니다",
+        "confidence": -5.193219983899915
+      },
+      {
+        "start": 629.14,
+        "end": 634.9,
+        "text": "faced the creativity journey.",
+        "confidence": -4.597821553548177
+      },
+      {
+        "start": 634.9,
+        "end": 639.56,
+        "text": "함께�대전히 또 살고있고,",
+        "confidence": -4.597821553548177
+      },
+      {
+        "start": 639.56,
+        "end": 643.02,
+        "text": "를 인가로 provider to be in another with other staff.",
+        "confidence": -4.597821553548177
+      },
+      {
+        "start": 643.02,
+        "end": 646.58,
+        "text": "그러고, 아예 이 quietly 가는 마음까지",
+        "confidence": -4.597821553548177
+      },
+      {
+        "start": 646.58,
+        "end": 649.28,
+        "text": "많이 행복한 제거예요 이 질무시는 craving stories.",
+        "confidence": -4.597821553548177
+      },
+      {
+        "start": 649.28,
+        "end": 656.8,
+        "text": "사",
+        "confidence": -4.597821553548177
+      },
+      {
+        "start": 656.8,
+        "end": 658.8,
+        "text": ".",
+        "confidence": -4.597821553548177
+      },
+      {
+        "start": 658.98,
+        "end": 660.66,
+        "text": "대환",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 662.36,
+        "end": 663.66,
+        "text": "안녕",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 669.62,
+        "end": 671.4,
+        "text": "startups",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 671.92,
+        "end": 674.8,
+        "text": "Francis",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 674.8,
+        "end": 676.56,
+        "text": "니거",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 676.56,
+        "end": 678.44,
+        "text": "거",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 678.44,
+        "end": 684.7,
+        "text": "Look",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 684.7,
+        "end": 687.44,
+        "text": "명지",
+        "confidence": -5.183772646147629
+      },
+      {
+        "start": 687.44,
+        "end": 710.4,
+        "text": "유지지 사진에 подум하며 emergency",
+        "confidence": -4.810420403113732
+      },
+      {
+        "start": 710.4,
+        "end": 722.9,
+        "text": "쟤 하나의 선택,",
+        "confidence": -5.3700312296549475
+      },
+      {
+        "start": 723.8,
+        "end": 729.9,
+        "text": "제 jap prepare시기가 découvrir",
+        "confidence": -5.3700312296549475
+      },
+      {
+        "start": 730.3,
+        "end": 733.6,
+        "text": "인위회술에 대해 정치해서",
+        "confidence": -5.3700312296549475
+      },
+      {
+        "start": 733.6,
+        "end": 738.78,
+        "text": "statute가 우리가feeding 받은 dose Drn'이라는 actions을",
+        "confidence": -6.06240727351262
+      },
+      {
+        "start": 738.78,
+        "end": 741.3,
+        "text": "Folks House의 요게를 입thy Analysis",
+        "confidence": -6.06240727351262
+      },
+      {
+        "start": 741.3,
+        "end": 757.62,
+        "text": "Instead,outh Amongst theıma있는",
+        "confidence": -6.06240727351262
+      },
+      {
+        "start": 757.62,
+        "end": 760.0,
+        "text": "тив tapa 매우인이lly",
+        "confidence": -6.06240727351262
+      },
+      {
+        "start": 760.0,
+        "end": 761.0,
+        "text": "Amongst the 어떻게",
+        "confidence": -6.06240727351262
+      },
+      {
+        "start": 761.0,
+        "end": 766.08,
+        "text": "이야기를 공연하면서 업로겐트입니다,",
+        "confidence": -4.682869805230035
+      },
+      {
+        "start": 766.08,
+        "end": 769.34,
+        "text": "이제 준비한 글� الر키트 «한방송»,",
+        "confidence": -4.682869805230035
+      },
+      {
+        "start": 769.34,
+        "end": 790.86,
+        "text": "이제 어떤 이야기로",
+        "confidence": -4.682869805230035
+      },
+      {
+        "start": 790.86,
+        "end": 795.4200000000001,
+        "text": "백 afterwards 분밍 철 dus",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 795.4200000000001,
+        "end": 799.54,
+        "text": "에다 재현앤에 Johnson의",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 799.54,
+        "end": 800.22,
+        "text": "호도재기 중",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 800.22,
+        "end": 800.52,
+        "text": "서hel represent",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 800.52,
+        "end": 801.0,
+        "text": "그래서",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 801.0,
+        "end": 801.24,
+        "text": "發자",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 801.24,
+        "end": 803.28,
+        "text": "서hel WOANG",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 803.28,
+        "end": 808.04,
+        "text": "서평",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 808.04,
+        "end": 809.04,
+        "text": "Bear",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 809.04,
+        "end": 809.62,
+        "text": "Thor",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 809.62,
+        "end": 810.28,
+        "text": "который",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 810.28,
+        "end": 810.3,
+        "text": "같이",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 810.3,
+        "end": 811.6,
+        "text": "있는",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 811.6,
+        "end": 813.08,
+        "text": "악",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 813.08,
+        "end": 814.04,
+        "text": "ar",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 814.04,
+        "end": 814.4200000000001,
+        "text": "스 sodium",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 814.4200000000001,
+        "end": 814.84,
+        "text": "레전보",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 814.84,
+        "end": 815.3,
+        "text": "장난",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 815.3,
+        "end": 815.58,
+        "text": "indie",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 815.58,
+        "end": 816.26,
+        "text": "innerhalb",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 816.26,
+        "end": 817.34,
+        "text": "An",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 817.34,
+        "end": 817.72,
+        "text": "的時候",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 817.72,
+        "end": 817.9200000000001,
+        "text": "다",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 817.9200000000001,
+        "end": 818.76,
+        "text": "The",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 818.76,
+        "end": 819.54,
+        "text": "Electro",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 819.54,
+        "end": 819.62,
+        "text": "그",
+        "confidence": -4.772903847483407
+      },
+      {
+        "start": 819.62,
+        "end": 825.78,
+        "text": "여길 preached 다있나요.",
+        "confidence": -5.389173984527588
+      },
+      {
+        "start": 825.78,
+        "end": 849.34,
+        "text": "HAHA devrait",
+        "confidence": -5.389173984527588
+      },
+      {
+        "start": 849.34,
+        "end": 853.48,
+        "text": "여기 enrolled 제 whatsapp도 länger 하는 프로그램을 다Sorry",
+        "confidence": -6.39217776343936
+      },
+      {
+        "start": 853.48,
+        "end": 854.38,
+        "text": "정말 duty heck",
+        "confidence": -6.39217776343936
+      },
+      {
+        "start": 854.38,
+        "end": 864.4200000000001,
+        "text": "그�",
+        "confidence": -6.39217776343936
+      },
+      {
+        "start": 864.4200000000001,
+        "end": 870.7,
+        "text": "다시 후�UB Lloyd 버치로",
+        "confidence": -6.39217776343936
+      },
+      {
+        "start": 870.7,
+        "end": 877.2,
+        "text": "�usanjas looking toain",
+        "confidence": -6.39217776343936
+      },
+      {
+        "start": 877.2,
+        "end": 883.16,
+        "text": "그ouse의 음arre다의 직업을 필요한다고 하기 counterhow 다른 막ией에서",
+        "confidence": -5.886679513113839
+      },
+      {
+        "start": 883.16,
+        "end": 884.72,
+        "text": "어떻게 도기냐면",
+        "confidence": -5.886679513113839
+      },
+      {
+        "start": 884.72,
+        "end": 901.64,
+        "text": "시 obsessed personal",
+        "confidence": -5.886679513113839
+      },
+      {
+        "start": 900.0,
+        "end": 905.38,
+        "text": "사람이라LED",
+        "confidence": -5.248639242989676
+      },
+      {
+        "start": 905.38,
+        "end": 908.06,
+        "text": "약간 institute",
+        "confidence": -5.248639242989676
+      },
+      {
+        "start": 908.3,
+        "end": 923.68,
+        "text": "무선을 할 수 있금",
+        "confidence": -5.248639242989676
+      },
+      {
+        "start": 923.68,
+        "end": 929.16,
+        "text": "다냐 같은 응 época",
+        "confidence": -5.248639242989676
+      },
+      {
+        "start": 929.16,
+        "end": 949.44,
+        "text": "denn 저희 основ의 아래에서에는IAN OEMO지능이 meillä의",
+        "confidence": -5.888152567545573
+      },
+      {
+        "start": 949.44,
+        "end": 954.16,
+        "text": "늘려서owane 1 narrow calculation",
+        "confidence": -5.888152567545573
+      },
+      {
+        "start": 954.16,
+        "end": 956.78,
+        "text": "올려올까요?",
+        "confidence": -4.565238952636719
+      },
+      {
+        "start": 956.78,
+        "end": 967.16,
+        "text": "반ظ구를",
+        "confidence": -4.565238952636719
+      },
+      {
+        "start": 967.16,
+        "end": 972.26,
+        "text": "기대 부탁드립니다.",
+        "confidence": -4.565238952636719
+      },
+      {
+        "start": 973.52,
+        "end": 977.14,
+        "text": "lets from the right spot",
+        "confidence": -4.565238952636719
+      },
+      {
+        "start": 977.14,
+        "end": 984.36,
+        "text": "해서 말해서 1ne의 의미입니다",
+        "confidence": -5.686498890752378
+      },
+      {
+        "start": 984.36,
+        "end": 993.98,
+        "text": "Patience &",
+        "confidence": -5.686498890752378
+      },
+      {
+        "start": 994.98,
+        "end": 997.5,
+        "text": "매일�vis음ex은이더니",
+        "confidence": -5.686498890752378
+      },
+      {
+        "start": 997.8199999999999,
+        "end": 1001.36,
+        "text": "한번 관남 sin",
+        "confidence": -5.686498890752378
+      },
+      {
+        "start": 1001.76,
+        "end": 1003.24,
+        "text": "그리고 나 아빠는 대정비디오ement",
+        "confidence": -5.686498890752378
+      },
+      {
+        "start": 1003.24,
+        "end": 1006.02,
+        "text": "어떻게 생각해 Operational to my uly非?",
+        "confidence": -5.227595793895232
+      },
+      {
+        "start": 1006.02,
+        "end": 1009.96,
+        "text": "이해 Wesley이한테 몇 시가hire 말씀드렸다고 해서",
+        "confidence": -5.227595793895232
+      },
+      {
+        "start": 1010.06,
+        "end": 1030.78,
+        "text": "아마 집이 진짜의 필요의 방",
+        "confidence": -5.227595793895232
+      },
+      {
+        "start": 1060.78,
+        "end": 1061.28,
+        "text": "지목 dem compounds",
+        "confidence": -6.255296979631696
+      },
+      {
+        "start": 1061.28,
+        "end": 1089.08,
+        "text": "veggies 샘 Mage",
+        "confidence": -6.255296979631696
+      },
+      {
+        "start": 1089.08,
+        "end": 1092.46,
+        "text": "Fair general level fundamental I- Dec,",
+        "confidence": -5.26625919342041
+      },
+      {
+        "start": 1092.46,
+        "end": 1110.8600000000001,
+        "text": "pode의",
+        "confidence": -5.26625919342041
+      },
+      {
+        "start": 1110.8600000000001,
+        "end": 1132.7,
+        "text": "그럼 나가말고 제가Kit creditPress을 일부러",
+        "confidence": -5.1490053449358255
+      },
+      {
+        "start": 1132.7,
+        "end": 1136.22,
+        "text": "있는 공주인들이 진짜 많이ルク이었습니다",
+        "confidence": -5.1490053449358255
+      },
+      {
+        "start": 1136.22,
+        "end": 1139.72,
+        "text": "동risingoser milit模가 expectance",
+        "confidence": -5.482968077367666
+      },
+      {
+        "start": 1139.78,
+        "end": 1142.4,
+        "text": "ㅇ dipping in 사타이 보내어",
+        "confidence": -5.482968077367666
+      },
+      {
+        "start": 1143.12,
+        "end": 1145.3,
+        "text": "그저 поговорout",
+        "confidence": -5.482968077367666
+      },
+      {
+        "start": 1145.3600000000001,
+        "end": 1159.92,
+        "text": "즐거",
+        "confidence": -5.482968077367666
+      },
+      {
+        "start": 1160.1399999999999,
+        "end": 1161.58,
+        "text": "블리브�äm스",
+        "confidence": -5.482968077367666
+      },
+      {
+        "start": 1161.74,
+        "end": 1163.02,
+        "text": "누군가이",
+        "confidence": -5.482968077367666
+      },
+      {
+        "start": 1163.02,
+        "end": 1165.92,
+        "text": "항상 이런가 hecho Á strengthened",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1165.92,
+        "end": 1168.88,
+        "text": "항상 소금\u0014고",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1168.88,
+        "end": 1172.9,
+        "text": "가고 Monica에게 향으로",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1172.9,
+        "end": 1175.6399999999999,
+        "text": "promised to make a change for the life as well",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1175.6399999999999,
+        "end": 1178.04,
+        "text": "그래서 그렇게 정해상 accounts",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1178.04,
+        "end": 1182.26,
+        "text": "가pack éc이든 그의 좀 생각하시면",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1182.26,
+        "end": 1186.42,
+        "text": "나온 그런 건 남성이",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1190.56,
+        "end": 1191.9,
+        "text": "저는 면 In 조재원 Tory",
+        "confidence": -4.833387451171875
+      },
+      {
+        "start": 1191.9,
+        "end": 1195.6399999999999,
+        "text": "북한hold 너무 잘 추� kap tren cours",
+        "confidence": -6.974407420438879
+      },
+      {
+        "start": 1197.1599999999999,
+        "end": 1201.74,
+        "text": "그래도 합 THE",
+        "confidence": -6.974407420438879
+      },
+      {
+        "start": 1200.0,
+        "end": 1204.0,
+        "text": "fishesKing도oeiyana 마리�often은",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1204.0,
+        "end": 1205.2,
+        "text": "strange tofiyante",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1205.2,
+        "end": 1208.0,
+        "text": "를 중하이라이탈을 만들었는데요",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1208.0,
+        "end": 1211.38,
+        "text": "nhưng snore",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1211.38,
+        "end": 1216.66,
+        "text": "well",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1216.66,
+        "end": 1221.2,
+        "text": "reduz는ters",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1221.2,
+        "end": 1222.54,
+        "text": "assador 많은 구입",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1222.54,
+        "end": 1224.14,
+        "text": "선adores와",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1224.14,
+        "end": 1228.82,
+        "text": "감정을",
+        "confidence": -5.3547460162450395
+      },
+      {
+        "start": 1228.82,
+        "end": 1232.78,
+        "text": "helps our workshop to do the hand roofting colours themselves,",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1232.78,
+        "end": 1236.5,
+        "text": "not kept for them to experience something new.",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1236.5,
+        "end": 1238.54,
+        "text": "than otherуж decks,",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1238.54,
+        "end": 1240.46,
+        "text": "the fabrics should be had,",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1240.46,
+        "end": 1243.2,
+        "text": "what's like working behind the theme,",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1243.2,
+        "end": 1245.34,
+        "text": "so it's also another Side todo,",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1245.34,
+        "end": 1247.68,
+        "text": "Simple Gene인 임을",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1247.68,
+        "end": 1249.1,
+        "text": "더 널 보다,",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1249.1,
+        "end": 1250.64,
+        "text": "시기가 Barack희되어 떨어져 throughout the industrial grant",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1250.64,
+        "end": 1252.6,
+        "text": "ires for the outstanding energy.",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1252.6,
+        "end": 1254.86,
+        "text": "So we will deliver some good Cabaki up,",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1254.86,
+        "end": 1256.84,
+        "text": "Th radically different咱 JD bucket.",
+        "confidence": -4.003304903624488
+      },
+      {
+        "start": 1256.84,
+        "end": 1261.12,
+        "text": "아 hm",
+        "confidence": -6.0168865748814175
+      },
+      {
+        "start": 1265.6,
+        "end": 1269.42,
+        "text": "한 이 grind",
+        "confidence": -6.0168865748814175
+      },
+      {
+        "start": 1269.42,
+        "end": 1271.02,
+        "text": "undergoing",
+        "confidence": -6.0168865748814175
+      },
+      {
+        "start": 1271.02,
+        "end": 1273.5,
+        "text": "이 separating 부 teacher in a gathering",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1273.52,
+        "end": 1277.2,
+        "text": "ㅐ, 찾을 중",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1277.2,
+        "end": 1278.52,
+        "text": "igent 엔어",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1278.54,
+        "end": 1292.22,
+        "text": "대패",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1292.22,
+        "end": 1296.12,
+        "text": "잘하는 premiillation",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1296.14,
+        "end": 1296.94,
+        "text": "심하게",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1296.94,
+        "end": 1299.32,
+        "text": "고으면 잘 못해요",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1299.34,
+        "end": 1300.42,
+        "text": "끝",
+        "confidence": -5.152706969018076
+      },
+      {
+        "start": 1300.42,
+        "end": 1315.56,
+        "text": "나 지금 전 컸에 정해봤 przypadTAKE",
+        "confidence": -5.56468760172526
+      },
+      {
+        "start": 1315.56,
+        "end": 1321.22,
+        "text": "Namesenups puzzle",
+        "confidence": -5.56468760172526
+      },
+      {
+        "start": 1321.22,
+        "end": 1325.44,
+        "text": "넓은 거금 smoothie",
+        "confidence": -5.56468760172526
+      },
+      {
+        "start": 1325.44,
+        "end": 1327.6,
+        "text": "그래서 그런가를 overs三 more",
+        "confidence": -5.799675714401972
+      },
+      {
+        "start": 1339.84,
+        "end": 1342.44,
+        "text": "핵 미국에 내보번에",
+        "confidence": -5.799675714401972
+      },
+      {
+        "start": 1372.44,
+        "end": 1374.44,
+        "text": "그래서 explains the details",
+        "confidence": -5.252140808105469
+      },
+      {
+        "start": 1385.82,
+        "end": 1386.62,
+        "text": "두 번째 안무",
+        "confidence": -5.252140808105469
+      },
+      {
+        "start": 1388.16,
+        "end": 1390.02,
+        "text": "할 수 있는 것에 정말άλisé",
+        "confidence": -5.252140808105469
+      },
+      {
+        "start": 1390.72,
+        "end": 1391.84,
+        "text": "나는 3번 에인닉이줘",
+        "confidence": -5.252140808105469
+      },
+      {
+        "start": 1394.52,
+        "end": 1397.32,
+        "text": "정말 Tapi",
+        "confidence": -5.252140808105469
+      },
+      {
+        "start": 1397.32,
+        "end": 1399.32,
+        "text": "내가 밑에 계속 돌�gram",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1400.32,
+        "end": 1404.32,
+        "text": "� unemployed",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1404.32,
+        "end": 1405.32,
+        "text": "여전하게 제대로 샀다",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1405.32,
+        "end": 1412.96,
+        "text": "전ались",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1412.96,
+        "end": 1414.72,
+        "text": "주저 lives",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1414.72,
+        "end": 1419.32,
+        "text": "칵 에이 condemn",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1420.08,
+        "end": 1422.24,
+        "text": "T3",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1422.24,
+        "end": 1425.4,
+        "text": "besten",
+        "confidence": -5.145605004352072
+      },
+      {
+        "start": 1425.4,
+        "end": 1431.4,
+        "text": "rivond tive 생각이 힘려고 했는데요,",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1431.4,
+        "end": 1435.4,
+        "text": "새벽에 undermine 친구와 wi crazy feel",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1435.4,
+        "end": 1437.4,
+        "text": "이edly 그렸마일에서 foundational 싶습니다",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1437.4,
+        "end": 1441.4,
+        "text": "저는 사랑 많이 것аци�을 끊인 거까지",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1441.4,
+        "end": 1444.84,
+        "text": "coated diplom하고",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1444.84,
+        "end": 1448.6,
+        "text": "우리는 UCating Annie bypasseri",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1448.6,
+        "end": 1450.12,
+        "text": "هي 그 사랑에서",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1450.12,
+        "end": 1450.44,
+        "text": "저 from our 어떻게 할 때",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1450.44,
+        "end": 1453.2,
+        "text": "제 모습을 가는 분들이",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1453.2,
+        "end": 1454.42,
+        "text": "Бог 알�conduct 이야기",
+        "confidence": -5.574971074643343
+      },
+      {
+        "start": 1454.42,
+        "end": 1459.92,
+        "text": "하 intment은 중 wipe이 살짝데긴 Muy아요.",
+        "confidence": -5.914385588272758
+      },
+      {
+        "start": 1461.28,
+        "end": 1467.3,
+        "text": "여기까지 왔을 때 입에 placed 함께zuge지 않는 면을 다시 constructing 도pop을 되긴 시작지만",
+        "confidence": -5.914385588272758
+      },
+      {
+        "start": 1467.6599999999999,
+        "end": 1470.0,
+        "text": "sup naturale western 신난 여행도씩 사용ת boundaries",
+        "confidence": -5.914385588272758
+      },
+      {
+        "start": 1470.38,
+        "end": 1472.96,
+        "text": "좋 buckrop",
+        "confidence": -5.914385588272758
+      },
+      {
+        "start": 1473.52,
+        "end": 1475.3,
+        "text": "예전에 가요",
+        "confidence": -5.914385588272758
+      },
+      {
+        "start": 1476.68,
+        "end": 1480.32,
+        "text": "도pop의 의미가 angel이를 일어난 수를 모두 함께도",
+        "confidence": -5.914385588272758
+      },
+      {
+        "start": 1480.58,
+        "end": 1484.04,
+        "text": "공수접 kasih Captain",
+        "confidence": -5.914385588272758
+      },
+      {
+        "start": 1484.04,
+        "end": 1487.5,
+        "text": "근데 계란이 열� で 3개 정도 주는 것을",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1487.5,
+        "end": 1489.6,
+        "text": "세 paradise",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1489.6,
+        "end": 1490.32,
+        "text": "2개 전랭탄 speak",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1490.32,
+        "end": 1491.42,
+        "text": "이건 오늘 따뜻한",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1491.42,
+        "end": 1492.5,
+        "text": "상상키는 약목에서",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1492.5,
+        "end": 1493.7,
+        "text": "흡정 pirate",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1493.7,
+        "end": 1509.4,
+        "text": "오전 üst arrows",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1509.4,
+        "end": 1512.8400000000001,
+        "text": "dathers",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1512.8400000000001,
+        "end": 1513.44,
+        "text": "두 개",
+        "confidence": -4.870461990584189
+      },
+      {
+        "start": 1530.0,
+        "end": 1532.04,
+        "text": "그리고 더 방해",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1532.26,
+        "end": 1532.94,
+        "text": "그리고",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1533.24,
+        "end": 1534.64,
+        "text": "달월 센스",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1534.64,
+        "end": 1536.34,
+        "text": "그 다음 제 입에서",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1536.34,
+        "end": 1537.4,
+        "text": "바� isolation",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1537.4,
+        "end": 1541.1,
+        "text": "그리고 저희의 피치였드",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1541.1,
+        "end": 1542.9,
+        "text": "너무 already work together",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1542.9,
+        "end": 1545.54,
+        "text": "그리고 알OULD에 가장 요리를 researching",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1545.54,
+        "end": 1546.78,
+        "text": "데스 IP",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1546.78,
+        "end": 1547.52,
+        "text": "ạ",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1548.06,
+        "end": 1548.94,
+        "text": "당이네",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1548.94,
+        "end": 1550.7,
+        "text": "our four80",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1550.7,
+        "end": 1551.06,
+        "text": "방 FDA",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1551.06,
+        "end": 1551.34,
+        "text": "네",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1552.04,
+        "end": 1552.56,
+        "text": "wi",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1552.56,
+        "end": 1553.4,
+        "text": "joy",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1553.9,
+        "end": 1555.06,
+        "text": "연애",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1555.06,
+        "end": 1555.44,
+        "text": "굉장히",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1555.44,
+        "end": 1556.38,
+        "text": "프�現트",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1556.38,
+        "end": 1557.94,
+        "text": "� nhân",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1557.94,
+        "end": 1558.14,
+        "text": "슈비",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1558.14,
+        "end": 1559.7,
+        "text": "5",
+        "confidence": -4.621746991131757
+      },
+      {
+        "start": 1589.7,
+        "end": 1609.16,
+        "text": "software의",
+        "confidence": -4.605352189805773
+      },
+      {
+        "start": 1609.16,
+        "end": 1616.64,
+        "text": "excuse",
+        "confidence": -4.605352189805773
+      },
+      {
+        "start": 1616.64,
+        "end": 1625.74,
+        "text": "ags accord은 정말 우려지 homes כ Sleep끈 수",
+        "confidence": -4.5266141451322115
+      },
+      {
+        "start": 1625.74,
+        "end": 1630.48,
+        "text": "점점 떡볶에arios을 했으며",
+        "confidence": -4.5266141451322115
+      },
+      {
+        "start": 1630.48,
+        "end": 1634.98,
+        "text": "뎌끈습니다.",
+        "confidence": -4.5266141451322115
+      },
+      {
+        "start": 1634.98,
+        "end": 1639.28,
+        "text": "lieu��는лед grad때 열어줘는데요.",
+        "confidence": -4.5266141451322115
+      },
+      {
+        "start": 1639.28,
+        "end": 1645.04,
+        "text": "우리가 해야될 가운데",
+        "confidence": -4.5266141451322115
+      },
+      {
+        "start": 1645.04,
+        "end": 1650.42,
+        "text": "두 분 Big Boss의 띄cker 스위 inspired 40%",
+        "confidence": -5.011422793070476
+      },
+      {
+        "start": 1650.68,
+        "end": 1651.6,
+        "text": "538.",
+        "confidence": -5.011422793070476
+      },
+      {
+        "start": 1665.3,
+        "end": 1667.04,
+        "text": "쟤 생각하셔서",
+        "confidence": -5.011422793070476
+      },
+      {
+        "start": 1667.82,
+        "end": 1670.98,
+        "text": "랄랄�important",
+        "confidence": -5.011422793070476
+      },
+      {
+        "start": 1671.48,
+        "end": 1673.78,
+        "text": "네 같은 부모�오.",
+        "confidence": -5.011422793070476
+      },
+      {
+        "start": 1673.78,
+        "end": 1689.04,
+        "text": "우리 한국인들은 지금 나머지, injected Bank in ваш businesses을 쓰네요.",
+        "confidence": -5.47312702116419
+      },
+      {
+        "start": 1689.04,
+        "end": 1694.12,
+        "text": "다시ares, Apart OF게만 적응할 때 조금 더 많은데오 아이커 다 HOLY",
+        "confidence": -5.47312702116419
+      },
+      {
+        "start": 1694.12,
+        "end": 1698.12,
+        "text": "난 참는 걸 hypoth pum Puerto RTM 그랬어요.",
+        "confidence": -5.47312702116419
+      },
+      {
+        "start": 1698.12,
+        "end": 1704.8,
+        "text": "비Windows은 soufferteil Kapital 이� kardeşim",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1704.8,
+        "end": 1707.4,
+        "text": "다시 options to stop us",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1707.4,
+        "end": 1708.32,
+        "text": "including 제로계에 comun하셔야 되고",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1709.12,
+        "end": 1710.44,
+        "text": "계산을 나타낼 때",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1710.44,
+        "end": 1711.7,
+        "text": "위험한 것분에",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1711.7,
+        "end": 1719.94,
+        "text": "계시는 강의 Our flavored조에서",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1719.94,
+        "end": 1722.1,
+        "text": "스썴으로 Canton구화 Ik",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1722.1,
+        "end": 1723.18,
+        "text": "공통된 역시",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1723.18,
+        "end": 1725.04,
+        "text": "문임적�eters",
+        "confidence": -5.434447524126838
+      },
+      {
+        "start": 1725.04,
+        "end": 1741.42,
+        "text": "방어치는데 이게centered",
+        "confidence": -4.749910528009588
+      },
+      {
+        "start": 1741.42,
+        "end": 1764.48,
+        "text": "코디 mucha",
+        "confidence": -5.228325435093471
+      },
+      {
+        "start": 1764.48,
+        "end": 1786.4,
+        "text": "정상 pow 용손 채",
+        "confidence": -6.991748385959202
+      },
+      {
+        "start": 1794.48,
+        "end": 1797.1,
+        "text": "cook!!!",
+        "confidence": -5.808526039123535
+      },
+      {
+        "start": 1797.3400000000001,
+        "end": 1801.4,
+        "text": "저는 밀드 아 zat하기 발견",
+        "confidence": -5.808526039123535
+      },
+      {
+        "start": 1800.0,
+        "end": 1803.94,
+        "text": "아니면 돼�� thorac",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1803.94,
+        "end": 1807.34,
+        "text": "제가 말씀을 드문에ности",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1807.34,
+        "end": 1810.08,
+        "text": "overwhelmed 저는 Unknown",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1810.08,
+        "end": 1810.86,
+        "text": "greatly Nerning이 되었습니다",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1810.86,
+        "end": 1812.18,
+        "text": "memories",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1812.18,
+        "end": 1813.66,
+        "text": "비주얼 Anda contradеш시다",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1813.66,
+        "end": 1815.32,
+        "text": "특히 부 jednak",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1815.32,
+        "end": 1817.26,
+        "text": "최업이다",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1817.26,
+        "end": 1819.54,
+        "text": "위rates에를 에서",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1819.54,
+        "end": 1824.46,
+        "text": "모를",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1825.62,
+        "end": 1828.08,
+        "text": "예수인데요",
+        "confidence": -5.597788347516741
+      },
+      {
+        "start": 1828.08,
+        "end": 1830.3,
+        "text": "그렇게 많지는 않죠?",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1830.3,
+        "end": 1831.98,
+        "text": "하시는ång도록",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1831.98,
+        "end": 1834.02,
+        "text": "� помощ요?",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1836.38,
+        "end": 1837.74,
+        "text": "얘 말 오빠가 있을 것 같 Ubisoft",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1837.74,
+        "end": 1838.86,
+        "text": "명예인의 상큼은",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1838.86,
+        "end": 1840.54,
+        "text": "cô squash이了吧",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1840.54,
+        "end": 1842.3,
+        "text": "ourselves",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1842.3,
+        "end": 1843.7,
+        "text": "좋 пал 많이 지키거든요",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1845.18,
+        "end": 1847.22,
+        "text": "가 ries글�ständ이",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1847.42,
+        "end": 1851.1,
+        "text": "강구제",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1851.74,
+        "end": 1852.12,
+        "text": "yahie",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1852.12,
+        "end": 1853.46,
+        "text": "Critical",
+        "confidence": -5.200407390353046
+      },
+      {
+        "start": 1853.46,
+        "end": 1855.4,
+        "text": "하면 좀 그렇다고줘요,",
+        "confidence": -5.478309994652157
+      },
+      {
+        "start": 1855.72,
+        "end": 1872.1,
+        "text": "제가 Montgomery도 document 번역kan에",
+        "confidence": -5.478309994652157
+      },
+      {
+        "start": 1872.1,
+        "end": 1874.1,
+        "text": "오일이 확대함이 좀 크리겠습니다",
+        "confidence": -5.056069147019159
+      },
+      {
+        "start": 1874.68,
+        "end": 1876.76,
+        "text": "이 beaut 24분 600분",
+        "confidence": -5.056069147019159
+      },
+      {
+        "start": 1877.26,
+        "end": 1880.24,
+        "text": "이쁘게 하나도 더 좋습니다",
+        "confidence": -5.056069147019159
+      },
+      {
+        "start": 1881.6,
+        "end": 1884.64,
+        "text": "응이들만에게odzi",
+        "confidence": -5.056069147019159
+      },
+      {
+        "start": 1884.64,
+        "end": 1886.42,
+        "text": "저는 진짜 진마성 glaubey 그 produce,",
+        "confidence": -6.2523667471749445
+      },
+      {
+        "start": 1886.42,
+        "end": 1890.88,
+        "text": "bathじゃない 저는TORU tem미 인간 часто at maison",
+        "confidence": -6.2523667471749445
+      },
+      {
+        "start": 1890.88,
+        "end": 1892.6,
+        "text": "저는 여기 기본rare,",
+        "confidence": -6.2523667471749445
+      },
+      {
+        "start": 1892.6,
+        "end": 1895.4,
+        "text": "저희 mateix의 벅 charts.",
+        "confidence": -6.2523667471749445
+      },
+      {
+        "start": 1895.4,
+        "end": 1897.86,
+        "text": "zon Não Moi",
+        "confidence": -6.2523667471749445
+      },
+      {
+        "start": 1897.86,
+        "end": 1914.08,
+        "text": "제가 보기 위해",
+        "confidence": -6.2523667471749445
+      },
+      {
+        "start": 1914.08,
+        "end": 1918.24,
+        "text": "아 Declaration 왜 그래도 hätten 까지도 remove the socks?",
+        "confidence": -6.0667060113722275
+      },
+      {
+        "start": 1918.4,
+        "end": 1921.66,
+        "text": "근데 지금 너무 배가 가능했어요 나짴쀕",
+        "confidence": -6.0667060113722275
+      },
+      {
+        "start": 1921.66,
+        "end": 1934.58,
+        "text": "이제 옛날 영상에서 저렴하고",
+        "confidence": -6.0667060113722275
+      },
+      {
+        "start": 1934.62,
+        "end": 1938.78,
+        "text": "indigenous Their todos 그런 경 founding인 муж salon",
+        "confidence": -6.0667060113722275
+      },
+      {
+        "start": 1938.78,
+        "end": 1943.24,
+        "text": "그넣이지 shredagog essas homing",
+        "confidence": -6.0667060113722275
+      },
+      {
+        "start": 1943.24,
+        "end": 1947.58,
+        "text": "имеет 풀리 진지 우주 무너imer은",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1947.66,
+        "end": 1949.72,
+        "text": "달�war하고 비 ráp종 certainty",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1950.28,
+        "end": 1953.06,
+        "text": "정상은 흥분이 됐습니다",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1953.06,
+        "end": 1954.88,
+        "text": "도 좋은데 고민하길 바를 것이라고 합니다",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1956.32,
+        "end": 1962.72,
+        "text": "생각을 마 bladder jam스틜믴�ינו",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1962.78,
+        "end": 1964.94,
+        "text": "그들의 많은 것은",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1965.3,
+        "end": 1968.18,
+        "text": "othered 장ended� dikk시할했었습니다",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1968.26,
+        "end": 1968.8600000000001,
+        "text": "왜냐하면",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1969.3,
+        "end": 1972.66,
+        "text": "이varierte",
+        "confidence": -5.894118907839753
+      },
+      {
+        "start": 1972.66,
+        "end": 1975.4,
+        "text": "제 빛이 preaching",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1975.4,
+        "end": 1976.56,
+        "text": "After 사� badly,",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1976.56,
+        "end": 1980.2,
+        "text": "twitz común gland을 Hun이",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1980.2,
+        "end": 1982.38,
+        "text": "준비할 때",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1982.38,
+        "end": 1985.2,
+        "text": "우리 전원 полез pause",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1985.2,
+        "end": 1988.0,
+        "text": "....",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1988.0,
+        "end": 1991.5,
+        "text": "통과하는 где",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1992.0,
+        "end": 1994.56,
+        "text": "생태venge",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1996.48,
+        "end": 1998.16,
+        "text": "탑이 in-person",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1998.16,
+        "end": 1999.9,
+        "text": "큰 birch",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 1999.9,
+        "end": 2000.62,
+        "text": "다리는",
+        "confidence": -5.440043729894302
+      },
+      {
+        "start": 2000.96,
+        "end": 2002.68,
+        "text": "세상에hhh",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2002.68,
+        "end": 2006.32,
+        "text": "뭘 했기간 크메",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2006.32,
+        "end": 2007.0,
+        "text": "П보드링도",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2007.0,
+        "end": 2008.56,
+        "text": "lament에 공감하고",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2008.56,
+        "end": 2009.94,
+        "text": "trata our word",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2009.94,
+        "end": 2012.84,
+        "text": "오버님 소리",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2012.84,
+        "end": 2015.4,
+        "text": "저는 거 면 terribly Much",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2015.4,
+        "end": 2017.12,
+        "text": "나는 너가",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2017.12,
+        "end": 2021.14,
+        "text": "그만 죽이지",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2021.14,
+        "end": 2023.18,
+        "text": "너무 힐",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2023.18,
+        "end": 2024.8,
+        "text": "너무 쉽진",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2024.8,
+        "end": 2025.12,
+        "text": "생각던",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2025.12,
+        "end": 2027.3,
+        "text": "그런데",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2027.32,
+        "end": 2028.64,
+        "text": "땅세",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2028.64,
+        "end": 2030.02,
+        "text": "웃제",
+        "confidence": -4.837380946367636
+      },
+      {
+        "start": 2030.02,
+        "end": 2032.56,
+        "text": "이리야�arest 없이 그래도 아주 중요한 건 요sto 행위자로",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2032.56,
+        "end": 2034.32,
+        "text": "같은 사람이ств에 왔는데",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2034.72,
+        "end": 2037.2,
+        "text": "바람 Ferguson 정 York 정rad도",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2037.2,
+        "end": 2038.56,
+        "text": "일자가 생기는 Cyrus 이짜라고",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2039.82,
+        "end": 2042.6,
+        "text": "이게 create a new level",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2042.78,
+        "end": 2046.9,
+        "text": "감겨서 한 Aku 2스트",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2047.8600000000001,
+        "end": 2050.84,
+        "text": "여험을get를 사면",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2055.84,
+        "end": 2057.48,
+        "text": "Tails",
+        "confidence": -5.678434714292869
+      },
+      {
+        "start": 2057.48,
+        "end": 2061.06,
+        "text": "청담 strong.",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2061.08,
+        "end": 2065.7,
+        "text": "창담 타이틀 endurance 하는 terrain 노�nio",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2065.7,
+        "end": 2066.46,
+        "text": "최희씨는�이 묻혀져es다는 게",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2066.46,
+        "end": 2070.84,
+        "text": "굉장히�결인느낌 Back Band SCOTT",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2070.84,
+        "end": 2073.56,
+        "text": "학생 Augiefs 이브를",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2073.56,
+        "end": 2076.66,
+        "text": "등등적인 박 sor은",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2076.66,
+        "end": 2079.04,
+        "text": "아무도blem",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2079.04,
+        "end": 2081.74,
+        "text": "몾 headed into a 47'",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2081.74,
+        "end": 2082.44,
+        "text": "tent",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2082.44,
+        "end": 2085.58,
+        "text": "지켜�資험",
+        "confidence": -5.403390502929687
+      },
+      {
+        "start": 2085.58,
+        "end": 2089.12,
+        "text": "주� będą 그 형들은",
+        "confidence": -5.535847255161831
+      },
+      {
+        "start": 2089.12,
+        "end": 2103.96,
+        "text": "Dragonshaving",
+        "confidence": -5.535847255161831
+      },
+      {
+        "start": 2100.0,
+        "end": 2105.46,
+        "text": "illion multitude believes es multiplicity가 있는 merits with respect to an intent that is passing through",
+        "confidence": -5.7125244140625
+      },
+      {
+        "start": 2105.46,
+        "end": 2124.46,
+        "text": "Quantum meeting.",
+        "confidence": -5.7125244140625
+      },
+      {
+        "start": 2124.46,
+        "end": 2134.78,
+        "text": "및도착 muitos",
+        "confidence": -5.520553990414268
+      },
+      {
+        "start": 2135.9,
+        "end": 2141.52,
+        "text": "실제 준비 중idden contra오마",
+        "confidence": -5.520553990414268
+      },
+      {
+        "start": 2141.52,
+        "end": 2148.12,
+        "text": "Natomiast 시청자께서 밥실상을jets 하시는 depending",
+        "confidence": -5.763151342218572
+      },
+      {
+        "start": 2148.12,
+        "end": 2171.18,
+        "text": "인생을 incurłada",
+        "confidence": -5.763151342218572
+      },
+      {
+        "start": 2171.18,
+        "end": 2192.12,
+        "text": "역할 정도가 그러면 또 금방 드라리 mogelijk 보면",
+        "confidence": -4.520876990424262
+      },
+      {
+        "start": 2192.12,
+        "end": 2221.78,
+        "text": "이미 알고 believe that",
+        "confidence": -4.020135402679443
+      },
+      {
+        "start": 2221.78,
+        "end": 2229.46,
+        "text": "근데 even at an startup level, there are companies that you can work with to take on those initiatives.",
+        "confidence": -0.5831010107900582
+      },
+      {
+        "start": 2229.46,
+        "end": 2232.46,
+        "text": "So, this is certainly...",
+        "confidence": -0.5831010107900582
+      },
+      {
+        "start": 2232.46,
+        "end": 2237.68,
+        "text": "yeah, there's possibility as well. I've been trying really hard to kind of do that.",
+        "confidence": -0.5831010107900582
+      },
+      {
+        "start": 2237.68,
+        "end": 2243.68,
+        "text": "And so that's more traceable. So that you do know that it's not like dying in there.",
+        "confidence": -0.5831010107900582
+      },
+      {
+        "start": 2243.68,
+        "end": 2245.08,
+        "text": "You do know that it's...",
+        "confidence": -0.5831010107900582
+      },
+      {
+        "start": 2245.08,
+        "end": 2247.28,
+        "text": "Yeah, and the child they were and things like that.",
+        "confidence": -0.5831010107900582
+      },
+      {
+        "start": 2247.28,
+        "end": 2252.78,
+        "text": "So, it's important, I think, and as you can see, the big companies are taking their own thing.",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2252.78,
+        "end": 2253.48,
+        "text": "This...",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2253.48,
+        "end": 2255.98,
+        "text": "To make it more sustainable.",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2255.98,
+        "end": 2260.28,
+        "text": "So, more and more solutions will come, I believe.",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2260.28,
+        "end": 2261.78,
+        "text": "And...",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2261.78,
+        "end": 2263.28,
+        "text": "Okay.",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2263.28,
+        "end": 2264.28,
+        "text": "Thank you.",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2264.28,
+        "end": 2266.28,
+        "text": "Can't believe?",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2266.28,
+        "end": 2268.28,
+        "text": "I just think...",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2268.28,
+        "end": 2270.28,
+        "text": "Even had...",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2270.28,
+        "end": 2275.28,
+        "text": "Well, of course, potato you are more in-pat is supposed to be...",
+        "confidence": -0.6263704022157539
+      },
+      {
+        "start": 2275.28,
+        "end": 2283.28,
+        "text": "But it doesn't mean that being small, you don't have your impact on my company and myself is a lot of example.",
+        "confidence": -0.40861097063337054
+      },
+      {
+        "start": 2283.28,
+        "end": 2284.28,
+        "text": "That we are...",
+        "confidence": -0.40861097063337054
+      },
+      {
+        "start": 2284.28,
+        "end": 2286.28,
+        "text": "We are in a positive change.",
+        "confidence": -0.40861097063337054
+      },
+      {
+        "start": 2286.28,
+        "end": 2293.28,
+        "text": "And it takes time because as you can see, even though it's my workshop, always the sharing session,",
+        "confidence": -0.40861097063337054
+      },
+      {
+        "start": 2293.28,
+        "end": 2295.28,
+        "text": "it is like...",
+        "confidence": -0.40861097063337054
+      },
+      {
+        "start": 2295.28,
+        "end": 2299.28,
+        "text": "I cannot entertain like 1,000,000 people.",
+        "confidence": -0.40861097063337054
+      },
+      {
+        "start": 2299.28,
+        "end": 2304.28,
+        "text": "But every time every piece of feeler, every person that I encounter...",
+        "confidence": -0.40861097063337054
+      },
+      {
+        "start": 2304.28,
+        "end": 2306.28,
+        "text": "I square this message.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2306.28,
+        "end": 2309.28,
+        "text": "And this message on the scene.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2309.28,
+        "end": 2314.28,
+        "text": "And I think it's take all beyond just the general in the share.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2314.28,
+        "end": 2317.28,
+        "text": "Of course, I mean the druid in the share.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2317.28,
+        "end": 2319.28,
+        "text": "Of course, what is not clear.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2319.28,
+        "end": 2322.28,
+        "text": "And eventually this message will go beyond that.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2322.28,
+        "end": 2325.28,
+        "text": "And I do find that the impact doesn't...",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2325.28,
+        "end": 2327.28,
+        "text": "It doesn't have to be...",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2327.28,
+        "end": 2330.28,
+        "text": "I mean, we just have to be big to give impact.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2330.28,
+        "end": 2333.28,
+        "text": "Any one can do something.",
+        "confidence": -0.33823702628152413
+      },
+      {
+        "start": 2334.28,
+        "end": 2335.28,
+        "text": "Thank you.",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2335.28,
+        "end": 2340.28,
+        "text": "Now before we open the floor, who questions, I would like to ask Henry, who is one question.",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2340.28,
+        "end": 2342.28,
+        "text": "You are second generation jeweler, right?",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2342.28,
+        "end": 2345.28,
+        "text": "Because your father was a bold spirit in all of those.",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2345.28,
+        "end": 2348.28,
+        "text": "And then you became an entrepreneur, you're spoken three companies.",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2348.28,
+        "end": 2351.28,
+        "text": "He started a difference between...",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2351.28,
+        "end": 2355.28,
+        "text": "You're that generation and your generation.",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2355.28,
+        "end": 2359.2799999999997,
+        "text": "What are the new things that you are bringing to the table?",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2359.2799999999997,
+        "end": 2362.2799999999997,
+        "text": "We're within the context of sustainability.",
+        "confidence": -0.40037800972921805
+      },
+      {
+        "start": 2362.2799999999997,
+        "end": 2363.2799999999997,
+        "text": "Sure.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2363.2799999999997,
+        "end": 2366.2799999999997,
+        "text": "Yeah, like definitely very different.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2366.2799999999997,
+        "end": 2371.2799999999997,
+        "text": "I guess back in the day, there was a lot of handmade woods.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2371.2799999999997,
+        "end": 2375.2799999999997,
+        "text": "My dad's side and his across, and he's got into retail and things.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2375.2799999999997,
+        "end": 2379.2799999999997,
+        "text": "Jewelry is generally a family past-down business.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2379.2799999999997,
+        "end": 2383.2799999999997,
+        "text": "It's expensive to be in Jewelry to be in fine jewelry.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2383.2799999999997,
+        "end": 2387.2799999999997,
+        "text": "So it's tends to be quite traditional setups.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2387.2799999999997,
+        "end": 2391.2799999999997,
+        "text": "And innovation seems to come a little bit slower.",
+        "confidence": -0.38333059240270545
+      },
+      {
+        "start": 2391.2799999999997,
+        "end": 2396.2799999999997,
+        "text": "Because of this, your younger generation is not waking up and saying,",
+        "confidence": -0.24255919456481934
+      },
+      {
+        "start": 2396.2799999999997,
+        "end": 2399.2799999999997,
+        "text": "Oh, let's go create a fine jewelry graph.",
+        "confidence": -0.24255919456481934
+      },
+      {
+        "start": 2399.2799999999997,
+        "end": 2400.2799999999997,
+        "text": "Because it's...",
+        "confidence": -0.24255919456481934
+      },
+      {
+        "start": 2400.0,
+        "end": 2403.0,
+        "text": "viral parl Legal가?...",
+        "confidence": -6.238600413004558
+      },
+      {
+        "start": 2404.2,
+        "end": 2406.36,
+        "text": "aleimos가 labeledite",
+        "confidence": -6.238600413004558
+      },
+      {
+        "start": 2406.72,
+        "end": 2409.24,
+        "text": "Concusion",
+        "confidence": -6.238600413004558
+      },
+      {
+        "start": 2409.24,
+        "end": 2411.42,
+        "text": "그건 Nope",
+        "confidence": -6.238600413004558
+      },
+      {
+        "start": 2413.82,
+        "end": 2415.82,
+        "text": "Such 미션",
+        "confidence": -6.238600413004558
+      },
+      {
+        "start": 2417.02,
+        "end": 2420.82,
+        "text": "저은 Vince 부탁드립니다",
+        "confidence": -6.238600413004558
+      },
+      {
+        "start": 2421.5,
+        "end": 2423.06,
+        "text": "저의 set 점과 찍는 과정을",
+        "confidence": -6.238600413004558
+      },
+      {
+        "start": 2453.06,
+        "end": 2456.98,
+        "text": "당연히 Lucky제",
+        "confidence": -5.05232184273856
+      },
+      {
+        "start": 2483.32,
+        "end": 2489.16,
+        "text": "정의한 주word에서 인공적 가능한 편이 있었구나",
+        "confidence": -5.331691395152699
+      },
+      {
+        "start": 2489.66,
+        "end": 2512.58,
+        "text": "무대를",
+        "confidence": -5.331691395152699
+      },
+      {
+        "start": 2513.06,
+        "end": 2515.84,
+        "text": "사람들도 안 하고 onder가심을 했죠.",
+        "confidence": -5.298296311322381
+      },
+      {
+        "start": 2515.84,
+        "end": 2517.3,
+        "text": "38 Fortunately, 인식이 되게 고향하네요.",
+        "confidence": -5.298296311322381
+      },
+      {
+        "start": 2517.3,
+        "end": 2531.82,
+        "text": "다들 다قول는",
+        "confidence": -5.298296311322381
+      },
+      {
+        "start": 2531.82,
+        "end": 2533.38,
+        "text": "똑같은 채 WILLIAM,",
+        "confidence": -5.298296311322381
+      },
+      {
+        "start": 2533.48,
+        "end": 2537.74,
+        "text": "happilyopus와 비위가 잘umental 씨와 밝힐 것들이",
+        "confidence": -5.298296311322381
+      },
+      {
+        "start": 2537.74,
+        "end": 2540.62,
+        "text": "còn 조금 nessa Kook기점에서",
+        "confidence": -5.298296311322381
+      },
+      {
+        "start": 2540.62,
+        "end": 2545.04,
+        "text": "엄청 hatchperson을 많이 설명해고",
+        "confidence": -4.831544033316678
+      },
+      {
+        "start": 2545.04,
+        "end": 2546.86,
+        "text": "우리 채널 발�isionrichten",
+        "confidence": -4.831544033316678
+      },
+      {
+        "start": 2546.86,
+        "end": 2548.72,
+        "text": "근데 그냥 보면",
+        "confidence": -4.831544033316678
+      },
+      {
+        "start": 2548.72,
+        "end": 2550.24,
+        "text": "뭔가 봤어요",
+        "confidence": -4.831544033316678
+      },
+      {
+        "start": 2550.24,
+        "end": 2552.6,
+        "text": "제가 지지 stretching",
+        "confidence": -4.831544033316678
+      },
+      {
+        "start": 2552.6,
+        "end": 2568.88,
+        "text": "전 Whole 방에",
+        "confidence": -4.831544033316678
+      },
+      {
+        "start": 2568.88,
+        "end": 2581.0,
+        "text": "제�conom은ấu�zel denyacy가",
+        "confidence": -6.204359897347384
+      },
+      {
+        "start": 2581.0,
+        "end": 2587.26,
+        "text": "우린 우리가 장면을 잘 하 wiem",
+        "confidence": -6.204359897347384
+      },
+      {
+        "start": 2587.26,
+        "end": 2590.14,
+        "text": "하지만 WHAT SUSP DAN Catko는",
+        "confidence": -6.204359897347384
+      },
+      {
+        "start": 2590.14,
+        "end": 2597.08,
+        "text": "itäten과 lettingidade할 수の",
+        "confidence": -6.204359897347384
+      },
+      {
+        "start": 2597.08,
+        "end": 2615.04,
+        "text": "자기yse 같은 느낌으로",
+        "confidence": -4.755321502685547
+      },
+      {
+        "start": 2615.04,
+        "end": 2621.22,
+        "text": "решил 슬슬 당신부터antas 진wic을 이렇게 드렸어요",
+        "confidence": -5.2618891018540115
+      },
+      {
+        "start": 2621.22,
+        "end": 2627.6,
+        "text": "PP2 유명한 팀에게 모인 스타버 λ이라고 Dieses domains",
+        "confidence": -5.2618891018540115
+      },
+      {
+        "start": 2627.6,
+        "end": 2631.22,
+        "text": "이게 접근을 하고",
+        "confidence": -5.2618891018540115
+      },
+      {
+        "start": 2631.88,
+        "end": 2633.66,
+        "text": "뭐가 붙来了?",
+        "confidence": -5.2618891018540115
+      },
+      {
+        "start": 2633.66,
+        "end": 2635.92,
+        "text": "제가 Luigi의 공격,...",
+        "confidence": -5.2618891018540115
+      },
+      {
+        "start": 2636.18,
+        "end": 2642.4,
+        "text": "아직us 이 것들을",
+        "confidence": -5.2618891018540115
+      },
+      {
+        "start": 2642.4,
+        "end": 2647.68,
+        "text": "쫙 매달 minority의 기회가 없는quer여",
+        "confidence": -4.6548318045479915
+      },
+      {
+        "start": 2647.68,
+        "end": 2662.32,
+        "text": "국사로 한 번씩 내려오고",
+        "confidence": -4.6548318045479915
+      },
+      {
+        "start": 2662.32,
+        "end": 2670.2,
+        "text": "정말 생각이 불하시면서",
+        "confidence": -4.6548318045479915
+      },
+      {
+        "start": 2670.2,
+        "end": 2677.16,
+        "text": "뒤로 depending Parker의 밀착으로",
+        "confidence": -5.661982022798979
+      },
+      {
+        "start": 2677.8,
+        "end": 2683.42,
+        "text": "« 멈추고 계십시오. significa LGBTQ2 FabYNANG입니다.)",
+        "confidence": -5.661982022798979
+      },
+      {
+        "start": 2684.22,
+        "end": 2691.22,
+        "text": "이� Rolle의 Tweery Capon",
+        "confidence": -5.661982022798979
+      },
+      {
+        "start": 2691.4,
+        "end": 2698.82,
+        "text": "여러분, 지금 내éré 650임장에",
+        "confidence": -5.661982022798979
+      },
+      {
+        "start": 2698.82,
+        "end": 2699.86,
+        "text": "코가 말이한데..\"",
+        "confidence": -5.578506946563721
+      },
+      {
+        "start": 2700.0,
+        "end": 2701.42,
+        "text": "상 そう 달iston 효과적인",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2701.42,
+        "end": 2703.24,
+        "text": "Corey 조작적인",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2703.24,
+        "end": 2704.58,
+        "text": "다른 수� unle담이 떨어졌습니다",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2704.58,
+        "end": 2706.6,
+        "text": "various evil future",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2706.6,
+        "end": 2708.62,
+        "text": "Miller",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2708.62,
+        "end": 2710.24,
+        "text": "생애에게 만�bere principe",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2710.24,
+        "end": 2712.36,
+        "text": "моз금",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2712.36,
+        "end": 2714.32,
+        "text": "어렵 ELS",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2714.32,
+        "end": 2724.44,
+        "text": "Прolith",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2724.44,
+        "end": 2726.4,
+        "text": "оВер �iant",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2726.4,
+        "end": 2728.36,
+        "text": "있고",
+        "confidence": -5.800309152314157
+      },
+      {
+        "start": 2728.36,
+        "end": 2733.58,
+        "text": "전에 당시에 부담을 십�ogy Profis,",
+        "confidence": -5.682780715654481
+      },
+      {
+        "start": 2734.8,
+        "end": 2738.2,
+        "text": "하는데aringestyle coolingipper 좋으신 것은 normal.",
+        "confidence": -5.682780715654481
+      },
+      {
+        "start": 2738.86,
+        "end": 2740.22,
+        "text": "위 senin 갈라고 있어요.",
+        "confidence": -5.682780715654481
+      },
+      {
+        "start": 2741.14,
+        "end": 2752.38,
+        "text": "ceuxyson 멤버가 저녁시는미의",
+        "confidence": -5.682780715654481
+      },
+      {
+        "start": 2752.38,
+        "end": 2756.36,
+        "text": "서울의 디랩이 되어들ayan 영장에서 보이�formation,",
+        "confidence": -5.962258911132812
+      },
+      {
+        "start": 2756.36,
+        "end": 2758.92,
+        "text": "언시�hard들의 MarketMapping thank you.",
+        "confidence": -5.962258911132812
+      },
+      {
+        "start": 2758.92,
+        "end": 2762.0,
+        "text": "billion명을וך 괜찮게 measure Jeremy Town.",
+        "confidence": -5.962258911132812
+      },
+      {
+        "start": 2762.0,
+        "end": 2764.96,
+        "text": "쟤럭uing 인해 InnenЙ화 스토리 시계 erfolgreich은",
+        "confidence": -5.962258911132812
+      },
+      {
+        "start": 2764.96,
+        "end": 2768.38,
+        "text": "1명이 Marine 이제il ignite our deal entrepreneurial",
+        "confidence": -5.962258911132812
+      },
+      {
+        "start": 2768.38,
+        "end": 2774.12,
+        "text": "sage과 tener 착스트 Vision원으로",
+        "confidence": -5.962258911132812
+      },
+      {
+        "start": 2774.12,
+        "end": 2779.18,
+        "text": "Strategy 특ucker에 개�OOM 하였기에",
+        "confidence": -5.962258911132812
+      },
+      {
+        "start": 2779.18,
+        "end": 2784.5,
+        "text": "잔션은 좀 많이 요청했던 음악에 알아� authentic한다고",
+        "confidence": -6.510982513427734
+      },
+      {
+        "start": 2784.5,
+        "end": 2789.74,
+        "text": "by smellry",
+        "confidence": -6.510982513427734
+      },
+      {
+        "start": 2789.76,
+        "end": 2797.14,
+        "text": "그 영상을 магазbeat하는데",
+        "confidence": -6.510982513427734
+      },
+      {
+        "start": 2799.16,
+        "end": 2806.7,
+        "text": "그건 realmente decisruct OS relativ",
+        "confidence": -6.510982513427734
+      },
+      {
+        "start": 2806.7,
+        "end": 2810.06,
+        "text": "그거 많은데 어떻게 알지 않았나요?",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2810.1,
+        "end": 2811.96,
+        "text": "뭐에요?",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2811.96,
+        "end": 2814.16,
+        "text": "저는 인터뷰에는 Whale Sation ㅇ",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2814.32,
+        "end": 2817.4,
+        "text": "또 그대로 더 오래chten 있어요",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2817.4,
+        "end": 2821.58,
+        "text": "그래서 먹기üss을 mont accommodate Tenod 하UNKNOWN",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2822.24,
+        "end": 2825.4,
+        "text": "potentialco는 친절했지만",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2825.66,
+        "end": 2826.58,
+        "text": "여기가warz현된다고 했고",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2826.6,
+        "end": 2829.12,
+        "text": "이것은anz Talentaval",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2829.52,
+        "end": 2831.32,
+        "text": "Hope if you enjoy this,",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2831.38,
+        "end": 2832.76,
+        "text": "Peace-",
+        "confidence": -5.161272176106771
+      },
+      {
+        "start": 2836.7,
+        "end": 2842.08,
+        "text": "smartphone입니다.",
+        "confidence": -4.932450836780024
+      },
+      {
+        "start": 2842.08,
+        "end": 2848.08,
+        "text": "talked이브 레 emulate전 일程에요.",
+        "confidence": -4.932450836780024
+      },
+      {
+        "start": 2848.08,
+        "end": 2855.84,
+        "text": "위로 남은 뜻 важ essas",
+        "confidence": -4.932450836780024
+      },
+      {
+        "start": 2855.84,
+        "end": 2862.04,
+        "text": "개리 플리색이예요.",
+        "confidence": -4.932450836780024
+      },
+      {
+        "start": 2862.04,
+        "end": 2864.2,
+        "text": "ari sont 스토눈동상",
+        "confidence": -4.932450836780024
+      },
+      {
+        "start": 2864.2,
+        "end": 2881.32,
+        "text": "에 whack",
+        "confidence": -4.619747479756673
+      },
+      {
+        "start": 2881.32,
+        "end": 2889.32,
+        "text": "가장 important in the organization to help us bring forward our plan like this.",
+        "confidence": -0.8257097445036236
+      },
+      {
+        "start": 2889.32,
+        "end": 2896.32,
+        "text": "And talk about what we actually do with what we talk about,",
+        "confidence": -0.8257097445036236
+      },
+      {
+        "start": 2896.32,
+        "end": 2901.32,
+        "text": "from talk about we engage all of the partners who had some leadership team.",
+        "confidence": -0.8257097445036236
+      },
+      {
+        "start": 2901.32,
+        "end": 2910.32,
+        "text": "We have our push-day existing opportunity management activity at the executive level to provide oversight of our system of media actions",
+        "confidence": -0.8257097445036236
+      },
+      {
+        "start": 2910.32,
+        "end": 2915.32,
+        "text": "at involved all the different business related to the partners and the developed.",
+        "confidence": -0.45613484568410106
+      },
+      {
+        "start": 2915.32,
+        "end": 2921.32,
+        "text": "We also set up task forces reach out which will focus on the search and focus area.",
+        "confidence": -0.45613484568410106
+      },
+      {
+        "start": 2921.32,
+        "end": 2927.32,
+        "text": "And these task forces comprise members, again, across the organization.",
+        "confidence": -0.45613484568410106
+      },
+      {
+        "start": 2927.32,
+        "end": 2939.32,
+        "text": "On, for example, on the stakeholder alone, we engage people from protections from sourcing to protection.",
+        "confidence": -0.45613484568410106
+      },
+      {
+        "start": 2939.32,
+        "end": 2943.32,
+        "text": "We put that share and description and the right thing.",
+        "confidence": -0.8381408922600023
+      },
+      {
+        "start": 2943.32,
+        "end": 2947.32,
+        "text": "Everyone worked together to improve our society.",
+        "confidence": -0.8381408922600023
+      },
+      {
+        "start": 2947.32,
+        "end": 2951.32,
+        "text": "Along to people and family.",
+        "confidence": -0.8381408922600023
+      },
+      {
+        "start": 2951.32,
+        "end": 2965.32,
+        "text": "Ultimately, we actually engage in a lot of internal engagement to help our employees understand and become aware of what system and pity means to everyone.",
+        "confidence": -0.34656292683369405
+      },
+      {
+        "start": 2965.32,
+        "end": 2971.32,
+        "text": "And why do we as a company wanted to do with what's in it for them.",
+        "confidence": -0.34656292683369405
+      },
+      {
+        "start": 2971.32,
+        "end": 2977.32,
+        "text": "We want to be able to ensure that they understand and get an environment to what we are doing.",
+        "confidence": -0.34656292683369405
+      },
+      {
+        "start": 2977.32,
+        "end": 2983.32,
+        "text": "And ultimately internalizing that system ability into everything that we do.",
+        "confidence": -0.6106994824531751
+      },
+      {
+        "start": 2983.32,
+        "end": 2993.32,
+        "text": "And we would invite experts to come share knowledge with us and we have ongoing communications of all of you.",
+        "confidence": -0.6106994824531751
+      },
+      {
+        "start": 2993.32,
+        "end": 2996.32,
+        "text": "Do, we need to be able to do this in the future.",
+        "confidence": -0.6106994824531751
+      },
+      {
+        "start": 2996.32,
+        "end": 2998.32,
+        "text": "We are keeping the informed of our work.",
+        "confidence": -0.6106994824531751
+      },
+      {
+        "start": 2998.32,
+        "end": 3000.32,
+        "text": "So we wanted to be able to do this.",
+        "confidence": -0.6106994824531751
+      },
+      {
+        "start": 3000.0,
+        "end": 3005.58,
+        "text": "한국uppay votes meer â제уз으로organization일 drain",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3005.6,
+        "end": 3007.38,
+        "text": "multic어�upa는 국기 Distance",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3007.4,
+        "end": 3009.74,
+        "text": "ใหó이 키우기iędzy 앙터리โ contacting",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3009.78,
+        "end": 3011.28,
+        "text": "테라 2014 discrimination",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3011.28,
+        "end": 3013.82,
+        "text": "다양한 � Rodriguez 예를 들어서",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3013.84,
+        "end": 3014.94,
+        "text": "몇 Mohday 그래서",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3014.94,
+        "end": 3015.34,
+        "text": "really needed to major",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3015.36,
+        "end": 3017.74,
+        "text": "곧 Prom각",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3017.78,
+        "end": 3020.78,
+        "text": "저는 중국 records에 우와",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3020.82,
+        "end": 3026.64,
+        "text": "전 foam 등판을",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3026.66,
+        "end": 3029.26,
+        "text": "저희가 여기를 반호할 Following",
+        "confidence": -6.07504638671875
+      },
+      {
+        "start": 3029.26,
+        "end": 3031.14,
+        "text": "�들 중입니다.",
+        "confidence": -4.082824162074497
+      },
+      {
+        "start": 3031.14,
+        "end": 3053.12,
+        "text": "그런데 아직도",
+        "confidence": -4.082824162074497
+      },
+      {
+        "start": 3053.12,
+        "end": 3057.02,
+        "text": "그런 상황에 따라 격� нами한 역시",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3057.02,
+        "end": 3059.56,
+        "text": "lighting가진짜onde",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3059.56,
+        "end": 3062.8,
+        "text": "chatters crowds를 같이buzzer�鹿을 NATO를",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3062.8,
+        "end": 3069.28,
+        "text": "예상가 write &idge",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3069.28,
+        "end": 3072.12,
+        "text": "표�부터 냣가면",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3072.12,
+        "end": 3077.12,
+        "text": "나도 네",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3077.12,
+        "end": 3079.98,
+        "text": "응friends",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3079.98,
+        "end": 3082.72,
+        "text": "전재미들",
+        "confidence": -5.405562008128447
+      },
+      {
+        "start": 3082.72,
+        "end": 3087.28,
+        "text": "generally 이들이 여ального 편집도 되었던 것 같아요,",
+        "confidence": -6.026065826416016
+      },
+      {
+        "start": 3087.36,
+        "end": 3090.7,
+        "text": "alkali과 spray를 사원로우면",
+        "confidence": -6.026065826416016
+      },
+      {
+        "start": 3090.7,
+        "end": 3091.46,
+        "text": "a Perhaps야,",
+        "confidence": -6.026065826416016
+      },
+      {
+        "start": 3091.46,
+        "end": 3096.04,
+        "text": "마 Cou batch이 Insert도 공개되기 into행",
+        "confidence": -6.026065826416016
+      },
+      {
+        "start": 3096.06,
+        "end": 3099.54,
+        "text": "η도 Me collect Great Bryan",
+        "confidence": -6.026065826416016
+      },
+      {
+        "start": 3099.56,
+        "end": 3101.88,
+        "text": "위 OLED & power built toE 오늘은",
+        "confidence": -6.026065826416016
+      },
+      {
+        "start": 3101.88,
+        "end": 3107.92,
+        "text": "E 100kg",
+        "confidence": -6.026065826416016
+      },
+      {
+        "start": 3107.92,
+        "end": 3110.52,
+        "text": "sabemos hipp视life",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3110.6,
+        "end": 3113.3,
+        "text": "제 데도 이야기",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3113.3,
+        "end": 3115.12,
+        "text": "잘 들렸 orph子",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3115.12,
+        "end": 3116.76,
+        "text": "이런 집",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3116.76,
+        "end": 3117.74,
+        "text": "이렇게 이상해",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3117.74,
+        "end": 3120.2,
+        "text": "나오는 hora",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3120.2,
+        "end": 3124.28,
+        "text": "어떻게 일visible",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3124.28,
+        "end": 3124.44,
+        "text": "고 Roz",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3124.88,
+        "end": 3126.08,
+        "text": "infection",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3126.48,
+        "end": 3129.84,
+        "text": "World",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3130.16,
+        "end": 3133.68,
+        "text": "omg",
+        "confidence": -5.824396097435142
+      },
+      {
+        "start": 3133.68,
+        "end": 3136.44,
+        "text": "이런 recreation",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3136.94,
+        "end": 3139.68,
+        "text": "너 나쁘지 York",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3139.84,
+        "end": 3142.7,
+        "text": "아까 제가 abandon nuevas zawrag",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3143.5,
+        "end": 3147.52,
+        "text": "다음으로 저의 건가우 조정",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3148.42,
+        "end": 3151.88,
+        "text": "저는 도착시 이래",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3152.58,
+        "end": 3156.98,
+        "text": "그리고 그 선배님에게selloud pro bland입니다",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3157.22,
+        "end": 3157.8,
+        "text": "발동czas 오�igor결아 곳 단ственный",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3158.26,
+        "end": 3159.84,
+        "text": "пос태",
+        "confidence": -6.293585833381204
+      },
+      {
+        "start": 3159.84,
+        "end": 3175.82,
+        "text": "그래서 그러다 오ятно 대외� Northeast",
+        "confidence": -5.041674194335937
+      },
+      {
+        "start": 3175.82,
+        "end": 3179.36,
+        "text": "조금 사 worden적으로 살았네요",
+        "confidence": -5.041674194335937
+      },
+      {
+        "start": 3179.36,
+        "end": 3185.06,
+        "text": "아 전남 공항을 가지고 오학료 Made from 여기는",
+        "confidence": -5.041674194335937
+      },
+      {
+        "start": 3185.06,
+        "end": 3189.44,
+        "text": "불붕을 남는場에서",
+        "confidence": -5.041674194335937
+      },
+      {
+        "start": 3189.44,
+        "end": 3211.6,
+        "text": "Also, 얘가 곳 좋아하는 괴로운",
+        "confidence": -4.580456733703613
+      },
+      {
+        "start": 3211.6,
+        "end": 3214.44,
+        "text": "귀신이 누굴지 않아",
+        "confidence": -4.580456733703613
+      },
+      {
+        "start": 3214.44,
+        "end": 3215.42,
+        "text": "무슨icion?",
+        "confidence": -4.580456733703613
+      },
+      {
+        "start": 3215.42,
+        "end": 3217.44,
+        "text": "chen",
+        "confidence": -4.580456733703613
+      },
+      {
+        "start": 3217.44,
+        "end": 3247.38,
+        "text": "수근을 이벤트하고 envision ai",
+        "confidence": -4.492033444918119
+      },
+      {
+        "start": 3247.38,
+        "end": 3248.46,
+        "text": "네.",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3248.46,
+        "end": 3251.82,
+        "text": "안녕하세요?",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3251.82,
+        "end": 3253.12,
+        "text": "네 trials",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3253.12,
+        "end": 3257.12,
+        "text": "그리고 Inside sinner",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3257.12,
+        "end": 3259.26,
+        "text": "네 목으로 해도 beside",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3259.82,
+        "end": 3264.7799999999997,
+        "text": "그리고 그리고",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3264.7799999999997,
+        "end": 3267.94,
+        "text": "있습니다",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3267.94,
+        "end": 3268.1,
+        "text": "여러분",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3268.1,
+        "end": 3268.26,
+        "text": "Regarding",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3268.26,
+        "end": 3268.34,
+        "text": "네",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3268.34,
+        "end": 3269.44,
+        "text": "아니",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3269.44,
+        "end": 3270.74,
+        "text": "네",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3270.74,
+        "end": 3271.54,
+        "text": "하면",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3271.54,
+        "end": 3272.44,
+        "text": "네",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3272.88,
+        "end": 3273.7799999999997,
+        "text": "orp",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3273.82,
+        "end": 3275.24,
+        "text": "반",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3275.24,
+        "end": 3276.22,
+        "text": "똑같",
+        "confidence": -4.558019244481647
+      },
+      {
+        "start": 3276.2200000000003,
+        "end": 3281.04,
+        "text": "저는 인천에서 규모 오� marine",
+        "confidence": -5.1084434379965575
+      },
+      {
+        "start": 3281.04,
+        "end": 3283.8,
+        "text": "방식도 입속됩니다",
+        "confidence": -5.1084434379965575
+      },
+      {
+        "start": 3283.8,
+        "end": 3287.56,
+        "text": "사람마다 더 », 사람들은Regç니enz",
+        "confidence": -5.1084434379965575
+      },
+      {
+        "start": 3287.56,
+        "end": 3289.16,
+        "text": "저희가 lathe 좋은 명셋600만 sequencing",
+        "confidence": -5.1084434379965575
+      },
+      {
+        "start": 3289.16,
+        "end": 3298.6,
+        "text": "다음 헷에 제갈비 시 nervous는",
+        "confidence": -5.1084434379965575
+      },
+      {
+        "start": 3298.6,
+        "end": 3300.32,
+        "text": "itu 말하지 않았을까",
+        "confidence": -3.5825797186957464
+      },
+      {
+        "start": 3300.0,
+        "end": 3306.72,
+        "text": "왜냐하면, tablets 들리는 이거 Development란입니다.",
+        "confidence": -5.326412912142479
+      },
+      {
+        "start": 3306.72,
+        "end": 3314.66,
+        "text": "그 상자 hasht RS의 preheated Sort호 문화의 보집을 Forage,",
+        "confidence": -5.326412912142479
+      },
+      {
+        "start": 3314.66,
+        "end": 3326.48,
+        "text": "그 하과를 어떻게 updbare 플로�zug�sey 사49이 있었는데요.",
+        "confidence": -5.326412912142479
+      },
+      {
+        "start": 3356.48,
+        "end": 3359.88,
+        "text": "itated in a movie with a secret",
+        "confidence": -5.170609725149054
+      },
+      {
+        "start": 3359.88,
+        "end": 3361.62,
+        "text": "in the park",
+        "confidence": -5.170609725149054
+      },
+      {
+        "start": 3361.62,
+        "end": 3365.78,
+        "text": "detmer 자막의",
+        "confidence": -5.170609725149054
+      },
+      {
+        "start": 3365.78,
+        "end": 3368.92,
+        "text": "M aud angled",
+        "confidence": -5.170609725149054
+      },
+      {
+        "start": 3368.92,
+        "end": 3372.74,
+        "text": "인생이あります",
+        "confidence": -5.170609725149054
+      },
+      {
+        "start": 3373.4,
+        "end": 3374.7,
+        "text": "пок사",
+        "confidence": -5.170609725149054
+      },
+      {
+        "start": 3374.7,
+        "end": 3377.88,
+        "text": "Cau magist 어묵 heat��",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3377.88,
+        "end": 3383.14,
+        "text": "저 분한테 말하는 모습은",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3383.14,
+        "end": 3385.3,
+        "text": "분ẫn 다 또는",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3385.3,
+        "end": 3387.64,
+        "text": "원 Employera",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3387.64,
+        "end": 3387.88,
+        "text": "같이 집 들어가는",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3388.02,
+        "end": 3389.48,
+        "text": "네",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3389.48,
+        "end": 3390.32,
+        "text": "기SI",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3390.32,
+        "end": 3392.98,
+        "text": "bod",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3392.98,
+        "end": 3395.04,
+        "text": "제 wegen",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3395.04,
+        "end": 3396.52,
+        "text": "홈",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3396.52,
+        "end": 3398.36,
+        "text": "부",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3398.36,
+        "end": 3399.26,
+        "text": "Nat",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3399.26,
+        "end": 3401.8,
+        "text": "산",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3401.8,
+        "end": 3403.24,
+        "text": "18",
+        "confidence": -5.283581901999081
+      },
+      {
+        "start": 3403.24,
+        "end": 3406.86,
+        "text": "맞아요 agencies 마지만 저는 학교에 대기할 때",
+        "confidence": -4.958515265049079
+      },
+      {
+        "start": 3406.86,
+        "end": 3407.4,
+        "text": "аждational approval에 대한 얼굴을",
+        "confidence": -4.958515265049079
+      },
+      {
+        "start": 3407.4,
+        "end": 3409.26,
+        "text": "Incor선한다면",
+        "confidence": -4.958515265049079
+      },
+      {
+        "start": 3409.26,
+        "end": 3426.46,
+        "text": "다 속 못 MeanTrue",
+        "confidence": -4.958515265049079
+      },
+      {
+        "start": 3426.46,
+        "end": 3428.56,
+        "text": "이번 어떤",
+        "confidence": -3.745961825052897
+      }
+    ],
+    "total_duration": 3427.7,
+    "processing_time": 1366.4131021499634,
+    "chunks_processed": 12,
+    "processing_method": "chunk_based",
+    "chunk_duration": 300,
+    "status": "success"
+  },
+  "content_analysis": {
+    "content_summary": {
+      "total_text_length": 18585,
+      "total_words": 3300,
+      "total_segments": 765,
+      "estimated_speakers": 5,
+      "audio_duration_minutes": 57.12833333333333
+    },
+    "keyword_analysis": {
+      "sustainability": {
+        "total_mentions": 13,
+        "found_keywords": {
+          "sustainable": 7,
+          "sustainability": 6
+        },
+        "relevance_score": 3.9393939393939394
+      },
+      "jewelry": {
+        "total_mentions": 15,
+        "found_keywords": {
+          "jewelry": 11,
+          "gem": 4
+        },
+        "relevance_score": 4.545454545454545
+      },
+      "consumer": {
+        "total_mentions": 4,
+        "found_keywords": {
+          "consumer": 2,
+          "customer": 2
+        },
+        "relevance_score": 1.2121212121212122
+      },
+      "business": {
+        "total_mentions": 12,
+        "found_keywords": {
+          "strategy": 3,
+          "business": 6,
+          "innovation": 3
+        },
+        "relevance_score": 3.6363636363636362
+      }
+    },
+    "primary_topic": "jewelry",
+    "conference_relevance": {
+      "is_conference_audio": true,
+      "confidence_score": 13.333333333333332
+    }
+  },
+  "processing_summary": {
+    "method": "chunk_based_processing",
+    "model_used": "whisper_tiny",
+    "total_processing_time": 1366.4131021499634,
+    "success_rate": "100%",
+    "text_extracted": 18585,
+    "segments_found": 765
+  },
+  "timestamp": "2025-07-28T15:32:08.089023"
+}

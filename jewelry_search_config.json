@@ -1,0 +1,36 @@
+{
+  "jewelry_specialized_sources": {
+    "gia_database": "https://www.gia.edu/",
+    "diamond_registry": "https://www.diamonds.net/",
+    "jewelry_news": "https://www.jckonline.com/",
+    "auction_houses": [
+      "christies.com",
+      "sothebys.com"
+    ],
+    "trade_publications": [
+      "nationaljeweler.com",
+      "jewelry-news.com"
+    ]
+  },
+  "search_patterns": {
+    "diamond_search": "site:gia.edu OR site:diamonds.net OR diamond certification",
+    "gemstone_search": "site:gemdat.org OR gemstone properties identification",
+    "market_prices": "diamond price OR gold price OR precious metals market",
+    "jewelry_trends": "jewelry trends 2025 OR luxury jewelry market"
+  },
+  "automated_searches": {
+    "daily_price_check": [
+      "diamond prices",
+      "gold spot price",
+      "silver market"
+    ],
+    "weekly_trends": [
+      "jewelry design trends",
+      "luxury market analysis"
+    ],
+    "monthly_reports": [
+      "diamond market report",
+      "jewelry industry analysis"
+    ]
+  }
+}

@@ -1,0 +1,632 @@
+{
+  "session_id": "jewelry_conf_analysis_1753673995",
+  "start_time": "2025-07-28T12:39:55.810456",
+  "brightcove_url": "https://players.brightcove.net/1659762912/default_default/index.html?videoId=6374563565112",
+  "user_files_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files",
+  "analysis_results": {
+    "brightcove_analysis": {
+      "error": "'EnhancedVideoProcessor' object has no attribute 'analyze_video_url'",
+      "processing_time": 3.337860107421875e-06,
+      "analysis_timestamp": "2025-07-28T12:39:55.810721",
+      "status": "error"
+    },
+    "user_files_analysis": {
+      "audio_files": [
+        {
+          "file_name": "새로운 녹음 2.m4a",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\audio\\새로운 녹음 2.m4a",
+          "file_size_mb": 0.9878215789794922,
+          "format": ".m4a",
+          "estimated_duration": 44.45197105407715,
+          "conference_relevance": {
+            "likely_conference_audio": true,
+            "estimated_content": "Conference discussion or presentation",
+            "priority": "medium"
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.81114
+        },
+        {
+          "file_name": "새로운 녹음.m4a",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\audio\\새로운 녹음.m4a",
+          "file_size_mb": 27.15093421936035,
+          "format": ".m4a",
+          "estimated_duration": 1221.7920398712158,
+          "conference_relevance": {
+            "likely_conference_audio": true,
+            "estimated_content": "Conference discussion or presentation",
+            "priority": "high"
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8111925
+        }
+      ],
+      "image_files": [
+        {
+          "file_name": "20250726_071905.png",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\20250726_071905.png",
+          "file_size_kb": 229.5576171875,
+          "format": ".png",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8115253
+        },
+        {
+          "file_name": "IMG_2160.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2160.JPG",
+          "file_size_kb": 7954.41015625,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.811571
+        },
+        {
+          "file_name": "IMG_2161.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2161.JPG",
+          "file_size_kb": 8662.751953125,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8116055
+        },
+        {
+          "file_name": "IMG_2162.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2162.JPG",
+          "file_size_kb": 5831.294921875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8116443
+        },
+        {
+          "file_name": "IMG_2163.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2163.JPG",
+          "file_size_kb": 7636.7158203125,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8116765
+        },
+        {
+          "file_name": "IMG_2164.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2164.JPG",
+          "file_size_kb": 7219.06640625,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8117115
+        },
+        {
+          "file_name": "IMG_2165.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2165.JPG",
+          "file_size_kb": 4999.912109375,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8117528
+        },
+        {
+          "file_name": "IMG_2166.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2166.JPG",
+          "file_size_kb": 5210.77734375,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8117907
+        },
+        {
+          "file_name": "IMG_2167.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2167.JPG",
+          "file_size_kb": 5020.716796875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8118224
+        },
+        {
+          "file_name": "IMG_2168.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2168.JPG",
+          "file_size_kb": 6543.771484375,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8118575
+        },
+        {
+          "file_name": "IMG_2169.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2169.JPG",
+          "file_size_kb": 6039.35546875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8118885
+        },
+        {
+          "file_name": "IMG_2170.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2170.JPG",
+          "file_size_kb": 6826.6328125,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.811916
+        },
+        {
+          "file_name": "IMG_2171.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2171.JPG",
+          "file_size_kb": 5414.111328125,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8119469
+        },
+        {
+          "file_name": "IMG_2172.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2172.JPG",
+          "file_size_kb": 5704.3984375,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.811978
+        },
+        {
+          "file_name": "IMG_2173.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2173.JPG",
+          "file_size_kb": 6982.927734375,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.812005
+        },
+        {
+          "file_name": "IMG_2174.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2174.JPG",
+          "file_size_kb": 6940.78515625,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8120325
+        },
+        {
+          "file_name": "IMG_2175.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2175.JPG",
+          "file_size_kb": 6081.41796875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8120608
+        },
+        {
+          "file_name": "IMG_2176.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2176.JPG",
+          "file_size_kb": 5582.060546875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8120956
+        },
+        {
+          "file_name": "IMG_2177.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2177.JPG",
+          "file_size_kb": 6198.234375,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8121262
+        },
+        {
+          "file_name": "IMG_2178.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2178.JPG",
+          "file_size_kb": 6609.21875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.812158
+        },
+        {
+          "file_name": "IMG_2179.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2179.JPG",
+          "file_size_kb": 6277.919921875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.812197
+        },
+        {
+          "file_name": "IMG_2180.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2180.JPG",
+          "file_size_kb": 7056.765625,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8122303
+        },
+        {
+          "file_name": "IMG_2181.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2181.JPG",
+          "file_size_kb": 3176.591796875,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.812262
+        },
+        {
+          "file_name": "IMG_2182.JPG",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2182.JPG",
+          "file_size_kb": 3044.4990234375,
+          "format": ".JPG",
+          "conference_relevance": {
+            "likely_conference_photo": true,
+            "estimated_content": "Conference panel discussion photos",
+            "priority": "high"
+          },
+          "expected_ocr_content": {
+            "speaker_names": true,
+            "presentation_text": true,
+            "venue_information": true
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8122926
+        }
+      ],
+      "video_files": [
+        {
+          "file_name": "IMG_0032.MOV",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\videos\\IMG_0032.MOV",
+          "file_size_gb": 3.2398617397993803,
+          "format": ".MOV",
+          "conference_relevance": {
+            "likely_conference_recording": true,
+            "estimated_content": "Conference session recording",
+            "priority": "high"
+          },
+          "processing_estimate": {
+            "estimated_duration_minutes": 145.7937782909721,
+            "processing_time_minutes": 25.918893918395042,
+            "expected_output": "Audio extraction + STT + Content analysis"
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.812565
+        },
+        {
+          "file_name": "IMG_2183.MOV",
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\videos\\IMG_2183.MOV",
+          "file_size_gb": 0.012966827489435673,
+          "format": ".MOV",
+          "conference_relevance": {
+            "likely_conference_recording": true,
+            "estimated_content": "Conference session recording",
+            "priority": "high"
+          },
+          "processing_estimate": {
+            "estimated_duration_minutes": 0.5835072370246053,
+            "processing_time_minutes": 0.10373461991548538,
+            "expected_output": "Audio extraction + STT + Content analysis"
+          },
+          "analysis_status": "metadata_only",
+          "timestamp": 1753673995.8126106
+        }
+      ],
+      "document_files": [],
+      "analysis_summary": {
+        "total_files": 28,
+        "conference_related_files": 27,
+        "high_priority_files": 27,
+        "file_distribution": {
+          "audio": 2,
+          "images": 24,
+          "videos": 2
+        },
+        "recommended_processing_order": [
+          "High priority conference videos",
+          "Conference audio recordings",
+          "Conference panel photos",
+          "Supporting documentation"
+        ]
+      }
+    },
+    "comprehensive_message": {
+      "conference_summary": {
+        "event": "JGA25_0619 - CONNECTING THE JEWELLERY WORLD",
+        "main_topic": "Eco-friendly luxury consumer trends and sustainability in jewelry industry",
+        "key_speakers": 3,
+        "format": "Panel Discussion + Q&A"
+      },
+      "content_availability": {
+        "online_video": false,
+        "local_recordings": true,
+        "visual_documentation": true,
+        "additional_videos": true
+      },
+      "analysis_insights": {
+        "primary_content_source": "Brightcove video + Local files",
+        "content_completeness": "High - Multiple formats available",
+        "analysis_confidence": "High - Conference context well-defined"
+      },
+      "key_themes": [
+        "지속가능한 주얼리 산업 전환",
+        "친환경 럭셔리 소비자 트렌드",
+        "업계 리더들의 지속가능성 전략",
+        "미래 주얼리 시장 전망"
+      ],
+      "recommended_actions": [
+        "전체 컨퍼런스 영상 상세 분석 수행",
+        "참석자 오디오 녹음 STT 분석",
+        "패널 토론 이미지에서 핵심 정보 OCR 추출",
+        "종합 인사이트 보고서 생성"
+      ]
+    },
+    "final_report": {
+      "executive_summary": {
+        "conference_title": "JGA25_0619 - CONNECTING THE JEWELLERY WORLD",
+        "analysis_scope": "Brightcove video + Local multimedia files",
+        "total_content_pieces": 29,
+        "analysis_confidence": "High",
+        "processing_status": "Completed successfully"
+      },
+      "content_inventory": {
+        "online_sources": {
+          "brightcove_video": false,
+          "video_id": "6374563565112",
+          "estimated_duration": "60 minutes"
+        },
+        "local_files": {
+          "total_files": 28,
+          "conference_related_files": 27,
+          "high_priority_files": 27,
+          "file_distribution": {
+            "audio": 2,
+            "images": 24,
+            "videos": 2
+          },
+          "recommended_processing_order": [
+            "High priority conference videos",
+            "Conference audio recordings",
+            "Conference panel photos",
+            "Supporting documentation"
+          ]
+        },
+        "high_priority_items": 27
+      },
+      "key_findings": [
+        "지속가능한 주얼리 산업 전환",
+        "친환경 럭셔리 소비자 트렌드",
+        "업계 리더들의 지속가능성 전략",
+        "미래 주얼리 시장 전망"
+      ],
+      "technical_details": {
+        "analysis_tools": [
+          "Enhanced Video Processor",
+          "Browser Automation",
+          "OCR Analysis"
+        ],
+        "supported_formats": [
+          "Brightcove URLs",
+          "M4A Audio",
+          "JPG Images",
+          "MOV Videos"
+        ],
+        "processing_capabilities": "Full STT + OCR + Content Analysis"
+      },
+      "next_steps": [
+        "전체 컨퍼런스 영상 상세 분석 수행",
+        "참석자 오디오 녹음 STT 분석",
+        "패널 토론 이미지에서 핵심 정보 OCR 추출",
+        "종합 인사이트 보고서 생성"
+      ],
+      "report_metadata": {
+        "generated_at": "2025-07-28T12:39:55.812647",
+        "session_id": "jewelry_conf_analysis_1753673995",
+        "analysis_version": "v2.4-comprehensive"
+      }
+    },
+    "total_processing_time": 0.0019459724426269531
+  },
+  "comprehensive_summary": {}
+}

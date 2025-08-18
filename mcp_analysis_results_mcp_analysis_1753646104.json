@@ -1,0 +1,169 @@
+{
+  "session_id": "mcp_analysis_1753646104",
+  "timestamp": "2025-07-28T04:55:04.835671",
+  "components": {
+    "sequential_thinking": true,
+    "perplexity": true,
+    "memory": true,
+    "github": false,
+    "notion": true,
+    "playwright": true,
+    "github_v2": true
+  },
+  "analysis_pipeline": [
+    {
+      "step": "playwright",
+      "phase": "data_collection"
+    },
+    {
+      "step": "perplexity",
+      "phase": "market_research"
+    },
+    {
+      "step": "sequential_thinking",
+      "phase": "competitive_assessment"
+    },
+    {
+      "step": "memory",
+      "phase": "insight_storage"
+    },
+    {
+      "step": "github",
+      "phase": "version_control"
+    }
+  ],
+  "results": {
+    "session_id": "mcp_analysis_1753646104",
+    "analysis_type": "competitive_analysis",
+    "pipeline_steps": 5,
+    "successful_steps": 5,
+    "total_execution_time": 0.00010752677917480469,
+    "pipeline_results": [
+      {
+        "phase": "data_collection",
+        "automation_tasks": [
+          "경쟁사 웹사이트 스크래핑",
+          "시장 데이터 수집",
+          "사용자 리뷰 분석"
+        ],
+        "collected_data": {
+          "pages_visited": 9,
+          "data_points": 45,
+          "screenshots": 6
+        },
+        "execution_time": 2.6464462280273438e-05,
+        "success_rate": 0.94,
+        "step_name": "playwright"
+      },
+      {
+        "phase": "market_research",
+        "query": "주얼리 업계의 디지털 마케팅 트렌드와 경쟁 환경",
+        "findings": [
+          "market_research와 관련된 최신 기술 동향 파악",
+          "업계 표준 및 베스트 프랙티스 수집",
+          "경쟁사 분석 및 시장 인사이트 획득"
+        ],
+        "sources": [
+          "업계 리포트 및 연구 자료",
+          "기술 문서 및 표준 가이드",
+          "전문가 의견 및 사례 연구"
+        ],
+        "key_insights": [
+          "AI 기반 분석 도구의 활용도 증가",
+          "실시간 처리와 확장성의 중요성",
+          "사용자 경험과 정확도의 균형"
+        ],
+        "relevance_score": 0.92,
+        "execution_time": 1.2636184692382812e-05,
+        "step_name": "perplexity"
+      },
+      {
+        "phase": "competitive_assessment",
+        "thinking_process": [
+          {
+            "thought_number": 1,
+            "thought": "competitive_assessment 단계에서 우선 문제의 범위를 정의해야 한다.",
+            "next_thought_needed": true
+          },
+          {
+            "thought_number": 2,
+            "thought": "관련 데이터와 컨텍스트를 수집하고 분석의 목표를 명확히 한다.",
+            "next_thought_needed": true
+          },
+          {
+            "thought_number": 3,
+            "thought": "체계적인 접근 방법을 선택하고 실행 계획을 수립한다.",
+            "next_thought_needed": false
+          }
+        ],
+        "conclusions": [
+          "competitive_assessment를 위한 체계적 접근법 정의",
+          "명확한 분석 목표 설정",
+          "실행 가능한 계획 수립"
+        ],
+        "next_actions": [
+          "데이터 수집 및 검증",
+          "분석 도구 선택 및 준비",
+          "결과 검증 및 보완"
+        ],
+        "confidence_score": 0.85,
+        "execution_time": 1.0728836059570312e-05,
+        "step_name": "sequential_thinking"
+      },
+      {
+        "phase": "insight_storage",
+        "operation": "create",
+        "new_entities": [
+          {
+            "name": "insight_storage_분석결과",
+            "type": "analysis"
+          },
+          {
+            "name": "insight_storage_인사이트",
+            "type": "insight"
+          },
+          {
+            "name": "insight_storage_권장사항",
+            "type": "recommendation"
+          }
+        ],
+        "storage_success": true,
+        "execution_time": 1.0251998901367188e-05,
+        "step_name": "memory"
+      },
+      {
+        "phase": "version_control",
+        "operations": [
+          "분석 결과 커밋",
+          "브랜치 생성 및 관리",
+          "태그 생성"
+        ],
+        "commits_created": 3,
+        "repository": "solomond-ai-system",
+        "branch": "analysis-mcp_analysis_1753646104",
+        "files_tracked": [
+          "analysis_results.json",
+          "performance_metrics.json",
+          "recommendations.md"
+        ],
+        "success": true,
+        "execution_time": 1.7881393432617188e-05,
+        "step_name": "github"
+      }
+    ],
+    "summary": {
+      "total_insights": 3,
+      "knowledge_sources": 3,
+      "automation_tasks": 3,
+      "reports_generated": 0,
+      "data_points_collected": 45,
+      "recommendations": [
+        "MCP 도구들의 통합적 활용을 통한 분석 품질 향상",
+        "Sequential Thinking을 통한 체계적 문제 해결 접근",
+        "Perplexity를 활용한 최신 지식 및 트렌드 통합",
+        "Memory 시스템을 통한 컨텍스트 보존 및 활용",
+        "자동화된 보고서 생성으로 효율성 극대화"
+      ]
+    }
+  }
+}

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚨 포트 연결 문제 해결 방법</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+        .problem-box {
+            background: rgba(255, 59, 59, 0.2);
+            border-left: 5px solid #ff3b3b;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .solution-box {
+            background: rgba(34, 197, 94, 0.2);
+            border-left: 5px solid #22c55e;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .button:hover {
+            transform: translateY(-3px);
+        }
+        .command {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚨 포트 연결 문제 발생</h1>
+        
+        <div class="problem-box">
+            <h2>❌ 현재 상황</h2>
+            <p>• Streamlit과 Flask 애플리케이션이 실행되었지만 포트에 연결할 수 없음</p>
+            <p>• 포트 8501, 8510, 8888 모두 외부 접근 불가</p>
+            <p>• Windows 방화벽 또는 네트워크 바인딩 문제로 추정</p>
+        </div>
+        
+        <div class="solution-box">
+            <h2>✅ 해결 방법 1: 방화벽 설정</h2>
+            <div class="step">
+                <h3>1️⃣ Windows 방화벽 규칙 추가</h3>
+                <p>관리자 권한으로 명령 프롬프트를 열고 다음 명령어 실행:</p>
+                <div class="command">
+netsh advfirewall firewall add rule name="SOLOMOND_8888" dir=in action=allow protocol=TCP localport=8888<br>
+netsh advfirewall firewall add rule name="SOLOMOND_8501" dir=in action=allow protocol=TCP localport=8501<br>
+netsh advfirewall firewall add rule name="SOLOMOND_8510" dir=in action=allow protocol=TCP localport=8510
+                </div>
+            </div>
+        </div>
+        
+        <div class="solution-box">
+            <h2>✅ 해결 방법 2: 로컬 파일 접근</h2>
+            <div class="step">
+                <h3>2️⃣ 직접 파일 실행</h3>
+                <p>포트 문제를 우회하여 직접 로컬 파일로 접근:</p>
+                <button class="button" onclick="openDashboard()">
+                    🎯 메인 대시보드 열기
+                </button>
+                <button class="button" onclick="openDirectAnalysis()">
+                    🤖 직접 분석 시작
+                </button>
+            </div>
+        </div>
+        
+        <div class="solution-box">
+            <h2>✅ 해결 방법 3: 수동 실행</h2>
+            <div class="step">
+                <h3>3️⃣ 명령 프롬프트에서 직접 실행</h3>
+                <p>새로운 명령 프롬프트를 열고 다음을 실행:</p>
+                <div class="command">
+cd "C:\Users\PC_58410\solomond-ai-system"<br>
+python working_ai_web.py
+                </div>
+                <p>그 후 브라우저에서 <strong>http://127.0.0.1:8888</strong> 접속</p>
+            </div>
+        </div>
+        
+        <div class="solution-box">
+            <h2>🏆 해결 방법 4: 완전 자동화 분석</h2>
+            <div class="step">
+                <h3>4️⃣ 자동 파일 분석 실행</h3>
+                <p>포트 없이 직접 분석 실행:</p>
+                <button class="button" onclick="runAutoAnalysis()">
+                    🚀 자동 분석 시작
+                </button>
+                <p><strong>user_files</strong> 폴더의 <strong>26개 파일</strong>이 자동으로 분석됩니다.</p>
+            </div>
+        </div>
+        
+        <div class="problem-box">
+            <h2>📞 지원 정보</h2>
+            <p>• <strong>실행 중인 시스템:</strong></p>
+            <p>&nbsp;&nbsp;- Flask 웹앱: 포트 8888</p>
+            <p>&nbsp;&nbsp;- Streamlit 앱: 포트 8501</p>
+            <p>&nbsp;&nbsp;- 자동완성 앱: 포트 8510</p>
+            <p>• <strong>분석 파일:</strong> user_files/JGA2025_D1/ (26개 파일)</p>
+            <p>• <strong>AI 모델:</strong> Ollama + Whisper + EasyOCR 준비완료</p>
+        </div>
+    </div>
+    
+    <script>
+        function openDashboard() {
+            const dashboardPath = 'C:/Users/PC_58410/solomond-ai-system/dashboard.html';
+            window.open('file:///' + dashboardPath.replace(/\\/g, '/'));
+        }
+        
+        function openDirectAnalysis() {
+            alert('직접 분석을 시작합니다.\n\n다음 단계:\n1. 명령 프롬프트를 관리자 권한으로 실행\n2. cd "C:\\Users\\PC_58410\\solomond-ai-system"\n3. python working_ai_web.py\n4. 브라우저에서 http://127.0.0.1:8888 접속');
+        }
+        
+        function runAutoAnalysis() {
+            if (confirm('user_files 폴더의 26개 파일을 자동 분석하시겠습니까?')) {
+                alert('다음 명령어를 실행하세요:\n\ncd "C:\\Users\\PC_58410\\solomond-ai-system"\npython test_auto_complete_workflow.py\n\n또는\n\npython quick_user_file_test.py');
+            }
+        }
+        
+        // 페이지 로드 시 상태 표시
+        window.onload = function() {
+            console.log('🎯 포트 연결 문제 해결 가이드 로드됨');
+            console.log('💡 Windows 방화벽 설정이나 수동 실행을 시도해보세요');
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "total_files": 5,
+  "files_processed": [
+    {
+      "file": "IMG_2160.JPG",
+      "type": ".jpg",
+      "size_mb": 7.767978668212891,
+      "status": "processed"
+    },
+    {
+      "file": "IMG_2161.JPG",
+      "type": ".jpg",
+      "size_mb": 8.459718704223633,
+      "status": "processed"
+    },
+    {
+      "file": "IMG_2162.JPG",
+      "type": ".jpg",
+      "size_mb": 5.694623947143555,
+      "status": "processed"
+    },
+    {
+      "file": "IMG_2163.JPG",
+      "type": ".jpg",
+      "size_mb": 7.457730293273926,
+      "status": "processed"
+    },
+    {
+      "file": "IMG_2164.JPG",
+      "type": ".jpg",
+      "size_mb": 7.049869537353516,
+      "status": "processed"
+    }
+  ],
+  "analysis_complete": true,
+  "auto_processed": true
+}

@@ -1,0 +1,31 @@
+{
+  "timestamp": "20250726_051119",
+  "test_summary": {
+    "total_tests": 2,
+    "image_tests": 0,
+    "audio_tests": 2,
+    "comprehensive_tests": 0
+  },
+  "detailed_results": {
+    "audio_tests": [
+      {
+        "file": "test_files/test_audio.wav",
+        "file_size": 44144,
+        "file_format": ".wav",
+        "processing_time": 6.503953218460083,
+        "success": false,
+        "error": "Unknown error"
+      },
+      {
+        "file": "test_files/test_audio.m4a",
+        "file_size": 27632,
+        "file_format": ".m4a",
+        "processing_time": 0.9392068386077881,
+        "success": false,
+        "error": "Unknown error"
+      }
+    ],
+    "image_tests": [],
+    "comprehensive_tests": []
+  }
+}

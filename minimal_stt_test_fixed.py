@@ -12,6 +12,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import asyncio
+from config import SETTINGS
 
 # 시스템 정보 출력
 print(f"🐍 Python 버전: {sys.version}")
@@ -578,7 +579,7 @@ if __name__ == "__main__":
     print(f"🎤 Whisper: {'✅ 사용 가능' if WHISPER_AVAILABLE else '❌ 설치 필요'}")
     print(f"📁 최대 파일 크기: {MAX_FILE_SIZE // (1024*1024)}MB")
     print(f"🌐 접속 주소: http://localhost:8080")
-    print(f"🔧 진단 URL: http://localhost:8080/test")
+    print(f"🔧 진단 URL: http://f"localhost:{SETTINGS['PORT']}"/test")
     print("=" * 80)
     
     if not WHISPER_AVAILABLE:

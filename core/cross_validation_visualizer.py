@@ -113,7 +113,7 @@ class CrossValidationVisualizer:
         return html_template
     
     def _get_visualization_css(self) -> str:
-        """시각화 전용 CSS 스타일"""
+        """시각화 전용 CSS 스타일 - 대형 함수 (리팩토링 고려 대상 - 457줄)"""
         return """
         :root {
             --primary-color: #2C5282;

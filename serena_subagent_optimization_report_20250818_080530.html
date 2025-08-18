@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOLOMOND AI - Serena 서브에이전트 성능 보고서</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .content {
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .success { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .warning { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .error { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); }
+        .info { background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .metric {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+        .success-badge { background: #28a745; }
+        .error-badge { background: #dc3545; }
+        .warning-badge { background: #ffc107; color: #333; }
+        
+        .timestamp {
+            text-align: right;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>[ROBOT] SOLOMOND AI Serena</h1>
+            <h2>서브에이전트 성능 최적화 보고서</h2>
+        </div>
+        
+        <div class="content">
+            <!-- 시스템 개요 -->
+            <div class="section success">
+                <h2>[TARGET] 시스템 개요</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>[FOLDER] 파일 구조</h3>
+                        <div class="metric">100</div>
+                        <p>총 분석된 파일 수</p>
+                    </div>
+                    <div class="card">
+                        <h3>[TEST] 테스트 결과</h3>
+                        <div class="metric">2</div>
+                        <p>실행된 테스트 수</p>
+                    </div>
+                    <div class="card">
+                        <h3>[WRENCH] 수정 사항</h3>
+                        <div class="metric">0</div>
+                        <p>탐지된 이슈 수</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 파일 구조 분석 -->
+            <div class="section info">
+                <h2>[FOLDER] 파일 구조 분석</h2>
+                <div class='grid'>
+            <div class="card">
+                <h3>[FOLDER] SERENA</h3>
+                <ul>
+            
+                <li>
+                    <strong>serena_auto_fixer.py</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>serena_auto_optimizer.py</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>serena_claude_agent.py</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>serena_claude_interface.py</strong><br>
+                    <small>크기: 0.03MB</small>
+                </li>
+                
+                <li>
+                    <strong>serena_mcp_integration.py</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>serena_quick_test.py</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>serena_subagent_enhancer.py</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                </ul></div>
+            <div class="card">
+                <h3>[FOLDER] CONFERENCE</h3>
+                <ul>
+            
+                <li>
+                    <strong>conference_analysis_COMPLETE_WORKING.py</strong><br>
+                    <small>크기: 0.11MB</small>
+                </li>
+                
+                <li>
+                    <strong>conference_audio_stt_analyzer.py</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>conference_image_ocr_analyzer.py</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>conference_mindmap_generator.py</strong><br>
+                    <small>크기: 0.03MB</small>
+                </li>
+                </ul></div>
+            <div class="card">
+                <h3>[FOLDER] MAIN</h3>
+                <ul>
+            
+                <li>
+                    <strong>main.py</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>solomond_ai_main_dashboard.py</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>test_medical_domain.py</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                </ul></div>
+            <div class="card">
+                <h3>[FOLDER] DASHBOARD</h3>
+                <ul>
+            
+                <li>
+                    <strong>dashboard.html</strong><br>
+                    <small>크기: 0.05MB</small>
+                </li>
+                
+                <li>
+                    <strong>dashboard_v4.html</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                </ul></div>
+            <div class="card">
+                <h3>[FOLDER] CONFIG</h3>
+                <ul>
+            
+                <li>
+                    <strong>.mcp.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>.mcp_backup.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>.mcp_enhanced_complete.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>advanced_diagnostic_141919.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>advanced_monitoring_report_advanced_monitor_1753673097.json</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>advanced_performance_validation_report.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>advanced_speaker_result_20250726_080556.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>analysis_results.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>analysis_timing_140345.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>audio_stt_troubleshoot_results_audio_stt_troubleshoot_1753682957.json</strong><br>
+                    <small>크기: 0.14MB</small>
+                </li>
+                
+                <li>
+                    <strong>brightcove_analysis_brightcove_analysis_1753683297.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>brightcove_automation_analysis_brightcove_automation_1753690500.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>browser_video_integration_results_browser_video_1753646212.json</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>chrome_usage_analysis_report.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>comprehensive_conference_insights_comprehensive_insights_1753681210.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>comprehensive_final_report_final_report_1753690065.json</strong><br>
+                    <small>크기: 0.16MB</small>
+                </li>
+                
+                <li>
+                    <strong>conference_ocr_analysis_conference_ocr_1753680855.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>conference_stt_analysis_conference_stt_1753680658.json</strong><br>
+                    <small>크기: 0.33MB</small>
+                </li>
+                
+                <li>
+                    <strong>conference_stt_analysis_conference_stt_1753689733.json</strong><br>
+                    <small>크기: 0.38MB</small>
+                </li>
+                
+                <li>
+                    <strong>debug_report.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>direct_analysis_results.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>duckduckgo_mcp_upgrade_log.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>dynamic_speaker_analysis_20250726_081112.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>enhanced_multimodal_analysis_20250801_160708.json</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>google_credentials_template.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>jewelry_conference_analysis_jewelry_conf_analysis_1753673973.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>jewelry_conference_analysis_jewelry_conf_analysis_1753673995.json</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>jewelry_search_config.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>large_file_test_report_large_file_test_1753672809.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>large_video_analysis_large_video_1753690363.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>lightweight_audio_analysis_lightweight_audio_1753683168.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>lightweight_audio_analysis_lightweight_audio_1753683192.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>lightweight_audio_analysis_lightweight_audio_1753689904.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>mcp_analysis_results_mcp_analysis_1753646104.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>mcp_analysis_results_mcp_analysis_1753646105.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>memory_state.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>memory_update.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>mindmap_generation_report_mindmap_1753683908.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>module1_test_report_1753883522.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>module1_test_report_1753888164.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>module_status_report_20250731_141916.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>multimodal_analysis_20250801_182044.json</strong><br>
+                    <small>크기: 7.72MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_dual_brain_common_workflow.json</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_dual_brain_workflow.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_master_orchestrator.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_module1_conference_detailed.json</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_ollama_intelligence_common.json</strong><br>
+                    <small>크기: 0.02MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_visual_system_monitor.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_workflow_dual_brain.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_workflow_file_analysis.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>n8n_workflow_system_monitor.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>notifications.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>notion_database_config.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>notion_success_result.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>notion_supabase_sync_log.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>one_click_setup_report.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>optimized_ocr_analysis_optimized_ocr_1753687386.json</strong><br>
+                    <small>크기: 0.12MB</small>
+                </li>
+                
+                <li>
+                    <strong>performance_diagnosis_20250726_231040.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>quick_5d_test_20250801_181653.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>quick_performance_report.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>quick_slide_test_20250801_184450.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>real_ai_analysis_results.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>real_file_test_results_20250726_050942.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>real_file_test_results_20250726_051119.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>simple_analysis_20250803_152008.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>situation_analysis_20250726_233729.json</strong><br>
+                    <small>크기: 0.07MB</small>
+                </li>
+                
+                <li>
+                    <strong>slide_analysis_test_20250801_182117.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>slide_timeline_sync_20250801_185055.json</strong><br>
+                    <small>크기: 0.08MB</small>
+                </li>
+                
+                <li>
+                    <strong>solomond_n8n_workflows.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>speaker_analysis_20250726_080538.json</strong><br>
+                    <small>크기: 0.13MB</small>
+                </li>
+                
+                <li>
+                    <strong>supabase_client_test_report.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>supabase_config.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>supabase_connection_report.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>supabase_schema_completed.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>system_monitoring_report_monitor_1753646327.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>system_statistics.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>ultimate_5d_analysis_20250801_183219.json</strong><br>
+                    <small>크기: 0.09MB</small>
+                </li>
+                
+                <li>
+                    <strong>video_slide_extraction_20250801_190547.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>video_test_report.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>web_search_enhancement_deployment.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                
+                <li>
+                    <strong>workflow_structure_test_20250727_074327.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>workflow_structure_test_20250727_074431.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>workflow_structure_test_20250727_090048.json</strong><br>
+                    <small>크기: 0.01MB</small>
+                </li>
+                
+                <li>
+                    <strong>workflow_test_results_20250727_074212.json</strong><br>
+                    <small>크기: 0.00MB</small>
+                </li>
+                </ul></div></div>
+            </div>
+            
+            <!-- 테스트 결과 -->
+            <div class="section success">
+                <h2>[TEST] 테스트 실행 결과</h2>
+                <div class='grid'>
+                <div class="card">
+                    <h3>serena_quick</h3>
+                    <span class="status-badge success-badge">성공</span>
+                    
+                    <pre>SOLOMOND AI Serena 에이전트 빠른 테스트
+==================================================
+
+[모듈 임포트]
+=== 모듈 임포트 테스트 ===
+SUCCESS: SerenaCodeAnalyzer 임포트 성공
+PASS: 모듈 임포트
+
+[기본 분석]
+
+=== 기본 분석 테스트 ===
+SUCCESS: 분석기 초기화 완료
+SUCCESS: 9개 심볼 발견
+  - import: 5개
+  - function: 4개
+PASS: 기본 분석
+
+[컨퍼런스 파일 분석]
+
+=== 컨퍼런스 파일 분석 테스트 ===
+INFO: 분석 파일: conference_analysis_COMPLETE_WORKING.py
+SUCCESS: 107개 심볼 분석 완료
+INFO: 58개 함수 발견
+INFO: 35개 복잡한 함수:
+  - session_init (복잡도: 7)
+  - setup_n8n_integration (복잡도: 6)
+  - update_metadata (복...</pre>
+                    
+                </div>
+                
+                <div class="card">
+                    <h3>conference_status</h3>
+                    <span class="status-badge error-badge">실패</span>
+                    
+                    
+                    
+                </div>
+                </div>
+            </div>
+            
+            <!-- 이슈 및 수정 사항 -->
+            
+            <div class="section success">
+                <h2>[SUCCESS] 이슈 및 수정 사항</h2>
+                <p>탐지된 이슈가 없습니다. 시스템이 정상 작동 중입니다!</p>
+            </div>
+            
+            
+            <!-- 실행 가이드 -->
+            <div class="section info">
+                <h2>[ROCKET] 서브에이전트 최적화 실행 가이드</h2>
+                <div class="card">
+                    <h3>MCP 도구 직접 활용 방법</h3>
+                    <ol>
+                        <li><strong>Bash 도구로 Python 실행:</strong> <code>python serena_quick_test.py</code></li>
+                        <li><strong>Read 도구로 파일 분석:</strong> 핵심 코드 파일 직접 읽기</li>
+                        <li><strong>Edit 도구로 자동 수정:</strong> 발견된 이슈 즉시 수정</li>
+                        <li><strong>Glob 도구로 패턴 검색:</strong> 프로젝트 전체 스캔</li>
+                        <li><strong>Write 도구로 보고서:</strong> HTML 시각적 결과 생성</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="timestamp">
+                생성 시간: 2025-08-18 08:05:36
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+        

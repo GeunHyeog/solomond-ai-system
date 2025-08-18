@@ -1,0 +1,129 @@
+{
+  "session_info": {
+    "session_id": "mindmap_1753683908",
+    "generation_timestamp": "2025-07-28T15:25:11.938685",
+    "total_files_generated": 4
+  },
+  "mindmap_structure": {
+    "central_topic": "JGA25 컨퍼런스\nThe Rise of the\nEco-friendly Luxury Consumer",
+    "main_branches": {
+      "발표자 & 패널": {
+        "color": "#4682B4",
+        "sub_branches": {
+          "Lianne Ng": [
+            "Chow Tai Fook",
+            "지속가능성 이사",
+            "ESG 전략"
+          ],
+          "Henry Tse": [
+            "Ancardi CEO",
+            "럭셔리 브랜드",
+            "친환경 전환"
+          ],
+          "Catherine Siu": [
+            "전략 담당 VP",
+            "시장 분석",
+            "미래 전망"
+          ]
+        }
+      },
+      "핵심 주제": {
+        "color": "#4682B4",
+        "sub_branches": {
+          "지속가능성": [
+            "ESG 경영",
+            "친환경 소재",
+            "윤리적 소싱"
+          ],
+          "소비자 트렌드": [
+            "밀레니얼 세대",
+            "가치 소비",
+            "환경 인식"
+          ],
+          "비즈니스 전환": [
+            "순환경제",
+            "브랜드 포지셔닝",
+            "혁신 전략"
+          ]
+        }
+      },
+      "비즈니스 임팩트": {
+        "color": "#4682B4",
+        "sub_branches": {
+          "단기 효과": [
+            "5-10% 매출 증대",
+            "프리미엄 가격",
+            "신규 고객"
+          ],
+          "장기 전략": [
+            "15-25% 성장",
+            "시장 선도",
+            "경쟁 우위"
+          ],
+          "투자 영역": [
+            "R&D 확대",
+            "공급망 혁신",
+            "마케팅 강화"
+          ]
+        }
+      },
+      "실행 계획": {
+        "color": "#4682B4",
+        "sub_branches": {
+          "즉시 실행": [
+            "ESG TF 구성",
+            "파트너십 구축",
+            "1-3개월"
+          ],
+          "단기 이니셔티브": [
+            "제품 개발",
+            "탄소 측정",
+            "3-6개월"
+          ],
+          "장기 전략": [
+            "모델 전환",
+            "시스템 구축",
+            "1-3년"
+          ]
+        }
+      },
+      "콘텐츠 분석": {
+        "color": "#4682B4",
+        "sub_branches": {
+          "오디오 정보": [
+            "57.1분",
+            "전체 세션 녹음",
+            "높은 음성 활동"
+          ],
+          "기술적 평가": [
+            "양호한 품질",
+            "컨퍼런스 확인",
+            "추가 분석 가능"
+          ]
+        }
+      }
+    }
+  },
+  "generated_files": {
+    "visual_mindmap": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_mindmap_20250728_152509.png",
+    "text_mindmap": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_mindmap_text_20250728_152511.txt",
+    "html_mindmap": "C:\\Users\\PC_58410\\solomond-ai-system\\conference_mindmap_interactive_20250728_152511.html",
+    "all_files": [
+      "C:\\Users\\PC_58410\\solomond-ai-system\\conference_mindmap_20250728_152509.png",
+      "C:\\Users\\PC_58410\\solomond-ai-system\\conference_mindmap_20250728_152509.svg",
+      "C:\\Users\\PC_58410\\solomond-ai-system\\conference_mindmap_text_20250728_152511.txt",
+      "C:\\Users\\PC_58410\\solomond-ai-system\\conference_mindmap_interactive_20250728_152511.html"
+    ]
+  },
+  "mindmap_features": {
+    "central_topic": "JGA25 컨퍼런스\nThe Rise of the\nEco-friendly Luxury Consumer",
+    "main_branches_count": 5,
+    "total_sub_branches": 14,
+    "formats_available": [
+      "PNG",
+      "SVG",
+      "TXT",
+      "HTML"
+    ]
+  }
+}

@@ -477,7 +477,7 @@ async def get_system_status():
                 "gpt4_vision": "활성" if "gpt-4" in performance_summary.get("available_models", []) else "비활성",
                 "claude_vision": "활성" if "claude-3" in performance_summary.get("available_models", []) else "비활성", 
                 "gemini_2": "활성" if "gemini-2" in performance_summary.get("available_models", []) else "비활성",
-                "solomond_jewelry": "활성"
+                "SOLOMONDd_jewelry": "활성"
             }
         except:
             hybrid_models_status = {"status": "확인 중"}

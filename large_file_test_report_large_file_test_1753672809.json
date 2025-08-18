@@ -1,0 +1,146 @@
+{
+  "test_session": {
+    "session_id": "large_file_test_1753672809",
+    "start_time": "2025-07-28T12:20:09.664274",
+    "test_files": [],
+    "test_results": [
+      {
+        "session_id": "large_file_test_1753672809",
+        "total_files": 1,
+        "successful_tests": 1,
+        "failed_tests": 0,
+        "file_results": [
+          {
+            "file_info": {
+              "file_path": "C:\\Users\\PC_58410\\Downloads\\IMG_0032.mov",
+              "size_gb": 3.2398617397993803,
+              "size_mb": 3317.6184215545654,
+              "extension": ".mov",
+              "modified_time": 1752175658.7469087,
+              "is_real_file": true
+            },
+            "processing_time": 0.0006859302520751953,
+            "processing_result": {
+              "file_analyzed": true,
+              "processor_capabilities": {
+                "supported_formats": [
+                  ".mp4",
+                  ".avi",
+                  ".mov",
+                  ".mkv",
+                  ".webm",
+                  ".flv",
+                  ".wmv",
+                  ".m4v",
+                  ".3gp",
+                  ".ogv",
+                  ".ts",
+                  ".mts"
+                ],
+                "max_file_size_gb": 10.0,
+                "max_duration_minutes": 120.0,
+                "chunk_duration_seconds": 60,
+                "url_platforms": [
+                  "youtube.com",
+                  "youtu.be",
+                  "vimeo.com",
+                  "dailymotion.com",
+                  "twitch.tv",
+                  "tiktok.com",
+                  "instagram.com"
+                ],
+                "dependencies": {
+                  "opencv": true,
+                  "moviepy": true,
+                  "yt_dlp": true,
+                  "ffmpeg": true
+                },
+                "context_support": true
+              },
+              "analysis_type": "metadata_only",
+              "estimated_full_processing_time": 388.78340877592564,
+              "context_applied": true
+            },
+            "resource_usage": {
+              "timestamp": 1753672812.830409,
+              "cpu_percent": 40.7,
+              "memory_percent": 76.7,
+              "memory_used_gb": 10.632312774658203,
+              "process_memory_mb": 136.48828125,
+              "process_cpu_percent": 0.0,
+              "thread_count": 30
+            },
+            "status": "success"
+          }
+        ],
+        "performance_summary": {
+          "total_processing_time": 2.304598569869995,
+          "average_processing_time": 0.0006859302520751953,
+          "max_processing_time": 0.0006859302520751953,
+          "min_processing_time": 0.0006859302520751953,
+          "average_memory_usage": 76.7,
+          "peak_memory_usage": 76.7,
+          "average_cpu_usage": 40.7,
+          "peak_cpu_usage": 40.7,
+          "average_time_per_gb": 0.0002117159024562788,
+          "processing_efficiency": 1.0,
+          "throughput_files_per_hour": 1562.0941742591986,
+          "stability_score": 0.85
+        },
+        "system_health": {
+          "overall_health_score": 85,
+          "health_status": "양호",
+          "average_metrics": {
+            "avg_cpu_percent": 46.8,
+            "avg_memory_percent": 76.7,
+            "avg_process_memory_mb": 136.48828125,
+            "avg_thread_count": 30.0
+          },
+          "peak_metrics": {
+            "max_cpu_percent": 46.8,
+            "max_memory_percent": 76.7,
+            "max_process_memory_mb": 136.48828125
+          },
+          "optimization_events_count": 0,
+          "monitoring_duration_minutes": 0.03333333333333333,
+          "recommendations": [
+            {
+              "category": "MEMORY",
+              "priority": "MEDIUM",
+              "issue": "높은 메모리 사용률 (76.7%)",
+              "recommendation": "메모리 사용량 최적화 필요",
+              "actions": [
+                "정기적인 가비지 컬렉션",
+                "메모리 누수 점검",
+                "데이터 구조 최적화"
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "performance_metrics": {},
+    "system_resources": {},
+    "stability_report": {}
+  },
+  "baseline_metrics": {
+    "timestamp": 1753672809.9696724,
+    "cpu_percent": 57.1,
+    "memory_percent": 76.7,
+    "memory_available_gb": 3.22698974609375,
+    "disk_free_gb": 161.84255981445312,
+    "process_memory_mb": 136.0625
+  },
+  "performance_thresholds": {
+    "max_memory_usage_gb": 8.0,
+    "max_processing_time_per_gb": 300,
+    "min_cpu_efficiency": 0.3,
+    "max_temp_disk_usage_gb": 20.0
+  },
+  "test_environment": {
+    "enhanced_video_available": true,
+    "system_monitor_available": true,
+    "python_version": "3.13.5 (tags/v3.13.5:6cb20a2, Jun 11 2025, 16:15:46) [MSC v.1943 64 bit (AMD64)]",
+    "test_directory": "C:\\Users\\Public\\Documents\\ESTsoft\\CreatorTemp\\large_file_tests"
+  }
+}

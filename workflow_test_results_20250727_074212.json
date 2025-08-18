@@ -1,0 +1,16 @@
+{
+  "extraction": {
+    "audio": {
+      "speakers": {},
+      "statistics": {},
+      "conversation_flow": []
+    },
+    "image": {
+      "extracted_texts": [
+        {
+          "file": "IMG_2160.JPG",
+          "text": "of the",
+          "confidence": 0.8719201054997093,
+          "bbox": [
+            [
+              

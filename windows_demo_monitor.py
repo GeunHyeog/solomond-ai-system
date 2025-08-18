@@ -12,6 +12,7 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 import base64
+from config import SETTINGS
 
 try:
     import psutil
@@ -25,7 +26,7 @@ class WindowsDemoMonitor:
     """윈도우용 데모 모니터링 시스템"""
     
     def __init__(self):
-        self.streamlit_url = "http://localhost:8503"
+        self.streamlit_url = "http://f"localhost:{SETTINGS['PORT']}""
         self.capture_dir = Path("windows_captures")
         self.capture_dir.mkdir(exist_ok=True)
         

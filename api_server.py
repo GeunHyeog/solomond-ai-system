@@ -192,7 +192,7 @@ async def analyze_batch(
     
     # 파일 데이터 준비
     files_data = []
-    temp_dir = tempfile.mkdtemp(prefix=f"solomond_{session_id}_")
+    temp_dir = tempfile.mkdtemp(prefix=f"SOLOMONDd_{session_id}_")
     
     try:
         for i, file in enumerate(files):
@@ -280,7 +280,7 @@ async def analyze_streaming(
     
     # 파일 준비 및 스트리밍 처리 시작
     files_data = []
-    temp_dir = tempfile.mkdtemp(prefix=f"solomond_stream_{session_id}_")
+    temp_dir = tempfile.mkdtemp(prefix=f"SOLOMONDd_stream_{session_id}_")
     
     try:
         for file in files:

@@ -1,0 +1,570 @@
+{
+  "timestamp": "20250726_232444",
+  "files_analyzed": [
+    {
+      "path": "user_files\\images\\IMG_2160.JPG",
+      "name": "IMG_2160.JPG",
+      "size_mb": 7.767978668212891,
+      "modified_time": "2025-06-19T14:31:34",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2161.JPG",
+      "name": "IMG_2161.JPG",
+      "size_mb": 8.459718704223633,
+      "modified_time": "2025-06-19T14:32:51",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2162.JPG",
+      "name": "IMG_2162.JPG",
+      "size_mb": 5.694623947143555,
+      "modified_time": "2025-06-19T14:33:08",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2163.JPG",
+      "name": "IMG_2163.JPG",
+      "size_mb": 7.457730293273926,
+      "modified_time": "2025-06-19T14:35:11",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2164.JPG",
+      "name": "IMG_2164.JPG",
+      "size_mb": 7.049869537353516,
+      "modified_time": "2025-06-19T14:35:26",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2165.JPG",
+      "name": "IMG_2165.JPG",
+      "size_mb": 4.882726669311523,
+      "modified_time": "2025-06-19T14:35:47",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2166.JPG",
+      "name": "IMG_2166.JPG",
+      "size_mb": 5.088649749755859,
+      "modified_time": "2025-06-19T14:35:58",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2167.JPG",
+      "name": "IMG_2167.JPG",
+      "size_mb": 4.903043746948242,
+      "modified_time": "2025-06-19T14:36:14",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2168.JPG",
+      "name": "IMG_2168.JPG",
+      "size_mb": 6.390401840209961,
+      "modified_time": "2025-06-19T14:37:14",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2169.JPG",
+      "name": "IMG_2169.JPG",
+      "size_mb": 5.897808074951172,
+      "modified_time": "2025-06-19T14:40:37",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2170.JPG",
+      "name": "IMG_2170.JPG",
+      "size_mb": 6.666633605957031,
+      "modified_time": "2025-06-19T14:42:12",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2171.JPG",
+      "name": "IMG_2171.JPG",
+      "size_mb": 5.28721809387207,
+      "modified_time": "2025-06-19T14:42:33",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2172.JPG",
+      "name": "IMG_2172.JPG",
+      "size_mb": 5.570701599121094,
+      "modified_time": "2025-06-19T14:42:59",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2173.JPG",
+      "name": "IMG_2173.JPG",
+      "size_mb": 6.819265365600586,
+      "modified_time": "2025-06-19T14:44:35",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2174.JPG",
+      "name": "IMG_2174.JPG",
+      "size_mb": 6.778110504150391,
+      "modified_time": "2025-06-19T14:46:19",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2175.JPG",
+      "name": "IMG_2175.JPG",
+      "size_mb": 5.938884735107422,
+      "modified_time": "2025-06-19T14:46:54",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2176.JPG",
+      "name": "IMG_2176.JPG",
+      "size_mb": 5.451231002807617,
+      "modified_time": "2025-06-19T14:48:13",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2177.JPG",
+      "name": "IMG_2177.JPG",
+      "size_mb": 6.0529632568359375,
+      "modified_time": "2025-06-19T14:49:50",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2178.JPG",
+      "name": "IMG_2178.JPG",
+      "size_mb": 6.454315185546875,
+      "modified_time": "2025-06-19T14:51:20",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2179.JPG",
+      "name": "IMG_2179.JPG",
+      "size_mb": 6.130781173706055,
+      "modified_time": "2025-06-19T14:53:15",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2180.JPG",
+      "name": "IMG_2180.JPG",
+      "size_mb": 6.8913726806640625,
+      "modified_time": "2025-06-19T14:56:02",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2181.JPG",
+      "name": "IMG_2181.JPG",
+      "size_mb": 3.102140426635742,
+      "modified_time": "2025-06-19T14:58:32",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\images\\IMG_2182.JPG",
+      "name": "IMG_2182.JPG",
+      "size_mb": 2.9731435775756836,
+      "modified_time": "2025-06-19T15:15:54",
+      "ext": ".jpg"
+    },
+    {
+      "path": "user_files\\videos\\IMG_2183.MOV",
+      "name": "IMG_2183.MOV",
+      "size_mb": 13.278031349182129,
+      "modified_time": "2025-06-19T15:28:28",
+      "ext": ".mov"
+    },
+    {
+      "path": "user_files\\videos\\IMG_0032.MOV",
+      "name": "IMG_0032.MOV",
+      "size_mb": 3317.6184215545654,
+      "modified_time": "2025-06-19T15:31:01",
+      "ext": ".mov"
+    },
+    {
+      "path": "user_files\\audio\\새로운 녹음.m4a",
+      "name": "새로운 녹음.m4a",
+      "size_mb": 27.15093421936035,
+      "modified_time": "2025-06-25T18:25:57.752964",
+      "ext": ".m4a"
+    },
+    {
+      "path": "user_files\\audio\\새로운 녹음 2.m4a",
+      "name": "새로운 녹음 2.m4a",
+      "size_mb": 0.9878215789794922,
+      "modified_time": "2025-06-25T18:25:59.562776",
+      "ext": ".m4a"
+    },
+    {
+      "path": "user_files\\images\\20250726_071905.png",
+      "name": "20250726_071905.png",
+      "size_mb": 0.22417736053466797,
+      "modified_time": "2025-07-26T07:19:12.510243",
+      "ext": ".png"
+    }
+  ],
+  "audio_content": [
+    {
+      "file": "새로운 녹음.m4a",
+      "transcript": "Sustainability Strategy Development and Action Planning implementation across the organization. Driving impactful progress in sustainable development. Before joining ChildbyFruit, the unworked as a sustainability advisor at the purpose business. From 2015 to 2015 to 2019, she was director of external affairs and sustainability at the Wipe Assault, where she led sustainability strategy development and communications. She also drove waste reduction initiatives, including supporting establishment of Hong Kong's first beverage partner recycling facility. Wow. And prior to taking up sustainability roles, the S-Covier span corporate communications and public government and community affairs have been worked at different multinational components. So, Leon, our next panelist, a very, very young entrepreneur. Please welcome Miss Henry Zer. Now Henry has found that not one not two but three companies. So as you can see, Henry actually is a company, which is a wholesale jewelry company, Nairlle, which is a retail brand, and they have a store at K11, and also Jordan E.J.R. and E. So, Henry has actually been from a family of dualers and you represent the new blood, the next generation of dualers. He joined the family business early and I was over two decades of experience in sourcing, manufacturing and retail, including collaborations with prestigious luxury brands. Driven by a passion for innovation, he found that Nairlle to redefine the jewelry industry by championing transparency, sustainability and ethical practices. To partnerships with organizations like Moyra Gems, Henry actively empowers women minors and advocates for responsible sourcing. By implementing an affordable due rack to consumer model, Henry ensures fabulous jewelry is accessible to women everywhere. So Henry said, and last but not least, we have Miss Katherine Show of the ICS Crime jewelry. Katherine has combined repression for jewelry design with entrepreneurship by establishing her own brand. She is a graduate of GIA, a graduate geologist, and a jewelry artisan with nearly 15 years of experience. She was born in Hong Kong and educated in New Zealand with a double major in marketing and international business from the University of Auckland. Katherine believes all natural creations are the perfect combination of art and science driven by curiosity and spasm commerce, gemology, design and craftsmanship. Welcome Katherine. Now before we start our final session, each of our resource persons will deliver a brief presentation. And to kick start the presentation, please welcome Leanne from Child by Hope, Jewelry Group. Thank you everybody and we'll have to learn. Thank you for your opportunity for us to share our experience and thoughts with you. So let me give you an introduction of what we do on sustainability. As a company that is of 96 years of age, we've always focused on winning the trust of all our customers and other stakeholders. We've been visioning to be the leading global dairy brand that can trust, trust, touch the buy, all generation. And with sustainability, we want to focus especially on our future generation. As our sustainability partners reflect, we want to be able to work together with different stakeholders in the industry to bring about sustainable transformation of the jewelry industry so as to have shame, we more to support sustainable future for every generation. So last year, we have reviewed our tenure commitment, which was established in 2019 to quickly review and step up our efforts in sustainability and with launched our new blueprint, we have theories in sustainability, 20 and 49 last year. 20, 49 marks of 120 anniversary and it also marks our target year for achieving zero. And our framework is started around three strategic pillars including environment, people and industry. So on the industry side, we have our three focus areas that is circle the routes, clarity where we would aim to increase the source of our precious metals from recycled origins. And so we have as the first step, we'll aim to increase the use of recycled gold across all our products. Before we go, and with also the introduction of collections made with 100% recycled gold. In the area of flexibility, we have been focusing on ensuring our raw materials coming from responsible sources where our supply chain will engage in responsible practices ensuring that our like the practices and environmental practices that we let's impact on the environment. And with our team art divers, we aim to have almost 100% of them chaseable to origin by 24. And we're not just talking about diamonds, but also gemstones and precious metals here. And we are also transitioning to low impact operation as mentioned, we aim to achieve in the 0 by 24.9 with different initiatives that would include also reducing how far our environmental impact of our packaging with zero by 24. Another area that we are looking at lower, we now impact is on the use of emphasis instances in geo-recollection. That is a very common manufacturing process where different chemicals are induced. And we want to enhance the safety and reduce environmental impact by replacing all reduce the use of those harmful substances. For people we cover our models of all people, but everyone involved in our supply chain and also the broader community to ensure that we protect the horizon and show our family the practices along the very chain. We also focus on influencing the family well-being of our employees and everyone in the community. As a Chinese jury company, we of course see that as our responsibility to preserve and promote the appreciation of Chinese culture and also to enhance the heritage of a Chinese gold jury crossmanship. To ensure the sustainable development of the industry and also of society, through the next generation developing future talents is also an impact. So that's another focus area of our people's strategy. As an industry leader for many years, we also see as the most willing to share our practices share our innovation with the industry and work together hopefully to raise environmental and response of practices standards along the industry. So we're looking to establish recycled goods, standards and traceable goods standards and also clean production standards with more safer chemicals to be seen in the manufacturing of our products. We already seen some of two requests to provide a range of around 100% recycled collection of new products. And we're seeing very good response for consumers. We are also looking at understanding our entire very machine-efficient work and our new product, the combination plan. And we have engaged in partnerships, such as the Palace Museum in Beijing and Hong Kong and the Receive Collaborations, such as the Launch of our Palace Museum collection, which has been very popular on our customers. And so we hope you can share your thank with us in the coming hour or so. And you're interested, you can browse our website for more of our achievements. We've just established our 10 sustainability reports. So welcome you to, I mean, I would report to understand more. So, we'll follow it to more exchange of thoughts and make it so tuned. Thank you. Thank you very much. Thank you, Leanne. Thank you. I think you've proven that sustainability is an infinite journey. It doesn't end. It's a long-term plan from Childeifold and I believe after that there will be another long-term plan coming up, right? Okay. Now our next panelist, let's all welcome Henry. Henry, the floor is yours. Thank you, Leanne. It's for high everybody. I'm Henry. Yes, I know. I have a sniper pin. This is the role. Yes. Hi. Thank you. Yes, so in the role, I'm a brand that I founded in 2019. And one of our main objectives is like we share with our customers, join us in the journey to be 100% traceable. So it's not easy to be traceable in theory, but so it is a journey, but we try to go our best in this area. Some of the environmental impacts that we care for and we try to do our utmost in the realm. For example, waste generation, water pollution. These things are... Initiate things that we would look at. Little steps. For example, limiting use of plastic, company, a bit of the footprint of energy consumption. Things like that where we plant trees in different different initiatives to help with the environmental impact. One of the things we also do is biing processing conflicts through minerals. In gemstones, and this is something that we try to source. Different suppliers that have conflict-free practices, like ping-billy process. Very about for like a silver and things like that that we try to do. And consumer awareness. So we're always talking about what we're trying to do through social media, finding our audience, finding our clients, our niche market, but people do care and want to do a long-term environment impact. So a little bit about traceability. And responsible mining. Environmental... I'm providing a fair condition for people for sourcing. So through my origins, we have the ability to give back to women-minus. We're trying to use the small-scale mining. So what women-minus teaching them how to mine and also taking them to the market. So they can actually make a living. And part of the proceeds, when we source from them, go back to them so that they can have an education for their family. And these are some of the initiatives that can be done in during the injury. Yeah, conflict-free. We've tried to do our best through a company process. There are supplies out there, even at the show that will be supplying things like this. Free crystallized gemstone is a Japanese technology that we source also. And using recycled gemstones, we're able to make something very nice. And this is something that may well through our campaigns and talk about and try to sell as well as lab-grown diamonds. We're cycle-gold and we've done different initiatives where we take old pieces of jewelry, melt and produce. So another little bit of things that you can do and the fair trade gold and silver that we work through, fair ever in UK. And that's something that we source as well. Little bit's like packaging, like I was saying before. Recycling paper, reducing plastic. I've done different packaging in my time and to whether it's in wholesaling. You're looking at 10 years of their, you're probably getting everything in plastic. It's different less sustainable materials. So now you can have a quite nice packaging with recycled paper. So we have a lifetime buy-back program as well. So we think of it as set-roarity from sourcing where we're material being as sustainable as possible. We do the design ourselves. We craft the jewelry through workshops. We ship around ourselves. We sell it to our customers. I mean buy-back and recycle paper from the rears well. So just something to, you know, like it's important. I believe in, you know, to make that circularity to make that sustainable as possible. And that's it? Thank you. Thank you very much Henry. Thank you. Our next panel is, let's welcome Academy of PISES. I find you only one of the finalists for this sustainability awards 25 by J.W. Academy of Lawyers Wolves. Thank you so much, Mary. So before I start, let me ask you one question. What makes something beautiful? Of course, as chairman jewelry professionals, we'll of course know the trace-standard. What makes a jewelry beautiful? Colors, clarity, you know, the make, whatever it is. But actually true beauty exists in many different forms. That can 2018. When I was about to kind of my jewelry company. I came to a realisation that our lives are not just about ourselves. It was actually just a series of personal experiences that make me think about that. So everything we do, everything we say, has an impact on other people. What do we know it or not? So I decided to found a PISES find jewelry with one single purpose. That is to review hidden beauty. Not just in Jamescombe, but in people. And also perspectives that we often, we often, we often, we've got about that. So I started with PISES using under estimated gemstones. And I intentionally paired them with top quality diamond. Not because I want to have a very distinct pieces, of course it does look beautiful. But the main thing is I want to spread the message of diversity. What makes something beautiful? Because we usually, in the street, we usually focus on the out, you know, the thick for the diamonds, through these sapphires and animals, we'll have a whole world about the other gemstones. They are also beautiful in their own right. So I want to use my jewelry company to spread that message. And then, and so yes, I elevate lessen known gemstones to challenge the conventional ideas of value and the conventional ideas of beauty and the standard of what we used to know. So let's actually drive my approach to sustainability, but it's not about strategy, but it's a mindset in everything we do. So let's start with the things behind our pieces. It's the people of course. I've been doing make-and-myself. I do focus on all the little details. And it's usually not just about the little things that make up a jewelry, but also people behind the scenes. And it's also represented not just in our industry, but also people who are in the society who are often next to the tale. So today I have a privilege to work with over 10 artists and 10 skilled artists who actually help me during making a film. And for this focus, 100% of our pieces have to send a piece focusing on let the nomjams from or under the send a council, under the value council, whatever you want to call it, but not to take four. And half of the something budget goes to smaller scale minor because I want to make a change for the life as well. So that they know that more they are doing, that they have to impact on out of the globe. Not just that they go running something interesting, but also for me to fight that market. And beyond the materials, I also believe in giving back to the society. So as the very small company myself, I've been trying my best to give back in whatever way that I can. So since 2018, when I started to come to me, I've been working on a company. I've been working on a company that I've been working on for our poor families. So last year I've expanded that to different charities like time options, and can build an interested fund, and maybe can help me to pay my taxes. Not just to help me to fund financial support, but also giving back the opportunity to come to our workshop to do the handmade jewelry themselves. Not just to expand something new, but also to the extent that the partnership behind what it's like to work in behind the team. So it's also another perspective that I want to bring people to understand more about the industry, to try to break the area and to back out about financial resources. So they don't just look at that from a distance, so it's so unnotoable. So this is an opportunity for them to try. And also I have just more this gemstone, this peppery trilogy session for that last year, so that I've worked on this session. And then I'm new to the victory two months ago, and then my next pop-loy movie on the lesson when we gemstone, the other color gemstone. So the reason for that is not just to let them know that, pay their other beautiful gemstone out there, but also to use my knowledge to let them know, apart from the majority, they are also from the lesson known, not just in people, the gemstone, but to the living. So you can always put back it, that's something that you might not know before that they found a beautiful in the future. And when you keep highlighting that, what's out as one week off, even, it is actually a collection of jewelry making experience where you invite it multiple people from all the supply. Most of them have no jewelry that go out there, and it's transformed one piece of 18K gold together. Can you play the video, please? So this was what happened last year. So I had over three days, I had more than 50 gold came to my workshop. So the most common, the most common, functional, a book, yang-laptop. These are the people. And the young, young students, young, professional. And even though children come to my workshop to do this collection, you're making. As you can see, some hand-bred, some so, some students are just stuck at the 80K gold. So when you name the key, that's what this whole thing is. It's almost a totally quirky and intuition. So the main aspect is, whatever one intention, might not be how other people put the other people want it. But only we worked together, we can do something better, greater than ourselves. And the journey is actually messy. They don't usually know what they're doing. But as long as they know that this is a collated effort, they would try it because to make it beautiful. It transformed all the way from a piece of rectangular, triangular, triangular, and incaticle to purely per se. And some of them, I thought that their touches are too small that they might not be noticed. But actually, people came at different times and people were also working for and they had done before. But I want them to send to embrace what has been done before. And I want them to understand that your thoughts might not be how other people want it, and it might be out there. So you have to embrace the change, you have to embrace different perspectives. And this is the key message that I want you, I want to spread during the workshop. And very successfully, it was the people were so great. And that's why it's one of our ongoing commitment right now. We got into community initiative. I actually turn it into an annual city council event. Actually, I've just done the second one last month. And it's just now in the progress of setting a storm setting. And I'm also continuing my commitment of the charity and spending different opportunities where I can use my knowledge and skills to support other people. But regarding sustainability, of course, I'm working towards the transparent, before I want the whole supply change to be more transparent. Not that to review our trade secrets, of course. But I think everyone deserves to understand how things are supposed, how do we treat our people, how how how how how what can impact we have for the community and for the people around us. And of course, this is my little things that I can do. But I believe that we are all like a piece of puzzle. Only we work together. We can feel a very bit picture. That's it for now. Thank you. Thank you so much Katherine. Thank you. And now I feel like I need to join our class. Because it's so inspiring, right? So I think all three of our families have done a terrific job. And later you can ask them questions, but first I have to throw this question that three three. That's being a sustainable business. I mean increased revenues. We need to make my business more profitable if I am a business with social conscience. If I'm a greener company. So let's get started with Leanne. Thank you. Well, certainly we have seen positive impact with sustainability efforts. Firstly, about for some whole research. We've launched the Monologue 100% recycled gold collection earlier this year. Already we are seeing more sales. More inches from customers about the brand. The brand with launch point in number of years ago and individual brand of child high fall. Earlier this year we started to convert all the gold products into sorting from 100% recycled gold. And we actually promote the benefit from sustainability and environmental aspects. And so we already seen an improvement on the increasing revenue. And certainly also the reduction of water use and the electricity use of greenhouse gas emissions. We are seeing close to 20% to over 50% reduction in our industry use and what are use and also raise generation. And all these actually to translate directly into reducing cost of corporations. And so the other thing we're seeing is the endorsement from the capital market with the assistance of the actions. We actually work like that. This year we've been recognized by Dow Jones, the system of retail index where we are entered for the first time in the best thing last world index. We've actually been in the best and plus each specific index for two years directly. So we're seeing recommendations from credit the capital market from this rating agencies. Of course we are as we said we are seeing increasing consumer interest from all of our most sustainable products. And that's important for us to be able to enjoy sustainable growth. And so all these actually we see system of pity. It's not an expense. It's something that we need to gain confidence of the capital market to gain consumer loyalty. Thank you so much Henry. Yeah, I think like the answer, it's quite important in such an important message now and consumers are aware of different companies providing a more sustainable product and the use of traceability and more ethical as well. Yeah, like it definitely there's more consumers at the same time to have a it's not cheap to be ethical. There's not cheap to be sustainable. There's extra work, there's extra cost and things like that. I'm noticing is that the messages out there like you know people are demanding more consumers are demanding more sustainable practice. So in time I think it's something that you you should be looking at or even now kind of thing. So yeah, like yes, it can be costly, but I do think a lot of my personal experience, my biggest opportunity to have always come from the fact that we have a clean messaging. The fact that we are trying to do a little bit more the fact that we are with different in the market to profit yourself a niche market for yourself service week. So yeah, no better time than now. Thank you, Henry and Catherine. For me, it's actually quite different because I don't treat sustainability as a strategy. It is actually our starting point of foundation. So, and most of my clients actually are more of a more mature. Most of them are like 50, 60 years old plus. So in my not, in my not being dropped with terms of sustainability. But once I share about why I started my company, why I do it this way, why I so focused on the hand-made jewelry, why I want to embrace the other some behind it, or why I do my design like this, why I use uncommon gemstone or underestimated gemstones. Eventually, they understand it and then they kind of connect with the message. And once they are connected, they become very loyal. And I think that kind of relationship is more than just a transaction. And it doesn't just bring as a brand new. It brings us long-term values such as trust. This is something that we cannot use marketing budget to buy. And yeah, I think yes, in a way that it does increase revenue because it is not at all in sustainability. Thank you so much. Now I would like to follow up on Lianza and Sir Early, where you said that for the model of a collection, you actually recorded an increase in sales. Was the increase, did it come from a specific consumer segment? Are we looking at the younger consumers, or bellowing else, meaning 28, or 29, or 44, or Gen Z, which is up to 20 years old? Yeah. Monala actually is a brand that targets exactly the audience that you just mentioned from the land here, or the Gen Z. So that's why when we launched it with our 100% recycled gold, with our message about enhancing similarity, relying less on mining, because it's everyone else. There's much bigger emissions from mining gold versus recycling. So all these would actually appeal to our audience. It's all the model of brand. And as you can see, the connection with consumer that can appeal to their preference. It's important that this will give us emphasis at in enhancing our sales and long-term growth. Very powerful group. Now, my next question is something to do with organizational size. This is the sustainability success. I think you've asked this question, Lee, at a wide number of times, because child, I feel admitted it has a lot of resources. It's an iconic brand. You have a legacy of long history. So for you, maybe, under taking on the sustainability journey, might be easier. I don't want to say easier, but maybe you have the resources to do it. But compared with smaller companies, for example, who do not have the same resources. So do you have to be big to be successful? You're not a team sustainability success. So, after Lee and Lee, we have a pattern for those who share their insights. Thank you. I wouldn't say, you know, in fact it has to be successful. It actually depends. We have opportunities, but also comes with responsibilities. And obviously, of course, with scale, we are able to reach out to audiences without extensive network of pointless sales. We've almost 6,500. Across the entire market. So in terms of speed and reach, we have an advantage of turning our ideas and plan into market loans and market acceptance. Also, we preserve scale and hand size. We're able to engage in end to end. And a more a tighto-controlled supply chain with a vertical integration. And so we are able to ensure responsible practices along the ramp chain with a tighto-controlled finance. And with a better chain of custody, a form of materials, etc. On the other hand, actually, with our size, it comes with a bigger footprint. And in the sheer volume of our own, a few years of what we need, a huge emissions. So there's a lot more responsibility that we have to show to help audiences, conditions with the capacity of our own chain. Understanding the footprint of the voting and understanding the way we can update our emissions. And we do that with these our impact. With size, there's also complexity in governance and management of our operations. So these are what we see as the, yes, we do have resources, but we do have not bigger responsibility. We should allow it as much as we can to have to be key is to see the importance and take a long term view that and also educate the employees and then that is in two hour positions on the tip of the setting. Thank you, thank you, Leon. Henry? I think, yeah, for tracing from my to market is not easy, it's safe that we help. She's all being able to source direct is going to be helpful. I would say, but even at an established level, there are companies that you can work with to take on those initiatives. So this is certainly, yeah, this is possibility as well. I've been trying really hard to kind of do that and so that it's more traceable so that you do know that it's not like dying in there. You do know that it's, yeah, and then child labor and things like that. So it's important, I think, and as you can see, give your companies a take on there. On, taking this to make it possible to stay in a wall. So more and more solutions will come, I believe, and take it. Can't you agree? I just think that even had, well, first of all, the more impact is supposed to be, suppose. But it doesn't mean that, it's small, you don't have your impact. My company and myself is all living sample that we are doing positive change. And it takes time because as you can see, even though it's my workshop always the sharing session, it is like, I cannot entertain like 1,000 people, but every message, every workshop, every piece of theory, every person that I encounter, I square this message. And this message on the scene, and I think it can go beyond just the journal that in this area. Suppose I'm in the druid industry, I suppose it's not clear. And eventually this message will go beyond that. And I give things that the impact doesn't. It doesn't have to be, I mean, we just have to be big to give impact. And you won't can pay something. Thank you. Now, before we open the floor, who questions, I would like to ask him, and he's one question. You are second generation jeweler, right? Because your father was a goalsmith in Ramadan. And then you became a entrepreneur in your school and three companies. He started a difference between your past generation and your generation. What are the new things that you are bringing to the table? We're dealing the complex system of the way to... Sure. Yeah, like, definitely very different. I guess back in the day, there wasn't a lot of handmade books. My dad's son, as a craftsman, and he's got into retail and things. Joriz generally, a family past-down business, is expensive to be in Joriz. To be in fine Joriz. It's tends to be quite traditional setups. And innovation seems to come a little bit slower. Because of this, your young generation is not waking up and saying, Oh, let's go create a fine Joriz rat. It's quite expensive. It's quite typical in everything. But you can maybe get into a different industry. Wake up and say, you want to do a cleaning rat. That's possible, right? So, I do feel like Joriz lacks innovation. You've learned everything to make it transporting it. So, yeah, there are differences. But now, all wrong innovation travels very quickly through Shoriz's media. There's a lot of opportunity, the share, the importance of sustainability. People are taking a rare of this message, especially in the Western markets. So, yeah. Very different in terms of back-ended data. You just open a shop and wake up customers to come now. You can take that initiative. Yes, thank you. And now we're opening the floor to questions. So, please raise your hand. Please identify yourself and the organization you represent. And of course, identify the person who you're addressing their questions. Okay, I see you very day. Hi, I'm Richard Taylor. I'm a journalist from UK. And I have a question for you, your 10 years or a child of course, because 10 years into its ESG reporting. And I just wondered now, is there one element that it's your very folks to order? One thing that seems very pressing at a moment, is of within that ESG world? A lot of things are important, but I think we see entire value change, which is pressing for us to address those emotions and address a climate change. And we as a feasible company, we have a complex supply chain. And that's where we can access ourselves in the world. And so we actually have been engaged in a comprehensive view of our missions. And watch so, we wish that we should as well not supply us, but to stand up big picture. That could be very sizable, be the last size. And we're working on the carbonization across operations and the revenue chain. This is quite a big challenge, but we see that a challenges could be accelerated of actions. And that's what we are trying to do now. Thank you. Thank you. Any other questions? Oh, really. Hi, everyone. I am Henry. And I'm a fresh jewelry graduate from the Royal College of Arts in UK last year. And I am having a little start up with my friends. We are trying to make areas that are sustainable as possible, but I think you know a lot of difficulties. It's very important to make a youth one, most important advice, or a little start of life, or pass, or be. Thank you. I think this is a rest of all panelists. Let's start with Catherine. Let me start because I'm just more like, I think the most important thing is to start with the right intention. What is your thought about this industry? What do you want to achieve? It is only about money. There is a lot of different choices. But if you want to start in, because you know, something that you are like, you push your head and you want to do something about it. I think it's very important to stick with your true value. What is important for you? What is so important for you? You have to start this business. But you need to think about it. And you two focus on that path because there will be a lot of challenges. And people will say that it is difficult. People will say that different commercial one and... And a lot of distraction that I was saying. I didn't mean commercials about that thing. Because at the end of the day, we are doing business. But I think the intention and the value you have to be very, very clear about that. Thank you. Yes, sorry. That is very accurate. It is a very cool message that kind of gives you drive to continue. It is not going to be easy. So that is very, very important. I will say there is a lot of program cases out there where if you have your very clear messaging, like a very clear, what your brand is about and a very clear product as well, it is very easy for you to communicate that. And people understand what you are actually doing. Just like always like always on one basket is a little bit better than trying to spread that. It is great that out there is many important cases where brands with single products have managed to sell huge volumes. So I probably do that. Like I probably just about sign all over again. I would definitely just kind of focus on single product and communicate that as much as again. We can consistency. So I think other than single products and having a very clear vision as a startup who may not have a little resources, you can try to reach out to help from others like industry partners, that industry and sensations. And even for us, we have very close relationship with a lot of industry, jewelry, associations. And there is a lot of actually support and help. Once you reach out, you can see that a lot of organizing and individual share with encryption. And I'm sure that there is a lot of a collaboration opportunities where you don't just work on it by yourself. And then you can see care and cooperate with others. So as we share the same contribution, I'm sure that a lot of resources for example, that see if you're in Europe, they actually have just issued the ESGAR to and a lot of that is focused on helping us out. And so and I'm sure there are other industries, associations, no full ones or additional ones that always support like that. So I would encourage you to open yourself up and collaborate. Thank you very much. That was an excellent question. Other questions? Yes, please. Hello, I'm next to me. And I'm also in front of President Disciple, a person to smile and I'm also like to ask more about sustainability practices. So besides, like, responsibilities, like standards, I've got a lot to know. And in different parts of the supply chain, how you engage your employees to involve in every part of the journey of producing opportunities for our websites with it, this is a question for our community. How you create the culture of sustainability within your company? Right. Lee Ann? I'll stop by us to, yeah. Well, well, some of you are very good question because it's very important to engage everyone in the organization to help us bring forward our plan and ideas. And talk about what we actually do with both ways. We talk down to Baltimore. From talk down we engage all of the departments and has an leadership team. We have as a push-to-existing opportunity management committee at the executive level to provide oversight of our system of media actions. That involved all the different business related to departments and things like that. We also set up task forces, reach of which will focus on the certain focus area. And these task forces comprise members, again, a positive organization. On, for example, on the sacred gold alone, we engage people from protections from sourcing to protection. We do production and distribution and the right thing. Everyone worked together to improve our recycled gold, along to poor and poor women. Baltimore, we actually engage in a lot of internal engagement to help our employees understand and become aware of what system of IT needs to everyone. And why do we, as a company, wanted to do it, wasn't it for them? We want to be able to show that they understand and get an environment to what we are doing. And ultimately internalizing that system ability into everything that we do. And we would invite experts to come and share knowledge with us and we have ongoing communications of our work. We do, we do this in the interior, we keep that informed of our work. So we want to be able to reach out to the organization, not just to let the Norfolk engage them. And we took their work, participate in our actions so that we, it becomes a very powerful force to improve our work. I think it's important to get everyone involved. And for an employee, I think it matters that their voice is heard, you know, and that they feel that they're actually a part of the role. Exactly. Yeah, they feel that they've actually participate in the success of the company. I mean, outside of the organization, we also engage our suppliers, where we have best-practice suppliers principles. And we would educate and engage with them to understand what our standards are. And ensure they are aligned with us and we will give the practices and show them the improvement areas of our change with them. So that in the broader managing area, we also hope to, and establish the culture. Okay, Henry, it's your turn. So yeah, okay, so I, uh, small lot companies, to make science companies, I think, uh, the importance of engaging all your employees or, uh, very important. Jewelry is there, there's, like, quite a lot of technical parts of their injury. So if you're working with persons generally, they're all done. And then if you're doing social media or whatever, you're like, marketing, things like that, you tend to be farming down there. So, so, if you're wanting to engage them all together, um, uh, educating, uh, the, the classrooms or whoever technical people of the importance of sustainability, um, generally, you know, and a start level of your hiring, people they need to be quite passionate about, um, trying to, making change and trying to do better, uh, it was quite important. And, um, so yeah, like, yeah, like, you know, behind the right people, it's that is what we're going to call to success. Thank you, Catherine. So I have, um, different approach, one of different approaches. It's still like a one-and-and-then right now. So I don't have any important to engage at this moment. But I do see my, um, my suppliers, my clients, who's also all the collaborators as part of the journey to sustainability. So, where, whenever I get a chance to spread the message, I'll just let them know what I'm, what I want to do with the brand, what I want to do with the knowledge I know. As my focus knowledge from the professionals, from the, from the trade, I learned from the seniors. When it's well, it's just passed it down as well. Because I got it from fear, I should, like, feel it from fear as well. And then, um, it's part of the journey. I think it's really important to get the skill that, uh, knowledge to pass that, and together with the message that you want, and to understand about, like, whatever you do, that is an impact to other people. I think that's a spirit of sustainability, also being generous with your knowledge and being willing to share it. Because, collecting action is needed for you to really have a strong impact, but we shouldn't underestimate the strength of one person or one small, because together we, we deliver something, you know, we create something beautiful. Now, we have five for one more question, one last question. Any questions? No. So, I will ask the final question. Now, is the, in a way, the most important lesson that you have learned in your sustainability, your own different standards, right? For example, the, you've been in this, um, you've been an expert for more than a decade, right? And then, for Henry, you have been, uh, you open tree businesses, and, uh, you're actually a normal entrepreneur, and you have a different perspective, you have different ways of working with things. And gatherings, you've said, you're a one-month person, but, um, never on their, is going to be joined. So, what was the outcome as a touch of learning? And you're a sustainability during the summer. And it's about because I'm holding a mic. So, um, one crucial lesson that I learned is the clarity of intention. So, um, to a lot of people understand what's your key message, because a lot of people might not understand what you want to do. You don't let them know. Like, at the very beginning, I was, uh, before, actually before I started my business, I was wanting to follow the more commercial power, you know, It should be easy and the main model of the year, because I was putting that kind of background. But then, when I, because of the personal experience, it's a shift my path to a more artistic, more meaningful approach. And then, um, when I have that kind of fear, and then people can ask me, why are you, you're, you're using a digital adjustment as a system, as a center focus. Why do you pattern both the top, the dominant, and you're like, it doesn't match. And like, the dark and key message that I want to bring out, because I think true beauty, this will exist in only one particular form. Especially, just for example, when we talk about beauty in people, you know what I think about the eyes, sharp chance, long legs. What I don't have any of these, but I do think you're beautiful. In a way, right? And I'm doing everybody is beautiful in an own way, we just need to know what it is and we describe that as a crown. And, um, yeah, and then that's what I told that's beautiful here, but then focus is a very important, because there will be a lot of different ways out there. Thank you. Thank you so much. Henry? Okay, so one of the lessons, all lessons I would say, I've tried different initiatives in one more way, like I think we saw some more sustainable groups and have had expectations for them to do well, but failed. I think one of the things is not to try to do too much at the same time. Yes, your core message is your branding, your clean message, your super world. And I would just say like, everything takes a little bit of time, everything takes a little bit of consistency. Yeah, like, if there's a movie probably through the RL had five different things that we can talk about, but actually probably focusing on one.",
+      "processing_time": 222.0981147289276,
+      "timestamp": "2025-06-25T18:25:57.752964"
+    },
+    {
+      "file": "새로운 녹음 2.m4a",
+      "transcript": "And letting everyone involved understand this why, this purpose, whether it's your employees, the entire organization, and your industry partners, including suppliers along the brand of the chain, your customers, and others think, who is the wise, very important because it ensures that everybody is on the same page. And there's only a single purpose to understand why that we can actually motivate people to work towards the same direction and everyone contributing. It's more that it's a lot more impactful in classes, so that's a deal on it. Thank you so much. Let's give them a big round of applause. The app and re-category. Thank you so much. You're amazing. Thank you. And thank you for being such a wonderful audience. Thank you. Thank you. Thank you. Thank you.",
+      "processing_time": 4.565903425216675,
+      "timestamp": "2025-06-25T18:25:59.562776"
+    }
+  ],
+  "image_content": [
+    {
+      "file": "IMG_2160.JPG",
+      "extracted_text": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY",
+      "text_blocks": 23,
+      "processing_time": 24.089335680007935,
+      "timestamp": "2025-06-19T14:31:34"
+    },
+    {
+      "file": "IMG_2161.JPG",
+      "extracted_text": "ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller",
+      "text_blocks": 35,
+      "processing_time": 21.90388798713684,
+      "timestamp": "2025-06-19T14:32:51"
+    },
+    {
+      "file": "IMG_2162.JPG",
+      "extracted_text": "The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19 / 6 / 2025 (Thursday) The Hall 1B 2.3Opm 3.3Opm HKCEC informam Jewellery ' ' ' ~ Stage,",
+      "text_blocks": 25,
+      "processing_time": 21.648619890213013,
+      "timestamp": "2025-06-19T14:33:08"
+    },
+    {
+      "file": "IMG_2163.JPG",
+      "extracted_text": "Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets",
+      "text_blocks": 9,
+      "processing_time": 20.884546756744385,
+      "timestamp": "2025-06-19T14:35:11"
+    },
+    {
+      "file": "IMG_2164.JPG",
+      "extracted_text": "Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner",
+      "text_blocks": 8,
+      "processing_time": 21.633604049682617,
+      "timestamp": "2025-06-19T14:35:26"
+    },
+    {
+      "file": "IMG_2165.JPG",
+      "extracted_text": "Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future",
+      "text_blocks": 8,
+      "processing_time": 20.901832103729248,
+      "timestamp": "2025-06-19T14:35:47"
+    },
+    {
+      "file": "IMG_2166.JPG",
+      "extracted_text": "Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev",
+      "text_blocks": 8,
+      "processing_time": 20.592517852783203,
+      "timestamp": "2025-06-19T14:35:58"
+    },
+    {
+      "file": "IMG_2167.JPG",
+      "extracted_text": "CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr",
+      "text_blocks": 13,
+      "processing_time": 20.661524295806885,
+      "timestamp": "2025-06-19T14:36:14"
+    },
+    {
+      "file": "IMG_2168.JPG",
+      "extracted_text": "CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel",
+      "text_blocks": 20,
+      "processing_time": 31.176748514175415,
+      "timestamp": "2025-06-19T14:37:14"
+    },
+    {
+      "file": "IMG_2169.JPG",
+      "extracted_text": "FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld",
+      "text_blocks": 12,
+      "processing_time": 28.274041175842285,
+      "timestamp": "2025-06-19T14:40:37"
+    },
+    {
+      "file": "IMG_2170.JPG",
+      "extracted_text": "The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery",
+      "text_blocks": 7,
+      "processing_time": 20.68522572517395,
+      "timestamp": "2025-06-19T14:42:12"
+    },
+    {
+      "file": "IMG_2171.JPG",
+      "extracted_text": "NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma",
+      "text_blocks": 3,
+      "processing_time": 20.255595445632935,
+      "timestamp": "2025-06-19T14:42:33"
+    },
+    {
+      "file": "IMG_2172.JPG",
+      "extracted_text": "NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery",
+      "text_blocks": 12,
+      "processing_time": 20.882724046707153,
+      "timestamp": "2025-06-19T14:42:59"
+    },
+    {
+      "file": "IMG_2173.JPG",
+      "extracted_text": "SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are conflict-free Ensure GEMSTONE & DIAMONDS Recrystallized Gemstones Produced bY highly advanced Nanotechnology Identical tothe highest earth-mined gemstones guaranteed 'conflict free that 9096 less and are New Lab Dlamonds Collection commitment to quality = environmental responsibility Our of affordable with supreme quality A choice Ofthe damage to environment to the mining None RECYCLED GOLD Of reclaimed jewelry to support a sustainable future Composed Cholces that benefit the planet and future generations FAIRTRADE GOLD & SILVER Make better lives to the miners their famllies and the commui formamar vellery N YRELLE materials natural grade cost Brown and prices",
+      "text_blocks": 49,
+      "processing_time": 22.985839366912842,
+      "timestamp": "2025-06-19T14:44:35"
+    },
+    {
+      "file": "IMG_2174.JPG",
+      "extracted_text": "NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE",
+      "text_blocks": 5,
+      "processing_time": 24.518022298812866,
+      "timestamp": "2025-06-19T14:46:19"
+    },
+    {
+      "file": "IMG_2175.JPG",
+      "extracted_text": "NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle to m iveimpact and Crall Ippliers Through \"Nyrelle Back Proi 1o promote circular lifecycle of our solid hnviting Recycle NYRELLE custoimers to us their Ship return enjoy our store credit Backi Weari informamarl Jewellery = = = Buy ~ bring ling price Buy",
+      "text_blocks": 39,
+      "processing_time": 23.15994095802307,
+      "timestamp": "2025-06-19T14:46:54"
+    },
+    {
+      "file": "IMG_2176.JPG",
+      "extracted_text": "1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamonds; rare and Crafts exquisite exotic gems merging a a 'ppreciation for individuality and div Our Design Philosophy Intentionally elevates less en overlooked or underrepresented gen Ining them with high-quality materia message that true beauty is found in and inclusion informama Jewellery ' ' ' ' ' sing one-of- lity",
+      "text_blocks": 40,
+      "processing_time": 22.612985134124756,
+      "timestamp": "2025-06-19T14:48:13"
+    },
+    {
+      "file": "IMG_2177.JPG",
+      "extracted_text": "Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of centrepieces feature unique and underrepresented gemstones Collaborations boost vislbility and revenue rmamarket ' suppliers ' supplier",
+      "text_blocks": 13,
+      "processing_time": 23.169305324554443,
+      "timestamp": "2025-06-19T14:49:50"
+    },
+    {
+      "file": "IMG_2178.JPG",
+      "extracted_text": "미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+ hours community services) Cambodian Children's Fund (helped ralse over HKD 2M) Time Maggie's Cancer Caring Centre (helped raise HKD 1.9M) Provided hands-on jewellery-making experiences wlth social Impact Empowering Through Knowledge-Sharing Sessions Hosted private and group events for over 50 guests gernstones Designed to empower consumers with transparent accessible g 95% of participants felt more confident and informed about the choices Building conscious jewellery community with industry insigt namai ' 'Big",
+      "text_blocks": 19,
+      "processing_time": 26.20239233970642,
+      "timestamp": "2025-06-19T14:51:20"
+    },
+    {
+      "file": "IMG_2179.JPG",
+      "extracted_text": "jewellery-making event with over A collective 50 participants. Each contributed to a shared jewellery piece by hammering sawing and and deciding where to place their chosen gemstones Most ofthe participants had no jewellery- making experience Symbolized the beauty Of shared creativity and adaptability early participants shaped the base while later contributors reinterpreted and built upon it 10% of the final sales would be donated to charities nominated by the participants merging creativity with giving filing prior",
+      "text_blocks": 20,
+      "processing_time": 22.804080724716187,
+      "timestamp": "2025-06-19T14:53:15"
+    },
+    {
+      "file": "IMG_2180.JPG",
+      "extracted_text": "Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion Preserving Traditional Skills Transparency Reports Education and Strengthening DEI Gemstone Knowledge Sharing Consumer Awareness Campalgns Industry Expert Collaborations",
+      "text_blocks": 13,
+      "processing_time": 24.00250244140625,
+      "timestamp": "2025-06-19T14:56:02"
+    },
+    {
+      "file": "IMG_2181.JPG",
+      "extracted_text": "Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom",
+      "text_blocks": 13,
+      "processing_time": 21.16963791847229,
+      "timestamp": "2025-06-19T14:58:32"
+    },
+    {
+      "file": "IMG_2182.JPG",
+      "extracted_text": "8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG",
+      "text_blocks": 12,
+      "processing_time": 21.249857902526855,
+      "timestamp": "2025-06-19T15:15:54"
+    },
+    {
+      "file": "20250726_071905.png",
+      "extracted_text": "19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists Lianne Ng Henry Tse Pui In Catherine Siu Sustainability Director of CEO of Ancardi, Founder of Chow Tai Fook Nyrelle & JRNE PICS Fine Jewellery Jewellery Group To talk about sustainability is to talk about the future In this session our panellists will lookinto the rising trend of eco-friendly luxury consumption, examining how sustainability has evolvedintoa defining factor for authentic luxury The conversation will focus on what drives this change and the outlook for luxury jewelleryin an increasingly environmentally and socially conscious world. Venue The Stage; Hall 1B,Hong Kong Convention and Exhibition Centre Moderator Marie Feliciano Marketing Communications Manager of Informa Markets Jewellery Language English with Al-powered Mandarin captions",
+      "text_blocks": 33,
+      "processing_time": 5.023194789886475,
+      "timestamp": "2025-07-26T07:19:12.510243"
+    }
+  ],
+  "video_content": [
+    {
+      "file": "IMG_2183.MOV",
+      "size_mb": 13.278031349182129,
+      "timestamp": "2025-06-19T15:28:28",
+      "note": "메타데이터만 수집"
+    },
+    {
+      "file": "IMG_0032.MOV",
+      "size_mb": 3317.6184215545654,
+      "timestamp": "2025-06-19T15:31:01",
+      "note": "메타데이터만 수집"
+    }
+  ],
+  "comprehensive_story": "[JPG] IMG_2160.JPG: ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY\\n\\n[JPG] IMG_2161.JPG: ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRN\\n\\n[JPG] IMG_2162.JPG: The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19\\n\\n[JPG] IMG_2163.JPG: Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets\\n\\n[JPG] IMG_2164.JPG: Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner\\n\\n[JPG] IMG_2165.JPG: Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future\\n\\n[JPG] IMG_2166.JPG: Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev\\n\\n[JPG] IMG_2167.JPG: CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr\\n\\n[JPG] IMG_2168.JPG: CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel\\n\\n[JPG] IMG_2169.JPG: FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld\\n\\n[JPG] IMG_2170.JPG: The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery\\n\\n[JPG] IMG_2171.JPG: NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma\\n\\n[JPG] IMG_2172.JPG: NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery\\n\\n[JPG] IMG_2173.JPG: SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are confl\\n\\n[JPG] IMG_2174.JPG: NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE\\n\\n[JPG] IMG_2175.JPG: NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle\\n\\n[JPG] IMG_2176.JPG: 1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamond\\n\\n[JPG] IMG_2177.JPG: Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of ce\\n\\n[JPG] IMG_2178.JPG: 미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+ hours community services) Cambodian Children's Fund (helped ralse over HKD 2M) Time Maggie's Cancer\\n\\n[JPG] IMG_2179.JPG: jewellery-making event with over A collective 50 participants. Each contributed to a shared jewellery piece by hammering sawing and and deciding where to place their chosen gemstones Most ofthe partic\\n\\n[JPG] IMG_2180.JPG: Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion P\\n\\n[JPG] IMG_2181.JPG: Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom\\n\\n[JPG] IMG_2182.JPG: 8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG\\n\\n[MOV] IMG_2183.MOV: 비디오 파일 (0.0MB)\\n\\n[MOV] IMG_0032.MOV: 비디오 파일 (0.0MB)\\n\\n[M4A] 새로운 녹음.m4a: Sustainability Strategy Development and Action Planning implementation across the organization. Driving impactful progress in sustainable development. Before joining ChildbyFruit, the unworked as a su\\n\\n[M4A] 새로운 녹음 2.m4a: And letting everyone involved understand this why, this purpose, whether it's your employees, the entire organization, and your industry partners, including suppliers along the brand of the chain, you\\n\\n[PNG] 20250726_071905.png: 19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists Lianne Ng Henry Tse Pui In Catherine Siu Sustainability Director of CEO of Ancardi, Founder of Chow",
+  "timeline": [
+    {
+      "timestamp": "2025-06-19T14:31:34",
+      "file": "IMG_2160.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:32:51",
+      "file": "IMG_2161.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:33:08",
+      "file": "IMG_2162.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:35:11",
+      "file": "IMG_2163.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:35:26",
+      "file": "IMG_2164.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:35:47",
+      "file": "IMG_2165.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:35:58",
+      "file": "IMG_2166.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:36:14",
+      "file": "IMG_2167.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:37:14",
+      "file": "IMG_2168.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:40:37",
+      "file": "IMG_2169.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:42:12",
+      "file": "IMG_2170.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:42:33",
+      "file": "IMG_2171.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:42:59",
+      "file": "IMG_2172.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:44:35",
+      "file": "IMG_2173.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:46:19",
+      "file": "IMG_2174.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:46:54",
+      "file": "IMG_2175.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:48:13",
+      "file": "IMG_2176.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:49:50",
+      "file": "IMG_2177.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:51:20",
+      "file": "IMG_2178.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:53:15",
+      "file": "IMG_2179.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:56:02",
+      "file": "IMG_2180.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T14:58:32",
+      "file": "IMG_2181.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T15:15:54",
+      "file": "IMG_2182.JPG",
+      "type": "jpg",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T15:28:28",
+      "file": "IMG_2183.MOV",
+      "type": "mov",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-19T15:31:01",
+      "file": "IMG_0032.MOV",
+      "type": "mov",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-25T18:25:57.752964",
+      "file": "새로운 녹음.m4a",
+      "type": "m4a",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-06-25T18:25:59.562776",
+      "file": "새로운 녹음 2.m4a",
+      "type": "m4a",
+      "processed": true
+    },
+    {
+      "timestamp": "2025-07-26T07:19:12.510243",
+      "file": "20250726_071905.png",
+      "type": "png",
+      "processed": true
+    }
+  ]
+}

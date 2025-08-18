@@ -1,0 +1,29 @@
+{
+  "session_id": "20250723_183336",
+  "stats": {
+    "total_files": 1,
+    "processed_files": 1,
+    "failed_files": 0,
+    "start_time": "2025-07-23T18:33:36.425181",
+    "end_time": "2025-07-23T18:33:36.543623",
+    "errors": []
+  },
+  "results": [
+    {
+      "file_path": "files\\test_document.txt",
+      "file_name": "test_document.txt",
+      "file_size": 415,
+      "status": "completed",
+      "start_time": "2025-07-23T18:33:36.429390",
+      "end_time": "2025-07-23T18:33:36.434097",
+      "analysis_result": {
+        "type": "document",
+        "content": "솔로몬드 AI 시스템 테스트 문서\n\n이 문서는 강화된 배치 처리 시스템을 테스트하기 위한 샘플 파일입니다.\n\n주요 기능:\n1. 다중 파일 자동 처리\n2. GitHub API 연동 자동 리포팅  \n3. MCP Memory 이력 저장\n4. 에러 해결 자동 제안\n5. 실시간 진행률 모니터링\n\n이 시스템을 통해 솔로몬드 AI의 개발 품질이 크게 향상될 것입니다.",
+        "word_count": 52,
+        "summary": "솔로몬드 AI 시스템 테스트 문서\n\n이 문서는 강화된 배치 처리 시스템을 테스트하기 위한 샘플 파일입니다.\n\n주요 기능:\n1. 다중 파일 자동 처리\n2. GitHub API 연동 자동 리포팅  \n3. MCP Memory 이력 저장\n4. 에러 해결 자동 제안\n5. 실시간 진행률 모니터링\n\n이 시스템을 통해 솔로몬드 AI의 개발 품질이 크게 향상될 것입니다."
+      },
+      "error": null
+    }
+  ],
+  "summary": "배치 처리 완료 보고서\n\n📊 처리 통계:\n- 전체 파일: 1개\n- 성공 처리: 1개 (100.0%)\n- 실패 처리: 0개\n\n⏰ 처리 시간: 2025-07-23T18:33:36.425181 ~ 2025-07-23T18:33:36.543623\n\n🔧 주요 에러:"
+}

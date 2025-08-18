@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-03T15:20:08.543037",
+  "audio": {
+    "status": "error",
+    "error": "'cp949' codec can't encode character '\\xbb' in position 78: illegal multibyte sequence"
+  },
+  "image": {
+    "status": "success",
+    "text_blocks": 23,
+    "total_text": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY",
+    "preview": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY"
+  }
+}

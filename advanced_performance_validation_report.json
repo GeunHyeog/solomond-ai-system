@@ -1,0 +1,215 @@
+{
+  "timestamp": "2025-07-28T04:52:17.449905",
+  "system_info": {
+    "cpu_count": 12,
+    "memory_total_gb": 13.86,
+    "memory_available_gb": 3.78,
+    "disk_free_gb": 161.82,
+    "python_version": "3.13.5",
+    "platform": "win32"
+  },
+  "performance_tests": {
+    "large_file_simulation": {
+      "status": "completed",
+      "test_scenarios": 4,
+      "successful_tests": 4,
+      "average_prediction_accuracy": 0.008393259102237205,
+      "results": [
+        {
+          "scenario": {
+            "size_gb": 1.0,
+            "duration_min": 30,
+            "format": "mp4"
+          },
+          "estimated_time": 25.240000000000002,
+          "actual_time": 0.20049738883972168,
+          "memory_stats": {
+            "max_memory_mb": 148.76953125,
+            "avg_memory_mb": 148.76953125,
+            "min_memory_mb": 148.76953125,
+            "max_cpu_percent": 0.0,
+            "avg_cpu_percent": 0.0,
+            "sample_count": 1
+          },
+          "prediction_accuracy": 0.9920563633581727,
+          "status": "success"
+        },
+        {
+          "scenario": {
+            "size_gb": 2.5,
+            "duration_min": 60,
+            "format": "mov"
+          },
+          "estimated_time": 66.72,
+          "actual_time": 0.5004212856292725,
+          "memory_stats": {
+            "max_memory_mb": 148.76953125,
+            "avg_memory_mb": 148.76953125,
+            "min_memory_mb": 148.76953125,
+            "max_cpu_percent": 0.0,
+            "avg_cpu_percent": 0.0,
+            "sample_count": 1
+          },
+          "prediction_accuracy": 0.9924996809707843,
+          "status": "success"
+        },
+        {
+          "scenario": {
+            "size_gb": 5.0,
+            "duration_min": 90,
+            "format": "avi"
+          },
+          "estimated_time": 105.82000000000001,
+          "actual_time": 1.0005569458007812,
+          "memory_stats": {
+            "max_memory_mb": 148.76953125,
+            "avg_memory_mb": 148.76953125,
+            "min_memory_mb": 148.76953125,
+            "max_cpu_percent": 0.0,
+            "avg_cpu_percent": 0.0,
+            "sample_count": 2
+          },
+          "prediction_accuracy": 0.99054472740691,
+          "status": "success"
+        },
+        {
+          "scenario": {
+            "size_gb": 8.0,
+            "duration_min": 120,
+            "format": "mkv"
+          },
+          "estimated_time": 184.49600000000004,
+          "actual_time": 1.600282907485962,
+          "memory_stats": {
+            "max_memory_mb": 148.76953125,
+            "avg_memory_mb": 148.76953125,
+            "min_memory_mb": 148.76953125,
+            "max_cpu_percent": 0.0,
+            "avg_cpu_percent": 0.0,
+            "sample_count": 4
+          },
+          "prediction_accuracy": 0.9913261918551841,
+          "status": "success"
+        }
+      ]
+    },
+    "youtube_url_performance": {
+      "status": "completed",
+      "total_urls": 3,
+      "successful_urls": 3,
+      "average_processing_time": 0.5004494984944662,
+      "results": [
+        {
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "platform": "youtube",
+          "is_valid": true,
+          "processing_time": 0.500612735748291,
+          "memory_stats": {
+            "max_memory_mb": 148.76953125,
+            "avg_memory_mb": 148.76953125,
+            "min_memory_mb": 148.76953125,
+            "max_cpu_percent": 0.0,
+            "avg_cpu_percent": 0.0,
+            "sample_count": 2
+          },
+          "status": "success"
+        },
+        {
+          "url": "https://youtu.be/jNQXAC9IVRw",
+          "platform": "youtu",
+          "is_valid": true,
+          "processing_time": 0.5003130435943604,
+          "memory_stats": {
+            "max_memory_mb": 148.76953125,
+            "avg_memory_mb": 148.76953125,
+            "min_memory_mb": 148.76953125,
+            "max_cpu_percent": 0.0,
+            "avg_cpu_percent": 0.0,
+            "sample_count": 1
+          },
+          "status": "success"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=invalid_test_url",
+          "platform": "youtube",
+          "is_valid": true,
+          "processing_time": 0.5004227161407471,
+          "memory_stats": {
+            "max_memory_mb": 148.76953125,
+            "avg_memory_mb": 148.76953125,
+            "min_memory_mb": 148.76953125,
+            "max_cpu_percent": 0.0,
+            "avg_cpu_percent": 0.0,
+            "sample_count": 1
+          },
+          "status": "success"
+        }
+      ]
+    }
+  },
+  "memory_monitoring": {},
+  "mcp_integration": {
+    "status": "completed",
+    "total_tests": 3,
+    "successful_tests": 2,
+    "test_results": [
+      {
+        "status": "error",
+        "error": "RealtimeProgressTracker.finish_file_processing() takes 1 positional argument but 2 were given",
+        "processing_time": 0.10026240348815918,
+        "test_name": "progress_tracking",
+        "description": "진행률 추적 시스템"
+      },
+      {
+        "status": "success",
+        "detected_issues": [
+          "high_memory_usage",
+          "long_processing_time",
+          "large_file_size"
+        ],
+        "issue_count": 3,
+        "processing_time": 5.7220458984375e-06,
+        "test_name": "problem_detection",
+        "description": "문제 감지 시스템"
+      },
+      {
+        "status": "success",
+        "available_solutions": [
+          "memory_optimization",
+          "chunk_processing",
+          "progress_monitoring"
+        ],
+        "solution_count": 3,
+        "processing_time": 1.6689300537109375e-06,
+        "test_name": "auto_resolution",
+        "description": "자동 해결 시스템"
+      }
+    ]
+  },
+  "recommendations": [
+    {
+      "category": "PREDICTION_ACCURACY",
+      "priority": "HIGH",
+      "issue": "처리 시간 예측 정확도 낮음 (0.01)",
+      "solution": "처리 시간 예측 알고리즘 개선",
+      "actions": [
+        "실제 처리 데이터 수집 및 학습",
+        "파일 형식별 가중치 재조정",
+        "시스템 성능 기반 동적 조정",
+        "ML 기반 예측 모델 도입"
+      ]
+    },
+    {
+      "category": "MCP_INTEGRATION",
+      "priority": "MEDIUM",
+      "issue": "MCP 통합 안정성 향상 필요 (0.67)",
+      "solution": "MCP 도구 통합 안정화",
+      "actions": [
+        "MCP 연결 상태 모니터링",
+        "에러 복구 메커니즘 강화",
+        "폴백 시스템 구현",
+        "MCP 도구별 상태 검사"
+      ]
+    }
+  ]
+}

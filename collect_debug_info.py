@@ -120,7 +120,7 @@ def test_analysis_components():
     
     # Real Analysis Engine 임포트 테스트
     try:
-        sys.path.append('/home/solomond/claude/solomond-ai-system')
+        sys.path.append('/home/SOLOMONDd/claude/SOLOMONDd-ai-system')
         from core.real_analysis_engine import RealAnalysisEngine
         
         engine = RealAnalysisEngine()
@@ -161,7 +161,7 @@ def generate_debug_report():
     }
     
     # 리포트 저장
-    report_path = Path('/home/solomond/claude/solomond-ai-system/debug_report.json')
+    report_path = Path('/home/SOLOMONDd/claude/SOLOMONDd-ai-system/debug_report.json')
     
     with open(report_path, 'w', encoding='utf-8') as f:
         json.dump(report, f, indent=2, ensure_ascii=False)

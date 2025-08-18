@@ -1,0 +1,84 @@
+{
+  "timestamp": "2025-07-28T04:22:24.356134",
+  "performance_issues": [
+    {
+      "type": "MODERATE_MEMORY_USAGE",
+      "severity": "MEDIUM",
+      "description": "메모리 사용률이 83.2%로 높습니다",
+      "impact": "간헐적 성능 저하 가능성"
+    },
+    {
+      "type": "TOO_MANY_STREAMLIT_PROCESSES",
+      "severity": "MEDIUM",
+      "description": "Streamlit 프로세스가 10개로 과다합니다",
+      "impact": "메모리 낭비, 포트 충돌 가능성"
+    }
+  ],
+  "user_experience_issues": [
+    {
+      "type": "STREAMLIT_RERUN_FREQUENCY",
+      "severity": "MEDIUM",
+      "description": "Streamlit 앱의 빈번한 리런으로 인한 성능 저하",
+      "impact": "사용자 입력 지연, UI 깜빡임"
+    },
+    {
+      "type": "SESSION_STATE_OVERFLOW",
+      "severity": "MEDIUM",
+      "description": "세션 상태 데이터 과다 축적",
+      "impact": "메모리 사용량 증가, 앱 응답 속도 저하"
+    }
+  ],
+  "recommendations": [
+    {
+      "category": "SYSTEM",
+      "priority": "MEDIUM",
+      "action": "프로세스 정리",
+      "details": [
+        "중복 Streamlit 프로세스 종료",
+        "포트 충돌 방지를 위한 프로세스 관리",
+        "자동 프로세스 정리 스크립트 구현"
+      ]
+    },
+    {
+      "category": "UX",
+      "priority": "HIGH",
+      "action": "UI 응답성 개선",
+      "details": [
+        "st.spinner() 활용한 로딩 인디케이터 추가",
+        "st.progress() 진행률 표시 강화",
+        "비동기 처리로 UI 블로킹 방지",
+        "st.empty() 활용한 동적 컨텐츠 업데이트"
+      ]
+    },
+    {
+      "category": "UX",
+      "priority": "MEDIUM",
+      "action": "에러 핸들링 강화",
+      "details": [
+        "사용자 친화적 에러 메시지 표시",
+        "자동 재시도 메커니즘 구현",
+        "오류 복구 가이드 제공",
+        "try-except 블록 확장"
+      ]
+    },
+    {
+      "category": "FEATURE",
+      "priority": "MEDIUM",
+      "action": "브라우저 호환성 강화",
+      "details": [
+        "JavaScript 에러 자동 감지",
+        "WebSocket 연결 상태 모니터링",
+        "브라우저별 최적화 코드 추가",
+        "Progressive Web App(PWA) 기능 고려"
+      ]
+    }
+  ],
+  "system_metrics": {
+    "memory_usage": 83.2,
+    "cpu_usage": 22.5,
+    "python_processes": 15,
+    "chrome_processes": 10,
+    "streamlit_processes": 10,
+    "port_8503_open": true
+  }
+}

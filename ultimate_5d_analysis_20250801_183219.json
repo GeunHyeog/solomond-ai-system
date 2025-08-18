@@ -1,0 +1,1938 @@
+{
+  "sources": {
+    "video": true,
+    "audio": false,
+    "transcript": true,
+    "slides": true
+  },
+  "dimension_analyses": {
+    "audio": {
+      "duration": 120.0,
+      "transcription": {
+        "text": " Thank you. Now, Leanne has been the director of Sustainability, a child-type of dual-regroup since November 2023, overseeing the group sustainability strategy development and action-clone implementation across the organization, driving impactful progress in sustainable development. Before joining child-type who, Leanne worked as a sustainability advisor at the purpose business. From 2015 to 2009, she was director of external affairs and sustainability at Baita's own, where she led sustainability strategy development and communications. She also drove waste reduction initiatives, including supporting the establishment of Hong Kong's first beverage-partun recycling facility. Wow. And prior to taking up sustainability roles, the unscarveer span corporate communications and public government and committee affairs had been worked at different multinational companies. So, Leanne, our next panelist, a very, very young entrepreneur, at least welcome Miss Henry. Now, Henry has found that not one, not two, but three companies. So as you can see, Henry actually is CEO of Ankhar Dink, which is a wholesale dual-regroup in my realm, which is a retail brand and they have a store at K11 and also join the day our and so Henry has actually been from a family of dualers and he represents the new, you know, the next generation of dualers. He joined the family business.",
+        "segments": [
+          {
+            "id": 0,
+            "seek": 0,
+            "start": 0.0,
+            "end": 3.0,
+            "text": " Thank you.",
+            "tokens": [
+              50364,
+              1044,
+              291,
+              13,
+              50514
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46600923230571134,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5387189388275146
+          },
+          {
+            "id": 1,
+            "seek": 0,
+            "start": 3.0,
+            "end": 9.16,
+            "text": " Now, Leanne has been the director of Sustainability, a child-type of dual-regroup",
+            "tokens": [
+              50514,
+              823,
+              11,
+              1456,
+              12674,
+              575,
+              668,
+              264,
+              5391,
+              295,
+              34407,
+              2310,
+              11,
+              257,
+              1440,
+              12,
+              20467,
+              295,
+              11848,
+              12,
+              265,
+              17377,
+              50822
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46600923230571134,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5387189388275146
+          },
+          {
+            "id": 2,
+            "seek": 0,
+            "start": 9.16,
+            "end": 16.88,
+            "text": " since November 2023, overseeing the group sustainability strategy development and action-clone",
+            "tokens": [
+              50822,
+              1670,
+              7674,
+              44377,
+              11,
+              11916,
+              14667,
+              264,
+              1594,
+              16360,
+              5206,
+              3250,
+              293,
+              3069,
+              12,
+              3474,
+              546,
+              51208
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46600923230571134,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5387189388275146
+          },
+          {
+            "id": 3,
+            "seek": 0,
+            "start": 16.88,
+            "end": 24.52,
+            "text": " implementation across the organization, driving impactful progress in sustainable development.",
+            "tokens": [
+              51208,
+              11420,
+              2108,
+              264,
+              4475,
+              11,
+              4840,
+              30842,
+              4205,
+              294,
+              11235,
+              3250,
+              13,
+              51590
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.46600923230571134,
+            "compression_ratio": 1.5161290322580645,
+            "no_speech_prob": 0.5387189388275146
+          },
+          {
+            "id": 4,
+            "seek": 2452,
+            "start": 24.52,
+            "end": 30.32,
+            "text": " Before joining child-type who, Leanne worked as a sustainability advisor at the purpose",
+            "tokens": [
+              50364,
+              4546,
+              5549,
+              1440,
+              12,
+              20467,
+              567,
+              11,
+              1456,
+              12674,
+              2732,
+              382,
+              257,
+              16360,
+              19161,
+              412,
+              264,
+              4334,
+              50654
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4112281262035101,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06295239925384521
+          },
+          {
+            "id": 5,
+            "seek": 2452,
+            "start": 30.32,
+            "end": 31.32,
+            "text": " business.",
+            "tokens": [
+              50654,
+              1606,
+              13,
+              50704
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4112281262035101,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06295239925384521
+          },
+          {
+            "id": 6,
+            "seek": 2452,
+            "start": 31.32,
+            "end": 40.24,
+            "text": " From 2015 to 2009, she was director of external affairs and sustainability at Baita's own,",
+            "tokens": [
+              50704,
+              3358,
+              7546,
+              281,
+              11453,
+              11,
+              750,
+              390,
+              5391,
+              295,
+              8320,
+              17478,
+              293,
+              16360,
+              412,
+              363,
+              1001,
+              64,
+              311,
+              1065,
+              11,
+              51150
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4112281262035101,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06295239925384521
+          },
+          {
+            "id": 7,
+            "seek": 2452,
+            "start": 40.24,
+            "end": 44.480000000000004,
+            "text": " where she led sustainability strategy development and communications.",
+            "tokens": [
+              51150,
+              689,
+              750,
+              4684,
+              16360,
+              5206,
+              3250,
+              293,
+              15163,
+              13,
+              51362
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4112281262035101,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06295239925384521
+          },
+          {
+            "id": 8,
+            "seek": 2452,
+            "start": 44.480000000000004,
+            "end": 50.0,
+            "text": " She also drove waste reduction initiatives, including supporting the establishment",
+            "tokens": [
+              51362,
+              1240,
+              611,
+              13226,
+              5964,
+              11004,
+              16194,
+              11,
+              3009,
+              7231,
+              264,
+              20971,
+              51638
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4112281262035101,
+            "compression_ratio": 1.5291479820627802,
+            "no_speech_prob": 0.06295239925384521
+          },
+          {
+            "id": 9,
+            "seek": 5000,
+            "start": 50.0,
+            "end": 55.0,
+            "text": " of Hong Kong's first beverage-partun recycling facility.",
+            "tokens": [
+              50364,
+              295,
+              8868,
+              9832,
+              311,
+              700,
+              35519,
+              12,
+              6971,
+              409,
+              23363,
+              8973,
+              13,
+              50614
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4621430397033691,
+            "compression_ratio": 1.469298245614035,
+            "no_speech_prob": 0.12997815012931824
+          },
+          {
+            "id": 10,
+            "seek": 5000,
+            "start": 55.0,
+            "end": 56.0,
+            "text": " Wow.",
+            "tokens": [
+              50614,
+              3153,
+              13,
+              50664
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4621430397033691,
+            "compression_ratio": 1.469298245614035,
+            "no_speech_prob": 0.12997815012931824
+          },
+          {
+            "id": 11,
+            "seek": 5000,
+            "start": 56.0,
+            "end": 62.36,
+            "text": " And prior to taking up sustainability roles, the unscarveer span corporate communications",
+            "tokens": [
+              50664,
+              400,
+              4059,
+              281,
+              1940,
+              493,
+              16360,
+              9604,
+              11,
+              264,
+              2693,
+              6166,
+              303,
+              260,
+              16174,
+              10896,
+              15163,
+              50982
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4621430397033691,
+            "compression_ratio": 1.469298245614035,
+            "no_speech_prob": 0.12997815012931824
+          },
+          {
+            "id": 12,
+            "seek": 5000,
+            "start": 62.36,
+            "end": 67.92,
+            "text": " and public government and committee affairs had been worked at different multinational",
+            "tokens": [
+              50982,
+              293,
+              1908,
+              2463,
+              293,
+              7482,
+              17478,
+              632,
+              668,
+              2732,
+              412,
+              819,
+              45872,
+              1478,
+              51260
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4621430397033691,
+            "compression_ratio": 1.469298245614035,
+            "no_speech_prob": 0.12997815012931824
+          },
+          {
+            "id": 13,
+            "seek": 5000,
+            "start": 67.92,
+            "end": 68.92,
+            "text": " companies.",
+            "tokens": [
+              51260,
+              3431,
+              13,
+              51310
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4621430397033691,
+            "compression_ratio": 1.469298245614035,
+            "no_speech_prob": 0.12997815012931824
+          },
+          {
+            "id": 14,
+            "seek": 5000,
+            "start": 68.92,
+            "end": 79.36,
+            "text": " So, Leanne, our next panelist, a very, very young entrepreneur, at least welcome Miss",
+            "tokens": [
+              51310,
+              407,
+              11,
+              1456,
+              12674,
+              11,
+              527,
+              958,
+              4831,
+              468,
+              11,
+              257,
+              588,
+              11,
+              588,
+              2037,
+              14307,
+              11,
+              412,
+              1935,
+              2928,
+              5275,
+              51832
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.4621430397033691,
+            "compression_ratio": 1.469298245614035,
+            "no_speech_prob": 0.12997815012931824
+          },
+          {
+            "id": 15,
+            "seek": 7936,
+            "start": 79.36,
+            "end": 80.36,
+            "text": " Henry.",
+            "tokens": [
+              50364,
+              11085,
+              13,
+              50414
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.5785235087076823,
+            "compression_ratio": 1.4285714285714286,
+            "no_speech_prob": 0.19920888543128967
+          },
+          {
+            "id": 16,
+            "seek": 7936,
+            "start": 80.36,
+            "end": 89.03999999999999,
+            "text": " Now, Henry has found that not one, not two, but three companies.",
+            "tokens": [
+              50414,
+              823,
+              11,
+              11085,
+              575,
+              1352,
+              300,
+              406,
+              472,
+              11,
+              406,
+              732,
+              11,
+              457,
+              1045,
+              3431,
+              13,
+              50848
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.5785235087076823,
+            "compression_ratio": 1.4285714285714286,
+            "no_speech_prob": 0.19920888543128967
+          },
+          {
+            "id": 17,
+            "seek": 7936,
+            "start": 89.03999999999999,
+            "end": 96.76,
+            "text": " So as you can see, Henry actually is CEO of Ankhar Dink, which is a wholesale dual-regroup",
+            "tokens": [
+              50848,
+              407,
+              382,
+              291,
+              393,
+              536,
+              11,
+              11085,
+              767,
+              307,
+              9282,
+              295,
+              1107,
+              74,
+              5854,
+              413,
+              475,
+              11,
+              597,
+              307,
+              257,
+              43982,
+              11848,
+              12,
+              265,
+              17377,
+              51234
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.5785235087076823,
+            "compression_ratio": 1.4285714285714286,
+            "no_speech_prob": 0.19920888543128967
+          },
+          {
+            "id": 18,
+            "seek": 7936,
+            "start": 96.76,
+            "end": 103.88,
+            "text": " in my realm, which is a retail brand and they have a store at K11 and also join the day",
+            "tokens": [
+              51234,
+              294,
+              452,
+              15355,
+              11,
+              597,
+              307,
+              257,
+              10800,
+              3360,
+              293,
+              436,
+              362,
+              257,
+              3531,
+              412,
+              591,
+              5348,
+              293,
+              611,
+              3917,
+              264,
+              786,
+              51590
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.5785235087076823,
+            "compression_ratio": 1.4285714285714286,
+            "no_speech_prob": 0.19920888543128967
+          },
+          {
+            "id": 19,
+            "seek": 10388,
+            "start": 103.88,
+            "end": 115.36,
+            "text": " our and so Henry has actually been from a family of dualers and he represents the",
+            "tokens": [
+              50364,
+              527,
+              293,
+              370,
+              11085,
+              575,
+              767,
+              668,
+              490,
+              257,
+              1605,
+              295,
+              11848,
+              433,
+              293,
+              415,
+              8855,
+              264,
+              50938
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.5023775554838634,
+            "compression_ratio": 1.382608695652174,
+            "no_speech_prob": 0.6670622229576111
+          },
+          {
+            "id": 20,
+            "seek": 10388,
+            "start": 115.36,
+            "end": 118.6,
+            "text": " new, you know, the next generation of dualers.",
+            "tokens": [
+              50938,
+              777,
+              11,
+              291,
+              458,
+              11,
+              264,
+              958,
+              5125,
+              295,
+              11848,
+              433,
+              13,
+              51100
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.5023775554838634,
+            "compression_ratio": 1.382608695652174,
+            "no_speech_prob": 0.6670622229576111
+          },
+          {
+            "id": 21,
+            "seek": 10388,
+            "start": 118.6,
+            "end": 120.0,
+            "text": " He joined the family business.",
+            "tokens": [
+              51100,
+              634,
+              6869,
+              264,
+              1605,
+              1606,
+              13,
+              51170
+            ],
+            "temperature": 0.0,
+            "avg_logprob": -0.5023775554838634,
+            "compression_ratio": 1.382608695652174,
+            "no_speech_prob": 0.6670622229576111
+          }
+        ],
+        "language": "en"
+      },
+      "voice_features_count": 10,
+      "speaker_analysis": {
+        "speakers": 2,
+        "quality_score": 0.32274191539565955,
+        "method": "voice_clustering"
+      },
+      "audio_stats": {
+        "sample_rate": 16000,
+        "total_samples": 1920000,
+        "rms_energy": 0.12446261942386627
+      }
+    },
+    "visual": {
+      "estimated_speakers": 3,
+      "face_detections": [
+        {
+          "timestamp": 0.0,
+          "face_count": 1,
+          "frame_idx": 0
+        },
+        {
+          "timestamp": 19.98985825575836,
+          "face_count": 1,
+          "frame_idx": 599
+        },
+        {
+          "timestamp": 39.97971651151672,
+          "face_count": 1,
+          "frame_idx": 1198
+        },
+        {
+          "timestamp": 59.96957476727508,
+          "face_count": 1,
+          "frame_idx": 1797
+        },
+        {
+          "timestamp": 79.95943302303344,
+          "face_count": 1,
+          "frame_idx": 2396
+        },
+        {
+          "timestamp": 99.94929127879179,
+          "face_count": 3,
+          "frame_idx": 2995
+        },
+        {
+          "timestamp": 119.93914953455015,
+          "face_count": 3,
+          "frame_idx": 3594
+        },
+        {
+          "timestamp": 139.9290077903085,
+          "face_count": 3,
+          "frame_idx": 4193
+        },
+        {
+          "timestamp": 159.91886604606688,
+          "face_count": 3,
+          "frame_idx": 4792
+        },
+        {
+          "timestamp": 179.90872430182523,
+          "face_count": 3,
+          "frame_idx": 5391
+        }
+      ],
+      "slide_transitions": [
+        {
+          "timestamp": 99.94929127879179,
+          "transition_type": "face_count_change",
+          "from_faces": 1,
+          "to_faces": 3
+        }
+      ],
+      "analysis_points": 10,
+      "max_faces_detected": 3
+    },
+    "transcript": {
+      "stats": {
+        "word_count": 130,
+        "line_count": 15,
+        "char_count": 942
+      },
+      "speaker_markers": [
+        {
+          "position": 5,
+          "text": "Speaker 1:",
+          "type": "explicit_speaker",
+          "confidence": 0.8
+        },
+        {
+          "position": 237,
+          "text": "Speaker 2:",
+          "type": "explicit_speaker",
+          "confidence": 0.8
+        },
+        {
+          "position": 248,
+          "text": "Thank you",
+          "type": "transition_marker",
+          "confidence": 0.6
+        },
+        {
+          "position": 281,
+          "text": "Now",
+          "type": "section_marker",
+          "confidence": 0.6
+        },
+        {
+          "position": 286,
+          "text": "moving on",
+          "type": "transition_marker",
+          "confidence": 0.6
+        },
+        {
+          "position": 504,
+          "text": "Speaker 3:",
+          "type": "explicit_speaker",
+          "confidence": 0.8
+        },
+        {
+          "position": 542,
+          "text": "let me",
+          "type": "section_marker",
+          "confidence": 0.6
+        },
+        {
+          "position": 782,
+          "text": "In conclusion",
+          "type": "transition_marker",
+          "confidence": 0.6
+        }
+      ],
+      "topic_analysis": {
+        "eco_keywords": 5,
+        "luxury_keywords": 14,
+        "topic_relevance": 14.615384615384617,
+        "main_theme": "eco_luxury"
+      },
+      "structure_analysis": {
+        "paragraph_count": 1,
+        "sentence_count": 11,
+        "avg_paragraph_length": 130.0,
+        "has_introduction": true,
+        "has_conclusion": true,
+        "structure_score": 1.0
+      },
+      "estimated_speakers": 8
+    },
+    "slides": {
+      "total_slides": 48,
+      "processed_slides": 48,
+      "slide_analyses": [
+        {
+          "slide_number": 1,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\20250726_071905.png",
+          "text": "19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists Lianne Ng Henry Tse Pui In Catherine Siu Sustainability Director of CEO of Ancardi, Founder of Chow Tai Fook Nyrelle & JRNE PICS Fine Jewellery Jewellery Group To talk about sustainability is to talk about the future In this session our panellists will lookinto the rising trend of eco-friendly luxury consumption, examining how sustainability has evolvedintoa defining factor for authentic luxury The conversation will focus on what drives this change and the outlook for luxury jewelleryin an increasingly environmentally and socially conscious world. Venue The Stage; Hall 1B,Hong Kong Convention and Exhibition Centre Moderator Marie Feliciano Marketing Communications Manager of Informa Markets Jewellery Language English with Al-powered Mandarin captions",
+          "text_length": 861,
+          "confidence": 0.7836461772616587,
+          "slide_type": "general",
+          "key_points": [
+            "19/ 6 2025 (Thu) 2"
+          ],
+          "ocr_results_count": 33
+        },
+        {
+          "slide_number": 2,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\20250726_071905.png",
+          "text": "19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists Lianne Ng Henry Tse Pui In Catherine Siu Sustainability Director of CEO of Ancardi, Founder of Chow Tai Fook Nyrelle & JRNE PICS Fine Jewellery Jewellery Group To talk about sustainability is to talk about the future In this session our panellists will lookinto the rising trend of eco-friendly luxury consumption, examining how sustainability has evolvedintoa defining factor for authentic luxury The conversation will focus on what drives this change and the outlook for luxury jewelleryin an increasingly environmentally and socially conscious world. Venue The Stage; Hall 1B,Hong Kong Convention and Exhibition Centre Moderator Marie Feliciano Marketing Communications Manager of Informa Markets Jewellery Language English with Al-powered Mandarin captions",
+          "text_length": 861,
+          "confidence": 0.7836461772616587,
+          "slide_type": "general",
+          "key_points": [
+            "19/ 6 2025 (Thu) 2"
+          ],
+          "ocr_results_count": 33
+        },
+        {
+          "slide_number": 3,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+          "text": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY",
+          "text_length": 177,
+          "confidence": 0.5803983699950578,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 36
+        },
+        {
+          "slide_number": 4,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2160.JPG",
+          "text": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY",
+          "text_length": 177,
+          "confidence": 0.5803983699950578,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 36
+        },
+        {
+          "slide_number": 5,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2161.JPG",
+          "text": "ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller",
+          "text_length": 376,
+          "confidence": 0.6552505284287116,
+          "slide_type": "general",
+          "key_points": [
+            "3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller"
+          ],
+          "ocr_results_count": 48
+        },
+        {
+          "slide_number": 6,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2161.JPG",
+          "text": "ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller",
+          "text_length": 376,
+          "confidence": 0.6552505284287116,
+          "slide_type": "general",
+          "key_points": [
+            "3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller"
+          ],
+          "ocr_results_count": 48
+        },
+        {
+          "slide_number": 7,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2162.JPG",
+          "text": "The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19 / 6 / 2025 (Thursday) The Hall 1B 2.3Opm 3.3Opm HKCEC informam Jewellery ' ' ' ~ Stage,",
+          "text_length": 288,
+          "confidence": 0.5846978587731354,
+          "slide_type": "general",
+          "key_points": [
+            "3Opm HKCEC informam Jewellery ' ' ' ~ Stage,"
+          ],
+          "ocr_results_count": 40
+        },
+        {
+          "slide_number": 8,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2162.JPG",
+          "text": "The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19 / 6 / 2025 (Thursday) The Hall 1B 2.3Opm 3.3Opm HKCEC informam Jewellery ' ' ' ~ Stage,",
+          "text_length": 288,
+          "confidence": 0.5846978587731354,
+          "slide_type": "general",
+          "key_points": [
+            "3Opm HKCEC informam Jewellery ' ' ' ~ Stage,"
+          ],
+          "ocr_results_count": 40
+        },
+        {
+          "slide_number": 9,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2163.JPG",
+          "text": "Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets",
+          "text_length": 108,
+          "confidence": 0.6024130898186326,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 13
+        },
+        {
+          "slide_number": 10,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2163.JPG",
+          "text": "Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets",
+          "text_length": 108,
+          "confidence": 0.6024130898186326,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 13
+        },
+        {
+          "slide_number": 11,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2164.JPG",
+          "text": "Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner",
+          "text_length": 115,
+          "confidence": 0.34865569956643816,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 23
+        },
+        {
+          "slide_number": 12,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2164.JPG",
+          "text": "Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner",
+          "text_length": 115,
+          "confidence": 0.34865569956643816,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 23
+        },
+        {
+          "slide_number": 13,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2165.JPG",
+          "text": "Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future",
+          "text_length": 151,
+          "confidence": 0.4562671669283269,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 15
+        },
+        {
+          "slide_number": 14,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2165.JPG",
+          "text": "Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future",
+          "text_length": 151,
+          "confidence": 0.4562671669283269,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 15
+        },
+        {
+          "slide_number": 15,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2166.JPG",
+          "text": "Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev",
+          "text_length": 140,
+          "confidence": 0.6037626447556896,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 13
+        },
+        {
+          "slide_number": 16,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2166.JPG",
+          "text": "Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev",
+          "text_length": 140,
+          "confidence": 0.6037626447556896,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 13
+        },
+        {
+          "slide_number": 17,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2167.JPG",
+          "text": "CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr",
+          "text_length": 129,
+          "confidence": 0.6594057871386516,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 16
+        },
+        {
+          "slide_number": 18,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2167.JPG",
+          "text": "CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr",
+          "text_length": 129,
+          "confidence": 0.6594057871386516,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 16
+        },
+        {
+          "slide_number": 19,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2168.JPG",
+          "text": "CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel",
+          "text_length": 189,
+          "confidence": 0.1821548865613655,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 142
+        },
+        {
+          "slide_number": 20,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2168.JPG",
+          "text": "CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel",
+          "text_length": 189,
+          "confidence": 0.1821548865613655,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 142
+        },
+        {
+          "slide_number": 21,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2169.JPG",
+          "text": "FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld",
+          "text_length": 124,
+          "confidence": 0.16452668358057393,
+          "slide_type": "general",
+          "key_points": [
+            "FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld"
+          ],
+          "ocr_results_count": 84
+        },
+        {
+          "slide_number": 22,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2169.JPG",
+          "text": "FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld",
+          "text_length": 124,
+          "confidence": 0.16452668358057393,
+          "slide_type": "general",
+          "key_points": [
+            "FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld"
+          ],
+          "ocr_results_count": 84
+        },
+        {
+          "slide_number": 23,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2170.JPG",
+          "text": "The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery",
+          "text_length": 103,
+          "confidence": 0.5028292493041897,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 13
+        },
+        {
+          "slide_number": 24,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2170.JPG",
+          "text": "The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery",
+          "text_length": 103,
+          "confidence": 0.5028292493041897,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 13
+        },
+        {
+          "slide_number": 25,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2171.JPG",
+          "text": "NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma",
+          "text_length": 59,
+          "confidence": 0.3860897323167568,
+          "slide_type": "general",
+          "key_points": [
+            "NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma"
+          ],
+          "ocr_results_count": 7
+        },
+        {
+          "slide_number": 26,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2171.JPG",
+          "text": "NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma",
+          "text_length": 59,
+          "confidence": 0.3860897323167568,
+          "slide_type": "general",
+          "key_points": [
+            "NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma"
+          ],
+          "ocr_results_count": 7
+        },
+        {
+          "slide_number": 27,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2172.JPG",
+          "text": "NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery",
+          "text_length": 178,
+          "confidence": 0.7271872208549218,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 15
+        },
+        {
+          "slide_number": 28,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2172.JPG",
+          "text": "NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery",
+          "text_length": 178,
+          "confidence": 0.7271872208549218,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 15
+        },
+        {
+          "slide_number": 29,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2173.JPG",
+          "text": "SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are conflict-free Ensure GEMSTONE & DIAMONDS Recrystallized Gemstones Produced bY highly advanced Nanotechnology Identical tothe highest earth-mined gemstones guaranteed 'conflict free that 9096 less and are New Lab Dlamonds Collection commitment to quality = environmental responsibility Our of affordable with supreme quality A choice Ofthe damage to environment to the mining None RECYCLED GOLD Of reclaimed jewelry to support a sustainable future Composed Cholces that benefit the planet and future generations FAIRTRADE GOLD & SILVER Make better lives to the miners their famllies and the commui formamar vellery N YRELLE materials natural grade cost Brown and prices",
+          "text_length": 863,
+          "confidence": 0.8290833475107698,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 52
+        },
+        {
+          "slide_number": 30,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2173.JPG",
+          "text": "SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are conflict-free Ensure GEMSTONE & DIAMONDS Recrystallized Gemstones Produced bY highly advanced Nanotechnology Identical tothe highest earth-mined gemstones guaranteed 'conflict free that 9096 less and are New Lab Dlamonds Collection commitment to quality = environmental responsibility Our of affordable with supreme quality A choice Ofthe damage to environment to the mining None RECYCLED GOLD Of reclaimed jewelry to support a sustainable future Composed Cholces that benefit the planet and future generations FAIRTRADE GOLD & SILVER Make better lives to the miners their famllies and the commui formamar vellery N YRELLE materials natural grade cost Brown and prices",
+          "text_length": 863,
+          "confidence": 0.8290833475107698,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 52
+        },
+        {
+          "slide_number": 31,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2174.JPG",
+          "text": "NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE",
+          "text_length": 41,
+          "confidence": 0.10757022337530853,
+          "slide_type": "general",
+          "key_points": [
+            "NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE"
+          ],
+          "ocr_results_count": 54
+        },
+        {
+          "slide_number": 32,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2174.JPG",
+          "text": "NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE",
+          "text_length": 41,
+          "confidence": 0.10757022337530853,
+          "slide_type": "general",
+          "key_points": [
+            "NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE"
+          ],
+          "ocr_results_count": 54
+        },
+        {
+          "slide_number": 33,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2175.JPG",
+          "text": "NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle to m iveimpact and Crall Ippliers Through \"Nyrelle Back Proi 1o promote circular lifecycle of our solid hnviting Recycle NYRELLE custoimers to us their Ship return enjoy our store credit Backi Weari informamarl Jewellery = = = Buy ~ bring ling price Buy",
+          "text_length": 454,
+          "confidence": 0.6035123236947733,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 57
+        },
+        {
+          "slide_number": 34,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2175.JPG",
+          "text": "NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle to m iveimpact and Crall Ippliers Through \"Nyrelle Back Proi 1o promote circular lifecycle of our solid hnviting Recycle NYRELLE custoimers to us their Ship return enjoy our store credit Backi Weari informamarl Jewellery = = = Buy ~ bring ling price Buy",
+          "text_length": 454,
+          "confidence": 0.6035123236947733,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 57
+        },
+        {
+          "slide_number": 35,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2176.JPG",
+          "text": "1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamonds; rare and Crafts exquisite exotic gems merging a a 'ppreciation for individuality and div Our Design Philosophy Intentionally elevates less en overlooked or underrepresented gen Ining them with high-quality materia message that true beauty is found in and inclusion informama Jewellery ' ' ' ' ' sing one-of- lity",
+          "text_length": 515,
+          "confidence": 0.7155655292443367,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 51
+        },
+        {
+          "slide_number": 36,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2176.JPG",
+          "text": "1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamonds; rare and Crafts exquisite exotic gems merging a a 'ppreciation for individuality and div Our Design Philosophy Intentionally elevates less en overlooked or underrepresented gen Ining them with high-quality materia message that true beauty is found in and inclusion informama Jewellery ' ' ' ' ' sing one-of- lity",
+          "text_length": 515,
+          "confidence": 0.7155655292443367,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 51
+        },
+        {
+          "slide_number": 37,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2177.JPG",
+          "text": "Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of centrepieces feature unique and underrepresented gemstones Collaborations boost vislbility and revenue rmamarket ' suppliers ' supplier",
+          "text_length": 333,
+          "confidence": 0.24125867412810897,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 51
+        },
+        {
+          "slide_number": 38,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2177.JPG",
+          "text": "Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of centrepieces feature unique and underrepresented gemstones Collaborations boost vislbility and revenue rmamarket ' suppliers ' supplier",
+          "text_length": 333,
+          "confidence": 0.24125867412810897,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 51
+        },
+        {
+          "slide_number": 39,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2178.JPG",
+          "text": "미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+ hours community services) Cambodian Children's Fund (helped ralse over HKD 2M) Time Maggie's Cancer Caring Centre (helped raise HKD 1.9M) Provided hands-on jewellery-making experiences wlth social Impact Empowering Through Knowledge-Sharing Sessions Hosted private and group events for over 50 guests gernstones Designed to empower consumers with transparent accessible g 95% of participants felt more confident and informed about the choices Building conscious jewellery community with industry insigt namai ' 'Big",
+          "text_length": 616,
+          "confidence": 0.2275847458371937,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 84
+        },
+        {
+          "slide_number": 40,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2178.JPG",
+          "text": "미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+ hours community services) Cambodian Children's Fund (helped ralse over HKD 2M) Time Maggie's Cancer Caring Centre (helped raise HKD 1.9M) Provided hands-on jewellery-making experiences wlth social Impact Empowering Through Knowledge-Sharing Sessions Hosted private and group events for over 50 guests gernstones Designed to empower consumers with transparent accessible g 95% of participants felt more confident and informed about the choices Building conscious jewellery community with industry insigt namai ' 'Big",
+          "text_length": 616,
+          "confidence": 0.2275847458371937,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 84
+        },
+        {
+          "slide_number": 41,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2179.JPG",
+          "text": "jewellery-making event with over A collective 50 participants. Each contributed to a shared jewellery piece by hammering sawing and and deciding where to place their chosen gemstones Most ofthe participants had no jewellery- making experience Symbolized the beauty Of shared creativity and adaptability early participants shaped the base while later contributors reinterpreted and built upon it 10% of the final sales would be donated to charities nominated by the participants merging creativity with giving filing prior",
+          "text_length": 521,
+          "confidence": 0.5367299144432962,
+          "slide_type": "general",
+          "key_points": [
+            "jewellery-making event with over A collective 50 participants"
+          ],
+          "ocr_results_count": 33
+        },
+        {
+          "slide_number": 42,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2179.JPG",
+          "text": "jewellery-making event with over A collective 50 participants. Each contributed to a shared jewellery piece by hammering sawing and and deciding where to place their chosen gemstones Most ofthe participants had no jewellery- making experience Symbolized the beauty Of shared creativity and adaptability early participants shaped the base while later contributors reinterpreted and built upon it 10% of the final sales would be donated to charities nominated by the participants merging creativity with giving filing prior",
+          "text_length": 521,
+          "confidence": 0.5367299144432962,
+          "slide_type": "general",
+          "key_points": [
+            "jewellery-making event with over A collective 50 participants"
+          ],
+          "ocr_results_count": 33
+        },
+        {
+          "slide_number": 43,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2180.JPG",
+          "text": "Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion Preserving Traditional Skills Transparency Reports Education and Strengthening DEI Gemstone Knowledge Sharing Consumer Awareness Campalgns Industry Expert Collaborations",
+          "text_length": 368,
+          "confidence": 0.2826581683043561,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 41
+        },
+        {
+          "slide_number": 44,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2180.JPG",
+          "text": "Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion Preserving Traditional Skills Transparency Reports Education and Strengthening DEI Gemstone Knowledge Sharing Consumer Awareness Campalgns Industry Expert Collaborations",
+          "text_length": 368,
+          "confidence": 0.2826581683043561,
+          "slide_type": "general",
+          "key_points": [],
+          "ocr_results_count": 41
+        },
+        {
+          "slide_number": 45,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2181.JPG",
+          "text": "Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom",
+          "text_length": 72,
+          "confidence": 0.46968956808058604,
+          "slide_type": "general",
+          "key_points": [
+            "Eco 8 GEM Chc 19 / 2",
+            "30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom"
+          ],
+          "ocr_results_count": 28
+        },
+        {
+          "slide_number": 46,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2181.JPG",
+          "text": "Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom",
+          "text_length": 72,
+          "confidence": 0.46968956808058604,
+          "slide_type": "general",
+          "key_points": [
+            "Eco 8 GEM Chc 19 / 2",
+            "30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom"
+          ],
+          "ocr_results_count": 28
+        },
+        {
+          "slide_number": 47,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2182.JPG",
+          "text": "8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG",
+          "text_length": 78,
+          "confidence": 0.49933625204978727,
+          "slide_type": "general",
+          "key_points": [
+            "8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG"
+          ],
+          "ocr_results_count": 24
+        },
+        {
+          "slide_number": 48,
+          "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\JGA2025_D1\\IMG_2182.JPG",
+          "text": "8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG",
+          "text_length": 78,
+          "confidence": 0.49933625204978727,
+          "slide_type": "general",
+          "key_points": [
+            "8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG"
+          ],
+          "ocr_results_count": 24
+        }
+      ],
+      "total_analysis": {
+        "total_words": 2016,
+        "type_distribution": {
+          "general": 48
+        },
+        "topic_analysis": {
+          "eco_keywords": 50,
+          "luxury_keywords": 56,
+          "topic_relevance": 5.257936507936508,
+          "main_theme": "eco_luxury"
+        },
+        "structure_score": 0,
+        "presentation_flow": {
+          "flow_sequence": [
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general",
+            "general"
+          ],
+          "has_introduction": false,
+          "has_content": false,
+          "has_conclusion": false,
+          "flow_score": 0.0
+        }
+      },
+      "combined_text": "19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists Lianne Ng Henry Tse Pui In Catherine Siu Sustainability Director of CEO of Ancardi, Founder of Chow Tai Fook Nyrelle & JRNE PICS Fine Jewellery Jewellery Group To talk about sustainability is to talk about the future In this session our panellists will lookinto the rising trend of eco-friendly luxury consumption, examining how sustainability has evolvedintoa defining factor for authentic luxury The conversation will focus on what drives this change and the outlook for luxury jewelleryin an increasingly environmentally and socially conscious world. Venue The Stage; Hall 1B,Hong Kong Convention and Exhibition Centre Moderator Marie Feliciano Marketing Communications Manager of Informa Markets Jewellery Language English with Al-powered Mandarin captions 19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists Lianne Ng Henry Tse Pui In Catherine Siu Sustainability Director of CEO of Ancardi, Founder of Chow Tai Fook Nyrelle & JRNE PICS Fine Jewellery Jewellery Group To talk about sustainability is to talk about the future In this session our panellists will lookinto the rising trend of eco-friendly luxury consumption, examining how sustainability has evolvedintoa defining factor for authentic luxury The conversation will focus on what drives this change and the outlook for luxury jewelleryin an increasingly environmentally and socially conscious world. Venue The Stage; Hall 1B,Hong Kong Convention and Exhibition Centre Moderator Marie Feliciano Marketing Communications Manager of Informa Markets Jewellery Language English with Al-powered Mandarin captions ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2.3Opm HKCEC informamark Jewellery informamar Jewellery JEWELLERY KOHG Consumer Eco-Friendly \"CONNECTINC JEWELLERY \"ICS Fine jeweller The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19 / 6 / 2025 (Thursday) The Hall 1B 2.3Opm 3.3Opm HKCEC informam Jewellery ' ' ' ~ Stage, The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Sustainability CEO Foundel Chow Tai Fook Jewellery Group Ancardi Nyrelle & JBNE PICS Fine Jewellery 19 / 6 / 2025 (Thursday) The Hall 1B 2.3Opm 3.3Opm HKCEC informam Jewellery ' ' ' ~ Stage, Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are conflict-free Ensure GEMSTONE & DIAMONDS Recrystallized Gemstones Produced bY highly advanced Nanotechnology Identical tothe highest earth-mined gemstones guaranteed 'conflict free that 9096 less and are New Lab Dlamonds Collection commitment to quality = environmental responsibility Our of affordable with supreme quality A choice Ofthe damage to environment to the mining None RECYCLED GOLD Of reclaimed jewelry to support a sustainable future Composed Cholces that benefit the planet and future generations FAIRTRADE GOLD & SILVER Make better lives to the miners their famllies and the commui formamar vellery N YRELLE materials natural grade cost Brown and prices SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are conflict-free Ensure GEMSTONE & DIAMONDS Recrystallized Gemstones Produced bY highly advanced Nanotechnology Identical tothe highest earth-mined gemstones guaranteed 'conflict free that 9096 less and are New Lab Dlamonds Collection commitment to quality = environmental responsibility Our of affordable with supreme quality A choice Ofthe damage to environment to the mining None RECYCLED GOLD Of reclaimed jewelry to support a sustainable future Composed Cholces that benefit the planet and future generations FAIRTRADE GOLD & SILVER Make better lives to the miners their famllies and the commui formamar vellery N YRELLE materials natural grade cost Brown and prices NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle to m iveimpact and Crall Ippliers Through \"Nyrelle Back Proi 1o promote circular lifecycle of our solid hnviting Recycle NYRELLE custoimers to us their Ship return enjoy our store credit Backi Weari informamarl Jewellery = = = Buy ~ bring ling price Buy NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle to m iveimpact and Crall Ippliers Through \"Nyrelle Back Proi 1o promote circular lifecycle of our solid hnviting Recycle NYRELLE custoimers to us their Ship return enjoy our store credit Backi Weari informamarl Jewellery = = = Buy ~ bring ling price Buy 1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamonds; rare and Crafts exquisite exotic gems merging a a 'ppreciation for individuality and div Our Design Philosophy Intentionally elevates less en overlooked or underrepresented gen Ining them with high-quality materia message that true beauty is found in and inclusion informama Jewellery ' ' ' ' ' sing one-of- lity 1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamonds; rare and Crafts exquisite exotic gems merging a a 'ppreciation for individuality and div Our Design Philosophy Intentionally elevates less en overlooked or underrepresented gen Ining them with high-quality materia message that true beauty is found in and inclusion informama Jewellery ' ' ' ' ' sing one-of- lity Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of centrepieces feature unique and underrepresented gemstones Collaborations boost vislbility and revenue rmamarket ' suppliers ' supplier Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of centrepieces feature unique and underrepresented gemstones Collaborations boost vislbility and revenue rmamarket ' suppliers ' supplier 미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+ hours community services) Cambodian Children's Fund (helped ralse over HKD 2M) Time Maggie's Cancer Caring Centre (helped raise HKD 1.9M) Provided hands-on jewellery-making experiences wlth social Impact Empowering Through Knowledge-Sharing Sessions Hosted private and group events for over 50 guests gernstones Designed to empower consumers with transparent accessible g 95% of participants felt more confident and informed about the choices Building conscious jewellery community with industry insigt namai ' 'Big 미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+ hours community services) Cambodian Children's Fund (helped ralse over HKD 2M) Time Maggie's Cancer Caring Centre (helped raise HKD 1.9M) Provided hands-on jewellery-making experiences wlth social Impact Empowering Through Knowledge-Sharing Sessions Hosted private and group events for over 50 guests gernstones Designed to empower consumers with transparent accessible g 95% of participants felt more confident and informed about the choices Building conscious jewellery community with industry insigt namai ' 'Big jewellery-making event with over A collective 50 participants. Each contributed to a shared jewellery piece by hammering sawing and and deciding where to place their chosen gemstones Most ofthe participants had no jewellery- making experience Symbolized the beauty Of shared creativity and adaptability early participants shaped the base while later contributors reinterpreted and built upon it 10% of the final sales would be donated to charities nominated by the participants merging creativity with giving filing prior jewellery-making event with over A collective 50 participants. Each contributed to a shared jewellery piece by hammering sawing and and deciding where to place their chosen gemstones Most ofthe participants had no jewellery- making experience Symbolized the beauty Of shared creativity and adaptability early participants shaped the base while later contributors reinterpreted and built upon it 10% of the final sales would be donated to charities nominated by the participants merging creativity with giving filing prior Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion Preserving Traditional Skills Transparency Reports Education and Strengthening DEI Gemstone Knowledge Sharing Consumer Awareness Campalgns Industry Expert Collaborations Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion Preserving Traditional Skills Transparency Reports Education and Strengthening DEI Gemstone Knowledge Sharing Consumer Awareness Campalgns Industry Expert Collaborations Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom 8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG 8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG"
+    },
+    "timeline": {
+      "timeline_events": [
+        {
+          "timestamp": 0.0,
+          "type": "speech_segment",
+          "content": " Thank you.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 0.0,
+          "type": "slide_content",
+          "content": "19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists...",
+          "slide_number": 1,
+          "source": "slides"
+        },
+        {
+          "timestamp": 2.5,
+          "type": "slide_content",
+          "content": "19/ 6 2025 (Thu) 2.3Opm 3.3Opm The Rise of the Eco-Friendly Luxury Consumer Watch Now The Panellists...",
+          "slide_number": 2,
+          "source": "slides"
+        },
+        {
+          "timestamp": 3.0,
+          "type": "speech_segment",
+          "content": " Now, Leanne has been the director of Sustainability, a child-type of dual-regroup",
+          "source": "audio"
+        },
+        {
+          "timestamp": 5.0,
+          "type": "slide_content",
+          "content": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewe...",
+          "slide_number": 3,
+          "source": "slides"
+        },
+        {
+          "timestamp": 7.5,
+          "type": "slide_content",
+          "content": "ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewe...",
+          "slide_number": 4,
+          "source": "slides"
+        },
+        {
+          "timestamp": 9.16,
+          "type": "speech_segment",
+          "content": " since November 2023, overseeing the group sustainability strategy development and action-clone",
+          "source": "audio"
+        },
+        {
+          "timestamp": 10.0,
+          "type": "slide_content",
+          "content": "ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry ...",
+          "slide_number": 5,
+          "source": "slides"
+        },
+        {
+          "timestamp": 12.5,
+          "type": "slide_content",
+          "content": "ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry ...",
+          "slide_number": 6,
+          "source": "slides"
+        },
+        {
+          "timestamp": 15.0,
+          "type": "slide_content",
+          "content": "The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Su...",
+          "slide_number": 7,
+          "source": "slides"
+        },
+        {
+          "timestamp": 16.88,
+          "type": "speech_segment",
+          "content": " implementation across the organization, driving impactful progress in sustainable development.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 17.5,
+          "type": "slide_content",
+          "content": "The Rise of the Consumer Eco-Friendly Luxury Lianne Ng Henry Tse Pui In Catherine Siu Director of Su...",
+          "slide_number": 8,
+          "source": "slides"
+        },
+        {
+          "timestamp": 20.0,
+          "type": "slide_content",
+          "content": "Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4...",
+          "slide_number": 9,
+          "source": "slides"
+        },
+        {
+          "timestamp": 22.5,
+          "type": "slide_content",
+          "content": "Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4...",
+          "slide_number": 10,
+          "source": "slides"
+        },
+        {
+          "timestamp": 24.52,
+          "type": "speech_segment",
+          "content": " Before joining child-type who, Leanne worked as a sustainability advisor at the purpose",
+          "source": "audio"
+        },
+        {
+          "timestamp": 25.0,
+          "type": "slide_content",
+          "content": "Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every gen...",
+          "slide_number": 11,
+          "source": "slides"
+        },
+        {
+          "timestamp": 27.5,
+          "type": "slide_content",
+          "content": "Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every gen...",
+          "slide_number": 12,
+          "source": "slides"
+        },
+        {
+          "timestamp": 30.0,
+          "type": "slide_content",
+          "content": "Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for...",
+          "slide_number": 13,
+          "source": "slides"
+        },
+        {
+          "timestamp": 30.32,
+          "type": "speech_segment",
+          "content": " business.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 31.32,
+          "type": "speech_segment",
+          "content": " From 2015 to 2009, she was director of external affairs and sustainability at Baita's own,",
+          "source": "audio"
+        },
+        {
+          "timestamp": 32.5,
+          "type": "slide_content",
+          "content": "Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for...",
+          "slide_number": 14,
+          "source": "slides"
+        },
+        {
+          "timestamp": 35.0,
+          "type": "slide_content",
+          "content": "Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO...",
+          "slide_number": 15,
+          "source": "slides"
+        },
+        {
+          "timestamp": 37.5,
+          "type": "slide_content",
+          "content": "Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO...",
+          "slide_number": 16,
+          "source": "slides"
+        },
+        {
+          "timestamp": 40.0,
+          "type": "slide_content",
+          "content": "CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Pres...",
+          "slide_number": 17,
+          "source": "slides"
+        },
+        {
+          "timestamp": 40.24,
+          "type": "speech_segment",
+          "content": " where she led sustainability strategy development and communications.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 42.5,
+          "type": "slide_content",
+          "content": "CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Pres...",
+          "slide_number": 18,
+          "source": "slides"
+        },
+        {
+          "timestamp": 44.480000000000004,
+          "type": "speech_segment",
+          "content": " She also drove waste reduction initiatives, including supporting the establishment",
+          "source": "audio"
+        },
+        {
+          "timestamp": 45.0,
+          "type": "slide_content",
+          "content": "CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Tale...",
+          "slide_number": 19,
+          "source": "slides"
+        },
+        {
+          "timestamp": 47.5,
+          "type": "slide_content",
+          "content": "CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Tale...",
+          "slide_number": 20,
+          "source": "slides"
+        },
+        {
+          "timestamp": 50.0,
+          "type": "speech_segment",
+          "content": " of Hong Kong's first beverage-partun recycling facility.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 50.0,
+          "type": "slide_content",
+          "content": "FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future T...",
+          "slide_number": 21,
+          "source": "slides"
+        },
+        {
+          "timestamp": 52.5,
+          "type": "slide_content",
+          "content": "FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future T...",
+          "slide_number": 22,
+          "source": "slides"
+        },
+        {
+          "timestamp": 55.0,
+          "type": "speech_segment",
+          "content": " Wow.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 55.0,
+          "type": "slide_content",
+          "content": "The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewell...",
+          "slide_number": 23,
+          "source": "slides"
+        },
+        {
+          "timestamp": 56.0,
+          "type": "speech_segment",
+          "content": " And prior to taking up sustainability roles, the unscarveer span corporate communications",
+          "source": "audio"
+        },
+        {
+          "timestamp": 57.5,
+          "type": "slide_content",
+          "content": "The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewell...",
+          "slide_number": 24,
+          "source": "slides"
+        },
+        {
+          "timestamp": 60.0,
+          "type": "slide_content",
+          "content": "NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma...",
+          "slide_number": 25,
+          "source": "slides"
+        },
+        {
+          "timestamp": 62.36,
+          "type": "speech_segment",
+          "content": " and public government and committee affairs had been worked at different multinational",
+          "source": "audio"
+        },
+        {
+          "timestamp": 62.5,
+          "type": "slide_content",
+          "content": "NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma...",
+          "slide_number": 26,
+          "source": "slides"
+        },
+        {
+          "timestamp": 65.0,
+          "type": "slide_content",
+          "content": "NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Foot...",
+          "slide_number": 27,
+          "source": "slides"
+        },
+        {
+          "timestamp": 67.5,
+          "type": "slide_content",
+          "content": "NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Foot...",
+          "slide_number": 28,
+          "source": "slides"
+        },
+        {
+          "timestamp": 67.92,
+          "type": "speech_segment",
+          "content": " companies.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 68.92,
+          "type": "speech_segment",
+          "content": " So, Leanne, our next panelist, a very, very young entrepreneur, at least welcome Miss",
+          "source": "audio"
+        },
+        {
+          "timestamp": 70.0,
+          "type": "slide_content",
+          "content": "SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Red...",
+          "slide_number": 29,
+          "source": "slides"
+        },
+        {
+          "timestamp": 72.5,
+          "type": "slide_content",
+          "content": "SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Red...",
+          "slide_number": 30,
+          "source": "slides"
+        },
+        {
+          "timestamp": 75.0,
+          "type": "slide_content",
+          "content": "NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE...",
+          "slide_number": 31,
+          "source": "slides"
+        },
+        {
+          "timestamp": 77.5,
+          "type": "slide_content",
+          "content": "NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE...",
+          "slide_number": 32,
+          "source": "slides"
+        },
+        {
+          "timestamp": 79.36,
+          "type": "speech_segment",
+          "content": " Henry.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 80.0,
+          "type": "slide_content",
+          "content": "NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share ca...",
+          "slide_number": 33,
+          "source": "slides"
+        },
+        {
+          "timestamp": 80.36,
+          "type": "speech_segment",
+          "content": " Now, Henry has found that not one, not two, but three companies.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 82.5,
+          "type": "slide_content",
+          "content": "NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share ca...",
+          "slide_number": 34,
+          "source": "slides"
+        },
+        {
+          "timestamp": 85.0,
+          "type": "slide_content",
+          "content": "1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Je...",
+          "slide_number": 35,
+          "source": "slides"
+        },
+        {
+          "timestamp": 87.5,
+          "type": "slide_content",
+          "content": "1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Je...",
+          "slide_number": 36,
+          "source": "slides"
+        },
+        {
+          "timestamp": 89.03999999999999,
+          "type": "speech_segment",
+          "content": " So as you can see, Henry actually is CEO of Ankhar Dink, which is a wholesale dual-regroup",
+          "source": "audio"
+        },
+        {
+          "timestamp": 90.0,
+          "type": "slide_content",
+          "content": "Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joine...",
+          "slide_number": 37,
+          "source": "slides"
+        },
+        {
+          "timestamp": 92.5,
+          "type": "slide_content",
+          "content": "Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joine...",
+          "slide_number": 38,
+          "source": "slides"
+        },
+        {
+          "timestamp": 95.0,
+          "type": "slide_content",
+          "content": "미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+...",
+          "slide_number": 39,
+          "source": "slides"
+        },
+        {
+          "timestamp": 96.76,
+          "type": "speech_segment",
+          "content": " in my realm, which is a retail brand and they have a store at K11 and also join the day",
+          "source": "audio"
+        },
+        {
+          "timestamp": 97.5,
+          "type": "slide_content",
+          "content": "미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+...",
+          "slide_number": 40,
+          "source": "slides"
+        },
+        {
+          "timestamp": 99.94929127879179,
+          "type": "visual_transition",
+          "content": "Face count: 1 -> 3",
+          "source": "visual"
+        },
+        {
+          "timestamp": 100.0,
+          "type": "slide_content",
+          "content": "jewellery-making event with over A collective 50 participants. Each contributed to a shared jeweller...",
+          "slide_number": 41,
+          "source": "slides"
+        },
+        {
+          "timestamp": 102.5,
+          "type": "slide_content",
+          "content": "jewellery-making event with over A collective 50 participants. Each contributed to a shared jeweller...",
+          "slide_number": 42,
+          "source": "slides"
+        },
+        {
+          "timestamp": 103.88,
+          "type": "speech_segment",
+          "content": " our and so Henry has actually been from a family of dualers and he represents the",
+          "source": "audio"
+        },
+        {
+          "timestamp": 105.0,
+          "type": "slide_content",
+          "content": "Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' C...",
+          "slide_number": 43,
+          "source": "slides"
+        },
+        {
+          "timestamp": 107.5,
+          "type": "slide_content",
+          "content": "Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' C...",
+          "slide_number": 44,
+          "source": "slides"
+        },
+        {
+          "timestamp": 110.0,
+          "type": "slide_content",
+          "content": "Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom...",
+          "slide_number": 45,
+          "source": "slides"
+        },
+        {
+          "timestamp": 112.5,
+          "type": "slide_content",
+          "content": "Eco 8 GEM Chc 19 / 2.30 The THE CONNECTING WORLD JEWELLERY Online Pbtlom...",
+          "slide_number": 46,
+          "source": "slides"
+        },
+        {
+          "timestamp": 115.0,
+          "type": "slide_content",
+          "content": "8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG...",
+          "slide_number": 47,
+          "source": "slides"
+        },
+        {
+          "timestamp": 115.36,
+          "type": "speech_segment",
+          "content": " new, you know, the next generation of dualers.",
+          "source": "audio"
+        },
+        {
+          "timestamp": 117.5,
+          "type": "slide_content",
+          "content": "8 GEM AIHONG ABON W abon com hk THE CONNECTING WORLD JEWELLERY @Im 'Oiidl NONG...",
+          "slide_number": 48,
+          "source": "slides"
+        },
+        {
+          "timestamp": 118.6,
+          "type": "speech_segment",
+          "content": " He joined the family business.",
+          "source": "audio"
+        }
+      ],
+      "timeline_stats": {
+        "event_type_distribution": {
+          "speech_segment": 22,
+          "slide_content": 48,
+          "visual_transition": 1
+        },
+        "time_span": 116.1,
+        "average_event_interval": 1.7073529411764705
+      },
+      "total_events": 71
+    }
+  },
+  "fusion_result": {
+    "final_speaker_count": 3,
+    "speaker_estimates": {
+      "audio": 2,
+      "visual": 3,
+      "transcript": 8
+    },
+    "confidence": 0.98,
+    "comprehensive_analysis": {
+      "content_summary": "3Opm HKCEC informam Jewellery ' ' ' ~ Stage, Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets Anno CHOW TAI FOOK JEWELLERY GROUP CONNECTING THE JEWELLERY WORLD CTF JEWELLERY SUSTAINABILITY 2 0 4 9 rkets Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner Our Corporate Vision To be the leading global jewellery brand thatisa trusted lifetime for every generation partner Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future Our Corporate Vision To be the leading global jewellery brand that is a trusted lifetime partner for every generation especially our generations future Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev Our Sustainability Purpose Chow Tai Fook seeks to lead a transformation of the jewellery industry tO shape sustainable future for all in Jev CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr CTF JEWELLERY SUSTAINABILITY 2 0 4 9 PEOPLE Cultivate Collaborate ENVIRONMENT INDUSTFY Conserve Preserve Innovate Advocate inforr CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel CTF JEWELLERY CHOW TAI FOOK SUSTAINABILITY 2 0 4 9 INDUSTRY ENVIRONMENT 8 PEOPLE Culture Future Talents Well-being for AII Circularity Traceability Low-Iripact Chinese Operations info Jewel FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld FY2025 HIGHLIGHTS PEOPLE INDUSTRY ENVIRONMENT Innuvate Collaborate Conserve Chinese Culture Future Talents 179 infor Jewelld The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery The Rise of the Eco-Friendly Luxury Consumer Henry Tse CEO Ancardl Nyrelle & JRNE informamark Jewellery NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma NYRELLE JOIN US IN THE JOURNEY OF 10096 TRACEABILITY hforma NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery NYRELLE ENVIRONMENTAL IMPACT Water Pollution & Mining Pror Waste Generation Consumptions Carbon Footprint of Energy Sustainable Practise Consumer Consumptions informama Jewellery SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are conflict-free Ensure GEMSTONE & DIAMONDS Recrystallized Gemstones Produced bY highly advanced Nanotechnology Identical tothe highest earth-mined gemstones guaranteed 'conflict free that 9096 less and are New Lab Dlamonds Collection commitment to quality = environmental responsibility Our of affordable with supreme quality A choice Ofthe damage to environment to the mining None RECYCLED GOLD Of reclaimed jewelry to support a sustainable future Composed Cholces that benefit the planet and future generations FAIRTRADE GOLD & SILVER Make better lives to the miners their famllies and the commui formamar vellery N YRELLE materials natural grade cost Brown and prices SOURCING & SUPPLY CHAIN TRACEABILITY Responsible Minlng fair labour conditions impact and ensure Reduce environmental  that follow ethical standards from certified mines Source the materials are conflict-free Ensure GEMSTONE & DIAMONDS Recrystallized Gemstones Produced bY highly advanced Nanotechnology Identical tothe highest earth-mined gemstones guaranteed 'conflict free that 9096 less and are New Lab Dlamonds Collection commitment to quality = environmental responsibility Our of affordable with supreme quality A choice Ofthe damage to environment to the mining None RECYCLED GOLD Of reclaimed jewelry to support a sustainable future Composed Cholces that benefit the planet and future generations FAIRTRADE GOLD & SILVER Make better lives to the miners their famllies and the commui formamar vellery N YRELLE materials natural grade cost Brown and prices NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE NYRELLE SUSTAINABLE PACKAGING 틈 # NYRELLE NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle to m iveimpact and Crall Ippliers Through \"Nyrelle Back Proi 1o promote circular lifecycle of our solid hnviting Recycle NYRELLE custoimers to us their Ship return enjoy our store credit Backi Weari informamarl Jewellery = = = Buy ~ bring ling price Buy NYRELLE LIFETIME BUYBACK PROGRAM Gold Standard fora Golden Future We work with jewelers who share came cllear Design and comritment te That's why we conscience Raw Mallerial created the Nyrelle Circle to m iveimpact and Crall Ippliers Through \"Nyrelle Back Proi 1o promote circular lifecycle of our solid hnviting Recycle NYRELLE custoimers to us their Ship return enjoy our store credit Backi Weari informamarl Jewellery = = = Buy ~ bring ling price Buy 1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamonds; rare and Crafts exquisite exotic gems merging a a 'ppreciation for individuality and div Our Design Philosophy Intentionally elevates less en overlooked or underrepresented gen Ining them with high-quality materia message that true beauty is found in and inclusion informama Jewellery ' ' ' ' ' sing one-of- lity 1' C S About PICS brand founded in 2018, by A handmade fine jewellery Puiin Catherine Siu (GIA GG Jewellery designer and Jewellery artisan) of nstone Celebrates the uniqueness with top-quality diamonds; rare and Crafts exquisite exotic gems merging a a 'ppreciation for individuality and div Our Design Philosophy Intentionally elevates less en overlooked or underrepresented gen Ining them with high-quality materia message that true beauty is found in and inclusion informama Jewellery ' ' ' ' ' sing one-of- lity Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of centrepieces feature unique and underrepresented gemstones Collaborations boost vislbility and revenue rmamarket ' suppliers ' supplier Artisan & Supplier Equity 10+ artisans engaged with fair market compensation 10096 of artisans joined skills-sharing sessions 5096 of sourcing budget allocated to small-scale or independent 100% of centrepieces feature unique and underrepresented gemstones Collaborations boost vislbility and revenue rmamarket ' suppliers ' supplier 미 Supporting Charitable Causes 3 workshops donated to: Time Auction (recognizing volunteers with 40+ hours community services) Cambodian Children's Fund (helped ralse over HKD 2M) Time Maggie's Cancer Caring Centre (helped raise HKD 1 Each contributed to a shared jewellery piece by hammering sawing and and deciding where to place their chosen gemstones Most ofthe participants had no jewellery- making experience Symbolized the beauty Of shared creativity and adaptability early participants shaped the base while later contributors reinterpreted and built upon it 10% of the final sales would be donated to charities nominated by the participants merging creativity with giving filing prior Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion Preserving Traditional Skills Transparency Reports Education and Strengthening DEI Gemstone Knowledge Sharing Consumer Awareness Campalgns Industry Expert Collaborations Crafting Change Through Jewellery Our Ongoing Commitments Community Initiatives \"As One; We Craft' Charity & Community Support Inclusive Sourcing & Artisan Empowerment Sustainable Sourcing Expansion Preserving Traditional Skills Transparency Reports Education and Strengthening DEI Gemstone Knowledge Sharing Consumer Awareness Campalgns Industry Expert Collaborations Eco 8 GEM Chc 19 / 2 Venue The Stage; Hall 1B,Hong Kong Convention and Exhibition Centre Moderator Marie Feliciano Marketing Communications Manager of Informa Markets Jewellery Language English with Al-powered Mandarin captions ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY ET of the The THE Lianne Ng JA Pbllol GEM Director Groun Chow informal Jewellery informamarkets jewellery JEWELLERY Consumer Rise Luxury Eco-Friendly 'CONNECTINC WORLD JEWELLERY ENIT & GEM AsIA HONG Rise of the The Luxury THE JA WORLD' 8GEM Pui In Catherine Siu Lianne Ng Henry Tse Founder CEO Director of Sustainability PICS  Chow Tai Fook Jewellery Group Ancardi Nyrelle & JRNE 19/6 / 2025 (Thursday) rhe Stage Hall 1B 2",
+      "key_insights": [
+        "trend",
+        "trend"
+      ],
+      "presentation_quality": 0.16137095769782978,
+      "topic_coverage": {
+        "eco_keywords": 59,
+        "luxury_keywords": 57,
+        "topic_relevance": 5.215827338129497,
+        "main_theme": "eco_luxury"
+      }
+    },
+    "dimensions_used": [
+      "audio",
+      "visual",
+      "transcript",
+      "slides",
+      "timeline"
+    ],
+    "topic_match": true
+  },
+  "final_report": {
+    "executive_summary": {
+      "speaker_count": 3,
+      "confidence_level": "98.0%",
+      "dimensions_analyzed": 5,
+      "presentation_topic": "The Rise of the Eco-Friendly Luxury Consumer",
+      "analysis_completeness": 1.0
+    },
+    "detailed_findings": {
+      "audio": {
+        "duration": 120.0,
+        "speaker_analysis": {
+          "speakers": 2,
+          "quality_score": 0.32274191539565955,
+          "method": "voice_clustering"
+        },
+        "transcription_available": true
+      },
+      "visual": {
+        "estimated_speakers": 3,
+        "analysis_points": 10,
+        "transitions_detected": 1
+      },
+      "transcript": {
+        "word_count": 130,
+        "estimated_speakers": 8,
+        "structure_score": 1.0
+      },
+      "slides": {
+        "total_slides": 48,
+        "processed_successfully": 48,
+        "structure_score": 0
+      },
+      "timeline": {
+        "total_events": 71,
+        "time_span": 116.1
+      }
+    },
+    "recommendations": [
+      "High confidence analysis - results can be trusted for decision making",
+      "Large number of slides detected - consider slide content prioritization"
+    ],
+    "quality_assessment": {
+      "overall_quality": 0.98,
+      "data_completeness": 1.0,
+      "analysis_reliability": 1.0
+    }
+  },
+  "processing_time": 1082.986592054367,
+  "timestamp": "2025-08-01T18:32:19.967212",
+  "system_version": "Ultimate 5D v1.0"
+}

@@ -1,0 +1,164 @@
+{
+  "session_id": "conference_ocr_1753680855",
+  "start_time": "2025-07-28T14:34:15.629558",
+  "target_images": [
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2160.JPG",
+      "file_name": "IMG_2160.JPG",
+      "file_size_kb": 7954.41015625,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2161.JPG",
+      "file_name": "IMG_2161.JPG",
+      "file_size_kb": 8662.751953125,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2162.JPG",
+      "file_name": "IMG_2162.JPG",
+      "file_size_kb": 5831.294921875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2163.JPG",
+      "file_name": "IMG_2163.JPG",
+      "file_size_kb": 7636.7158203125,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2164.JPG",
+      "file_name": "IMG_2164.JPG",
+      "file_size_kb": 7219.06640625,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2165.JPG",
+      "file_name": "IMG_2165.JPG",
+      "file_size_kb": 4999.912109375,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2166.JPG",
+      "file_name": "IMG_2166.JPG",
+      "file_size_kb": 5210.77734375,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2167.JPG",
+      "file_name": "IMG_2167.JPG",
+      "file_size_kb": 5020.716796875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2168.JPG",
+      "file_name": "IMG_2168.JPG",
+      "file_size_kb": 6543.771484375,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2169.JPG",
+      "file_name": "IMG_2169.JPG",
+      "file_size_kb": 6039.35546875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2170.JPG",
+      "file_name": "IMG_2170.JPG",
+      "file_size_kb": 6826.6328125,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2171.JPG",
+      "file_name": "IMG_2171.JPG",
+      "file_size_kb": 5414.111328125,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2172.JPG",
+      "file_name": "IMG_2172.JPG",
+      "file_size_kb": 5704.3984375,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2173.JPG",
+      "file_name": "IMG_2173.JPG",
+      "file_size_kb": 6982.927734375,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2174.JPG",
+      "file_name": "IMG_2174.JPG",
+      "file_size_kb": 6940.78515625,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2175.JPG",
+      "file_name": "IMG_2175.JPG",
+      "file_size_kb": 6081.41796875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2176.JPG",
+      "file_name": "IMG_2176.JPG",
+      "file_size_kb": 5582.060546875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2177.JPG",
+      "file_name": "IMG_2177.JPG",
+      "file_size_kb": 6198.234375,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2178.JPG",
+      "file_name": "IMG_2178.JPG",
+      "file_size_kb": 6609.21875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2179.JPG",
+      "file_name": "IMG_2179.JPG",
+      "file_size_kb": 6277.919921875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2180.JPG",
+      "file_name": "IMG_2180.JPG",
+      "file_size_kb": 7056.765625,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2181.JPG",
+      "file_name": "IMG_2181.JPG",
+      "file_size_kb": 3176.591796875,
+      "priority": "high"
+    },
+    {
+      "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2182.JPG",
+      "file_name": "IMG_2182.JPG",
+      "file_size_kb": 3044.4990234375,
+      "priority": "high"
+    }
+  ],
+  "ocr_results": [
+    {
+      "total_images_processed": 23,
+      "successful_analyses": 23,
+      "individual_results": [
+        {
+          "image_info": {
+            "file_path": "C:\\Users\\PC_58410\\solomond-ai-system\\user_files\\images\\IMG_2160.JPG",
+            "file_name": "IMG_2160.JPG",
+            "file_size_kb": 7954.41015625,
+            "priority": "high"
+          },
+          "ocr_result": {
+            "text": "Rise of the The 'THE Lianne Ng biector %f Sustainability GEN qaiFook jewellery Group Chow informa Jewellery Imarkets informai \"jewellery 'ENIT| JEWELLERY GEM ASIA Consumer Luxury Eco-Friendly 'CONNECTING WORLD' JEWELLERY JEUERY",
+            "text_blocks": [
+              {
+                "text": "Rise of the",
+                "confidence": 0.48044908428435096,
+                "bbox": [
+                  [
+                    

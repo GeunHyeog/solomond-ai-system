@@ -1,0 +1,150 @@
+{
+  "analysis_info": {
+    "session_id": "brightcove_analysis_1753683297",
+    "target_url": "https://players.brightcove.net/1659762912/default_default/index.html?videoId=6374563565112",
+    "analysis_timestamp": "2025-07-28T15:14:58.701617",
+    "analysis_method": "url_analysis_and_metadata_extraction"
+  },
+  "url_analysis": {
+    "url_components": {
+      "base_domain": "players.brightcove.net",
+      "account_id": "1659762912",
+      "player_id": "default_default",
+      "video_id": "6374563565112",
+      "full_path": "/1659762912/default_default/index.html"
+    },
+    "parsing_success": true,
+    "platform": "Brightcove"
+  },
+  "video_metadata": {
+    "video_info": {
+      "platform": "Brightcove",
+      "account_id": "1659762912",
+      "video_id": "6374563565112",
+      "player_type": "embedded",
+      "access_method": "public_url"
+    },
+    "conference_context": {
+      "event_name": "JGA25_0619 - CONNECTING THE JEWELLERY WORLD",
+      "session_topic": "The Rise of the Eco-friendly Luxury Consumer",
+      "session_time": "2:30pm - 3:30pm",
+      "estimated_duration": "60 minutes",
+      "content_type": "Panel Discussion"
+    },
+    "technical_info": {
+      "hosting_platform": "Brightcove Video Cloud",
+      "embed_type": "iframe_player",
+      "responsive_player": true,
+      "analytics_enabled": true
+    },
+    "content_assessment": {
+      "likely_content": "Professional conference recording",
+      "expected_speakers": 3,
+      "discussion_format": "Panel with Q&A",
+      "industry_focus": "Jewelry & Luxury Goods"
+    }
+  },
+  "accessibility_check": {
+    "url_status": "accessible",
+    "response_time": 1.058332920074463,
+    "headers": {
+      "Content-Length": "157922",
+      "x-amz-id-2": "IqhYEvzMqhOuVJPUyBg2LFi1yXnKZVhoXSsM2BuQldiCgHkfZNk3cML0IEGar4jTx5VOuwNn69hCXxJDDyiD1XgeLxAtR/RRvU2igi48+bE=",
+      "x-amz-request-id": "WSZXEB034VS1CQW4",
+      "x-amz-replication-status": "COMPLETED",
+      "Last-Modified": "Tue, 20 Feb 2018 18:57:54 GMT",
+      "ETag": "\"65beac5b6cfb06cb82ee0be2b2a539be\"",
+      "Content-Encoding": "gzip",
+      "x-amz-version-id": "4iQRV3rfQlpvOBUNlmupUM6li9gintCk",
+      "Server": "AmazonS3",
+      "Accept-Ranges": "bytes",
+      "X-Served-By": "cache-qpg1254-QPG",
+      "X-Cache-Hits": "1",
+      "X-Timer": "S1753683298.342000,VS0,VE1",
+      "Vary": "Accept-Encoding",
+      "X-BCOV-Response-Mode": "1",
+      "Cache-Control": "public, max-age=261",
+      "Date": "Mon, 28 Jul 2025 06:14:58 GMT",
+      "Connection": "keep-alive",
+      "Content-Type": "text/html; charset=utf-8"
+    },
+    "accessibility_assessment": {
+      "is_accessible": true,
+      "is_video_content": true,
+      "brightcove_confirmed": false,
+      "response_speed": "fast",
+      "redirects_detected": false
+    },
+    "final_url": "https://players.brightcove.net/1659762912/default_default/index.html?videoId=6374563565112"
+  },
+  "content_insights": {
+    "content_availability": {
+      "online_accessible": true,
+      "platform_confirmed": false,
+      "video_player_detected": true,
+      "estimated_availability": "public"
+    },
+    "conference_alignment": {
+      "event_match": true,
+      "timing_consistency": "컨퍼런스 일정과 일치 (2:30pm-3:30pm)",
+      "content_type_match": "Panel Discussion 형태와 일치",
+      "speaker_count_match": "3명 패널 구성"
+    },
+    "technical_assessment": {
+      "video_quality_expected": "Professional conference recording quality",
+      "audio_quality_expected": "Clear panel discussion audio",
+      "duration_estimate": "60 minutes",
+      "format_prediction": "MP4 or similar web-optimized format"
+    },
+    "analysis_recommendations": [
+      {
+        "method": "Browser automation",
+        "purpose": "실제 비디오 플레이어 접근 및 콘텐츠 확인",
+        "expected_result": "비디오 메타데이터 및 가용성 확인",
+        "time_required": "2-3분"
+      },
+      {
+        "method": "Video download (if accessible)",
+        "purpose": "로컬 분석을 위한 비디오 파일 획득",
+        "expected_result": "오디오 추출 및 STT 분석 가능",
+        "time_required": "10-30분 (파일 크기에 따라)"
+      },
+      {
+        "method": "Metadata API (if available)",
+        "purpose": "Brightcove API를 통한 상세 정보 획득",
+        "expected_result": "정확한 비디오 메타데이터",
+        "time_required": "1-2분"
+      }
+    ],
+    "alternative_approaches": [
+      "로컬 비디오 파일 우선 분석 (user_files/videos/*.MOV)",
+      "오디오 파일과 이미지 조합으로 컨퍼런스 내용 재구성",
+      "컨퍼런스 주최측 공식 자료 활용"
+    ]
+  },
+  "summary": {
+    "key_findings": [
+      "Brightcove 비디오 ID: 6374563565112",
+      "온라인 접근 가능: 예",
+      "예상 길이: 60 minutes",
+      "컨퍼런스 관련성: 높음 (JGA25 패널 토론)"
+    ],
+    "technical_status": {
+      "platform": "Brightcove Video Cloud",
+      "accessibility": "accessible",
+      "analysis_feasibility": "high",
+      "priority": "high"
+    },
+    "recommended_next_steps": [
+      "브라우저 자동화를 통한 실제 비디오 접근",
+      "비디오 다운로드 시도 (가능한 경우)",
+      "오디오 추출 및 STT 분석 수행"
+    ],
+    "integration_potential": {
+      "with_audio_files": "high",
+      "with_image_files": "high",
+      "with_local_videos": "medium",
+      "standalone_value": "medium"
+    }
+  }
+}

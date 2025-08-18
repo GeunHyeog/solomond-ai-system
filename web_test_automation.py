@@ -195,10 +195,11 @@ await mcp__playwright__wait_for_selector(selector="#result-container")
 # 웹 테스트 자동화 시스템 사용
 from web_test_automation import WebTestAutomator
 from claude_web_communicator import ClaudeWebCommunicator
+from config import SETTINGS
 
 # 자동화 시스템 초기화
 automator = WebTestAutomator()
-result = automator.start_test_monitoring("http://localhost:8503")
+result = automator.start_test_monitoring("http://f"localhost:{SETTINGS['PORT']}"")
 
 # Playwright MCP 실행 결과를 클로드 리포트로 변환
 playwright_result = {

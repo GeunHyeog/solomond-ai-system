@@ -1,0 +1,116 @@
+{
+  "analysis_info": {
+    "session_id": "lightweight_audio_1753689904",
+    "analysis_approach": "lightweight_metadata_only",
+    "timestamp": "2025-07-28T17:05:13.625211"
+  },
+  "metadata_analysis": {
+    "file_info": {
+      "file_name": "새로운 녹음.m4a",
+      "file_size_mb": 27.15093421936035,
+      "total_duration_seconds": 3427.7,
+      "total_duration_minutes": 57.12833333333333,
+      "sample_rate": 16000
+    },
+    "audio_features": {
+      "energy_level": 0.10918066650629044,
+      "zero_crossing_rate": 0.13162459188432835,
+      "spectral_centroid": 1703.5333003299618,
+      "mfcc_features": [
+        -166.99729919433594,
+        96.38599395751953,
+        -7.236724853515625,
+        19.0772647857666,
+        -8.913857460021973,
+        -6.302159786224365,
+        -7.754578113555908,
+        -10.681809425354004,
+        -4.929434299468994,
+        -1.5572593212127686,
+        -6.6980767250061035,
+        -4.541965961456299,
+        -5.0912766456604
+      ],
+      "audio_quality": "good"
+    },
+    "voice_activity": {
+      "voice_ratio": 0.6997998665777185,
+      "voice_segments_count": 0,
+      "longest_voice_segment": 0.0,
+      "total_voice_time": 0.0,
+      "is_voice_content": true
+    },
+    "conference_assessment": {
+      "relevance_score": 80,
+      "relevance_level": "high",
+      "assessment_factors": [
+        "장시간 녹음 (컨퍼런스 적합)",
+        "높은 음성 활동 비율",
+        "양호한 오디오 품질",
+        "음성 특성 스펙트럼"
+      ],
+      "is_likely_conference": true,
+      "recommended_analysis": "full_stt"
+    },
+    "processing_info": {
+      "analysis_method": "metadata_and_sample",
+      "sample_duration": 30.0,
+      "processing_time": 9.606732845306396
+    },
+    "status": "success"
+  },
+  "content_preview": {
+    "content_overview": {
+      "file_name": "새로운 녹음.m4a",
+      "duration": "57.1분",
+      "file_size": "27.2MB",
+      "expected_content_type": "전체 컨퍼런스 세션 녹음",
+      "estimated_speakers": "1-2명 (단독 발표)"
+    },
+    "technical_assessment": {
+      "audio_quality": "good",
+      "voice_activity_ratio": "70.0%",
+      "conference_relevance": "high",
+      "analysis_confidence": "high"
+    },
+    "stt_analysis_strategy": {
+      "recommended_approach": "full_transcription",
+      "estimated_processing_time": "114분",
+      "expected_text_length": "8569자 (예상)",
+      "priority": "high"
+    },
+    "key_insights_preview": [
+      "총 57분 분량의 오디오 콘텐츠",
+      "음성 활동이 70.0% 포함",
+      "컨퍼런스 관련성: high",
+      "4개 긍정적 평가 요소 확인"
+    ]
+  },
+  "recommendations": {
+    "immediate_insights": [
+      "장시간 녹음 (57분) - 전체 컨퍼런스 세션으로 추정",
+      "높은 음성 활동 비율 - 활발한 토론 또는 발표 진행",
+      "컨퍼런스 오디오로 확인 - 전문적 분석 가치 높음"
+    ],
+    "next_steps": [
+      {
+        "step": "STT 전체 분석 수행",
+        "method": "청크 기반 처리로 전체 텍스트 추출",
+        "expected_time": "114분",
+        "value": "컨퍼런스 발언 내용 완전 파악"
+      },
+      {
+        "step": "키워드 분석 수행",
+        "method": "STT 결과에서 컨퍼런스 관련 키워드 추출",
+        "expected_time": "5분",
+        "value": "핵심 주제 및 화자 의견 요약"
+      },
+      {
+        "step": "이미지 OCR과 통합 분석",
+        "method": "음성 내용과 발표 슬라이드 연계 분석",
+        "expected_time": "10분",
+        "value": "완전한 컨퍼런스 인사이트 도출"
+      }
+    ]
+  }
+}

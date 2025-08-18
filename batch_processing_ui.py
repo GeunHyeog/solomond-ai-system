@@ -83,7 +83,7 @@ async def get_batch_processing_ui():
     return html_content
 
 def get_main_ui_styles():
-    """메인 UI 스타일"""
+    """메인 UI 스타일 - 대형 함수 (리팩토링 고려 대상 - 677줄)"""
     return """
     :root {
         --primary: #2C5282;
@@ -975,7 +975,7 @@ def get_results_section():
     """
 
 def get_main_ui_javascript():
-    """메인 UI JavaScript"""
+    """메인 UI JavaScript - 대형 함수 (리팩토링 고려 대상 - 534줄)"""
     return """
     // 전역 변수
     let currentSessionId = null;

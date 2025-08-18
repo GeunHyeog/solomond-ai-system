@@ -12,6 +12,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Any, Optional
 import base64
+from config import SETTINGS
 
 try:
     from playwright.async_api import async_playwright
@@ -23,7 +24,7 @@ except ImportError:
 class DemoCaptureSystem:
     """시연 캐쳐 시스템"""
     
-    def __init__(self, streamlit_url: str = "http://localhost:8503"):
+    def __init__(self, streamlit_url: str = "http://f"localhost:{SETTINGS['PORT']}""):
         self.streamlit_url = streamlit_url
         self.capture_dir = Path("demo_captures")
         self.capture_dir.mkdir(exist_ok=True)

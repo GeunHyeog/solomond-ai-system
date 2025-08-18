@@ -1,0 +1,26 @@
+{
+  "task_name": "Test Analysis",
+  "total_seconds": 6.001135349273682,
+  "total_minutes": 0.1000189224878947,
+  "checkpoints": [
+    {
+      "step": "File Loading",
+      "elapsed_seconds": 7.104873657226562e-05,
+      "elapsed_minutes": 1.1841456095377604e-06,
+      "timestamp": "14:03:39"
+    },
+    {
+      "step": "Processing",
+      "elapsed_seconds": 1.000232219696045,
+      "elapsed_minutes": 0.016670536994934083,
+      "timestamp": "14:03:40"
+    },
+    {
+      "step": "AI Analysis",
+      "elapsed_seconds": 3.000680923461914,
+      "elapsed_minutes": 0.05001134872436523,
+      "timestamp": "14:03:42"
+    }
+  ],
+  "completed_at": "2025-07-24 14:03:45"
+}

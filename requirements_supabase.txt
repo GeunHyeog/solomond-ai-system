@@ -1,0 +1,1 @@
+supabase>=2.0.0\npsycopg2-binary>=2.9.0\npython-dotenv>=1.0.0

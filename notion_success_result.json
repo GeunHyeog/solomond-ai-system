@@ -1,0 +1,18 @@
+{
+  "object": "user",
+  "id": "5af724cc-6ae9-4831-b3b6-50c436dc1be1",
+  "name": "Claude Code MCP",
+  "avatar_url": null,
+  "type": "bot",
+  "bot": {
+    "owner": {
+      "type": "workspace",
+      "workspace": true
+    },
+    "workspace_name": "근혁 전의 Notion",
+    "workspace_limits": {
+      "max_file_upload_size_in_bytes": 5242880
+    }
+  },
+  "request_id": "e4b4bae2-c061-4651-a958-6fe981af4df9"
+}
