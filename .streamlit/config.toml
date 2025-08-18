@@ -1,14 +1,11 @@
 [server]
-# 대용량 파일 업로드 지원
-maxUploadSize = 5000
-# 메시지 크기 제한 증가 (5GB)
-maxMessageSize = 5000
+maxUploadSize = 10240
+maxMessageSize = 10240
+enableCORS = false
+enableXsrfProtection = false
 
 [browser]
 gatherUsageStats = false
 
-[theme]
-primaryColor = "#FF6B6B"
-backgroundColor = "#FFFFFF"
-secondaryBackgroundColor = "#F0F2F6"
-textColor = "#262730"
+[logger]
+level = "info"

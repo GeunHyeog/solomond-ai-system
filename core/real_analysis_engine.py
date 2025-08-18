@@ -7,10 +7,35 @@ Whisper STT + EasyOCR + 무료 AI 모델 통합
 import os
 import time
 import logging
+import re
 from typing import Dict, List, Any, Optional, Union
+from utils.logger import get_logger
 from pathlib import Path
 import json
 from datetime import datetime
+
+# 대용량 파일 스트리밍 최적화 시스템
+try:
+    from .large_file_streaming_optimizer import get_global_streaming_optimizer, StreamingConfig
+    from .memory_aware_file_processor import get_global_file_processor, ProcessingConfig
+    STREAMING_OPTIMIZER_AVAILABLE = True
+except ImportError:
+    STREAMING_OPTIMIZER_AVAILABLE = False
+
+# AI 모델 메모리 관리 시스템
+try:
+    from .smart_ai_model_loader import get_global_smart_loader, smart_load_whisper, smart_load_easyocr, smart_load_transformers
+    from .ai_model_memory_manager import get_global_ai_memory_manager, ModelPriority
+    AI_MEMORY_MANAGEMENT_AVAILABLE = True
+except ImportError:
+    AI_MEMORY_MANAGEMENT_AVAILABLE = False
+
+# 사용자 설정 관리 시스템
+try:
+    from .user_settings_manager import get_global_settings_manager, SettingType, SettingScope
+    USER_SETTINGS_AVAILABLE = True
+except ImportError:
+    USER_SETTINGS_AVAILABLE = False
 
 # GPU 메모리 관리 시스템 초기화
 try:
@@ -24,8 +49,8 @@ try:
 except ImportError:
     GPU_MANAGER_AVAILABLE = False
     # 폴백: 기본 CPU 모드 설정
-    os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-    os.environ['CUDA_VISIBLE_DEVICES'] = ''  # GPU 비활성화
+    from config.compute_config import force_cpu_mode
+    force_cpu_mode()
 
 # PyTorch 설정 최적화
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
@@ -36,8 +61,12 @@ os.environ['PYTHONIOENCODING'] = 'utf-8'
 import sys
 if sys.platform == 'win32':
     import codecs
-    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
-    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+    try:
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+    except (AttributeError, OSError):
+        # Streamlit에서는 이미 인코딩이 설정되어 있을 수 있음
+        pass
 
 # 경고 메시지 억제
 import warnings
@@ -47,6 +76,12 @@ warnings.filterwarnings('ignore', message='.*pin_memory.*')
 # 실제 분석 라이브러리들
 import whisper
 import easyocr
+# 향상된 OCR 핸들러 import
+try:
+    from .enhanced_ocr_handler import EnhancedOCRHandler
+    ENHANCED_OCR_AVAILABLE = True
+except ImportError:
+    ENHANCED_OCR_AVAILABLE = False
 import subprocess
 import tempfile
 
@@ -155,6 +190,24 @@ except ImportError as e:
         """폴백 함수"""
         return {"status": "unavailable", "error": "메시지 추출 엔진을 사용할 수 없습니다"}
 
+# 실시간 화자 분리 시스템 (v2.3 추가)
+try:
+    from .realtime_speaker_diarization import global_speaker_diarization, analyze_speakers_realtime
+    
+    def analyze_speakers_in_audio(audio_file: str, transcript: str = "", progress_container=None):
+        """실시간 화자 분리 분석 함수"""
+        return global_speaker_diarization.analyze_speakers_in_audio(audio_file, transcript, progress_container)
+    
+    speaker_diarization_available = True
+    print("🎤 실시간 화자 분리 시스템 로드 완료")
+except ImportError as e:
+    speaker_diarization_available = False
+    print(f"실시간 화자 분리 시스템 로드 실패: {e}")
+    
+    def analyze_speakers_in_audio(audio_file: str, transcript: str = "", progress_container=None):
+        """폴백 함수"""
+        return {"status": "unavailable", "error": "화자 분리 시스템을 사용할 수 없습니다"}
+
 class RealAnalysisEngine:
     """실제 파일 분석 엔진"""
     
@@ -165,6 +218,70 @@ class RealAnalysisEngine:
         self.whisper_model = None
         self.ocr_reader = None
         self.nlp_pipeline = None
+        
+        # 향상된 OCR 핸들러 초기화
+        if ENHANCED_OCR_AVAILABLE:
+            try:
+                self.enhanced_ocr = EnhancedOCRHandler(logger=self.logger)
+                self.logger.info("✅ 향상된 OCR 핸들러 초기화됨")
+            except Exception as e:
+                self.logger.warning(f"⚠️ 향상된 OCR 핸들러 초기화 실패: {e}")
+                self.enhanced_ocr = None
+        else:
+            self.enhanced_ocr = None
+        
+        # 스트리밍 최적화 시스템 초기화
+        if STREAMING_OPTIMIZER_AVAILABLE:
+            try:
+                # 기본 설정으로 파일 프로세서 초기화
+                config = ProcessingConfig(
+                    max_memory_usage_mb=512.0,
+                    memory_optimization_level="balanced",
+                    auto_gc_enabled=True
+                )
+                self.file_processor = get_global_file_processor(config)
+                self.logger.info("✅ 대용량 파일 스트리밍 최적화 시스템 활성화")
+            except Exception as e:
+                self.logger.warning(f"⚠️ 스트리밍 최적화 시스템 초기화 실패: {e}")
+                self.file_processor = None
+        else:
+            self.file_processor = None
+        
+        # AI 모델 메모리 관리 시스템 초기화
+        if AI_MEMORY_MANAGEMENT_AVAILABLE:
+            try:
+                self.smart_loader = get_global_smart_loader()
+                self.ai_memory_manager = get_global_ai_memory_manager(max_memory_mb=2048.0)
+                self.logger.info("✅ AI 모델 메모리 관리 시스템 활성화")
+                
+                # 초기 메모리 상태 확인
+                memory_status = self.smart_loader.get_memory_status()
+                pressure_level = memory_status['memory_profile']['memory_pressure_level']
+                if pressure_level in ['high', 'critical']:
+                    self.logger.warning(f"⚠️ 초기 메모리 압박 감지: {pressure_level}")
+                    
+            except Exception as e:
+                self.logger.warning(f"⚠️ AI 모델 메모리 관리 시스템 초기화 실패: {e}")
+                self.smart_loader = None
+                self.ai_memory_manager = None
+        else:
+            self.smart_loader = None
+            self.ai_memory_manager = None
+        
+        # 사용자 설정 관리 시스템 초기화
+        if USER_SETTINGS_AVAILABLE:
+            try:
+                self.settings_manager = get_global_settings_manager()
+                self.logger.info("✅ 사용자 설정 관리 시스템 활성화")
+                
+                # 분석 설정 로드
+                self._load_analysis_settings()
+                
+            except Exception as e:
+                self.logger.warning(f"⚠️ 사용자 설정 관리 시스템 초기화 실패: {e}")
+                self.settings_manager = None
+        else:
+            self.settings_manager = None
         
         # 성능 추적
         self.analysis_stats = {
@@ -177,7 +294,170 @@ class RealAnalysisEngine:
         }
         
         self.logger.info("[INFO] 실제 분석 엔진 초기화 완료")
-        self.logger.info(f"[INFO] 에러 복구 분석기: {'활성화' if error_recovery_available else '비활성화'}")
+    
+    def _load_analysis_settings(self) -> None:
+        """분석 설정 로드"""
+        if not self.settings_manager:
+            return
+        
+        try:
+            # AI 모델 설정 로드
+            whisper_model = self.settings_manager.get_setting("ai.whisper_model_size", "base")
+            easyocr_languages = self.settings_manager.get_setting("ai.easyocr_languages", ["ko", "en"])
+            transformers_model = self.settings_manager.get_setting("ai.transformers_model", "facebook/bart-large-cnn")
+            
+            # 분석 설정 로드
+            max_file_size = self.settings_manager.get_setting("analysis.max_file_size_mb", 500.0)
+            batch_size = self.settings_manager.get_setting("analysis.batch_size", 5)
+            enable_streaming = self.settings_manager.get_setting("analysis.enable_streaming", True)
+            
+            # 성능 설정 로드
+            max_memory = self.settings_manager.get_setting("performance.max_memory_mb", 2048.0)
+            enable_gpu = self.settings_manager.get_setting("performance.enable_gpu", False)
+            
+            # 설정 적용
+            self.config = {
+                'whisper_model_size': whisper_model,
+                'easyocr_languages': easyocr_languages,
+                'transformers_model': transformers_model,
+                'max_file_size_mb': max_file_size,
+                'batch_size': batch_size,
+                'enable_streaming': enable_streaming,
+                'max_memory_mb': max_memory,
+                'enable_gpu': enable_gpu
+            }
+            
+            # AI 모델 메모리 관리자 설정 업데이트
+            if self.ai_memory_manager:
+                self.ai_memory_manager.max_memory_mb = max_memory
+            
+            self.logger.info(f"📋 분석 설정 로드: Whisper={whisper_model}, 메모리={max_memory}MB, 스트리밍={enable_streaming}")
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ 분석 설정 로드 실패: {e}")
+            # 기본 설정 사용
+            self.config = {
+                'whisper_model_size': 'base',
+                'easyocr_languages': ['ko', 'en'],
+                'transformers_model': 'facebook/bart-large-cnn',
+                'max_file_size_mb': 500.0,
+                'batch_size': 5,
+                'enable_streaming': True,
+                'max_memory_mb': 2048.0,
+                'enable_gpu': False
+            }
+    
+    def _save_analysis_settings(self) -> None:
+        """분석 설정 저장"""
+        if not self.settings_manager or not hasattr(self, 'config'):
+            return
+        
+        try:
+            # 현재 설정을 사용자 설정으로 저장
+            self.settings_manager.set_setting(
+                "ai.whisper_model_size", 
+                self.config.get('whisper_model_size', 'base'),
+                SettingType.AI_MODEL,
+                SettingScope.GLOBAL,
+                "Whisper 모델 크기"
+            )
+            
+            self.settings_manager.set_setting(
+                "ai.easyocr_languages",
+                self.config.get('easyocr_languages', ['ko', 'en']),
+                SettingType.AI_MODEL,
+                SettingScope.GLOBAL,
+                "EasyOCR 지원 언어"
+            )
+            
+            self.settings_manager.set_setting(
+                "analysis.max_file_size_mb",
+                self.config.get('max_file_size_mb', 500.0),
+                SettingType.ANALYSIS,
+                SettingScope.GLOBAL,
+                "최대 파일 크기 (MB)"
+            )
+            
+            self.settings_manager.set_setting(
+                "analysis.enable_streaming",
+                self.config.get('enable_streaming', True),
+                SettingType.ANALYSIS,
+                SettingScope.GLOBAL,
+                "스트리밍 분석 활성화"
+            )
+            
+            self.settings_manager.set_setting(
+                "performance.max_memory_mb",
+                self.config.get('max_memory_mb', 2048.0),
+                SettingType.PERFORMANCE,
+                SettingScope.GLOBAL,
+                "최대 메모리 사용량 (MB)"
+            )
+            
+            self.logger.debug("💾 분석 설정 저장 완료")
+            
+        except Exception as e:
+            self.logger.warning(f"⚠️ 분석 설정 저장 실패: {e}")
+    
+    def update_analysis_config(self, **config_updates) -> bool:
+        """분석 설정 업데이트"""
+        try:
+            if not hasattr(self, 'config'):
+                self._load_analysis_settings()
+            
+            # 설정 업데이트
+            for key, value in config_updates.items():
+                if key in self.config:
+                    self.config[key] = value
+                    self.logger.info(f"⚙️ 설정 업데이트: {key} = {value}")
+            
+            # 설정 저장
+            self._save_analysis_settings()
+            
+            # AI 모델 메모리 관리자 설정 업데이트
+            if self.ai_memory_manager and 'max_memory_mb' in config_updates:
+                self.ai_memory_manager.max_memory_mb = config_updates['max_memory_mb']
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"❌ 분석 설정 업데이트 실패: {e}")
+            return False
+
+    def _should_use_streaming(self, file_path: str) -> bool:
+        """파일이 스트리밍 최적화를 사용해야 하는지 판단"""
+        if not self.file_processor:
+            return False
+        
+        # 사용자 설정 확인
+        if hasattr(self, 'config') and not self.config.get('enable_streaming', True):
+            return False
+        
+        try:
+            file_path = Path(file_path)
+            file_size_mb = file_path.stat().st_size / (1024 * 1024)
+            
+            # 사용자 설정 최대 파일 크기 확인
+            max_file_size = getattr(self, 'config', {}).get('max_file_size_mb', 500.0)
+            if file_size_mb > max_file_size:
+                self.logger.warning(f"⚠️ 파일 크기 제한 초과: {file_size_mb:.1f}MB > {max_file_size}MB")
+                return False
+            
+            # 50MB 이상의 파일은 스트리밍 사용
+            if file_size_mb >= 50:
+                return True
+            
+            # 특정 파일 타입은 크기가 작아도 스트리밍 사용 (메모리 효율성)
+            file_ext = file_path.suffix.lower()
+            streaming_preferred_types = ['.mp4', '.avi', '.mov', '.mkv', '.wav', '.flac']
+            
+            if file_ext in streaming_preferred_types and file_size_mb >= 10:
+                return True
+            
+            return False
+        
+        except Exception:
+            return False
     
     def _enhance_with_context(self, extracted_text: str, context: Dict[str, Any] = None) -> str:
         """컨텍스트 정보를 활용한 텍스트 후처리"""
@@ -188,7 +468,15 @@ class RealAnalysisEngine:
         
         # 주제 키워드가 있으면 관련 용어 보정
         if context.get('topic_keywords'):
-            keywords = [k.strip() for k in context['topic_keywords'].split(',')]
+            # topic_keywords가 문자열인지 리스트인지 확인
+            topic_keywords = context['topic_keywords']
+            if isinstance(topic_keywords, str):
+                keywords = [k.strip() for k in topic_keywords.split(',')]
+            elif isinstance(topic_keywords, list):
+                keywords = [str(k).strip() for k in topic_keywords]
+            else:
+                keywords = []
+            
             for keyword in keywords:
                 if keyword and len(keyword) > 2:
                     # 유사한 단어 찾아서 보정 (간단한 레벤슈타인 거리 기반)
@@ -203,13 +491,23 @@ class RealAnalysisEngine:
         if context.get('speakers') or context.get('participants'):
             names = []
             if context.get('speakers'):
-                names.extend([n.strip() for n in context['speakers'].split(',')])
+                # speakers가 문자열인지 리스트인지 확인
+                speakers = context['speakers']
+                if isinstance(speakers, str):
+                    names.extend([n.strip() for n in speakers.split(',')])
+                elif isinstance(speakers, list):
+                    names.extend([str(n).strip() for n in speakers])
+            
             if context.get('participants'):
                 # 괄호 안 내용 제거하고 이름만 추출
                 import re
-                participant_text = context['participants']
-                participant_names = re.findall(r'([가-힣a-zA-Z\s]+?)(?:\s*\([^)]*\))?(?:,|$)', participant_text)
-                names.extend([n.strip() for n in participant_names if n.strip()])
+                participants = context['participants']
+                if isinstance(participants, str):
+                    participant_text = participants
+                    participant_names = re.findall(r'([가-힣a-zA-Z\s]+?)(?:\s*\([^)]*\))?(?:,|$)', participant_text)
+                    names.extend([n.strip() for n in participant_names if n.strip()])
+                elif isinstance(participants, list):
+                    names.extend([str(p).strip() for p in participants])
             
             # 인명 보정
             for name in names:
@@ -246,7 +544,7 @@ class RealAnalysisEngine:
     
     def _setup_logging(self) -> logging.Logger:
         """로깅 설정 (Unicode 인코딩 문제 해결)"""
-        logger = logging.getLogger(__name__)
+        logger = get_logger(__name__)
         if not logger.handlers:
             handler = logging.StreamHandler()
             # UTF-8 인코딩 강제 설정
@@ -260,61 +558,120 @@ class RealAnalysisEngine:
             logger.setLevel(logging.INFO)
         return logger
     
-    def _lazy_load_whisper(self, model_size: str = "base") -> whisper.Whisper:
-        """Whisper 모델 지연 로딩 (속도 우선 base 모델)"""
+    def _lazy_load_whisper(self, model_size: str = None) -> whisper.Whisper:
+        """Whisper 모델 지연 로딩 (사용자 설정 기반)"""
         if self.whisper_model is None:
-            self.logger.info(f"🎤 Whisper {model_size} 모델 로딩... (고품질 분석)")
-            start_time = time.time()
+            # 사용자 설정에서 모델 크기 가져오기
+            if model_size is None:
+                model_size = getattr(self, 'config', {}).get('whisper_model_size', 'base')
             
-            try:
-                # base 모델 우선 (속도 최적화)
-                self.whisper_model = whisper.load_model(model_size, device="cpu")
-                load_time = time.time() - start_time
-                self.logger.info(f"✅ Whisper {model_size} 로드 완료 ({load_time:.1f}초)")
+            # 🧠 스마트 AI 모델 로더 사용
+            if self.smart_loader:
+                self.logger.info(f"🧠 스마트 Whisper {model_size} 모델 로딩... (메모리 최적화)")
                 
-            except Exception as e:
-                self.logger.warning(f"⚠️ {model_size} 모델 로드 실패: {e}")
+                # GPU 설정 확인
+                device = "gpu" if getattr(self, 'config', {}).get('enable_gpu', False) else "cpu"
                 
-                # 폴백: tiny 모델로 재시도 (최고 속도)
-                try:
-                    fallback_model = "tiny"
-                    self.logger.info(f"🔄 폴백: Whisper {fallback_model} 모델로 재시도...")
-                    self.whisper_model = whisper.load_model(fallback_model, device="cpu")
-                    load_time = time.time() - start_time
-                    self.logger.info(f"✅ Whisper {fallback_model} 로드 완료 ({load_time:.1f}초)")
+                result = self.smart_loader.load_whisper_model(model_size, device=device)
+                
+                if result.success:
+                    self.whisper_model = result.model
+                    self.logger.info(f"✅ 스마트 Whisper {model_size} 로드 완료 ({result.load_time_seconds:.1f}초, {result.memory_usage_mb:.1f}MB)")
+                else:
+                    # 폴백: tiny 모델로 재시도
+                    self.logger.warning(f"⚠️ {model_size} 모델 로드 실패: {result.error_message}")
+                    fallback_result = self.smart_loader.load_whisper_model("tiny", device="cpu")
                     
-                except Exception as e2:
-                    self.logger.error(f"❌ Whisper 모델 로드 완전 실패: {e2}")
-                    raise RuntimeError(f"Whisper 모델을 로드할 수 없습니다: {e2}")
+                    if fallback_result.success:
+                        self.whisper_model = fallback_result.model
+                        self.logger.info(f"✅ 폴백 Whisper tiny 로드 완료 ({fallback_result.load_time_seconds:.1f}초)")
+                    else:
+                        raise RuntimeError(f"Whisper 모델을 로드할 수 없습니다: {fallback_result.error_message}")
+            else:
+                # 기존 방식 폴백
+                self.logger.info(f"🎤 Whisper {model_size} 모델 로딩... (기존 방식)")
+                start_time = time.time()
+                
+                try:
+                    import whisper
+                    self.whisper_model = whisper.load_model(model_size, device="cpu")
+                    load_time = time.time() - start_time
+                    self.logger.info(f"✅ Whisper {model_size} 로드 완료 ({load_time:.1f}초)")
+                    
+                except Exception as e:
+                    self.logger.warning(f"⚠️ {model_size} 모델 로드 실패: {e}")
+                    
+                    # 폴백: tiny 모델로 재시도
+                    try:
+                        fallback_model = "tiny"
+                        self.logger.info(f"🔄 폴백: Whisper {fallback_model} 모델로 재시도...")
+                        self.whisper_model = whisper.load_model(fallback_model, device="cpu")
+                        load_time = time.time() - start_time
+                        self.logger.info(f"✅ Whisper {fallback_model} 로드 완료 ({load_time:.1f}초)")
+                        
+                    except Exception as e2:
+                        self.logger.error(f"❌ Whisper 모델 로드 완전 실패: {e2}")
+                        raise RuntimeError(f"Whisper 모델을 로드할 수 없습니다: {e2}")
                     
         return self.whisper_model
     
-    def _lazy_load_ocr(self) -> easyocr.Reader:
-        """EasyOCR 모델 지연 로딩 (성능 최적화)"""
+    def _lazy_load_ocr(self, languages: List[str] = None) -> easyocr.Reader:
+        """EasyOCR 모델 지연 로딩 (사용자 설정 기반)"""
         if self.ocr_reader is None:
-            self.logger.info("🖼️ EasyOCR 한/영 모델 로딩... (CPU 최적화)")
-            start_time = time.time()
+            # 사용자 설정에서 언어 가져오기
+            if languages is None:
+                languages = getattr(self, 'config', {}).get('easyocr_languages', ['ko', 'en'])
             
-            # CPU 모드와 성능 최적화 설정
-            import torch
-            # PyTorch DataLoader pin_memory 경고 방지
-            if not torch.cuda.is_available():
-                torch.backends.cudnn.enabled = False
-                # CPU 모드에서 스레드 수 최적화
-                torch.set_num_threads(2)  # CPU 코어에 맞게 조정
-            
-            # 메모리 정리 (기존 모델이 있는 경우)
-            if hasattr(self, 'ocr_reader') and self.ocr_reader is not None:
-                del self.ocr_reader
-                import gc
-                gc.collect()
-            
-            self.ocr_reader = easyocr.Reader(
-                ['ko', 'en'],
-                gpu=False,  # CPU 강제 사용
-                model_storage_directory=None,  # 기본 모델 디렉토리 사용
-                user_network_directory=None,
-                recog_network='CRNN',  # 기본 recognition network
+            # 🧠 스마트 AI 모델 로더 사용
+            if self.smart_loader:
+                lang_str = ', '.join(languages)
+                self.logger.info(f"🧠 스마트 EasyOCR {lang_str} 모델 로딩... (메모리 최적화)")
+                
+                # GPU 설정 확인
+                device = "gpu" if getattr(self, 'config', {}).get('enable_gpu', False) else "cpu"
+                
+                result = self.smart_loader.load_easyocr_model(languages, device=device)
+                
+                if result.success:
+                    self.ocr_reader = result.model
+                    self.logger.info(f"✅ 스마트 EasyOCR {lang_str} 로드 완료 ({result.load_time_seconds:.1f}초, {result.memory_usage_mb:.1f}MB)")
+                else:
+                    # 폴백: 기본 한/영 모델로 재시도
+                    self.logger.warning(f"⚠️ {lang_str} 모델 로드 실패: {result.error_message}")
+                    fallback_result = self.smart_loader.load_easyocr_model(['ko', 'en'], device="cpu")
+                    
+                    if fallback_result.success:
+                        self.ocr_reader = fallback_result.model
+                        self.logger.info(f"✅ 폴백 EasyOCR 한/영 로드 완료 ({fallback_result.load_time_seconds:.1f}초)")
+                    else:
+                        raise RuntimeError(f"EasyOCR 모델을 로드할 수 없습니다: {fallback_result.error_message}")
+                    
+            else:
+                # 기존 방식 폴백
+                self.logger.info("🖼️ EasyOCR 한/영 모델 로딩... (기존 방식)")
+                start_time = time.time()
+                
+                # CPU 모드와 성능 최적화 설정
+                import torch
+                # PyTorch DataLoader pin_memory 경고 방지
+                if not torch.cuda.is_available():
+                    torch.backends.cudnn.enabled = False
+                    # CPU 모드에서 스레드 수 최적화
+                    torch.set_num_threads(2)  # CPU 코어에 맞게 조정
+                
+                # 메모리 정리 (기존 모델이 있는 경우)
+                if hasattr(self, 'ocr_reader') and self.ocr_reader is not None:
+                    del self.ocr_reader
+                    import gc
+                    gc.collect()
+                
+                import easyocr
+                self.ocr_reader = easyocr.Reader(
+                    ['ko', 'en'],
+                    gpu=False,  # CPU 강제 사용
+                    model_storage_directory=None,  # 기본 모델 디렉토리 사용
+                    user_network_directory=None,
+                    recog_network='CRNN',  # 기본 recognition network
                 detector=True,
                 recognizer=True,
                 verbose=False,  # 로그 최소화
@@ -325,22 +682,63 @@ class RealAnalysisEngine:
             self.logger.info(f"✅ EasyOCR 로드 완료 ({load_time:.1f}초)")
         return self.ocr_reader
     
-    def _lazy_load_nlp(self) -> Optional[any]:
-        """NLP 파이프라인 지연 로딩"""
+    def _lazy_load_nlp(self, model_name: str = None, task: str = "summarization") -> Optional[any]:
+        """NLP 파이프라인 지연 로딩 (사용자 설정 기반)"""
         if not transformers_available:
             return None
             
         if self.nlp_pipeline is None:
-            try:
-                self.logger.info("🧠 NLP 모델 로딩...")
-                start_time = time.time()
-                self.nlp_pipeline = pipeline("summarization", 
-                                           model="facebook/bart-base")
-                load_time = time.time() - start_time
-                self.logger.info(f"✅ NLP 로드 완료 ({load_time:.1f}초)")
-            except Exception as e:
-                self.logger.warning(f"NLP 모델 로드 실패: {e}")
-                return None
+            # 사용자 설정에서 모델 이름 가져오기
+            if model_name is None:
+                model_name = getattr(self, 'config', {}).get('transformers_model', 'facebook/bart-base')
+            
+            # 🧠 스마트 AI 모델 로더 사용
+            if self.smart_loader:
+                self.logger.info(f"🧠 스마트 NLP {model_name} 모델 로딩... (메모리 최적화)")
+                
+                # GPU 설정 확인
+                device = "gpu" if getattr(self, 'config', {}).get('enable_gpu', False) else "cpu"
+                
+                result = self.smart_loader.load_transformers_model(
+                    model_name=model_name,
+                    task=task,
+                    device=device
+                )
+                
+                if result.success:
+                    self.nlp_pipeline = result.model
+                    self.logger.info(f"✅ 스마트 NLP {model_name} 로드 완료 ({result.load_time_seconds:.1f}초, {result.memory_usage_mb:.1f}MB)")
+                else:
+                    # 폴백: 더 작은 모델로 재시도
+                    self.logger.warning(f"⚠️ {model_name} 모델 로드 실패: {result.error_message}")
+                    fallback_result = self.smart_loader.load_transformers_model(
+                        model_name="facebook/bart-base",
+                        task=task,
+                        device="cpu"
+                    )
+                    
+                    if fallback_result.success:
+                        self.nlp_pipeline = fallback_result.model
+                        self.logger.info(f"✅ 폴백 NLP 모델 로드 완료 ({fallback_result.load_time_seconds:.1f}초)")
+                    else:
+                        self.logger.warning(f"NLP 모델 로드 완전 실패: {fallback_result.error_message}")
+                        return None
+            else:
+                # 기존 방식 폴백
+                try:
+                    self.logger.info("🧠 NLP 모델 로딩... (기존 방식)")
+                    start_time = time.time()
+                    
+                    from transformers import pipeline
+                    self.nlp_pipeline = pipeline("summarization", 
+                                               model="facebook/bart-base",
+                                               device=-1)  # CPU 사용
+                    load_time = time.time() - start_time
+                    self.logger.info(f"✅ NLP 로드 완료 ({load_time:.1f}초)")
+                except Exception as e:
+                    self.logger.warning(f"NLP 모델 로드 실패: {e}")
+                    return None
+                    
         return self.nlp_pipeline
     
     def _validate_whisper_language(self, language: str) -> Optional[str]:
@@ -633,11 +1031,29 @@ class RealAnalysisEngine:
             # 컨텍스트를 고려한 요약 생성
             summary = self._generate_context_aware_summary(enhanced_text, context)
             
-            # 화자 구분 시도 (새로운 기능)
-            speaker_analysis = self._analyze_speakers(text, segments)
+            # 실시간 화자 분리 분석 (v2.3 향상된 기능)
+            speaker_analysis = {}
+            if speaker_diarization_available:
+                try:
+                    self.logger.info("🎤 실시간 화자 분리 분석 시작...")
+                    speaker_analysis = analyze_speakers_in_audio(processed_file_path or file_path, text)
+                    self.logger.info(f"✅ 화자 분리 완료: {speaker_analysis.get('speaker_count', 0)}명 감지")
+                except Exception as e:
+                    self.logger.warning(f"⚠️ 화자 분리 분석 실패: {e}")
+                    speaker_analysis = {"status": "error", "error": str(e)}
+            else:
+                # 텍스트 기반 화자 식별 시스템 폴백
+                if message_extractor_available:
+                    try:
+                        from .speaker_identification import analyze_speakers_in_text
+                        speaker_analysis = analyze_speakers_in_text(text, segments)
+                    except Exception as e:
+                        speaker_analysis = {"status": "fallback_unavailable", "error": str(e)}
+                else:
+                    speaker_analysis = {"status": "unavailable", "message": "화자 분리 시스템을 사용할 수 없습니다"}
             
             # 핵심 발언 추출 (사용자 요구사항 반영)
-            key_statements = self._extract_key_statements(enhanced_text, context)
+            key_statements = self._extract_key_statements_from_text(enhanced_text, context)
             
             # 주얼리 키워드 분석 (향상된 텍스트 기반)
             jewelry_keywords = self._extract_jewelry_keywords(enhanced_text)
@@ -675,6 +1091,7 @@ class RealAnalysisEngine:
             
             # 🎯 MCP 자동 통합 시스템 적용 (모든 상황 대응)
             try:
+                import asyncio
                 from ..mcp_auto_integration_wrapper import enhance_result_with_mcp
                 
                 # 사용자 요청 컨텍스트 구성
@@ -688,8 +1105,8 @@ class RealAnalysisEngine:
                     "context": context or {}
                 }
                 
-                # MCP 자동 향상 적용
-                enhanced_analysis = await enhance_result_with_mcp(user_request, analysis_result, mcp_context)
+                # MCP 자동 향상 적용 (비동기 함수를 동기 컨텍스트에서 실행)
+                enhanced_analysis = asyncio.run(enhance_result_with_mcp(user_request, analysis_result, mcp_context))
                 if enhanced_analysis != analysis_result:  # MCP 향상이 적용된 경우
                     analysis_result = enhanced_analysis
                     self.logger.info("✅ MCP 자동 통합으로 분석 품질 향상 완료")
@@ -777,25 +1194,42 @@ class RealAnalysisEngine:
                 mag_ratio = 1.0
                 text_threshold = 0.5
             
-            # OCR 모델 로드
-            reader = self._lazy_load_ocr()
-            
-            # OCR 텍스트 추출 (속도 최적화 모드)
-            self.logger.info("🔄 이미지 텍스트 추출 중... (속도 최적화 모드)")
-            results = reader.readtext(
-                file_path,
-                width_ths=0.7,     # 텍스트 폭 임계값 (속도 향상)
-                height_ths=0.7,    # 텍스트 높이 임계값 (속도 향상)
-                paragraph=False,   # 단락 모드 비활성화 (속도 향상)
-                detail=1,          # 상세 정보 포함
-                batch_size=1,      # CPU 모드에서 배치 크기 최적화
-                workers=0,         # CPU 모드에서 멀티프로세싱 비활성화
-                text_threshold=text_threshold,   # 동적 임계값
-                low_text=0.4,      # 낮은 텍스트 신뢰도 임계값 (속도 향상)
-                link_threshold=0.4, # 링크 임계값 (속도 향상)
-                canvas_size=canvas_size,  # 동적 캔버스 크기
-                mag_ratio=mag_ratio      # 동적 확대 비율
-            )
+            # 향상된 OCR 핸들러 사용 (에러 복구 및 대안 지원)
+            if self.enhanced_ocr is not None:
+                self.logger.info("🔄 향상된 OCR 핸들러로 이미지 분석...")
+                ocr_result = self.enhanced_ocr.process_image(file_path)
+                
+                if ocr_result["success"]:
+                    # 향상된 OCR 결과를 기존 형식으로 변환
+                    results = []
+                    for block in ocr_result["results"]:
+                        results.append((block["bbox"], block["text"], block["confidence"]))
+                    
+                    self.logger.info(f"✅ 향상된 OCR 분석 완료 ({ocr_result['analysis_type']})")
+                else:
+                    # 향상된 OCR 실패시 기존 방식 사용
+                    self.logger.warning("⚠️ 향상된 OCR 실패, 기존 방식으로 복구 시도")
+                    reader = self._lazy_load_ocr()
+                    results = reader.readtext(file_path)
+            else:
+                # 기존 OCR 방식 사용
+                reader = self._lazy_load_ocr()
+                
+                self.logger.info("🔄 이미지 텍스트 추출 중... (속도 최적화 모드)")
+                results = reader.readtext(
+                    file_path,
+                    width_ths=0.7,     # 텍스트 폭 임계값 (속도 향상)
+                    height_ths=0.7,    # 텍스트 높이 임계값 (속도 향상)
+                    paragraph=False,   # 단락 모드 비활성화 (속도 향상)
+                    detail=1,          # 상세 정보 포함
+                    batch_size=1,      # CPU 모드에서 배치 크기 최적화
+                    workers=0,         # CPU 모드에서 멀티프로세싱 비활성화
+                    text_threshold=text_threshold,   # 동적 임계값
+                    low_text=0.4,      # 낮은 텍스트 신뢰도 임계값 (속도 향상)
+                    link_threshold=0.4, # 링크 임계값 (속도 향상)
+                    canvas_size=canvas_size,  # 동적 캔버스 크기
+                    mag_ratio=mag_ratio      # 동적 확대 비율
+                )
             
             # 메모리 정리
             import gc
@@ -949,6 +1383,79 @@ class RealAnalysisEngine:
         # 기본 요약 (첫 100자)
         return text[:100] + "..." if len(text) > 100 else text
     
+    def _extract_key_statements_from_text(self, text: str, context: Dict[str, Any] = None) -> List[Dict[str, Any]]:
+        """텍스트에서 핵심 발언 추출"""
+        if not text or len(text.strip()) < 20:
+            return []
+        
+        try:
+            # 문장 단위로 분할
+            sentences = re.split(r'[.!?]\s+', text)
+            sentences = [s.strip() for s in sentences if len(s.strip()) > 10]
+            
+            key_statements = []
+            
+            for sentence in sentences:
+                # 중요도 점수 계산
+                importance_score = self._calculate_sentence_importance(sentence)
+                
+                if importance_score > 0.3:  # 임계값 이상인 발언만
+                    key_statements.append({
+                        "content": sentence,
+                        "importance_score": importance_score,
+                        "length": len(sentence),
+                        "keywords": self._extract_keywords_from_sentence(sentence)
+                    })
+            
+            # 중요도 순으로 정렬하고 상위 10개만 반환
+            key_statements.sort(key=lambda x: x["importance_score"], reverse=True)
+            return key_statements[:10]
+            
+        except Exception as e:
+            self.logger.warning(f"핵심 발언 추출 실패: {e}")
+            return []
+    
+    def _calculate_sentence_importance(self, sentence: str) -> float:
+        """문장 중요도 계산"""
+        score = 0.0
+        
+        # 주얼리 관련 키워드 보너스
+        jewelry_keywords = ["다이아몬드", "금", "은", "반지", "목걸이", "가격", "품질", "디자인"]
+        for keyword in jewelry_keywords:
+            if keyword in sentence:
+                score += 0.2
+        
+        # 감정 표현 보너스
+        emotion_words = ["좋다", "훌륭하다", "만족", "추천", "최고", "완벽"]
+        for word in emotion_words:
+            if word in sentence:
+                score += 0.1
+        
+        # 구체적 수치 보너스
+        if re.search(r'\d+', sentence):
+            score += 0.1
+        
+        # 문장 길이 고려 (너무 짧거나 긴 것 페널티)
+        length = len(sentence)
+        if 20 <= length <= 200:
+            score += 0.1
+        
+        return min(score, 1.0)  # 최대 1.0으로 제한
+    
+    def _extract_keywords_from_sentence(self, sentence: str) -> List[str]:
+        """문장에서 키워드 추출"""
+        keywords = []
+        
+        # 주얼리 관련 키워드 추출
+        jewelry_terms = ["다이아몬드", "금", "은", "백금", "루비", "사파이어", "에메랄드", 
+                        "반지", "목걸이", "귀걸이", "팔찌", "브로치", "시계"]
+        
+        for term in jewelry_terms:
+            if term in sentence:
+                keywords.append(term)
+        
+        return keywords
+
     def _extract_jewelry_keywords(self, text: str) -> List[str]:
         """주얼리 관련 키워드 추출"""
         if not text:
@@ -1602,26 +2109,102 @@ class RealAnalysisEngine:
 # 전역 분석 엔진 인스턴스
 global_analysis_engine = RealAnalysisEngine()
 
-def analyze_file_real(file_path: str, file_type: str, language: str = "auto", context: Dict[str, Any] = None) -> Dict[str, Any]:
-    """파일 실제 분석 (간편 사용, 컨텍스트 지원, 품질 향상 적용)"""
-    # 기본 분석 수행
-    if file_type == "audio":
-        result = global_analysis_engine.analyze_audio_file(file_path, language=language, context=context)
-    elif file_type == "image":
-        result = global_analysis_engine.analyze_image_file(file_path, context=context)
-    elif file_type == "document":
-        result = global_analysis_engine.analyze_document_file(file_path)
-    elif file_type == "youtube":
-        result = global_analysis_engine.analyze_youtube_video(file_path, language=language)
-    elif file_type == "video":
-        result = global_analysis_engine.analyze_video_file(file_path, language=language)
-    else:
+def analyze_file_real(file_path: str, file_type: str, language: str = "auto", context: Dict[str, Any] = None, timeout_minutes: int = 5) -> Dict[str, Any]:
+    """파일 실제 분석 (메모리 누수 및 무한루프 방지)"""
+    import signal
+    import gc
+    import time
+    
+    def timeout_handler(signum, frame):
+        raise TimeoutError(f"분석이 {timeout_minutes}분 내에 완료되지 않아 중단됨")
+    
+    start_time = time.time()
+    analysis_start_memory = None
+    
+    try:
+        # 메모리 사용량 확인 (Linux/Mac만)
+        try:
+            import psutil
+            process = psutil.Process()
+            analysis_start_memory = process.memory_info().rss / (1024 * 1024)  # MB
+        except:
+            analysis_start_memory = 0
+        
+        # 타임아웃 설정 (Unix 시스템만)
+        if hasattr(signal, 'SIGALRM'):
+            signal.signal(signal.SIGALRM, timeout_handler)
+            signal.alarm(timeout_minutes * 60)
+        
+        # 기본 분석 수행
+        if file_type == "audio":
+            result = global_analysis_engine.analyze_audio_file(file_path, language=language, context=context)
+        elif file_type == "image":
+            result = global_analysis_engine.analyze_image_file(file_path, context=context)
+        elif file_type == "document":
+            result = global_analysis_engine.analyze_document_file(file_path)
+        elif file_type == "youtube":
+            result = global_analysis_engine.analyze_youtube_video(file_path, language=language)
+        elif file_type == "video":
+            result = global_analysis_engine.analyze_video_file(file_path, language=language)
+        else:
+            return {
+                "status": "error",
+                "error": f"지원하지 않는 파일 타입: {file_type}",
+                "file_name": os.path.basename(file_path) if os.path.exists(file_path) else file_path,
+                "timestamp": datetime.now().isoformat()
+            }
+        
+        # 처리 시간 및 메모리 사용량 기록
+        processing_time = time.time() - start_time
+        
+        try:
+            analysis_end_memory = process.memory_info().rss / (1024 * 1024)  # MB
+            memory_delta = analysis_end_memory - analysis_start_memory
+        except:
+            memory_delta = 0
+        
+        # 메모리 사용량이 과도한 경우 즉시 중단 (메모리 누수 방지)
+        if memory_delta > 2000:  # 2GB 이상 증가시 즉시 중단
+            get_logger(__name__).error(f"심각한 메모리 누수 감지: {memory_delta:.1f}MB 증가 - 분석 중단")
+            gc.collect()
+            # 메모리 누수로 인한 강제 종료
+            raise MemoryError(f"메모리 사용량이 {memory_delta:.1f}MB로 증가하여 분석을 중단합니다")
+        elif memory_delta > 500:  # 500MB 이상 증가시 경고
+            get_logger(__name__).warning(f"높은 메모리 사용 감지: {memory_delta:.1f}MB 증가")
+            gc.collect()  # 가비지 컬렉션 강제 실행
+        
+        # 처리 시간이 과도한 경우 경고
+        if processing_time > 300:  # 5분 이상
+            get_logger(__name__).warning(f"긴 처리 시간 감지: {processing_time:.1f}초")
+        
+        # 메타데이터 추가
+        if result and isinstance(result, dict):
+            result['processing_time_seconds'] = processing_time
+            result['memory_usage_mb'] = memory_delta
+            result['analysis_timestamp'] = datetime.now().isoformat()
+            
+    except TimeoutError as e:
         return {
-            "status": "error",
-            "error": f"지원하지 않는 파일 타입: {file_type}",
+            "status": "timeout",
+            "error": str(e),
             "file_name": os.path.basename(file_path) if os.path.exists(file_path) else file_path,
+            "processing_time_seconds": time.time() - start_time,
             "timestamp": datetime.now().isoformat()
         }
+    except Exception as e:
+        return {
+            "status": "error", 
+            "error": f"분석 중 오류 발생: {str(e)}",
+            "file_name": os.path.basename(file_path) if os.path.exists(file_path) else file_path,
+            "processing_time_seconds": time.time() - start_time,
+            "timestamp": datetime.now().isoformat()
+        }
+    finally:
+        # 타임아웃 해제
+        if hasattr(signal, 'SIGALRM'):
+            signal.alarm(0)
+        # 메모리 정리
+        gc.collect()
     
     # 🚀 종합 분석 엔진 적용 (클로바 노트 + ChatGPT 수준)
     if result.get('status') == 'success':
@@ -1649,11 +2232,33 @@ def analyze_file_real(file_path: str, file_type: str, language: str = "auto", co
                 elif file_type == "video":
                     multimodal_data['video_analysis'] = result
                 
-                # 종합 메시지 추출
+                # 종합 메시지 추출 (안전 래퍼)
                 if multimodal_data:
-                    message_analysis = extract_speaker_message(multimodal_data, context)
-                    result['comprehensive_message'] = message_analysis['comprehensive_analysis']
-                    result['clova_style_summary'] = message_analysis['comprehensive_analysis']['clova_style_summary']
+                    try:
+                        # 메모리 및 시간 제한 설정
+                        import signal
+                        def timeout_message_extraction(signum, frame):
+                            raise TimeoutError("메시지 추출 시간 초과")
+                        
+                        # 30초 제한
+                        if hasattr(signal, 'SIGALRM'):
+                            signal.signal(signal.SIGALRM, timeout_message_extraction)
+                            signal.alarm(30)
+                        
+                        message_analysis = extract_speaker_message(multimodal_data, context)
+                        
+                        if hasattr(signal, 'SIGALRM'):
+                            signal.alarm(0)  # 타임아웃 해제
+                        
+                        if message_analysis.get('status') == 'success':
+                            result['comprehensive_message'] = message_analysis['comprehensive_analysis']
+                            if message_analysis['comprehensive_analysis'].get('main_summary'):
+                                result['clova_style_summary'] = message_analysis['comprehensive_analysis']['main_summary']
+                        else:
+                            result['comprehensive_message'] = {'status': 'extraction_failed', 'error': message_analysis.get('error', 'Unknown error')}
+                            
+                    except (TimeoutError, Exception) as e:
+                        result['comprehensive_message'] = {'status': 'extraction_timeout', 'error': f'메시지 추출 실패: {str(e)}'}
             
             # 4. 주얼리 도메인 특화 분석 (해당하는 경우)
             if jewelry_enhancer_available and result.get('enhanced_text'):
@@ -1670,7 +2275,7 @@ def analyze_file_real(file_path: str, file_type: str, language: str = "auto", co
             
         except Exception as e:
             # 종합 분석 실패시 원본 결과 반환 (로그 기록)
-            logging.getLogger(__name__).warning(f"종합 분석 실패: {e}")
+            get_logger(__name__).warning(f"종합 분석 실패: {e}")
             result['comprehensive_analysis_error'] = str(e)
             result['comprehensive_analysis_applied'] = False
     

@@ -54,17 +54,54 @@ models/
 *.bin
 *.onnx
 
-# 환경설정
+# 🔐 보안 - 환경변수 및 민감정보
 .env
 .env.local
 .env.production
+.env.staging
+*.key
+*.pem
+secrets/
+config/secrets.json
+*token*
+*api_key*
 
 # 테스트
 .pytest_cache/
 coverage/
 .coverage
 
-# 백업
+# 백업 및 아카이브
 *.bak
 *.backup
 *.orig.mcp.json
+backup_*/
+archive/
+analysis_history/
+
+# 대용량 미디어 파일  
+*.mp4
+*.mov
+*.MOV
+*.avi
+*.mkv
+*.m4a
+*.wav
+*.zip
+downloads/
+
+# 테스트 파일 및 임시 파일
+test_*.py
+*_test.py
+user_files/
+google_credentials.json
+
+# n8n 관련
+n8n_*
+N8N_*
+
+# 문서 (핵심 문서 제외)
+*.md
+!README.md
+!CLAUDE.md
+!TROUBLESHOOTING.md
