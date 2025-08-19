@@ -1,0 +1,13 @@
+{
+  "timestamp": "2025-08-20T01:22:31.560914",
+  "working": [
+    "ai_insights_engine.py",
+    "google_calendar_connector.py",
+    "dual_brain_integration.py",
+    "solomond_ai_main_dashboard.py",
+    "shared/ollama_interface.py",
+    "database_adapter.py"
+  ],
+  "missing": [],
+  "total": 6
+}

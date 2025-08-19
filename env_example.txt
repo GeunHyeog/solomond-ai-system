@@ -1,0 +1,9 @@
+# Supabase 설정 예시
+# 실제 값으로 변경 후 .env 파일로 이름 변경하세요
+
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_ANON_KEY=your-anon-key-here
+
+# 예시:
+# SUPABASE_URL=https://abcdefghijklmnopqrstuvwxyz.supabase.co
+# SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...

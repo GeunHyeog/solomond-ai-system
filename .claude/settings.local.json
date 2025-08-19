@@ -201,12 +201,18 @@
       "Bash(git reset:*)",
       "Bash(git restore:*)",
       "Bash(git count-objects:*)",
-      "Bash(git tag:*)"
+      "Bash(git tag:*)",
+      "Bash(set CUDA_VISIBLE_DEVICES)",
+      "Bash(set CUDA_VISIBLE_DEVICES=0)",
+      "Bash(pgrep:*)",
+      "Bash(\"START_STABLE_SYSTEM.bat\")"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
     "additionalDirectories": [
-      "C:\\Users\\PC_58410"
+      "C:\\Users\\PC_58410",
+      "C:\\d C:\\Users\\PC_58410",
+      "C:\\c\\Users\\PC_58410"
     ]
   },
   "enableAllProjectMcpServers": true,

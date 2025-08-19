@@ -165,6 +165,8 @@ if __name__ == "__main__":
         else:
             print("사용법: python hybrid_utils.py [benchmark|health|install <package>]")
     else:
+        import sys
+        sys.stdout.reconfigure(encoding='utf-8')
         print("🔧 SOLOMOND AI 하이브리드 유틸리티")
         print("사용 가능한 명령:")
         print("  benchmark - uv vs pip 성능 비교")

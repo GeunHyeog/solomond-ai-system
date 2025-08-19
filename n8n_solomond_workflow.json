@@ -1,0 +1,198 @@
+{
+  "name": "SOLOMOND AI 완전 통합 워크플로우",
+  "nodes": [
+    {
+      "id": "trigger",
+      "name": "분석 요청 트리거",
+      "type": "Webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "solomond-analysis",
+        "responseMode": "responseNode"
+      },
+      "position": [200, 300]
+    },
+    {
+      "id": "validate_input",
+      "name": "입력 데이터 검증",
+      "type": "Function",
+      "parameters": {
+        "functionCode": "// 사전정보 및 파일/URL 검증\nconst input = items[0].json;\n\nif (!input.conference_info) {\n  throw new Error('사전정보가 필요합니다');\n}\n\nif (!input.files && !input.urls) {\n  throw new Error('분석할 파일 또는 URL이 필요합니다');\n}\n\nreturn items;"
+      },
+      "position": [400, 300]
+    },
+    {
+      "id": "process_multimedia",
+      "name": "멀티미디어 처리",
+      "type": "HTTP Request",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8610/api/process",
+        "body": {
+          "conference_info": "={{ $json.conference_info }}",
+          "files": "={{ $json.files }}",
+          "urls": "={{ $json.urls }}"
+        }
+      },
+      "position": [600, 300]
+    },
+    {
+      "id": "ai_analysis",
+      "name": "Ollama AI 분석",
+      "type": "HTTP Request",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:11434/api/generate",
+        "body": {
+          "model": "qwen2.5:7b",
+          "prompt": "다음 컨퍼런스 내용을 분석해주세요: {{ $json.processed_content }}",
+          "stream": false
+        }
+      },
+      "position": [800, 200]
+    },
+    {
+      "id": "holistic_analysis",
+      "name": "홀리스틱 분석",
+      "type": "HTTP Request",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8610/api/holistic",
+        "body": {
+          "fragments": "={{ $json.fragments }}",
+          "ai_insights": "={{ $('ai_analysis').item.json.response }}"
+        }
+      },
+      "position": [800, 300]
+    },
+    {
+      "id": "dual_brain",
+      "name": "듀얼 브레인 시스템",
+      "type": "HTTP Request",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8610/api/dual-brain",
+        "body": {
+          "holistic_results": "={{ $json.holistic_results }}"
+        }
+      },
+      "position": [800, 400]
+    },
+    {
+      "id": "google_calendar",
+      "name": "구글 캘린더 연동",
+      "type": "Google Calendar",
+      "parameters": {
+        "operation": "create",
+        "summary": "{{ $json.conference_info.conference_name }} 분석 완료",
+        "description": "AI 분석 결과: {{ $('ai_analysis').item.json.response }}",
+        "start": "{{ $json.conference_info.conference_date }}",
+        "end": "{{ $json.conference_info.conference_date }}"
+      },
+      "position": [1000, 350]
+    },
+    {
+      "id": "generate_report",
+      "name": "종합 보고서 생성",
+      "type": "HTTP Request",
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:8610/api/report",
+        "body": {
+          "conference_info": "={{ $json.conference_info }}",
+          "holistic_results": "={{ $('holistic_analysis').item.json }}",
+          "dual_brain_results": "={{ $('dual_brain').item.json }}",
+          "ai_insights": "={{ $('ai_analysis').item.json.response }}"
+        }
+      },
+      "position": [1200, 300]
+    },
+    {
+      "id": "notification",
+      "name": "완료 알림",
+      "type": "Discord",
+      "parameters": {
+        "webhook": "YOUR_DISCORD_WEBHOOK",
+        "text": "🎯 SOLOMOND AI 분석 완료!\n\n**컨퍼런스**: {{ $json.conference_info.conference_name }}\n**완료 시간**: {{ $now }}\n**보고서**: {{ $('generate_report').item.json.report_url }}"
+      },
+      "position": [1400, 300]
+    },
+    {
+      "id": "response",
+      "name": "응답",
+      "type": "Respond to Webhook",
+      "parameters": {
+        "options": {
+          "responseCode": 200,
+          "responseData": {
+            "success": true,
+            "conference_name": "={{ $json.conference_info.conference_name }}",
+            "analysis_id": "={{ $json.analysis_id }}",
+            "report_url": "={{ $('generate_report').item.json.report_url }}",
+            "calendar_event": "={{ $('google_calendar').item.json.htmlLink }}"
+          }
+        }
+      },
+      "position": [1600, 300]
+    }
+  ],
+  "connections": [
+    {
+      "node": "trigger",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "validate_input"
+    },
+    {
+      "node": "validate_input",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "process_multimedia"
+    },
+    {
+      "node": "process_multimedia",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "ai_analysis"
+    },
+    {
+      "node": "process_multimedia",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "holistic_analysis"
+    },
+    {
+      "node": "holistic_analysis",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "dual_brain"
+    },
+    {
+      "node": "dual_brain",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "google_calendar"
+    },
+    {
+      "node": "dual_brain",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "generate_report"
+    },
+    {
+      "node": "generate_report",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "notification"
+    },
+    {
+      "node": "notification",
+      "type": "main",
+      "index": 0,
+      "connectedNode": "response"
+    }
+  ],
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
