@@ -76,7 +76,9 @@ class ConferenceStoryGenerator:
                 
                 self.use_advanced_nlp = True
             except Exception as e:
-                st.warning(f"고급 NLP 모델 초기화 실패: {e}")
+                # Unicode 안전 에러 처리
+                error_msg = str(e).encode('utf-8', errors='replace').decode('utf-8')
+                st.warning(f"고급 NLP 모델 초기화 실패: {error_msg}")
                 self.use_advanced_nlp = False
         else:
             self.use_advanced_nlp = False
@@ -470,7 +472,7 @@ class ConferenceStoryGenerator:
         next_steps.extend([
             "📝 회의록 정리 및 배포",
             "📅 다음 미팅 일정 조율",
-            "🎯 실행 계획 구체화"
+            "[목표] 실행 계획 구체화"
         ])
         
         return next_steps[:5]  # 최대 5개
@@ -511,17 +513,17 @@ def main():
             try:
                 narrative = generator.generate_conference_story()
                 
-                st.success("✅ 컨퍼런스 스토리 생성 완료!")
+                st.success("[완료] 컨퍼런스 스토리 생성 완료!")
                 
                 # 신뢰도 표시
-                st.metric("📊 스토리 신뢰도", f"{narrative.confidence_score:.1%}")
+                st.metric("[통계] 스토리 신뢰도", f"{narrative.confidence_score:.1%}")
                 
                 # 전체 내러티브
                 st.markdown("## 📖 컨퍼런스 전체 스토리")
                 st.markdown(narrative.narrative_summary)
                 
                 # 핵심 결과
-                st.markdown("## 🎯 핵심 결과")
+                st.markdown("## [목표] 핵심 결과")
                 for takeaway in narrative.key_takeaways:
                     st.markdown(f"- {takeaway}")
                 
@@ -562,16 +564,16 @@ def main():
                     st.markdown(f"- {step}")
                 
                 # 상세 정보
-                with st.expander("📊 상세 분석 정보"):
+                with st.expander("[통계] 상세 분석 정보"):
                     st.json(asdict(narrative))
                 
             except ValueError as e:
-                st.error(f"❌ {e}")
+                st.error(f"[실패] {e}")
             except Exception as e:
-                st.error(f"❌ 스토리 생성 중 오류 발생: {e}")
+                st.error(f"[실패] 스토리 생성 중 오류 발생: {e}")
     
     st.markdown("---")
-    st.markdown("**💡 사용법:** 먼저 홀리스틱 컨퍼런스 분석기와 의미적 연결 엔진을 실행한 후 이 시스템을 사용하세요.")
+    st.markdown("**[팁] 사용법:** 먼저 홀리스틱 컨퍼런스 분석기와 의미적 연결 엔진을 실행한 후 이 시스템을 사용하세요.")
 
 if __name__ == "__main__":
     main()

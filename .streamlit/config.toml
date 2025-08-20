@@ -1,11 +1,11 @@
 [server]
-maxUploadSize = 10240
-maxMessageSize = 10240
+maxUploadSize = 5000
+maxMessageSize = 1000
 enableCORS = false
 enableXsrfProtection = false
 
+[global]
+developmentMode = false
+
 [browser]
 gatherUsageStats = false
-
-[logger]
-level = "info"

@@ -22,7 +22,7 @@ from database_adapter import DatabaseFactory, DatabaseInterface
 try:
     from sentence_transformers import SentenceTransformer
     import spacy
-    # 🛡️ 안전한 모델 로딩 시스템
+    # [보안] 안전한 모델 로딩 시스템
     from defensive_model_loader import safe_sentence_transformer_load, enable_defensive_mode
     enable_defensive_mode()
     ADVANCED_NLP_AVAILABLE = True
@@ -65,11 +65,13 @@ class HolisticConferenceAnalyzerSupabase:
         # NLP 모델 초기화
         if ADVANCED_NLP_AVAILABLE:
             try:
-                # 🛡️ 안전한 모델 로딩으로 meta tensor 문제 완전 방지
+                # [보안] 안전한 모델 로딩으로 meta tensor 문제 완전 방지
                 self.embedder = safe_sentence_transformer_load('paraphrase-multilingual-MiniLM-L12-v2')
                 self.use_advanced_nlp = True
             except Exception as e:
-                st.warning(f"고급 NLP 모델 초기화 실패: {e}")
+                # Unicode 안전 에러 처리
+                error_msg = str(e).encode('utf-8', errors='replace').decode('utf-8')
+                st.warning(f"고급 NLP 모델 초기화 실패: {error_msg}")
                 self.use_advanced_nlp = False
         else:
             self.use_advanced_nlp = False
@@ -188,10 +190,10 @@ class HolisticConferenceAnalyzerSupabase:
         ]
         
         if self.db.insert_fragments_batch(sample_fragments):
-            st.success(f"✅ {len(sample_fragments)}개 샘플 조각 생성 완료")
+            st.success(f"[완료] {len(sample_fragments)}개 샘플 조각 생성 완료")
             return True
         else:
-            st.error("❌ 샘플 데이터 생성 실패")
+            st.error("[실패] 샘플 데이터 생성 실패")
             return False
     
     def analyze_conference_holistically(self) -> Dict[str, Any]:
@@ -436,11 +438,11 @@ def main():
     db_status = analyzer.check_database_connection()
     
     if db_status["connected"]:
-        st.success(f"✅ {db_status['message']}")
+        st.success(f"[완료] {db_status['message']}")
     else:
-        st.warning(f"⚠️ {db_status['message']}")
+        st.warning(f"[주의] {db_status['message']}")
         if db_type == "supabase":
-            st.info("💡 Supabase 환경변수를 설정하거나 SQLite 모드를 사용하세요.")
+            st.info("[팁] Supabase 환경변수를 설정하거나 SQLite 모드를 사용하세요.")
     
     # 홀리스틱 분석 실행
     if st.button("🗃️ 홀리스틱 데이터베이스 분석 시작", type="primary"):
@@ -448,10 +450,10 @@ def main():
             results = analyzer.analyze_conference_holistically()
             
             if "error" in results:
-                st.error(f"❌ 분석 실패: {results['error']}")
+                st.error(f"[실패] 분석 실패: {results['error']}")
                 return
             
-            st.success("✅ 홀리스틱 분석 완료!")
+            st.success("[완료] 홀리스틱 분석 완료!")
             
             # 결과 표시
             col1, col2, col3, col4 = st.columns(4)
@@ -469,14 +471,14 @@ def main():
                 st.metric("평균 신뢰도", f"{results['average_confidence']:.1%}")
             
             # 상세 결과 탭
-            tab1, tab2, tab3, tab4 = st.tabs(["📊 전체 개요", "👥 발표자 분석", "📋 주제 분석", "🕐 시간대 분석"])
+            tab1, tab2, tab3, tab4 = st.tabs(["[통계] 전체 개요", "👥 발표자 분석", "📋 주제 분석", "🕐 시간대 분석"])
             
             with tab1:
-                st.markdown("### 🎯 핵심 인사이트")
+                st.markdown("### [목표] 핵심 인사이트")
                 for insight in results["key_insights"]:
                     st.markdown(f"- {insight}")
                 
-                st.markdown("### 📊 데이터베이스 정보")
+                st.markdown("### [통계] 데이터베이스 정보")
                 st.markdown(f"**데이터베이스**: {results['database_type']}")
                 st.markdown(f"**분석 시간**: {results['analysis_timestamp']}")
             
@@ -535,7 +537,7 @@ def main():
                                 st.write(", ".join(section['active_speakers']))
             
             # 상세 정보
-            with st.expander("📊 전체 분석 결과 (JSON)"):
+            with st.expander("[통계] 전체 분석 결과 (JSON)"):
                 st.json(results)
 
 if __name__ == "__main__":

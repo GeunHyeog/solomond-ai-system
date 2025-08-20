@@ -25,10 +25,24 @@ import statistics
 
 # 내부 모듈 import
 try:
-    from knowledge_ontology import KnowledgeOntology, KnowledgeNode
-    from multimodal_pipeline import MultimodalPipeline, MultimodalResult
-except ImportError as e:
-    print(f"⚠️ 내부 모듈 import 실패: {e}")
+    from .knowledge_ontology import KnowledgeOntology, KnowledgeNode
+    from .multimodal_pipeline import MultimodalPipeline, MultimodalResult
+except ImportError:
+    try:
+        from core.knowledge_ontology import KnowledgeOntology, KnowledgeNode
+        from core.multimodal_pipeline import MultimodalPipeline, MultimodalResult
+    except ImportError as e:
+        print(f"⚠️ 내부 모듈 import 실패: {e}")
+        
+        # 기본 폴백 클래스들
+        class KnowledgeOntology:
+            def __init__(self, domain):
+                self.domain = domain
+            def add_knowledge_from_analysis(self, data): pass
+            def infer_insights(self): return []
+            def get_knowledge_summary(self): return {}
+        
+        class KnowledgeNode: pass
 
 # 설정
 logging.basicConfig(level=logging.INFO)

@@ -28,7 +28,7 @@ try:
     ADVANCED_NLP_AVAILABLE = True
 except ImportError:
     ADVANCED_NLP_AVAILABLE = False
-    st.warning("⚠️ 고급 NLP 라이브러리가 필요합니다. pip install sentence-transformers faiss-cpu spacy scikit-learn")
+    st.warning("[주의] 고급 NLP 라이브러리가 필요합니다. pip install sentence-transformers faiss-cpu spacy scikit-learn")
 
 @dataclass
 class SemanticConnection:
@@ -89,12 +89,14 @@ class SemanticConnectionEngine:
                     except OSError:
                         # 기본 빈 모델
                         self.nlp = spacy.blank("ko")
-                        st.warning("⚠️ SpaCy 언어 모델이 설치되지 않았습니다. 기본 기능으로 작동합니다.")
+                        st.warning("[주의] SpaCy 언어 모델이 설치되지 않았습니다. 기본 기능으로 작동합니다.")
                 
                 self.use_advanced_nlp = True
                 
             except Exception as e:
-                st.error(f"고급 NLP 모델 초기화 실패: {e}")
+                # Unicode 안전 에러 처리
+                error_msg = str(e).encode('utf-8', errors='replace').decode('utf-8')
+                st.error(f"고급 NLP 모델 초기화 실패: {error_msg}")
                 self.use_advanced_nlp = False
         else:
             self.use_advanced_nlp = False
@@ -132,7 +134,7 @@ class SemanticConnectionEngine:
             return fragments
             
         except sqlite3.OperationalError:
-            st.warning("⚠️ 분석된 컨퍼런스 데이터가 없습니다. 먼저 컨퍼런스 분석을 실행해주세요.")
+            st.warning("[주의] 분석된 컨퍼런스 데이터가 없습니다. 먼저 컨퍼런스 분석을 실행해주세요.")
             return []
         finally:
             conn.close()
@@ -233,7 +235,7 @@ class SemanticConnectionEngine:
             for i, fragment_id in enumerate(fragment_ids):
                 self.fragment_embeddings[fragment_id] = embeddings[i].tolist()
             
-            st.success(f"✅ {len(contents)}개 조각의 벡터 인덱스 구축 완료")
+            st.success(f"[완료] {len(contents)}개 조각의 벡터 인덱스 구축 완료")
             
         except Exception as e:
             st.error(f"벡터 인덱스 구축 실패: {e}")
@@ -521,7 +523,7 @@ class SemanticConnectionEngine:
             max_degree = degrees[max_degree_node]
             
             if max_degree > 0:
-                insights.append(f"🎯 가장 많이 연결된 조각: {max_degree_node} ({max_degree}개 연결)")
+                insights.append(f"[목표] 가장 많이 연결된 조각: {max_degree_node} ({max_degree}개 연결)")
         
         # 발표자 분석
         if self.speaker_profiles:
@@ -531,7 +533,7 @@ class SemanticConnectionEngine:
         # 주제 클러스터 분석
         if self.topic_clusters:
             best_cluster = max(self.topic_clusters, key=lambda tc: tc.internal_coherence)
-            insights.append(f"💡 가장 일관성 있는 주제: {best_cluster.cluster_name} (일관성: {best_cluster.internal_coherence:.3f})")
+            insights.append(f"[팁] 가장 일관성 있는 주제: {best_cluster.cluster_name} (일관성: {best_cluster.internal_coherence:.3f})")
         
         return insights
 
@@ -548,19 +550,19 @@ def main():
     engine = SemanticConnectionEngine(conference_name)
     
     if not ADVANCED_NLP_AVAILABLE:
-        st.error("⚠️ 고급 NLP 라이브러리가 필요합니다.")
+        st.error("[주의] 고급 NLP 라이브러리가 필요합니다.")
         st.code("pip install sentence-transformers faiss-cpu spacy scikit-learn")
         return
     
-    st.info("🚀 고급 NLP 시스템이 활성화되었습니다!")
+    st.info("[시작] 고급 NLP 시스템이 활성화되었습니다!")
     
     # 분석 실행
-    if st.button("🔍 의미적 연결 분석 실행"):
+    if st.button("[검색] 의미적 연결 분석 실행"):
         with st.spinner("의미적 연결을 분석하고 있습니다... (시간이 걸릴 수 있습니다)"):
             result = engine.analyze_semantic_connections()
             
             if "error" not in result:
-                st.success("✅ 의미적 연결 분석 완료!")
+                st.success("[완료] 의미적 연결 분석 완료!")
                 
                 # 결과 표시
                 col1, col2, col3 = st.columns(3)
@@ -577,7 +579,7 @@ def main():
                     st.metric("시간적 연결", result["temporal_connections"])
                 
                 # 인사이트
-                st.markdown("## 💡 연결 분석 인사이트")
+                st.markdown("## [팁] 연결 분석 인사이트")
                 for insight in result["connection_insights"]:
                     st.markdown(f"- {insight}")
                 
@@ -592,21 +594,21 @@ def main():
                 
                 # 주제 클러스터
                 if result["topic_clusters_summary"]:
-                    st.markdown("## 🎯 주제 클러스터")
+                    st.markdown("## [목표] 주제 클러스터")
                     for cluster in result["topic_clusters_summary"]:
-                        with st.expander(f"📊 {cluster['cluster_name']}"):
+                        with st.expander(f"[통계] {cluster['cluster_name']}"):
                             st.write(f"**관련 조각:** {cluster['fragments_count']}개")
                             st.write(f"**주요 키워드:** {', '.join(cluster['key_keywords'])}")
                             st.write(f"**내부 일관성:** {cluster['coherence']:.3f}")
                 
                 # 상세 정보
-                with st.expander("📊 상세 분석 정보"):
+                with st.expander("[통계] 상세 분석 정보"):
                     st.json(result)
             else:
                 st.error(result["error"])
     
     st.markdown("---")
-    st.markdown("**💡 사용법:** 먼저 홀리스틱 컨퍼런스 분석기에서 데이터를 분석한 후 이 시스템을 실행하세요.")
+    st.markdown("**[팁] 사용법:** 먼저 홀리스틱 컨퍼런스 분석기에서 데이터를 분석한 후 이 시스템을 실행하세요.")
 
 if __name__ == "__main__":
     main()

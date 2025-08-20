@@ -26,7 +26,29 @@ from scipy.spatial.distance import pdist, squareform
 from scipy.cluster.hierarchy import linkage, fcluster
 
 # 로컬 임포트
-from .multimodal_encoder import EncodedResult, MultimodalEncoder
+try:
+    from .multimodal_encoder import EncodedResult, MultimodalEncoder
+except ImportError:
+    try:
+        from core.multimodal_encoder import EncodedResult, MultimodalEncoder
+    except ImportError:
+        # 기본 구조로 폴백
+        from dataclasses import dataclass
+        import numpy as np
+        
+        @dataclass
+        class EncodedResult:
+            file_path: str
+            modality: str
+            encoding: np.ndarray
+            confidence: float
+            metadata: dict = None
+            processing_time: float = 0.0
+            raw_content: str = ""
+        
+        class MultimodalEncoder:
+            def __init__(self):
+                pass
 
 # 설정
 logging.basicConfig(level=logging.INFO)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-🎯 실행 가능한 인사이트 추출기
+[목표] 실행 가능한 인사이트 추출기
 Actionable Insights Extractor for Conference Analysis
 
 핵심 목표: 복잡한 컨퍼런스 내용을 3줄 요약 + 5가지 구체적 액션 아이템으로 압축
@@ -72,7 +72,9 @@ class ActionableInsightsExtractor:
                 self.embedder = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
                 self.use_advanced_nlp = True
             except Exception as e:
-                st.warning(f"고급 NLP 모델 초기화 실패: {e}")
+                # Unicode 안전 에러 처리
+                error_msg = str(e).encode('utf-8', errors='replace').decode('utf-8')
+                st.warning(f"고급 NLP 모델 초기화 실패: {error_msg}")
                 self.use_advanced_nlp = False
         else:
             self.use_advanced_nlp = False
@@ -359,32 +361,32 @@ class ActionableInsightsExtractor:
         # 데이터 품질 리스크
         low_confidence_count = sum(1 for f in self.fragments if f['confidence'] < 0.5)
         if low_confidence_count > len(self.fragments) * 0.3:
-            risks.append(f"⚠️ 분석 품질이 낮은 자료가 {low_confidence_count}개 있어 결론의 신뢰성에 영향을 줄 수 있습니다.")
+            risks.append(f"[주의] 분석 품질이 낮은 자료가 {low_confidence_count}개 있어 결론의 신뢰성에 영향을 줄 수 있습니다.")
         
         # 참여자 집중도 리스크
         if self.speaker_profiles:
             max_speaker_ratio = max(len(fragments) for fragments in self.speaker_profiles.values()) / len(self.fragments)
             if max_speaker_ratio > 0.6:
-                risks.append("⚠️ 특정 인물의 발언 비중이 높아 다양한 관점이 부족할 수 있습니다.")
+                risks.append("[주의] 특정 인물의 발언 비중이 높아 다양한 관점이 부족할 수 있습니다.")
         
         # 주제 편중 리스크
         if self.topic_clusters:
             max_topic_ratio = self.topic_clusters[0]['importance']
             if max_topic_ratio > 0.5:
-                risks.append("⚠️ 특정 주제에 논의가 집중되어 다른 중요 사안이 소홀히 다뤄졌을 수 있습니다.")
+                risks.append("[주의] 특정 주제에 논의가 집중되어 다른 중요 사안이 소홀히 다뤄졌을 수 있습니다.")
         
         # 소통 리스크
         if len(self.speaker_profiles) < 3:
-            risks.append("⚠️ 참여자 수가 적어 충분한 토론과 검증이 이루어지지 않았을 가능성이 있습니다.")
+            risks.append("[주의] 참여자 수가 적어 충분한 토론과 검증이 이루어지지 않았을 가능성이 있습니다.")
         
-        return risks if risks else ["✅ 특별한 위험 요소가 발견되지 않았습니다."]
+        return risks if risks else ["[완료] 특별한 위험 요소가 발견되지 않았습니다."]
     
     def _define_success_indicators(self) -> List[str]:
         """성공 지표 정의"""
         indicators = []
         
         # 실행률 지표
-        indicators.append("📈 액션 아이템 완료율 80% 이상 달성")
+        indicators.append("[성장] 액션 아이템 완료율 80% 이상 달성")
         
         # 참여도 지표
         if self.speaker_profiles:
@@ -392,13 +394,13 @@ class ActionableInsightsExtractor:
         
         # 성과 지표
         if self.topic_clusters:
-            indicators.append(f"🎯 주요 {len(self.topic_clusters[:3])}개 주제별 구체적 성과 창출")
+            indicators.append(f"[목표] 주요 {len(self.topic_clusters[:3])}개 주제별 구체적 성과 창출")
         
         # 프로세스 지표
         indicators.append("⏰ 합의된 일정 준수율 90% 이상")
         
         # 품질 지표
-        indicators.append("📊 후속 미팅에서 참조 자료로 활용률 70% 이상")
+        indicators.append("[통계] 후속 미팅에서 참조 자료로 활용률 70% 이상")
         
         return indicators
     
@@ -432,7 +434,7 @@ class ActionableInsightsExtractor:
 
 # Streamlit UI
 def main():
-    st.title("🎯 실행 가능한 인사이트 추출기")
+    st.title("[목표] 실행 가능한 인사이트 추출기")
     st.markdown("**복잡한 컨퍼런스 내용을 3줄 요약과 5가지 구체적 액션 아이템으로 압축합니다**")
     
     # 사이드바 설정
@@ -443,12 +445,12 @@ def main():
     extractor = ActionableInsightsExtractor(conference_name)
     
     # 인사이트 추출
-    if st.button("🎯 실행 가능한 인사이트 추출"):
+    if st.button("[목표] 실행 가능한 인사이트 추출"):
         with st.spinner("실행 가능한 인사이트를 추출하고 있습니다..."):
             try:
                 insights = extractor.extract_actionable_insights()
                 
-                st.success("✅ 실행 가능한 인사이트 추출 완료!")
+                st.success("[완료] 실행 가능한 인사이트 추출 완료!")
                 
                 # 3줄 요약
                 st.markdown("## 📋 3줄 요약")
@@ -463,10 +465,10 @@ def main():
                 st.markdown("### 3️⃣ 결과/결론은 무엇인가?")
                 st.info(summary.line3_outcome)
                 
-                st.metric("📊 요약 신뢰도", f"{summary.confidence:.1%}")
+                st.metric("[통계] 요약 신뢰도", f"{summary.confidence:.1%}")
                 
                 # 5가지 액션 아이템
-                st.markdown("## ✅ 5가지 액션 아이템")
+                st.markdown("## [완료] 5가지 액션 아이템")
                 
                 for i, action in enumerate(insights.action_items, 1):
                     priority_color = {"high": "🔴", "medium": "🟡", "low": "🟢"}
@@ -487,7 +489,7 @@ def main():
                         st.markdown(f"**성공 기준:** {action.success_criteria}")
                 
                 # 핵심 메트릭
-                st.markdown("## 📊 핵심 메트릭")
+                st.markdown("## [통계] 핵심 메트릭")
                 
                 col1, col2, col3 = st.columns(3)
                 
@@ -504,12 +506,12 @@ def main():
                     st.metric("분석 완성도", f"{insights.key_metrics['analysis_completeness']:.1%}")
                 
                 # 리스크 요소
-                st.markdown("## ⚠️ 주의사항")
+                st.markdown("## [주의] 주의사항")
                 for risk in insights.risk_factors:
                     st.markdown(f"- {risk}")
                 
                 # 성공 지표
-                st.markdown("## 🎯 성공 지표")
+                st.markdown("## [목표] 성공 지표")
                 for indicator in insights.success_indicators:
                     st.markdown(f"- {indicator}")
                 
@@ -520,16 +522,16 @@ def main():
                         st.markdown(f"**{role}:** {', '.join(members)}")
                 
                 # 상세 정보
-                with st.expander("📊 상세 분석 정보"):
+                with st.expander("[통계] 상세 분석 정보"):
                     st.json(asdict(insights))
                 
             except ValueError as e:
-                st.error(f"❌ {e}")
+                st.error(f"[실패] {e}")
             except Exception as e:
-                st.error(f"❌ 인사이트 추출 중 오류 발생: {e}")
+                st.error(f"[실패] 인사이트 추출 중 오류 발생: {e}")
     
     st.markdown("---")
-    st.markdown("**💡 사용법:** 컨퍼런스 분석이 완료된 후 이 시스템을 실행하여 실행 가능한 인사이트를 확인하세요.")
+    st.markdown("**[팁] 사용법:** 컨퍼런스 분석이 완료된 후 이 시스템을 실행하여 실행 가능한 인사이트를 확인하세요.")
 
 if __name__ == "__main__":
     main()
