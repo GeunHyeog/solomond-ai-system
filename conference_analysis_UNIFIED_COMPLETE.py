@@ -95,6 +95,75 @@ except ImportError:
     WHISPER_AVAILABLE = False
     safe_whisper_load = None
 
+# [성능최적화] 새로운 성능 최적화 시스템들
+try:
+    from enhanced_modules.performance_monitor import get_performance_monitor, OperationTracker
+    from enhanced_modules.memory_optimizer import get_memory_optimizer, memory_context, optimize_memory
+    from enhanced_modules.parallel_optimizer import ParallelOptimizer, create_task_profile
+    PERFORMANCE_OPTIMIZATION_AVAILABLE = True
+except ImportError:
+    PERFORMANCE_OPTIMIZATION_AVAILABLE = False
+    # 폴백 더미 함수들
+    def get_performance_monitor():
+        return None
+    def get_memory_optimizer():
+        return None
+    def memory_context():
+        return None
+    class OperationTracker:
+        def __init__(self, *args, **kwargs):
+            pass
+        def __enter__(self):
+            return self
+        def __exit__(self, *args):
+            pass
+
+# 더미 컨텍스트 관리자 (폴백용)
+class DummyContext:
+    def __enter__(self):
+        return self
+    def __exit__(self, *args):
+        pass
+
+# 동적 리소스 관리 시스템
+try:
+    from dynamic_resource_manager import (
+        get_resource_manager, get_optimal_ocr_settings, 
+        get_optimal_whisper_settings, log_performance
+    )
+    DYNAMIC_RESOURCE_AVAILABLE = True
+except ImportError:
+    DYNAMIC_RESOURCE_AVAILABLE = False
+
+# Enhanced OCR 통합 시스템
+try:
+    from enhanced_modules.integration_controller import IntegrationController
+    from enhanced_modules.enhanced_ocr_engine import EnhancedOCREngine
+    ENHANCED_OCR_AVAILABLE = True
+except ImportError:
+    ENHANCED_OCR_AVAILABLE = False
+
+# 노이즈 감소 시스템
+try:
+    from enhanced_modules.noise_reduction_engine import NoiseReductionEngine
+    NOISE_REDUCTION_AVAILABLE = True
+except ImportError:
+    NOISE_REDUCTION_AVAILABLE = False
+
+# 화자 구분 시스템
+try:
+    from enhanced_modules.speaker_diarization_engine import SpeakerDiarizationEngine
+    SPEAKER_DIARIZATION_AVAILABLE = True
+except ImportError:
+    SPEAKER_DIARIZATION_AVAILABLE = False
+
+# 멀티모달 융합 시스템
+try:
+    from enhanced_modules.multimodal_fusion_engine import MultimodalFusionEngine
+    MULTIMODAL_FUSION_AVAILABLE = True
+except ImportError:
+    MULTIMODAL_FUSION_AVAILABLE = False
+    
 # 홀리스틱 분석 시스템
 try:
     from holistic_conference_analyzer_supabase import HolisticConferenceAnalyzerSupabase
@@ -181,25 +250,124 @@ class UnifiedConferenceAnalyzer:
         self.user_files_dir.mkdir(exist_ok=True)
     
     def _initialize_engines(self):
-        """실제 분석 엔진들 초기화"""
-        # OCR 엔진
+        """실제 분석 엔진들 초기화 - 동적 리소스 관리 적용"""
+        # 동적 리소스 관리자 초기화
+        if DYNAMIC_RESOURCE_AVAILABLE:
+            self.resource_manager = get_resource_manager()
+            resource_status = self.resource_manager.get_current_status()
+            st.info(f"[리소스] GPU: {resource_status.gpu_available}, 추천 모드: {resource_status.recommendation}")
+        else:
+            self.resource_manager = None
+        
+        # Enhanced OCR 엔진 초기화 (우선 시도)
+        self.enhanced_ocr_engine = None
+        self.use_enhanced_ocr = False
+        
+        if ENHANCED_OCR_AVAILABLE:
+            try:
+                self.integration_controller = IntegrationController()
+                self.enhanced_ocr_engine = EnhancedOCREngine()
+                self.use_enhanced_ocr = True
+                st.success("[완료] Enhanced OCR 엔진 초기화 완료 (PPT 이미지 특화)")
+                st.info(f"[Enhanced OCR] {len(self.enhanced_ocr_engine.ocr_instances)}개 엔진 통합")
+            except Exception as e:
+                st.warning(f"[폴백] Enhanced OCR 초기화 실패: {e}")
+                self.use_enhanced_ocr = False
+        
+        # 기본 OCR 엔진 - 동적 최적화 적용 (폴백 또는 기본)
         self.ocr_engine = None
         if OCR_AVAILABLE:
             try:
-                self.ocr_engine = easyocr.Reader(['ko', 'en'], gpu=False)
-                st.success("[완료] EasyOCR 엔진 초기화 완료")
+                if DYNAMIC_RESOURCE_AVAILABLE:
+                    ocr_config = get_optimal_ocr_settings()
+                    use_gpu = ocr_config.get('gpu', False)
+                    st.info(f"[OCR 최적화] {ocr_config.get('reason', 'GPU/CPU 자동 선택')}")
+                else:
+                    use_gpu = False
+                
+                self.ocr_engine = easyocr.Reader(['ko', 'en'], gpu=use_gpu)
+                if self.use_enhanced_ocr:
+                    st.info("[백업] 기본 EasyOCR 엔진도 준비 완료 (폴백용)")
+                else:
+                    st.success("[완료] EasyOCR 엔진 초기화 완료")
             except Exception as e:
                 st.warning(f"[주의] EasyOCR 초기화 실패: {e}")
         
-        # Whisper 엔진
+        # Whisper 엔진 - 동적 최적화 적용
         self.whisper_model = None
         if WHISPER_AVAILABLE:
             try:
+                if DYNAMIC_RESOURCE_AVAILABLE:
+                    whisper_config = get_optimal_whisper_settings()
+                    model_size = whisper_config.get('model_size', 'base')
+                    device = whisper_config.get('device', 'cpu')
+                    st.info(f"[Whisper 최적화] 모델: {model_size}, 디바이스: {device}")
+                    st.info(f"[Whisper 이유] {whisper_config.get('reason', 'GPU/CPU 자동 선택')}")
+                else:
+                    model_size = 'base'
+                    device = 'cpu'
+                
                 # [보안] 안전한 모델 로딩으로 meta tensor 문제 완전 해결
-                self.whisper_model = safe_whisper_load("base")
-                st.success("[완료] Whisper STT 엔진 초기화 완료")
+                self.whisper_model = safe_whisper_load(model_size)
+                st.success(f"[완료] Whisper STT 엔진 초기화 완료 ({model_size}, {device})")
             except Exception as e:
                 st.warning(f"[주의] Whisper 초기화 실패: {e}")
+                # CPU 폴백 시도
+                try:
+                    self.whisper_model = safe_whisper_load("base")
+                    st.info("[폴백] Whisper 기본 모드로 초기화 완료")
+        
+        # 노이즈 감소 엔진 초기화
+        self.noise_reducer = None
+        if NOISE_REDUCTION_AVAILABLE:
+            try:
+                self.noise_reducer = NoiseReductionEngine()
+                st.success("[완료] 노이즈 감소 엔진 초기화 완료")
+                formats = self.noise_reducer.get_supported_formats()
+                st.info(f"[노이즈 감소] 오디오: {len(formats['audio'])}개, 이미지: {len(formats['image'])}개 형식 지원")
+            except Exception as e:
+                st.warning(f"[선택] 노이즈 감소 엔진 비활성화: {e}")
+        
+        # 화자 구분 엔진 초기화
+        self.speaker_diarization = None
+        if SPEAKER_DIARIZATION_AVAILABLE:
+            try:
+                self.speaker_diarization = SpeakerDiarizationEngine()
+                st.success("[완료] 화자 구분 엔진 초기화 완료")
+                st.info("[화자 구분] Whisper 세그먼트 기반 고정밀 화자 분리 지원")
+            except Exception as e:
+                st.warning(f"[선택] 화자 구분 엔진 비활성화: {e}")
+        
+        # 멀티모달 융합 엔진 초기화
+        self.multimodal_fusion = None
+        if MULTIMODAL_FUSION_AVAILABLE:
+            try:
+                self.multimodal_fusion = MultimodalFusionEngine()
+                st.success("[완료] 멀티모달 융합 엔진 초기화 완료")
+                st.info("[멀티모달 융합] 이미지-오디오-텍스트 간 상관관계 분석 지원")
+            except Exception as e:
+                st.warning(f"[선택] 멀티모달 융합 엔진 비활성화: {e}")
+        
+        # [성능최적화] 성능 모니터링 및 메모리 최적화 시스템 초기화
+        self.performance_monitor = None
+        self.memory_optimizer = None
+        self.parallel_optimizer = None
+        if PERFORMANCE_OPTIMIZATION_AVAILABLE:
+            try:
+                self.performance_monitor = get_performance_monitor()
+                self.memory_optimizer = get_memory_optimizer()
+                self.parallel_optimizer = ParallelOptimizer()
+                
+                # 백그라운드 모니터링 시작
+                if self.performance_monitor:
+                    self.performance_monitor.start_monitoring()
+                if self.memory_optimizer:
+                    self.memory_optimizer.start_monitoring()
+                
+                st.success("[완료] 성능 최적화 시스템 초기화 완료")
+                st.info("[성능 최적화] 실시간 모니터링, 메모리 관리, 병렬 처리 최적화 활성화")
+            except Exception as e:
+                st.warning(f"[선택] 성능 최적화 시스템 비활성화: {e}")
         
         # 홀리스틱 분석기
         self.holistic_analyzer = None
@@ -526,19 +694,153 @@ class UnifiedConferenceAnalyzer:
         progress_bar.progress(1.0)
         status_text.text("[완료] 기존 방식 파일 처리 완료!")
         
+        # 멀티모달 융합 분석 수행
+        if self.multimodal_fusion and len(results["analysis_fragments"]) >= 2:
+            try:
+                st.info("[멀티모달 융합] 모달리티 간 상관관계 분석 시작...")
+                
+                fusion_result = self.multimodal_fusion.fuse_modalities(results["analysis_fragments"])
+                
+                if fusion_result.success:
+                    results["multimodal_fusion"] = {
+                        'correlations_found': len(fusion_result.correlations),
+                        'unified_narrative': fusion_result.unified_narrative,
+                        'key_insights': fusion_result.key_insights,
+                        'modal_summary': fusion_result.modal_summary,
+                        'confidence_score': fusion_result.confidence_score,
+                        'processing_time': fusion_result.processing_time
+                    }
+                    
+                    st.success(f"[완료] 멀티모달 융합 분석 완료 ({len(fusion_result.correlations)}개 상관관계 발견)")
+                    
+                    # 주요 인사이트 표시
+                    if fusion_result.key_insights:
+                        st.info("[주요 인사이트]")
+                        for insight in fusion_result.key_insights[:3]:
+                            st.info(f"• {insight}")
+                    
+                    # 통합 내러티브 표시
+                    if fusion_result.unified_narrative:
+                        with st.expander("🔗 통합 분석 결과", expanded=True):
+                            st.markdown(fusion_result.unified_narrative)
+                    
+                else:
+                    st.warning(f"[멀티모달 융합] 분석 실패: {fusion_result.error_message}")
+                    results["multimodal_fusion"] = None
+                    
+            except Exception as e:
+                st.warning(f"[선택] 멀티모달 융합 실패: {e}")
+                results["multimodal_fusion"] = None
+        else:
+            st.info("[정보] 멀티모달 융합을 위해서는 2개 이상의 다른 유형 파일이 필요합니다.")
+            results["multimodal_fusion"] = None
+        
         # 결과를 세션에 저장
         self.analysis_results["processed_files"] = results["analysis_fragments"]
+        self.analysis_results["multimodal_fusion"] = results.get("multimodal_fusion")
         
         return results
     
     def _process_image_file(self, file_path: str, filename: str) -> Dict[str, Any]:
-        """실제 이미지 파일 OCR 처리"""
-        if not self.ocr_engine:
+        """실제 이미지 파일 OCR 처리 - Enhanced OCR 우선, 기본 OCR 폴백 + 성능 최적화"""
+        if not self.ocr_engine and not self.use_enhanced_ocr:
             return {"error": "OCR 엔진을 사용할 수 없습니다."}
         
+        # [성능최적화] 파일 크기 계산 및 성능 추적 시작
+        file_size_mb = Path(file_path).stat().st_size / (1024 * 1024)
+        
+        # [성능최적화] 작업 추적 시작
+        operation_tracker = None
+        if PERFORMANCE_OPTIMIZATION_AVAILABLE and self.performance_monitor:
+            operation_tracker = OperationTracker(f"OCR_processing_{filename}", file_size_mb)
+        
+        # [메모리최적화] 메모리 컨텍스트 시작
+        memory_ctx = None
+        if PERFORMANCE_OPTIMIZATION_AVAILABLE and self.memory_optimizer:
+            memory_ctx = memory_context(auto_optimize=file_size_mb > 10)  # 10MB 이상시 자동 최적화
+        
+        start_time = time.time()
+        resource_used = 'cpu'  # 기본값
+        ocr_engine_used = 'basic'  # 추적용
+        
         try:
-            # EasyOCR로 텍스트 추출
-            ocr_results = self.ocr_engine.readtext(file_path)
+            # [성능최적화] 컨텍스트 관리자들 시작
+            with (operation_tracker or DummyContext()), (memory_ctx or DummyContext()):
+                
+                # 노이즈 감소 전처리 (선택적)
+                processed_file_path = file_path
+                noise_reduction_applied = False
+            
+            if self.noise_reducer and file_size_mb > 1.0:  # 1MB 이상 이미지만
+                try:
+                    # 임시 디렉토리에 처리된 파일 저장
+                    temp_dir = Path(tempfile.gettempdir()) / "solomond_noise_reduction"
+                    temp_dir.mkdir(exist_ok=True)
+                    temp_file = temp_dir / f"enhanced_{Path(filename).name}"
+                    
+                    noise_result = self.noise_reducer.process_file(file_path, 'image', str(temp_file))
+                    if noise_result.success and noise_result.improvement_score > 0.1:
+                        processed_file_path = noise_result.processed_file_path
+                        noise_reduction_applied = True
+                        st.info(f"[노이즈 감소] {filename} 품질 {noise_result.improvement_score:.2f} 향상")
+                except Exception as noise_error:
+                    st.warning(f"[선택] 노이즈 감소 실패, 원본 사용: {noise_error}")
+            
+            # 리소스 상태 확인 및 최적화 적용
+            if DYNAMIC_RESOURCE_AVAILABLE and self.resource_manager:
+                current_status = self.resource_manager.get_current_status()
+                resource_used = 'gpu' if current_status.gpu_available else 'cpu'
+            
+            # Enhanced OCR 우선 시도 (노이즈 감소된 파일 사용)
+            if self.use_enhanced_ocr and self.enhanced_ocr_engine:
+                try:
+                    enhanced_result = self.enhanced_ocr_engine.extract_text(processed_file_path)
+                    
+                    if enhanced_result and not enhanced_result.error_message:
+                        ocr_engine_used = 'enhanced'
+                        full_text = enhanced_result.extracted_text
+                        avg_confidence = enhanced_result.confidence
+                        
+                        # 키워드 추출 (간단한 토큰화)
+                        keywords = self._extract_keywords(full_text)
+                        
+                        processing_time = time.time() - start_time
+                        
+                        # 성능 로깅
+                        if DYNAMIC_RESOURCE_AVAILABLE:
+                            log_performance(f"EnhancedOCR_{filename}", processing_time, True, resource_used)
+                        
+                        fragment = {
+                            'fragment_id': f'{self.conference_name}_{self.session_id}_{hashlib.md5(filename.encode()).hexdigest()[:8]}',
+                            'file_source': filename,
+                            'file_type': 'image',
+                            'timestamp': datetime.now().isoformat(),
+                            'speaker': None,  # 이미지는 화자 없음
+                            'content': full_text,
+                            'confidence': float(avg_confidence),
+                            'keywords': keywords,
+                            'processing_time': processing_time,
+                            'file_size_mb': file_size_mb,
+                            'resource_used': resource_used,
+                            'ocr_engine': 'enhanced',
+                            'engine_results': len(enhanced_result.individual_results) if enhanced_result.individual_results else 1,
+                            'best_engine': enhanced_result.best_result.get('engine', 'unknown') if hasattr(enhanced_result, 'best_result') else 'enhanced',
+                            'noise_reduction_applied': noise_reduction_applied
+                        }
+                        
+                        return fragment
+                    else:
+                        # Enhanced OCR 실패, 기본 OCR로 폴백
+                        st.warning(f"[폴백] Enhanced OCR 실패, 기본 OCR 사용: {filename}")
+                        
+                except Exception as enhanced_error:
+                    st.warning(f"[폴백] Enhanced OCR 오류: {enhanced_error}")
+            
+            # 기본 EasyOCR 처리 (폴백 또는 기본)
+            if not self.ocr_engine:
+                return {"error": "기본 OCR 엔진도 사용할 수 없습니다."}
+            
+            ocr_results = self.ocr_engine.readtext(processed_file_path)
             
             # 텍스트 추출 및 신뢰도 계산
             extracted_texts = []
@@ -558,6 +860,12 @@ class UnifiedConferenceAnalyzer:
             # 키워드 추출 (간단한 토큰화)
             keywords = self._extract_keywords(full_text)
             
+            processing_time = time.time() - start_time
+            
+            # 성능 로깅
+            if DYNAMIC_RESOURCE_AVAILABLE:
+                log_performance(f"BasicOCR_{filename}", processing_time, True, resource_used)
+            
             fragment = {
                 'fragment_id': f'{self.conference_name}_{self.session_id}_{hashlib.md5(filename.encode()).hexdigest()[:8]}',
                 'file_source': filename,
@@ -567,39 +875,142 @@ class UnifiedConferenceAnalyzer:
                 'content': full_text,
                 'confidence': float(avg_confidence),
                 'keywords': keywords,
-                'raw_ocr_results': len(ocr_results)
+                'processing_time': processing_time,
+                'file_size_mb': file_size_mb,
+                'resource_used': resource_used,
+                'ocr_engine': 'basic',
+                'raw_ocr_results': len(ocr_results),
+                'noise_reduction_applied': noise_reduction_applied
             }
             
             return fragment
             
         except Exception as e:
+            processing_time = time.time() - start_time
+            if DYNAMIC_RESOURCE_AVAILABLE:
+                log_performance(f"OCR_{filename}", processing_time, False, resource_used)
             return {"error": f"이미지 처리 실패: {e}"}
     
     def _process_audio_file(self, file_path: str, filename: str) -> Dict[str, Any]:
-        """실제 음성 파일 Whisper STT 처리"""
+        """실제 음성 파일 Whisper STT 처리 - 동적 최적화 및 성능 모니터링"""
         if not self.whisper_model:
             return {"error": "Whisper 엔진을 사용할 수 없습니다."}
         
+        start_time = time.time()
+        resource_used = 'cpu'  # 기본값
+        
         try:
-            # Whisper로 음성-텍스트 변환
-            result = self.whisper_model.transcribe(file_path, language='ko')
+            # 파일 크기 확인 (동적 최적화 참고용)
+            file_size_mb = Path(file_path).stat().st_size / (1024 * 1024)
+            
+            # 노이즈 감소 전처리 (선택적)
+            processed_file_path = file_path
+            noise_reduction_applied = False
+            
+            if self.noise_reducer and file_size_mb > 0.5:  # 0.5MB 이상 오디오만
+                try:
+                    # 임시 디렉토리에 처리된 파일 저장
+                    temp_dir = Path(tempfile.gettempdir()) / "solomond_noise_reduction"
+                    temp_dir.mkdir(exist_ok=True)
+                    temp_file = temp_dir / f"enhanced_{Path(filename).stem}.wav"
+                    
+                    noise_result = self.noise_reducer.process_file(file_path, 'audio', str(temp_file))
+                    if noise_result.success and noise_result.improvement_score > 0.1:
+                        processed_file_path = noise_result.processed_file_path
+                        noise_reduction_applied = True
+                        st.info(f"[노이즈 감소] {filename} 음질 {noise_result.improvement_score:.2f} 향상")
+                        st.info(f"[적용 방법] {', '.join(noise_result.methods_applied)}")
+                except Exception as noise_error:
+                    st.warning(f"[선택] 오디오 노이즈 감소 실패, 원본 사용: {noise_error}")
+            
+            # 리소스 상태 확인 및 최적화 적용
+            if DYNAMIC_RESOURCE_AVAILABLE and self.resource_manager:
+                current_status = self.resource_manager.get_current_status()
+                resource_used = 'gpu' if current_status.gpu_available and current_status.gpu_memory_free > 3.0 else 'cpu'
+            
+            # Whisper로 음성-텍스트 변환 (최적화된 설정 적용)
+            transcribe_options = {'language': 'ko'}
+            if DYNAMIC_RESOURCE_AVAILABLE:
+                whisper_config = get_optimal_whisper_settings(file_size_mb)
+                if whisper_config.get('fp16', False):
+                    transcribe_options['fp16'] = True
+                if 'temperature' in whisper_config:
+                    transcribe_options['temperature'] = whisper_config['temperature']
+            
+            result = self.whisper_model.transcribe(processed_file_path, **transcribe_options)
             
             if not result["text"].strip():
                 return {"error": "음성에서 텍스트를 찾을 수 없습니다."}
             
             text = result["text"].strip()
             
-            # 간단한 화자 분리 (세그먼트 기반)
+            # 고급 화자 분리 (화자 구분 엔진 사용)
             segments = result.get("segments", [])
-            if segments:
-                # 가장 긴 세그먼트의 화자를 메인 화자로 가정
-                main_segment = max(segments, key=lambda s: len(s.get("text", "")))
-                speaker = f"화자_{hashlib.md5(filename.encode()).hexdigest()[:4]}"
+            enhanced_segments = []
+            num_speakers = 1
+            speaker_profiles = {}
+            
+            if self.speaker_diarization and segments:
+                try:
+                    # Whisper 세그먼트에 화자 정보 추가
+                    enhanced_segments = self.speaker_diarization.enhance_whisper_segments(
+                        segments, processed_file_path
+                    )
+                    
+                    # 화자 수 계산
+                    unique_speakers = set(seg.get('speaker', 'speaker_00') for seg in enhanced_segments)
+                    num_speakers = len(unique_speakers)
+                    
+                    if num_speakers > 1:
+                        st.info(f"[화자 구분] {num_speakers}명의 화자 감지됨")
+                        # 각 화자별 발언 시간 표시
+                        speaker_times = {}
+                        for seg in enhanced_segments:
+                            speaker_id = seg.get('speaker', 'speaker_00')
+                            duration = seg.get('end', 0) - seg.get('start', 0)
+                            speaker_times[speaker_id] = speaker_times.get(speaker_id, 0) + duration
+                        
+                        for speaker_id, duration in speaker_times.items():
+                            st.info(f"  - {speaker_id}: {duration:.1f}초 발언")
+                    
+                    # 메인 화자 결정 (가장 많이 발언한 화자)
+                    if enhanced_segments:
+                        speaker_durations = {}
+                        for seg in enhanced_segments:
+                            speaker_id = seg.get('speaker', 'speaker_00')
+                            duration = seg.get('end', 0) - seg.get('start', 0)
+                            speaker_durations[speaker_id] = speaker_durations.get(speaker_id, 0) + duration
+                        
+                        main_speaker = max(speaker_durations.keys(), key=lambda k: speaker_durations[k])
+                        speaker = main_speaker
+                    else:
+                        speaker = f"화자_{hashlib.md5(filename.encode()).hexdigest()[:4]}"
+                        
+                except Exception as diarization_error:
+                    st.warning(f"[폴백] 화자 구분 실패, 기본 방식 사용: {diarization_error}")
+                    enhanced_segments = segments
+                    if segments:
+                        main_segment = max(segments, key=lambda s: len(s.get("text", "")))
+                        speaker = f"화자_{hashlib.md5(filename.encode()).hexdigest()[:4]}"
+                    else:
+                        speaker = None
             else:
-                speaker = None
+                # 기본 화자 분리 (폴백)
+                enhanced_segments = segments
+                if segments:
+                    main_segment = max(segments, key=lambda s: len(s.get("text", "")))
+                    speaker = f"화자_{hashlib.md5(filename.encode()).hexdigest()[:4]}"
+                else:
+                    speaker = None
             
             # 키워드 추출
             keywords = self._extract_keywords(text)
+            
+            processing_time = time.time() - start_time
+            
+            # 성능 로깅
+            if DYNAMIC_RESOURCE_AVAILABLE:
+                log_performance(f"Whisper_{filename}", processing_time, True, resource_used)
             
             fragment = {
                 'fragment_id': f'{self.conference_name}_{self.session_id}_{hashlib.md5(filename.encode()).hexdigest()[:8]}',
@@ -611,12 +1022,21 @@ class UnifiedConferenceAnalyzer:
                 'confidence': 0.85,  # Whisper는 일반적으로 높은 정확도
                 'keywords': keywords,
                 'duration': result.get("duration", 0),
-                'segments_count': len(segments)
+                'segments_count': len(segments),
+                'processing_time': processing_time,
+                'file_size_mb': file_size_mb,
+                'resource_used': resource_used,
+                'noise_reduction_applied': noise_reduction_applied,
+                'num_speakers': num_speakers,
+                'enhanced_segments': enhanced_segments if enhanced_segments != segments else None
             }
             
             return fragment
             
         except Exception as e:
+            processing_time = time.time() - start_time
+            if DYNAMIC_RESOURCE_AVAILABLE:
+                log_performance(f"Whisper_{filename}", processing_time, False, resource_used)
             return {"error": f"음성 처리 실패: {e}"}
     
     def _process_video_file(self, file_path: str, filename: str) -> Dict[str, Any]:

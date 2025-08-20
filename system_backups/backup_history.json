@@ -69,5 +69,147 @@
       "critical_issues": [],
       "warnings": []
     }
+  },
+  {
+    "backup_id": "backup_20250820_193200",
+    "timestamp": "2025-08-20 19:32:12.223688",
+    "description": "시스템 보호 체계 구축 완료",
+    "files": [
+      "conference_analysis_UNIFIED_COMPLETE.py",
+      "core/comprehensive_message_extractor.py",
+      "core/multimodal_pipeline.py",
+      "core/insight_generator.py",
+      "shared/ollama_interface.py",
+      "CLAUDE.md",
+      ".streamlit/config.toml"
+    ],
+    "git_commit": "e4436fadc012d6c8a22e354bae495d46f8230f9a",
+    "system_state": {
+      "overall_health": "healthy",
+      "timestamp": "2025-08-20T19:32:12.223649",
+      "components": {
+        "streamlit_8501": {
+          "name": "메인 컨퍼런스 분석 시스템",
+          "status": "healthy",
+          "response_time": 1494.5297241210938,
+          "last_check": "2025-08-20T19:32:01.795373",
+          "critical": true,
+          "error_message": null
+        },
+        "n8n_5678": {
+          "name": "n8n 자동화 워크플로우",
+          "status": "healthy",
+          "response_time": 22.791385650634766,
+          "last_check": "2025-08-20T19:32:01.818179",
+          "critical": true,
+          "error_message": null
+        },
+        "file_upload": {
+          "name": "파일 업로드 시스템",
+          "status": "healthy",
+          "response_time": 0.11563301086425781,
+          "last_check": "2025-08-20T19:32:01.818307",
+          "critical": true,
+          "error_message": null
+        },
+        "database": {
+          "name": "데이터베이스 연결",
+          "status": "healthy",
+          "response_time": 0.07915496826171875,
+          "last_check": "2025-08-20T19:32:01.818396",
+          "critical": true,
+          "error_message": null
+        },
+        "ocr_engine": {
+          "name": "OCR 텍스트 추출",
+          "status": "healthy",
+          "response_time": 9733.45160484314,
+          "last_check": "2025-08-20T19:32:11.551861",
+          "critical": true,
+          "error_message": null
+        },
+        "whisper_stt": {
+          "name": "Whisper 음성 인식",
+          "status": "healthy",
+          "response_time": 671.7631816864014,
+          "last_check": "2025-08-20T19:32:12.223638",
+          "critical": true,
+          "error_message": null
+        }
+      },
+      "critical_issues": [],
+      "warnings": []
+    }
+  },
+  {
+    "backup_id": "backup_20250820_193237",
+    "timestamp": "2025-08-20 19:32:50.070770",
+    "description": "시스템 보호 체계 구축 완료",
+    "files": [
+      "conference_analysis_UNIFIED_COMPLETE.py",
+      "core/comprehensive_message_extractor.py",
+      "core/multimodal_pipeline.py",
+      "core/insight_generator.py",
+      "shared/ollama_interface.py",
+      "CLAUDE.md",
+      ".streamlit/config.toml"
+    ],
+    "git_commit": "e4436fadc012d6c8a22e354bae495d46f8230f9a",
+    "system_state": {
+      "overall_health": "healthy",
+      "timestamp": "2025-08-20T19:32:50.070712",
+      "components": {
+        "streamlit_8501": {
+          "name": "메인 컨퍼런스 분석 시스템",
+          "status": "healthy",
+          "response_time": 1592.0515060424805,
+          "last_check": "2025-08-20T19:32:39.668926",
+          "critical": true,
+          "error_message": null
+        },
+        "n8n_5678": {
+          "name": "n8n 자동화 워크플로우",
+          "status": "healthy",
+          "response_time": 32.16695785522461,
+          "last_check": "2025-08-20T19:32:39.701116",
+          "critical": true,
+          "error_message": null
+        },
+        "file_upload": {
+          "name": "파일 업로드 시스템",
+          "status": "healthy",
+          "response_time": 0.15544891357421875,
+          "last_check": "2025-08-20T19:32:39.701284",
+          "critical": true,
+          "error_message": null
+        },
+        "database": {
+          "name": "데이터베이스 연결",
+          "status": "healthy",
+          "response_time": 0.06699562072753906,
+          "last_check": "2025-08-20T19:32:39.701358",
+          "critical": true,
+          "error_message": null
+        },
+        "ocr_engine": {
+          "name": "OCR 텍스트 추출",
+          "status": "healthy",
+          "response_time": 9718.719005584717,
+          "last_check": "2025-08-20T19:32:49.420086",
+          "critical": true,
+          "error_message": null
+        },
+        "whisper_stt": {
+          "name": "Whisper 음성 인식",
+          "status": "healthy",
+          "response_time": 650.5990028381348,
+          "last_check": "2025-08-20T19:32:50.070700",
+          "critical": true,
+          "error_message": null
+        }
+      },
+      "critical_issues": [],
+      "warnings": []
+    }
   }
 ]

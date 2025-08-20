@@ -5,7 +5,8 @@
     "use_improved_fusion": false,
     "use_precise_speaker": false,
     "use_performance_optimizer": false,
-    "use_quality_enhancer": false
+    "use_quality_enhancer": false,
+    "use_test_ocr": true
   },
   "safety": {
     "fallback_on_error": true,

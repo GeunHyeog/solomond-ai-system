@@ -108,7 +108,7 @@ class SystemProtector:
             }
         }
         
-        logger.info("🛡️ 시스템 보호 체계 초기화 완료")
+        logger.info("[PROTECTION] 시스템 보호 체계 초기화 완료")
     
     def setup_directories(self):
         """필요한 디렉토리 생성"""
@@ -121,7 +121,7 @@ class SystemProtector:
         backup_path = BACKUP_DIR / backup_id
         backup_path.mkdir(exist_ok=True)
         
-        logger.info(f"🔄 시스템 백업 생성 중: {backup_id}")
+        logger.info(f"[BACKUP] 시스템 백업 생성 중: {backup_id}")
         
         # 핵심 파일들 백업
         critical_files = [
@@ -173,7 +173,7 @@ class SystemProtector:
         self.backup_history.append(backup_info)
         self.save_backup_history()
         
-        logger.info(f"✅ 시스템 백업 완료: {backup_id} ({len(backed_up_files)}개 파일)")
+        logger.info(f"[SUCCESS] 시스템 백업 완료: {backup_id} ({len(backed_up_files)}개 파일)")
         return backup_id
     
     def restore_from_backup(self, backup_id: str) -> bool:
@@ -181,10 +181,10 @@ class SystemProtector:
         backup_path = BACKUP_DIR / backup_id
         
         if not backup_path.exists():
-            logger.error(f"❌ 백업을 찾을 수 없음: {backup_id}")
+            logger.error(f"[ERROR] 백업을 찾을 수 없음: {backup_id}")
             return False
         
-        logger.info(f"🔄 시스템 복구 시작: {backup_id}")
+        logger.info(f"[RESTORE] 시스템 복구 시작: {backup_id}")
         
         try:
             # 백업 정보 로드
@@ -205,17 +205,17 @@ class SystemProtector:
                     shutil.copy2(source, target)
                     restored_files.append(file_path)
             
-            logger.info(f"✅ 시스템 복구 완료: {len(restored_files)}개 파일")
+            logger.info(f"[SUCCESS] 시스템 복구 완료: {len(restored_files)}개 파일")
             return True
             
         except Exception as e:
-            logger.error(f"❌ 시스템 복구 실패: {e}")
+            logger.error(f"[ERROR] 시스템 복구 실패: {e}")
             return False
     
     def start_monitoring(self, interval: int = 60):
         """실시간 모니터링 시작"""
         if self.monitoring_active:
-            logger.warning("⚠️ 모니터링이 이미 실행 중입니다")
+            logger.warning("[WARNING] 모니터링이 이미 실행 중입니다")
             return
         
         self.monitoring_active = True
@@ -225,14 +225,14 @@ class SystemProtector:
             daemon=True
         )
         self.monitor_thread.start()
-        logger.info(f"🔍 시스템 모니터링 시작 (간격: {interval}초)")
+        logger.info(f"[MONITOR] 시스템 모니터링 시작 (간격: {interval}초)")
     
     def stop_monitoring(self):
         """모니터링 중지"""
         self.monitoring_active = False
         if self.monitor_thread:
             self.monitor_thread.join(timeout=5)
-        logger.info("⏹️ 시스템 모니터링 중지")
+        logger.info("[MONITOR] 시스템 모니터링 중지")
     
     def _monitoring_loop(self, interval: int):
         """모니터링 루프"""
@@ -241,7 +241,7 @@ class SystemProtector:
                 self._check_all_components()
                 time.sleep(interval)
             except Exception as e:
-                logger.error(f"❌ 모니터링 오류: {e}")
+                logger.error(f"[ERROR] 모니터링 오류: {e}")
                 time.sleep(10)
     
     def _check_all_components(self):
@@ -424,16 +424,16 @@ if __name__ == "__main__":
     
     # 초기 백업 생성
     backup_id = protector.create_system_backup("시스템 보호 체계 구축 완료")
-    print(f"✅ 초기 백업 생성: {backup_id}")
+    print(f"[SUCCESS] 초기 백업 생성: {backup_id}")
     
     # 시스템 상태 확인
     status = protector.get_full_system_status()
-    print(f"🔍 시스템 상태: {status['overall_health']}")
+    print(f"[STATUS] 시스템 상태: {status['overall_health']}")
     
     for component_id, comp_status in status['components'].items():
-        emoji = "🟢" if comp_status['status'] == 'healthy' else "🟡" if comp_status['status'] == 'warning' else "🔴"
-        print(f"  {emoji} {comp_status['name']}: {comp_status['status']}")
+        status_icon = "[OK]" if comp_status['status'] == 'healthy' else "[WARN]" if comp_status['status'] == 'warning' else "[ERROR]"
+        print(f"  {status_icon} {comp_status['name']}: {comp_status['status']}")
     
     # 모니터링 시작
     protector.start_monitoring(30)  # 30초 간격
-    print("🔍 실시간 모니터링 시작")
+    print("[MONITOR] 실시간 모니터링 시작")

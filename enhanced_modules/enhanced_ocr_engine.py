@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-🔍 Enhanced OCR Engine - PPT 이미지 특화 OCR 시스템
+[ENHANCED OCR] PPT 이미지 특화 OCR 시스템
 Advanced Multi-Engine OCR System for Presentation Images
 
 핵심 기능:
@@ -36,25 +36,25 @@ OCR_ENGINES = {}
 try:
     import easyocr
     OCR_ENGINES['easyocr'] = True
-    logger.info("✅ EasyOCR 사용 가능")
+    logger.info("[OCR] EasyOCR 사용 가능")
 except ImportError:
     OCR_ENGINES['easyocr'] = False
-    logger.warning("⚠️ EasyOCR 사용 불가")
+    logger.warning("[OCR] EasyOCR 사용 불가")
 
 try:
     import pytesseract
     from PIL import Image
     OCR_ENGINES['tesseract'] = True
-    logger.info("✅ Tesseract 사용 가능")
+    logger.info("[OCR] Tesseract 사용 가능")
 except ImportError:
     OCR_ENGINES['tesseract'] = False
-    logger.warning("⚠️ Tesseract 사용 불가")
+    logger.warning("[OCR] Tesseract 사용 불가")
 
 try:
     # PaddleOCR은 선택적으로 사용
     import paddleocr
     OCR_ENGINES['paddleocr'] = True
-    logger.info("✅ PaddleOCR 사용 가능")
+    logger.info("[SUCCESS] PaddleOCR 사용 가능")
 except ImportError:
     OCR_ENGINES['paddleocr'] = False
     logger.info("ℹ️ PaddleOCR 사용 불가 (선택사항)")
@@ -247,7 +247,7 @@ class EnhancedOCREngine:
         
         # 사용 가능한 OCR 엔진 초기화
         self._initialize_engines()
-        logger.info(f"🔍 Enhanced OCR 엔진 초기화 완료 ({len(self.ocr_instances)}개 엔진)")
+        logger.info(f"[ENHANCED OCR] OCR 엔진 초기화 완료 ({len(self.ocr_instances)}개 엔진)")
     
     def _get_default_config(self) -> Dict:
         """기본 설정"""
@@ -283,7 +283,7 @@ class EnhancedOCREngine:
                     self.config['engines']['easyocr']['languages'],
                     gpu=self.config['engines']['easyocr']['gpu']
                 )
-                logger.info("✅ EasyOCR 초기화 완료")
+                logger.info("[SUCCESS] EasyOCR 초기화 완료")
             except Exception as e:
                 logger.warning(f"⚠️ EasyOCR 초기화 실패: {e}")
         
@@ -293,7 +293,7 @@ class EnhancedOCREngine:
                 # Tesseract 설치 확인
                 pytesseract.get_tesseract_version()
                 self.ocr_instances['tesseract'] = True
-                logger.info("✅ Tesseract 초기화 완료")
+                logger.info("[SUCCESS] Tesseract 초기화 완료")
             except Exception as e:
                 logger.warning(f"⚠️ Tesseract 초기화 실패: {e}")
         
@@ -305,12 +305,12 @@ class EnhancedOCREngine:
                     lang=self.config['engines']['paddleocr']['lang'],
                     show_log=False
                 )
-                logger.info("✅ PaddleOCR 초기화 완료")
+                logger.info("[SUCCESS] PaddleOCR 초기화 완료")
             except Exception as e:
                 logger.warning(f"⚠️ PaddleOCR 초기화 실패: {e}")
         
         if not self.ocr_instances:
-            raise RuntimeError("❌ 사용 가능한 OCR 엔진이 없습니다")
+            raise RuntimeError("[ERROR] 사용 가능한 OCR 엔진이 없습니다")
     
     def process_image(self, image_path: Union[str, Path], 
                      compare_engines: bool = False) -> EnhancedOCRResult:
@@ -589,7 +589,7 @@ def process_image_enhanced(image_path: Union[str, Path],
         }
         
     except Exception as e:
-        logger.error(f"❌ Enhanced OCR 실패: {e}")
+        logger.error(f"[ERROR] Enhanced OCR 실패: {e}")
         
         # 폴백 함수 사용
         if fallback_function:
@@ -601,7 +601,7 @@ def process_image_enhanced(image_path: Union[str, Path],
                     fallback_result['fallback_used'] = True
                     return fallback_result
             except Exception as fallback_error:
-                logger.error(f"❌ 폴백 OCR도 실패: {fallback_error}")
+                logger.error(f"[ERROR] 폴백 OCR도 실패: {fallback_error}")
         
         # 최종 실패
         return {
@@ -618,11 +618,11 @@ if __name__ == "__main__":
     # Enhanced OCR 테스트
     try:
         ocr_engine = EnhancedOCREngine()
-        print(f"✅ Enhanced OCR 엔진 초기화 성공 ({len(ocr_engine.ocr_instances)}개 엔진)")
+        print(f"[SUCCESS] Enhanced OCR 엔진 초기화 성공 ({len(ocr_engine.ocr_instances)}개 엔진)")
         
         # 사용 가능한 엔진 출력
         for engine in ocr_engine.ocr_instances.keys():
-            print(f"  🔍 {engine} 사용 가능")
+            print(f"  [INFO] {engine} 사용 가능")
         
         # 테스트 이미지가 있다면 처리
         test_image_path = Path("test_files/test.png")
@@ -630,11 +630,11 @@ if __name__ == "__main__":
             print(f"\n🧪 테스트 이미지 처리: {test_image_path}")
             result = ocr_engine.process_image(test_image_path)
             print(f"📝 추출된 텍스트: {result.final_text[:100]}...")
-            print(f"🎯 신뢰도: {result.confidence:.2f}")
+            print(f"[CONFIDENCE] 신뢰도: {result.confidence:.2f}")
             print(f"⏱️ 처리 시간: {result.processing_time:.2f}초")
             print(f"🏆 최적 엔진: {result.best_engine}")
         
     except Exception as e:
-        print(f"❌ Enhanced OCR 테스트 실패: {e}")
+        print(f"[ERROR] Enhanced OCR 테스트 실패: {e}")
         import traceback
         traceback.print_exc()
