@@ -1,0 +1,28 @@
+{
+  "enhancements": {
+    "use_enhanced_ocr": false,
+    "use_noise_reduction": false,
+    "use_improved_fusion": false,
+    "use_precise_speaker": false,
+    "use_performance_optimizer": false,
+    "use_quality_enhancer": false
+  },
+  "safety": {
+    "fallback_on_error": true,
+    "compare_results": true,
+    "log_performance": true,
+    "max_processing_time": 300,
+    "auto_disable_on_failure": true
+  },
+  "performance": {
+    "max_response_time_factor": 2.0,
+    "min_accuracy_improvement": 0.05,
+    "enable_parallel_processing": true
+  },
+  "system_info": {
+    "version": "7.1.0",
+    "created": "2025-08-20T19:10:00",
+    "description": "SOLOMOND AI Enhanced Modules Configuration - 모든 개선 기능 기본 비활성화 (안전 우선)",
+    "status": "ready_for_testing"
+  }
+}

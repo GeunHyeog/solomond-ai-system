@@ -1,0 +1,73 @@
+[
+  {
+    "backup_id": "backup_20250820_190752",
+    "timestamp": "2025-08-20 19:07:59.527565",
+    "description": "시스템 보호 체계 구축 완료",
+    "files": [
+      "conference_analysis_UNIFIED_COMPLETE.py",
+      "core/comprehensive_message_extractor.py",
+      "core/multimodal_pipeline.py",
+      "core/insight_generator.py",
+      "shared/ollama_interface.py",
+      "CLAUDE.md",
+      ".streamlit/config.toml"
+    ],
+    "git_commit": "85845573874326cd94e2962d14df142b15254176",
+    "system_state": {
+      "overall_health": "healthy",
+      "timestamp": "2025-08-20T19:07:59.527537",
+      "components": {
+        "streamlit_8501": {
+          "name": "메인 컨퍼런스 분석 시스템",
+          "status": "healthy",
+          "response_time": 760.739803314209,
+          "last_check": "2025-08-20T19:07:53.793834",
+          "critical": true,
+          "error_message": null
+        },
+        "n8n_5678": {
+          "name": "n8n 자동화 워크플로우",
+          "status": "healthy",
+          "response_time": 13.45682144165039,
+          "last_check": "2025-08-20T19:07:53.807309",
+          "critical": true,
+          "error_message": null
+        },
+        "file_upload": {
+          "name": "파일 업로드 시스템",
+          "status": "healthy",
+          "response_time": 0.0705718994140625,
+          "last_check": "2025-08-20T19:07:53.807388",
+          "critical": true,
+          "error_message": null
+        },
+        "database": {
+          "name": "데이터베이스 연결",
+          "status": "healthy",
+          "response_time": 0.03504753112792969,
+          "last_check": "2025-08-20T19:07:53.807426",
+          "critical": true,
+          "error_message": null
+        },
+        "ocr_engine": {
+          "name": "OCR 텍스트 추출",
+          "status": "healthy",
+          "response_time": 5296.863794326782,
+          "last_check": "2025-08-20T19:07:59.104295",
+          "critical": true,
+          "error_message": null
+        },
+        "whisper_stt": {
+          "name": "Whisper 음성 인식",
+          "status": "healthy",
+          "response_time": 423.22564125061035,
+          "last_check": "2025-08-20T19:07:59.527530",
+          "critical": true,
+          "error_message": null
+        }
+      },
+      "critical_issues": [],
+      "warnings": []
+    }
+  }
+]
