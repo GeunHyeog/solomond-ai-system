@@ -316,6 +316,8 @@ class UnifiedConferenceAnalyzer:
                 try:
                     self.whisper_model = safe_whisper_load("base")
                     st.info("[폴백] Whisper 기본 모드로 초기화 완료")
+                except Exception as fallback_error:
+                    st.error(f"[오류] Whisper 초기화 완전 실패: {fallback_error}")
         
         # 노이즈 감소 엔진 초기화
         self.noise_reducer = None
