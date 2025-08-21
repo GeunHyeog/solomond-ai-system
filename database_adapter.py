@@ -193,6 +193,10 @@ class SQLiteAdapter(DatabaseInterface):
             print(f"[ERROR] SQLite 조각 개수 조회 실패: {e}")
             return 0
     
+    def get_total_fragment_count(self) -> int:
+        """전체 fragment 수 조회 (SQLite 구현)"""
+        return self.get_fragment_count()  # SQLite에서는 동일
+    
     def delete_fragments(self, conference_name: str) -> bool:
         try:
             conn = sqlite3.connect(self.db_path)
@@ -245,6 +249,17 @@ class SupabaseAdapter(DatabaseInterface):
         if not self.manager:
             return 0
         return self.manager.get_fragment_count(conference_name or self.conference_name)
+    
+    def get_total_fragment_count(self) -> int:
+        """전체 fragment 수 조회 (conference_name 구분 없이)"""
+        if not self.manager:
+            return 0
+        # SQLite는 직접 조회, Supabase는 없으면 0 반환
+        if hasattr(self.manager, 'get_total_fragment_count'):
+            return self.manager.get_total_fragment_count()
+        else:
+            # 폴백: 현재 conference_name으로 조회
+            return self.manager.get_fragment_count(self.conference_name)
     
     def delete_fragments(self, conference_name: str) -> bool:
         if not self.manager:

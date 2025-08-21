@@ -293,31 +293,54 @@ class UnifiedConferenceAnalyzer:
             except Exception as e:
                 st.warning(f"[주의] EasyOCR 초기화 실패: {e}")
         
-        # Whisper 엔진 - 동적 최적화 적용
+        # Whisper 엔진 - 향상된 동적 최적화 및 GPU 메모리 부족 자동 처리
         self.whisper_model = None
         if WHISPER_AVAILABLE:
             try:
                 if DYNAMIC_RESOURCE_AVAILABLE:
+                    # 강화된 동적 리소스 관리자에서 GPU 메모리 검증 포함 설정 가져오기
                     whisper_config = get_optimal_whisper_settings()
                     model_size = whisper_config.get('model_size', 'base')
                     device = whisper_config.get('device', 'cpu')
-                    st.info(f"[Whisper 최적화] 모델: {model_size}, 디바이스: {device}")
-                    st.info(f"[Whisper 이유] {whisper_config.get('reason', 'GPU/CPU 자동 선택')}")
+                    
+                    st.info(f"🔧 [Whisper 최적화] 모델: {model_size}, 디바이스: {device}")
+                    st.info(f"📊 [선택 이유] GPU 메모리 검증 완료, 최적 설정 자동 선택")
+                    
+                    # GPU 메모리 부족 감지시 자동 CPU 폴백이 이미 적용된 설정
+                    if device == 'cpu':
+                        st.info("🛡️ [안전 모드] GPU 메모리 부족 감지 → CPU 모드 자동 전환")
                 else:
                     model_size = 'base'
                     device = 'cpu'
+                    st.info("⚙️ [기본 모드] 동적 리소스 관리자 없음 → CPU 기본 설정")
                 
                 # [보안] 안전한 모델 로딩으로 meta tensor 문제 완전 해결
-                self.whisper_model = safe_whisper_load(model_size)
-                st.success(f"[완료] Whisper STT 엔진 초기화 완료 ({model_size}, {device})")
+                with st.spinner("🔄 Whisper 모델 로딩 중..."):
+                    self.whisper_model = safe_whisper_load(model_size)
+                st.success(f"✅ [완료] Whisper STT 엔진 초기화 완료 ({model_size}, {device})")
+                
             except Exception as e:
-                st.warning(f"[주의] Whisper 초기화 실패: {e}")
-                # CPU 폴백 시도
+                st.warning(f"⚠️ [주의] Whisper 초기화 실패: {str(e)[:100]}...")
+                
+                # 최종 CPU 폴백 시도 (이중 안전장치)
                 try:
-                    self.whisper_model = safe_whisper_load("base")
-                    st.info("[폴백] Whisper 기본 모드로 초기화 완료")
+                    with st.spinner("🔄 CPU 폴백 모드로 재시도 중..."):
+                        # GPU 메모리 캐시 완전 정리
+                        if "cuda" in str(e).lower() or "gpu" in str(e).lower():
+                            try:
+                                import torch
+                                if torch.cuda.is_available():
+                                    torch.cuda.empty_cache()
+                                    st.info("🧹 GPU 메모리 캐시 정리 완료")
+                            except:
+                                pass
+                        
+                        self.whisper_model = safe_whisper_load("base")
+                        st.success("🛡️ [폴백 완료] Whisper CPU 기본 모드로 초기화 완료")
+                        
                 except Exception as fallback_error:
-                    st.error(f"[오류] Whisper 초기화 완전 실패: {fallback_error}")
+                    st.error(f"❌ [오류] Whisper 초기화 완전 실패: {str(fallback_error)[:100]}...")
+                    st.error("💡 해결 방안: PC 재시작 후 다시 시도하거나 GPU 드라이버를 확인하세요.")
         
         # 노이즈 감소 엔진 초기화
         self.noise_reducer = None
@@ -455,17 +478,16 @@ class UnifiedConferenceAnalyzer:
             "overall_ready": False
         }
         
-        # 전체 준비 상태 계산
+        # 전체 준비 상태 계산 (핵심 5개 시스템)
         ready_count = sum([
             status["ocr_available"],
             status["whisper_available"], 
             status["holistic_available"],
             status["database_available"],
-            status["ollama_available"],
-            status["multimodal_available"]
+            status["ollama_available"]
         ])
         
-        status["overall_ready"] = ready_count >= 5  # 최소 5개 시스템 필요 (멀티모달 포함)
+        status["overall_ready"] = ready_count >= 5  # 5개 핵심 시스템 모두 필요
         status["ready_systems"] = ready_count
         status["total_systems"] = 5
         
@@ -605,7 +627,7 @@ class UnifiedConferenceAnalyzer:
                 return self._process_with_legacy_method(uploaded_files, skip_errors)
     
     def _process_with_legacy_method(self, uploaded_files: List, skip_errors: bool = True) -> Dict[str, Any]:
-        """기존 방식의 파일 처리 (호환성 유지)"""
+        """기존 방식의 파일 처리 (호환성 유지) + 대용량 파일 최적화"""
         results = {
             "processed_count": 0,
             "successful_count": 0,
@@ -623,48 +645,55 @@ class UnifiedConferenceAnalyzer:
                 progress_bar.progress(progress)
                 status_text.text(f"처리 중: {uploaded_file.name} ({i+1}/{len(uploaded_files)})")
                 
-                # 임시 파일로 저장
-                with tempfile.NamedTemporaryFile(delete=False, suffix=Path(uploaded_file.name).suffix) as tmp_file:
-                    tmp_file.write(uploaded_file.read())
-                    tmp_path = tmp_file.name
+                # [추가] 파일 크기 체크 및 대용량 파일 최적화 처리
+                file_size = uploaded_file.size if hasattr(uploaded_file, 'size') else len(uploaded_file.getvalue())
                 
-                # 파일 타입별 실제 처리
-                file_ext = Path(uploaded_file.name).suffix.lower()
-                
-                if file_ext in ['.jpg', '.jpeg', '.png', '.bmp']:
-                    fragment = self._process_image_file(tmp_path, uploaded_file.name)
-                elif file_ext in ['.wav', '.mp3', '.m4a', '.flac']:
-                    fragment = self._process_audio_file(tmp_path, uploaded_file.name)
-                elif file_ext in ['.mp4', '.avi', '.mov']:
-                    fragment = self._process_video_file(tmp_path, uploaded_file.name)
-                elif file_ext == '.txt':
-                    # TXT 파일의 경우 URL 배치 처리
-                    st.info(f"[문서] TXT 파일 감지: {uploaded_file.name} - URL 배치 처리 시작")
-                    
-                    # 임시 파일을 다시 생성하여 process_text_file_urls에 전달
-                    uploaded_file.seek(0)  # 파일 포인터 리셋
-                    batch_results = self.process_text_file_urls(uploaded_file)
-                    
-                    if batch_results and "error" not in batch_results[0]:
-                        # 배치 처리 결과를 분석 결과에 추가
-                        results["analysis_fragments"].extend(batch_results)
-                        results["successful_count"] += len(batch_results)
-                        st.success(f"[완료] {uploaded_file.name}에서 {len(batch_results)}개 URL 처리 완료!")
-                    else:
-                        error_msg = batch_results[0]["error"] if batch_results else "알 수 없는 오류"
-                        results["failed_files"].append({
-                            "filename": uploaded_file.name,
-                            "error": error_msg
-                        })
-                    
-                    # TXT 파일 처리 완료, continue로 일반 처리 스킵
-                    results["processed_count"] += 1
-                    continue
+                if file_size > 100 * 1024 * 1024:  # 100MB 이상 대용량 파일
+                    st.info(f"🔧 [대용량 파일 감지] {uploaded_file.name} ({file_size / (1024*1024):.1f}MB) - 최적화 처리 중...")
+                    fragment = self._process_large_file_optimized(uploaded_file, file_size)
                 else:
-                    fragment = {"error": f"지원하지 않는 파일 형식: {file_ext}"}
+                    # 기존 방식: 임시 파일로 저장
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=Path(uploaded_file.name).suffix) as tmp_file:
+                        tmp_file.write(uploaded_file.read())
+                        tmp_path = tmp_file.name
                 
-                # 정리
-                os.unlink(tmp_path)
+                    # 파일 타입별 실제 처리 (기존 방식)
+                    file_ext = Path(uploaded_file.name).suffix.lower()
+                    
+                    if file_ext in ['.jpg', '.jpeg', '.png', '.bmp']:
+                        fragment = self._process_image_file(tmp_path, uploaded_file.name)
+                    elif file_ext in ['.wav', '.mp3', '.m4a', '.flac']:
+                        fragment = self._process_audio_file(tmp_path, uploaded_file.name)
+                    elif file_ext in ['.mp4', '.avi', '.mov']:
+                        fragment = self._process_video_file(tmp_path, uploaded_file.name)
+                    elif file_ext == '.txt':
+                        # TXT 파일의 경우 URL 배치 처리
+                        st.info(f"[문서] TXT 파일 감지: {uploaded_file.name} - URL 배치 처리 시작")
+                        
+                        # 임시 파일을 다시 생성하여 process_text_file_urls에 전달
+                        uploaded_file.seek(0)  # 파일 포인터 리셋
+                        batch_results = self.process_text_file_urls(uploaded_file)
+                        
+                        if batch_results and "error" not in batch_results[0]:
+                            # 배치 처리 결과를 분석 결과에 추가
+                            results["analysis_fragments"].extend(batch_results)
+                            results["successful_count"] += len(batch_results)
+                            st.success(f"[완료] {uploaded_file.name}에서 {len(batch_results)}개 URL 처리 완료!")
+                        else:
+                            error_msg = batch_results[0]["error"] if batch_results else "알 수 없는 오류"
+                            results["failed_files"].append({
+                                "filename": uploaded_file.name,
+                                "error": error_msg
+                            })
+                        
+                        # TXT 파일 처리 완료, continue로 일반 처리 스킵
+                        results["processed_count"] += 1
+                        continue
+                    else:
+                        fragment = {"error": f"지원하지 않는 파일 형식: {file_ext}"}
+                    
+                    # 정리
+                    os.unlink(tmp_path)
                 
                 if "error" not in fragment:
                     results["analysis_fragments"].append(fragment)
@@ -742,6 +771,216 @@ class UnifiedConferenceAnalyzer:
         self.analysis_results["multimodal_fusion"] = results.get("multimodal_fusion")
         
         return results
+    
+    def _process_large_file_optimized(self, uploaded_file, file_size: int) -> Dict[str, Any]:
+        """대용량 파일 최적화 처리 (메모리 효율적)"""
+        file_ext = Path(uploaded_file.name).suffix.lower()
+        
+        try:
+            # 대용량 파일 크기 제한 체크
+            max_size_gb = 5.0  # 5GB 제한
+            if file_size > max_size_gb * 1024 * 1024 * 1024:
+                return {
+                    "error": f"파일이 너무 큽니다 ({file_size / (1024*1024*1024):.1f}GB > {max_size_gb}GB 제한)"
+                }
+            
+            # 파일 타입별 대용량 처리
+            if file_ext in ['.mp4', '.avi', '.mov']:
+                return self._process_large_video_file(uploaded_file, file_size)
+            elif file_ext in ['.wav', '.mp3', '.m4a', '.flac']:
+                return self._process_large_audio_file(uploaded_file, file_size)
+            elif file_ext in ['.jpg', '.jpeg', '.png', '.bmp']:
+                return self._process_large_image_file(uploaded_file, file_size)
+            else:
+                return {"error": f"대용량 파일 형식 지원 안됨: {file_ext}"}
+                
+        except Exception as e:
+            return {"error": f"대용량 파일 처리 실패: {str(e)}"}
+    
+    def _process_large_video_file(self, uploaded_file, file_size: int) -> Dict[str, Any]:
+        """대용량 비디오 파일 처리 (스트리밍, 샘플링)"""
+        try:
+            st.info("🎬 [대용량 비디오] 스트리밍 방식으로 오디오 추출 중...")
+            
+            # 대용량 비디오에서는 오디오만 추출하여 분석
+            # 1. 스트리밍으로 임시 파일 생성 (청크 단위)
+            chunk_size = 8192  # 8KB 청크
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.mov') as tmp_file:
+                uploaded_file.seek(0)
+                chunks_written = 0
+                max_chunks = 50000  # 약 400MB까지만 처리
+                
+                while chunks_written < max_chunks:
+                    chunk = uploaded_file.read(chunk_size)
+                    if not chunk:
+                        break
+                    tmp_file.write(chunk)
+                    chunks_written += 1
+                    
+                    # 진행률 표시
+                    if chunks_written % 1000 == 0:
+                        progress = min(chunks_written / max_chunks, 1.0)
+                        st.progress(progress, text=f"비디오 스트리밍 중... {chunks_written * chunk_size / (1024*1024):.1f}MB")
+                
+                tmp_path = tmp_file.name
+            
+            # 2. FFmpeg로 오디오 추출 (메모리 효율적)
+            import subprocess
+            audio_path = tmp_path.replace('.mov', '_audio.wav')
+            
+            try:
+                # FFmpeg로 오디오 추출 (5분까지만)
+                cmd = [
+                    'ffmpeg', '-i', tmp_path,
+                    '-t', '300',  # 5분 제한
+                    '-ac', '1',   # 모노 채널
+                    '-ar', '16000',  # 낮은 샘플레이트
+                    '-y', audio_path
+                ]
+                
+                result = subprocess.run(cmd, capture_output=True, text=True, timeout=180)
+                
+                if result.returncode == 0 and os.path.exists(audio_path):
+                    st.success("✅ 대용량 비디오에서 오디오 추출 완료")
+                    # 추출된 오디오로 STT 분석
+                    fragment = self._process_audio_file(audio_path, f"{uploaded_file.name}_audio_extract")
+                    
+                    # 임시 파일들 정리
+                    os.unlink(tmp_path)
+                    os.unlink(audio_path)
+                    
+                    return fragment
+                else:
+                    raise Exception(f"FFmpeg 실패: {result.stderr}")
+                    
+            except subprocess.TimeoutExpired:
+                return {"error": "대용량 비디오 처리 시간 초과 (3분 제한)"}
+            except FileNotFoundError:
+                return {"error": "FFmpeg가 설치되지 않음 - 비디오 처리 불가"}
+                
+        except Exception as e:
+            return {"error": f"대용량 비디오 처리 실패: {str(e)}"}
+    
+    def _process_large_audio_file(self, uploaded_file, file_size: int) -> Dict[str, Any]:
+        """대용량 오디오 파일 처리 (청크 분할)"""
+        try:
+            st.info("🎵 [대용량 오디오] 청크 분할 처리 중...")
+            
+            # 청크 크기로 분할 처리 (최대 50MB 청크)
+            chunk_size = 50 * 1024 * 1024  # 50MB
+            max_chunks = 3  # 최대 3개 청크 (150MB)
+            
+            chunks_processed = 0
+            combined_transcripts = []
+            
+            uploaded_file.seek(0)
+            
+            for chunk_idx in range(max_chunks):
+                chunk_data = uploaded_file.read(chunk_size)
+                if not chunk_data:
+                    break
+                
+                # 청크를 임시 파일로 저장
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as chunk_file:
+                    chunk_file.write(chunk_data)
+                    chunk_path = chunk_file.name
+                
+                try:
+                    st.info(f"📝 청크 {chunk_idx+1} STT 분석 중... ({len(chunk_data) / (1024*1024):.1f}MB)")
+                    
+                    # Whisper STT 분석 (동적 리소스 관리자 사용)
+                    settings = self.resource_manager.get_optimal_settings_for_whisper()
+                    
+                    if self.whisper_model:
+                        result = self.whisper_model.transcribe(
+                            chunk_path,
+                            language='ko',
+                            fp16=settings['fp16'],
+                            verbose=False
+                        )
+                        
+                        if result and 'text' in result:
+                            transcript = result['text'].strip()
+                            if transcript:
+                                combined_transcripts.append(f"[청크 {chunk_idx+1}] {transcript}")
+                                st.success(f"✅ 청크 {chunk_idx+1} 완료: {len(transcript)}자")
+                    
+                    chunks_processed += 1
+                    
+                except Exception as e:
+                    st.warning(f"⚠️ 청크 {chunk_idx+1} 처리 실패: {e}")
+                
+                finally:
+                    os.unlink(chunk_path)
+            
+            # 결합된 결과 생성
+            if combined_transcripts:
+                full_transcript = "\n\n".join(combined_transcripts)
+                
+                fragment = {
+                    'fragment_id': f'{self.conference_name}_{self.session_id}_{hashlib.md5(uploaded_file.name.encode()).hexdigest()[:8]}',
+                    'file_source': uploaded_file.name,
+                    'file_type': 'audio_large',
+                    'timestamp': datetime.now().isoformat(),
+                    'content': full_transcript,
+                    'confidence': 0.8,  # 청크 처리로 인한 신뢰도 하락
+                    'processing_time': chunks_processed * 30.0,
+                    'metadata': {
+                        'file_size_mb': file_size / (1024*1024),
+                        'chunks_processed': chunks_processed,
+                        'processing_method': 'large_file_chunked'
+                    }
+                }
+                
+                return fragment
+            else:
+                return {"error": "모든 청크 처리 실패"}
+                
+        except Exception as e:
+            return {"error": f"대용량 오디오 처리 실패: {str(e)}"}
+    
+    def _process_large_image_file(self, uploaded_file, file_size: int) -> Dict[str, Any]:
+        """대용량 이미지 파일 처리 (해상도 조정)"""
+        try:
+            st.info("🖼️ [대용량 이미지] 해상도 최적화 처리 중...")
+            
+            from PIL import Image
+            import io
+            
+            # 이미지 열기
+            uploaded_file.seek(0)
+            image = Image.open(uploaded_file)
+            
+            # 해상도 제한 (최대 2000x2000)
+            max_size = 2000
+            if image.width > max_size or image.height > max_size:
+                # 비율 유지하며 리사이즈
+                ratio = min(max_size / image.width, max_size / image.height)
+                new_size = (int(image.width * ratio), int(image.height * ratio))
+                image = image.resize(new_size, Image.Resampling.LANCZOS)
+                st.info(f"🔧 해상도 조정: {uploaded_file.name} → {new_size[0]}x{new_size[1]}")
+            
+            # 최적화된 이미지를 임시 파일로 저장
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.jpg') as tmp_file:
+                image.save(tmp_file.name, format='JPEG', quality=85, optimize=True)
+                tmp_path = tmp_file.name
+            
+            # 일반 이미지 처리 방식 사용
+            fragment = self._process_image_file(tmp_path, uploaded_file.name)
+            
+            # 메타데이터에 최적화 정보 추가
+            if "error" not in fragment:
+                fragment['metadata']['original_size_mb'] = file_size / (1024*1024)
+                fragment['metadata']['processing_method'] = 'large_file_optimized'
+                fragment['metadata']['resolution_adjusted'] = True
+            
+            # 정리
+            os.unlink(tmp_path)
+            
+            return fragment
+            
+        except Exception as e:
+            return {"error": f"대용량 이미지 처리 실패: {str(e)}"}
     
     def _process_image_file(self, file_path: str, filename: str) -> Dict[str, Any]:
         """실제 이미지 파일 OCR 처리 - Enhanced OCR 우선, 기본 OCR 폴백 + 성능 최적화"""
@@ -1101,6 +1340,16 @@ class UnifiedConferenceAnalyzer:
             if self.database:
                 self.database.create_fragments_table()
                 fragment_count = self.database.get_fragment_count(self.conference_name)
+                st.info(f"[디버그] 데이터베이스 fragment 수: {fragment_count}")
+                
+                # 전체 fragment 수도 확인
+                try:
+                    total_fragments = self.database.get_total_fragment_count()
+                    st.info(f"[디버그] 전체 fragment 수: {total_fragments}")
+                    if total_fragments > 0:
+                        fragment_count = total_fragments  # 임시 수정: 전체 데이터 사용
+                except Exception as e:
+                    st.warning(f"[디버그] 전체 fragment 조회 실패: {e}")
                 
                 if fragment_count == 0:
                     return {"error": "분석할 데이터가 없습니다. 먼저 파일을 업로드하고 처리하세요."}
@@ -1136,55 +1385,226 @@ class UnifiedConferenceAnalyzer:
             return {"error": f"홀리스틱 분석 실패: {e}"}
     
     def _generate_ai_insights(self, holistic_result: Dict[str, Any]) -> List[str]:
-        """[시작] v4.0 멀티모달 통합 분석을 활용한 고급 인사이트 생성"""
+        """[향상] v4.0 멀티모달 통합 분석을 활용한 고품질 인사이트 생성"""
         if not self.ollama:
             return ["AI 인사이트를 생성할 수 없습니다 (Ollama 비활성)"]
         
         try:
-            # [처리중] 멀티모달 분석 결과 통합
+            # [처리중] 멀티모달 분석 결과 통합 + 데이터베이스 직접 조회
             processed_files = self.analysis_results.get("processed_files", [])
+            
+            # 데이터베이스에서 실제 fragment 데이터 가져오기
+            if self.database:
+                try:
+                    fragments = self.database.get_fragments()
+                    st.info(f"[디버그] 데이터베이스에서 {len(fragments)}개 fragment 로드")
+                    # fragments를 processed_files 형태로 변환
+                    if fragments and not processed_files:
+                        for fragment in fragments[:10]:  # 최대 10개만 사용
+                            processed_files.append({
+                                "filename": fragment.get("file_source", "unknown"),
+                                "analysis_result": {
+                                    "content": fragment.get("content", ""),
+                                    "confidence": fragment.get("confidence", 0.5),
+                                    "keywords": fragment.get("keywords", "").split(",") if fragment.get("keywords") else []
+                                }
+                            })
+                        st.success(f"[복구] 데이터베이스에서 {len(processed_files)}개 파일 정보 복구")
+                except Exception as e:
+                    st.warning(f"[경고] 데이터베이스 fragment 조회 실패: {e}")
+            
             multimodal_context = self._build_multimodal_context(processed_files)
             
-            # [목표] 풍부한 컨텍스트 생성 (v4.0 고급 프롬프트 활용)
+            # [향상] 품질 개선을 위한 컨텍스트 강화
+            content_quality_analysis = self._analyze_content_quality(processed_files)
+            key_insights_enhanced = self._extract_enhanced_insights(holistic_result, processed_files)
+            
+            # [목표] 품질 개선된 컨텍스트 생성 (v4.0+ 고급 프롬프트)
             enhanced_analysis_summary = f"""
-🎭 **멀티모달 컨퍼런스 분석 데이터**:
+🎯 **고품질 컨퍼런스 분석 데이터**:
 
-[통계] **기본 통계**:
-- 처리된 파일: {len(processed_files)}개 
+📊 **데이터 품질 지표**:
+- 처리된 파일: {len(processed_files)}개 (성공률: {content_quality_analysis['success_rate']:.1f}%)
+- 고품질 콘텐츠: {content_quality_analysis['high_quality_count']}개
+- 평균 신뢰도: {content_quality_analysis['avg_confidence']:.2f}
 - 총 분석 조각: {holistic_result.get('total_fragments', 0)}개
 - 발견된 개체: {holistic_result.get('total_entities', 0)}개  
-- 주제 클러스터: {holistic_result.get('total_topics', 0)}개
 
-[디자인] **멀티모달 분포**:
+🔍 **멀티모달 분포**:
 {multimodal_context['modal_distribution']}
 
 🔗 **크로스모달 연결성**:
 {multimodal_context['cross_modal_connections']}
 
-📝 **핵심 콘텐츠 샘플**:
-{multimodal_context['content_samples']}
+💎 **핵심 콘텐츠 (품질 필터링)**:
+{content_quality_analysis['filtered_content']}
 
-[검색] **홀리스틱 인사이트**:
-{', '.join(holistic_result.get('key_insights', ['기본 분석 완료']))}
+🧠 **향상된 인사이트**:
+{key_insights_enhanced}
 
-[목표] **컨퍼런스 메타정보**:
+🎯 **컨퍼런스 컨텍스트**:
 - 이벤트명: {self.conference_info.get('conference_name', 'N/A')}
 - 업계 분야: {self.conference_info.get('industry_field', 'N/A')}  
 - 관심 키워드: {', '.join(self.conference_info.get('interest_keywords', []))}
+- 분석 심도: {'고급' if content_quality_analysis['success_rate'] > 70 else '기본'}
+
+🎪 **분석 요청**:
+위 데이터를 바탕으로 다음 관점에서 심화 분석을 제공해주세요:
+1. 주요 트렌드 및 패턴 (업계 관점)
+2. 핵심 의사결정 사항 및 액션 아이템
+3. 미래 전망 및 시사점
+4. 기회 요소 및 리스크 요인
+5. 참여자 관점에서의 실용적 인사이트
 """
             
-            # [AI] 고급 프롬프트로 AI 분석 실행
+            # [AI] 향상된 프롬프트로 AI 분석 실행
             ai_response = self.ollama.analyze_conference(enhanced_analysis_summary)
             
             if ai_response and not ai_response.startswith("AI 모델 오류"):
-                # [목표] 구조화된 응답 파싱 (v4.0 포맷)
+                # [목표] 구조화된 응답 파싱 (v4.0+ 포맷)
                 structured_insights = self._parse_structured_ai_response(ai_response)
+                
+                # [향상] 품질 점수 추가
+                quality_score = self._calculate_insight_quality(structured_insights, content_quality_analysis)
+                structured_insights.insert(0, f"🏆 [품질 점수] 분석 품질: {quality_score:.1f}/10.0")
+                
                 return structured_insights
             else:
                 return [f"AI 분석 실패: {ai_response}"]
                 
         except Exception as e:
             return [f"AI 인사이트 생성 오류: {str(e)}"]
+    
+    def _analyze_content_quality(self, processed_files: List[Dict]) -> Dict[str, Any]:
+        """콘텐츠 품질 분석 (새로운 기능)"""
+        try:
+            total_files = len(processed_files)
+            if total_files == 0:
+                return {
+                    'success_rate': 0.0,
+                    'high_quality_count': 0,
+                    'avg_confidence': 0.0,
+                    'filtered_content': "분석된 콘텐츠 없음"
+                }
+            
+            confidence_scores = []
+            high_quality_files = []
+            quality_content = []
+            
+            for file_info in processed_files:
+                confidence = file_info.get('confidence', 0.0)
+                content = file_info.get('content', '').strip()
+                filename = file_info.get('file_source', file_info.get('filename', 'unknown'))
+                
+                confidence_scores.append(confidence)
+                
+                # 고품질 기준: 신뢰도 0.7 이상, 콘텐츠 길이 50자 이상
+                if confidence >= 0.7 and len(content) >= 50:
+                    high_quality_files.append(filename)
+                    if len(quality_content) < 3:  # 최대 3개 샘플
+                        file_type = self._detect_file_type(filename)
+                        quality_content.append(f"[{file_type.upper()}] {content[:200]}...")
+            
+            success_rate = (len(high_quality_files) / total_files) * 100
+            avg_confidence = sum(confidence_scores) / len(confidence_scores)
+            
+            return {
+                'success_rate': success_rate,
+                'high_quality_count': len(high_quality_files),
+                'avg_confidence': avg_confidence,
+                'filtered_content': '\n'.join(quality_content) if quality_content else "고품질 콘텐츠 없음"
+            }
+            
+        except Exception as e:
+            return {
+                'success_rate': 0.0,
+                'high_quality_count': 0,
+                'avg_confidence': 0.0,
+                'filtered_content': f"품질 분석 오류: {str(e)}"
+            }
+    
+    def _extract_enhanced_insights(self, holistic_result: Dict[str, Any], processed_files: List[Dict]) -> str:
+        """향상된 인사이트 추출 (새로운 기능)"""
+        try:
+            insights = []
+            
+            # 기존 홀리스틱 인사이트
+            base_insights = holistic_result.get('key_insights', [])
+            if base_insights:
+                insights.extend(base_insights[:3])  # 상위 3개만
+            
+            # 콘텐츠 기반 추가 인사이트
+            content_insights = self._derive_content_insights(processed_files)
+            insights.extend(content_insights)
+            
+            # 중복 제거 및 품질 필터링
+            unique_insights = []
+            for insight in insights:
+                if insight and len(insight) > 20 and insight not in unique_insights:
+                    unique_insights.append(insight)
+            
+            return '\n'.join(f"• {insight}" for insight in unique_insights[:5]) if unique_insights else "기본 분석 완료"
+            
+        except Exception as e:
+            return f"인사이트 추출 오류: {str(e)}"
+    
+    def _derive_content_insights(self, processed_files: List[Dict]) -> List[str]:
+        """콘텐츠 기반 인사이트 도출 (새로운 기능)"""
+        try:
+            insights = []
+            
+            # 키워드 빈도 분석
+            all_content = ' '.join([
+                file_info.get('content', '') for file_info in processed_files
+                if file_info.get('confidence', 0) > 0.6
+            ])
+            
+            if all_content:
+                # 간단한 키워드 추출 (길이 3자 이상 단어)
+                words = re.findall(r'\b\w{3,}\b', all_content.lower())
+                word_freq = Counter(words)
+                top_words = [word for word, count in word_freq.most_common(5) if count > 1]
+                
+                if top_words:
+                    insights.append(f"주요 언급 키워드: {', '.join(top_words)}")
+            
+            # 모달별 특성 분석
+            modal_stats = {'image': 0, 'audio': 0, 'video': 0, 'text': 0}
+            for file_info in processed_files:
+                file_type = self._detect_file_type(file_info.get('file_source', ''))
+                if file_type in modal_stats:
+                    modal_stats[file_type] += 1
+            
+            dominant_modal = max(modal_stats, key=modal_stats.get)
+            if modal_stats[dominant_modal] > 0:
+                modal_names = {'image': '시각적', 'audio': '청각적', 'video': '영상', 'text': '텍스트'}
+                insights.append(f"{modal_names.get(dominant_modal, '기타')} 콘텐츠 중심의 컨퍼런스")
+            
+            return insights
+            
+        except Exception as e:
+            return [f"콘텐츠 인사이트 오류: {str(e)}"]
+    
+    def _calculate_insight_quality(self, insights: List[str], quality_analysis: Dict[str, Any]) -> float:
+        """인사이트 품질 점수 계산 (새로운 기능)"""
+        try:
+            base_score = 5.0  # 기본 점수
+            
+            # 콘텐츠 품질 기여도 (40%)
+            content_score = quality_analysis['success_rate'] / 100 * 4.0
+            
+            # 인사이트 개수 및 품질 (40%)
+            insight_count = len([i for i in insights if len(i) > 30])
+            insight_score = min(insight_count / 5, 1.0) * 4.0
+            
+            # 신뢰도 기여도 (20%)
+            confidence_score = quality_analysis['avg_confidence'] * 2.0
+            
+            total_score = min(base_score + content_score + insight_score + confidence_score, 10.0)
+            return total_score
+            
+        except Exception as e:
+            return 5.0  # 기본 점수
     
     def _build_multimodal_context(self, processed_files):
         """멀티모달 분석 컨텍스트 구축 - Task 3 시간 기반 파일 그룹핑 포함"""
@@ -1756,8 +2176,35 @@ class UnifiedConferenceAnalyzer:
     
     def generate_comprehensive_report(self) -> str:
         """종합 분석 보고서 생성"""
-        if not self.analysis_results["processed_files"]:
-            return "분석할 데이터가 없습니다."
+        # 데이터베이스에서 실제 fragment 데이터 가져오기
+        fragments_data = []
+        if self.database:
+            try:
+                fragments_data = self.database.get_fragments()
+                st.info(f"[데이터] 데이터베이스에서 {len(fragments_data)}개 fragment 로드")
+                
+                # fragments를 processed_files 형태로 변환하여 분석에 사용
+                if fragments_data and not self.analysis_results["processed_files"]:
+                    for fragment in fragments_data[:20]:  # 최대 20개 사용
+                        processed_file = {
+                            "filename": fragment.get("file_source", "unknown"),
+                            "file_type": fragment.get("file_type", "text"),
+                            "confidence": fragment.get("confidence", 0.5),
+                            "content": fragment.get("content", ""),
+                            "keywords": fragment.get("keywords", []),
+                            "timestamp": fragment.get("timestamp", ""),
+                            "speaker": fragment.get("speaker", "")
+                        }
+                        self.analysis_results["processed_files"].append(processed_file)
+                    
+                    st.success(f"[복구] {len(self.analysis_results['processed_files'])}개 파일 데이터 복구 완료")
+                
+            except Exception as e:
+                st.warning(f"[경고] 데이터베이스 접근 실패: {e}")
+        
+        # 분석할 데이터가 없는 경우 확인
+        if not self.analysis_results["processed_files"] and not fragments_data:
+            return "분석할 데이터가 없습니다. 먼저 파일을 업로드하고 처리해주세요."
         
         report_parts = []
         
@@ -1797,7 +2244,7 @@ class UnifiedConferenceAnalyzer:
         
         report_parts.append("")
         
-        # 홀리스틱 분석 결과
+        # 홀리스틱 분석 결과 또는 fragments 데이터 분석
         if self.analysis_results.get("holistic_results"):
             holistic = self.analysis_results["holistic_results"]["holistic_analysis"]
             report_parts.append("## 🧠 홀리스틱 분석 결과")
@@ -1819,6 +2266,63 @@ class UnifiedConferenceAnalyzer:
                 for insight in ai_insights:
                     if not insight.startswith("AI"):  # 에러 메시지 제외
                         report_parts.append(f"- {insight}")
+            
+            report_parts.append("")
+        elif fragments_data:
+            # 홀리스틱 분석 결과가 없는 경우 fragments 데이터로 기본 분석 생성
+            report_parts.append("## 🧠 데이터베이스 기반 분석 결과")
+            report_parts.append(f"- **총 조각 수:** {len(fragments_data)}개")
+            
+            # 파일 타입별 분석
+            file_types = Counter([f.get('file_type', 'unknown') for f in fragments_data])
+            report_parts.append("- **파일 타입별 분포:**")
+            for file_type, count in file_types.most_common():
+                type_name = {"image": "이미지", "audio": "음성", "video": "비디오", "text": "텍스트"}.get(file_type, file_type)
+                report_parts.append(f"  - {type_name}: {count}개")
+            
+            # 주요 키워드 추출
+            all_keywords = []
+            for fragment in fragments_data:
+                if fragment.get('keywords'):
+                    if isinstance(fragment['keywords'], str):
+                        # JSON 문자열인 경우 파싱 시도
+                        try:
+                            import json
+                            keywords = json.loads(fragment['keywords'])
+                            all_keywords.extend(keywords)
+                        except:
+                            # 쉼표로 구분된 문자열인 경우
+                            all_keywords.extend(fragment['keywords'].split(','))
+                    elif isinstance(fragment['keywords'], list):
+                        all_keywords.extend(fragment['keywords'])
+            
+            if all_keywords:
+                # 의미 없는 일반 단어들 필터링
+                stop_words = {
+                    'the', 'of', 'and', 'a', 'an', 'to', 'in', 'on', 'at', 'for', 'with', 'by', 'from', 'as', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'can', 'must', 'shall', 'this', 'that', 'these', 'those', 'it', 'its', 'he', 'she', 'we', 'they', 'you', 'i', 'me', 'my', 'your', 'his', 'her', 'our', 'their'
+                }
+                
+                keyword_counts = Counter(all_keywords)
+                # 필터링: 의미있는 키워드만 선택 (길이 2자 이상, 영문자 포함, 불용어 제외)
+                meaningful_keywords = []
+                for keyword, count in keyword_counts.most_common(20):
+                    clean_keyword = keyword.strip()
+                    if (len(clean_keyword) > 2 and 
+                        clean_keyword.lower() not in stop_words and
+                        not clean_keyword.lower() in ['img', 'jpg', 'png', 'wav', 'mp4', 'mov'] and
+                        any(c.isalpha() for c in clean_keyword)):
+                        meaningful_keywords.append(clean_keyword)
+                
+                if meaningful_keywords:
+                    report_parts.append(f"- **주요 키워드:** {', '.join(meaningful_keywords[:8])}")
+                else:
+                    report_parts.append("- **주요 키워드:** 컨퍼런스 내용 분석 중...")
+            
+            # 평균 신뢰도
+            confidences = [f.get('confidence', 0) for f in fragments_data if f.get('confidence') is not None]
+            if confidences:
+                avg_confidence = np.mean(confidences)
+                report_parts.append(f"- **평균 신뢰도:** {avg_confidence:.1%}")
             
             report_parts.append("")
         

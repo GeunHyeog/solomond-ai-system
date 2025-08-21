@@ -43,15 +43,72 @@ class DynamicResourceManager:
         logger.info(f"리소스 관리자 초기화 - GPU 사용 가능: {self.gpu_available}")
     
     def _check_gpu_availability(self) -> bool:
-        """GPU 사용 가능성 확인"""
+        """GPU 사용 가능성 확인 - 메모리 부족 상황 포함"""
         try:
             import torch
             if torch.cuda.is_available():
                 gpu_count = torch.cuda.device_count()
                 logger.info(f"CUDA GPU {gpu_count}개 감지")
-                return True
+                
+                # GPU 메모리 상태 확인
+                for i in range(gpu_count):
+                    try:
+                        # 실제 GPU 메모리 사용 상황 정확히 파악
+                        total_memory = torch.cuda.get_device_properties(i).total_memory
+                        allocated_memory = torch.cuda.memory_allocated(i)
+                        reserved_memory = torch.cuda.memory_reserved(i)
+                        
+                        # nvidia-smi에서 실제 사용 중인 메모리와 비교
+                        try:
+                            import subprocess
+                            result = subprocess.run(['nvidia-smi', '--query-gpu=memory.used', '--format=csv,noheader,nounits'], 
+                                                  capture_output=True, text=True)
+                            if result.returncode == 0:
+                                actual_used_mb = float(result.stdout.strip())
+                                actual_used_bytes = actual_used_mb * 1024 * 1024
+                            else:
+                                actual_used_bytes = reserved_memory
+                        except:
+                            actual_used_bytes = reserved_memory
+                        
+                        # 실제 사용 가능한 메모리 계산 (더 보수적으로)
+                        free_memory = total_memory - actual_used_bytes
+                        
+                        # 안전 마진 500MB 추가 (다른 프로세스들 고려)
+                        safety_margin = 500 * 1024 * 1024  # 500MB
+                        usable_memory = free_memory - safety_margin
+                        
+                        # Whisper base 모델 최소 요구사항: 약 800MB (실제 로딩 시 필요한 메모리)
+                        min_required_memory = 800 * 1024 * 1024  # 800MB
+                        
+                        # 실제 메모리 할당 테스트 (더 작은 크기로)
+                        test_size = min(50 * 1024 * 1024, int(usable_memory * 0.1))  # 50MB 또는 사용가능 메모리의 10%
+                        if test_size > 10 * 1024 * 1024:  # 최소 10MB는 되어야 테스트 의미있음
+                            test_tensor = torch.zeros(test_size // 4, device=f'cuda:{i}', dtype=torch.float32)
+                            del test_tensor
+                            torch.cuda.empty_cache()
+                        
+                        if usable_memory > min_required_memory:
+                            logger.info(f"GPU {i} 사용 가능 - 사용가능: {usable_memory/1024**3:.2f}GB, 실제여유: {free_memory/1024**3:.2f}GB (총 {total_memory/1024**3:.2f}GB)")
+                            return True
+                        else:
+                            logger.warning(f"GPU {i} 메모리 부족 - 사용가능: {usable_memory/1024**3:.2f}GB < 최소요구: {min_required_memory/1024**3:.2f}GB (실제여유: {free_memory/1024**3:.2f}GB)")
+                            
+                    except RuntimeError as e:
+                        if "out of memory" in str(e).lower():
+                            logger.warning(f"GPU {i} 메모리 할당 실패 - CPU 모드로 전환: {e}")
+                            continue
+                        else:
+                            logger.warning(f"GPU {i} 테스트 실패: {e}")
+                            continue
+                            
+                logger.warning("모든 GPU에서 메모리 부족 또는 사용 불가 - CPU 모드로 전환")
+                return False
+                
         except ImportError:
-            pass
+            logger.info("PyTorch 미설치 - GPU 사용 불가")
+        except Exception as e:
+            logger.warning(f"GPU 확인 중 오류: {e}")
         
         try:
             # NVIDIA-SMI로 확인
@@ -271,28 +328,82 @@ class DynamicResourceManager:
             }
     
     def get_optimal_settings_for_whisper(self) -> Dict[str, Any]:
-        """Whisper 최적 설정"""
+        """Whisper 최적 설정 - GPU 메모리 부족 상황 고려"""
         status = self.get_current_status()
         
-        if status.recommendation == 'gpu' and status.gpu_memory_free > 3.0:
-            # GPU 모드: 더 큰 모델 사용 가능
-            model_size = 'large' if status.gpu_memory_free > 6.0 else 'medium'
+        # GPU 실제 사용 가능성 재확인
+        gpu_usable = self._verify_gpu_for_whisper()
+        
+        if gpu_usable and status.recommendation in ['gpu', 'hybrid'] and status.gpu_memory_free > 0.8:
+            # GPU 모드: 실제 사용가능 메모리에 따른 적응적 모델 크기
+            # nvidia-smi로 실제 사용 중인 메모리 확인
+            try:
+                import subprocess
+                result = subprocess.run(['nvidia-smi', '--query-gpu=memory.used,memory.total', '--format=csv,noheader,nounits'], 
+                                      capture_output=True, text=True)
+                if result.returncode == 0:
+                    used_mb, total_mb = result.stdout.strip().split(', ')
+                    actual_free_gb = (float(total_mb) - float(used_mb)) / 1024
+                    # 안전 마진 0.5GB 제외
+                    usable_gb = actual_free_gb - 0.5
+                else:
+                    usable_gb = status.gpu_memory_free
+            except:
+                usable_gb = status.gpu_memory_free
+            
+            if usable_gb > 3.0:
+                model_size = 'medium'
+                logger.info(f"Whisper GPU 설정: medium 모델 (사용가능: {usable_gb:.1f}GB)")
+            elif usable_gb > 1.5:
+                model_size = 'base'
+                logger.info(f"Whisper GPU 설정: base 모델 (사용가능: {usable_gb:.1f}GB)")
+            else:
+                model_size = 'tiny'
+                logger.info(f"Whisper GPU 설정: tiny 모델 (사용가능: {usable_gb:.1f}GB)")
+                
             return {
                 'model_size': model_size,
                 'device': 'cuda',
                 'fp16': True,  # GPU에서 FP16으로 메모리 절약
                 'condition_on_previous_text': True,
-                'temperature': 0.0  # 재현 가능한 결과
+                'temperature': 0.0,
+                'verbose': False
             }
         else:
-            # CPU 모드: 작은 모델로 안정성 확보
+            # CPU 모드: 안정성 우선
+            logger.info("Whisper CPU 설정: base 모델 (안정성 우선)")
             return {
                 'model_size': 'base',  # CPU에서 적절한 크기
                 'device': 'cpu',
                 'fp16': False,
                 'condition_on_previous_text': True,
-                'temperature': 0.0
+                'temperature': 0.0,
+                'verbose': False
             }
+    
+    def _verify_gpu_for_whisper(self) -> bool:
+        """Whisper 전용 GPU 메모리 검증"""
+        try:
+            import torch
+            if not torch.cuda.is_available():
+                return False
+                
+            # 작은 Whisper 모델 크기 메모리 테스트
+            try:
+                # base 모델 최소 요구 메모리 테스트 (약 150MB)
+                test_size = 150 * 1024 * 1024 // 4  # 150MB in float32 elements
+                test_tensor = torch.zeros(test_size, device='cuda:0', dtype=torch.float32)
+                del test_tensor
+                torch.cuda.empty_cache()
+                return True
+            except RuntimeError as e:
+                if "out of memory" in str(e).lower():
+                    logger.warning(f"Whisper GPU 메모리 검증 실패: {e}")
+                    return False
+                raise
+        except Exception as e:
+            logger.warning(f"Whisper GPU 검증 오류: {e}")
+            return False
 
 # 전역 인스턴스
 _resource_manager = None
