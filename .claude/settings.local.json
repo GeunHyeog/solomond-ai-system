@@ -62,7 +62,8 @@
       "Bash(gh repo view:*)",
       "Bash(powershell.exe -Command \"Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; C:\\Users\\PC_58410\\phase15_r4_setup.ps1\")",
       "Bash(powershell.exe -NoProfile -ExecutionPolicy Bypass -Command \"\n$timestamp = Get-Date -Format ''yyyyMMdd_HHmmss''\n$logFile = \"\"C:\\Users\\PC_58410\\phase15_r4_execution_$timestamp.log\"\"\n\ntry {\n  Write-Host ''=== Phase 1-8 자동 실행 시작 ==='' -ForegroundColor Cyan\n  \n  # Phase 1: solomond-ai-system 스냅샷\n  Set-Location ''C:\\Users\\PC_58410\\solomond-ai-system''\n  $stamp = Get-Date -Format ''yyyyMMdd_HHmmss''\n  \n  git branch \"\"rescue/phase15-r4-audit_$stamp\"\"\n  git add -A\n  git commit -m \"\"chore: rescue snapshot ($stamp)\"\"\n  git tag \"\"rescue-snapshot-$stamp\"\"\n  \n  Write-Host ''Phase 1 완료: rescue snapshot 생성'' -ForegroundColor Green\n  \n  # Phase 2: JMS 디렉토리 생성\n  Set-Location ''C:\\Users\\PC_58410''\n  if (Test-Path ''jewelry-master-system'') {\n    Rename-Item ''jewelry-master-system'' \"\"jewelry-master-system.backup.$stamp\"\"\n  }\n  \n  New-Item -ItemType Directory -Force -Path ''jewelry-master-system'' | Out-Null\n  Set-Location ''jewelry-master-system''\n  git init -b main | Out-Null\n  \n  Write-Host ''Phase 2 완료: JMS 디렉토리 초기화'' -ForegroundColor Green\n  \n  # 결과 출력\n  Write-Host ''스크립트 실행 완료!'' -ForegroundColor Green\n  Write-Host ''커밋 해시 확인 필요'' -ForegroundColor Yellow\n  \n} catch {\n  Write-Host \"\"오류 발생: $_\"\" -ForegroundColor Red\n  exit 1\n}\n\")",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": [],
