@@ -1,0 +1,51 @@
+{
+  "description": "모바일 Claude 연동용 외부 MCP 서버 설정",
+  "external_servers": {
+    "notion_cloud": {
+      "type": "api",
+      "endpoint": "https://api.notion.com/v1",
+      "description": "Notion 클라우드 API",
+      "mobile_compatible": true,
+      "setup_required": "Notion API 키 필요"
+    },
+    "google_workspace": {
+      "type": "oauth",
+      "services": ["drive", "gmail", "calendar"],
+      "description": "Google Workspace 통합",
+      "mobile_compatible": true,
+      "setup_required": "Google OAuth 인증"
+    },
+    "perplexity_api": {
+      "type": "api",
+      "endpoint": "https://api.perplexity.ai",
+      "description": "Perplexity AI 검색",
+      "mobile_compatible": true,
+      "setup_required": "Perplexity API 키"
+    },
+    "web_search_anthropic": {
+      "type": "built_in",
+      "description": "Anthropic 내장 웹 검색",
+      "mobile_compatible": true,
+      "setup_required": "없음"
+    },
+    "smart_crawler_cloud": {
+      "type": "api",
+      "endpoint": "https://smart-crawler-api.example.com",
+      "description": "클라우드 기반 웹 크롤러",
+      "mobile_compatible": true,
+      "setup_required": "API 키 또는 서버 구축"
+    }
+  },
+  "recommended_mobile_setup": [
+    "Google Workspace (Drive, Gmail, Calendar)",
+    "Notion Cloud API",
+    "Anthropic 내장 웹 검색",
+    "Perplexity API"
+  ],
+  "desktop_only": [
+    "로컬 파일시스템 접근",
+    "Windows 시스템 제어",
+    "로컬 브라우저 자동화",
+    "로컬 개발 도구"
+  ]
+}

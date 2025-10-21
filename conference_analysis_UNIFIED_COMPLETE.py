@@ -2521,6 +2521,47 @@ def main():
             
         # Local file system section
         # 🗂️ 로컬 파일 시스템 (3GB+ IMG_0032.MOV 등)
+        st.markdown("### 📁 커스텀 폴더 분석")
+        
+        custom_folder_path = st.text_input(
+            "🎯 원하는 폴더 경로를 입력하세요:",
+            placeholder="예: C:/Users/PC_58410/Downloads 또는 D:/MyFiles",
+            help="분석하고 싶은 폴더의 전체 경로를 입력하면 해당 폴더의 파일들을 분석합니다"
+        )
+        
+        if custom_folder_path:
+            custom_path = Path(custom_folder_path)
+            if custom_path.exists() and custom_path.is_dir():
+                st.success(f"✅ 폴더 확인됨: {custom_path}")
+                
+                # 커스텀 폴더 파일 스캔
+                custom_files = []
+                for file_path in custom_path.rglob("*"):
+                    if file_path.is_file() and file_path.suffix.lower() in ['.jpg', '.jpeg', '.png', '.bmp', '.wav', '.mp3', '.m4a', '.flac', '.mp4', '.avi', '.mov', '.txt']:
+                        file_size = file_path.stat().st_size
+                        custom_files.append({
+                            'path': file_path,
+                            'name': file_path.name,
+                            'folder': 'custom',
+                            'size_mb': file_size / (1024*1024),
+                            'type': file_path.suffix.lower(),
+                            'parent_dir': str(file_path.parent)
+                        })
+                
+                if custom_files:
+                    st.info(f"📊 발견된 파일: {len(custom_files)}개")
+                    
+                    if st.button("🚀 커스텀 폴더 분석 시작", type="primary"):
+                        st.success("✅ 커스텀 폴더 분석 시작!")
+                        # 기존 로컬 파일 처리 로직과 동일하게 처리
+                        local_files.extend(custom_files)
+                else:
+                    st.warning("지원되는 파일이 없습니다")
+            else:
+                st.error("❌ 유효하지 않은 폴더 경로입니다")
+        
+        st.markdown("---")
+        st.markdown("### 📂 기본 user_files 폴더")
         st.markdown("**[팁] 로컬 파일 처리**: 3GB+ 파일은 user_files 폴더에 복사 후 여기서 선택하세요")
         st.markdown("**📍 파일 경로**: `C:/Users/PC_58410/solomond-ai-system/user_files/`")
         

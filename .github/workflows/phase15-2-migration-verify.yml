@@ -1,0 +1,87 @@
+name: Phase 15 Migration Verify
+
+on:
+  pull_request:
+    paths:
+      - 'supabase/migrations/**'
+      - 'scripts/**'
+      - '.github/workflows/phase15-2-migration-verify.yml'
+  push:
+    branches: [ main ]
+    paths:
+      - 'supabase/migrations/**'
+  schedule:
+    - cron: '0 18 * * *'   # 03:00 KST
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link Supabase
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+        run: npx supabase link --project-ref "$SUPABASE_PROJECT_REF"
+
+      - name: Generate Registry
+        run: npm run migrate:hash
+
+      - name: Verify Integrity
+        id: verify
+        run: |
+          set -e
+          npm run migrate:verify || echo "verify_failed=true" >> $GITHUB_OUTPUT
+
+      - name: Remote Status
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+        run: npm run migrate:status -- --ci
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: migration-reports-${{ github.run_number }}
+          path: |
+            supabase/migrations/.registry.json
+            docs/PHASE15_2_MIGRATION_STATUS.md
+          retention-days: 30
+
+      - name: Comment PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const status = fs.existsSync('docs/PHASE15_2_MIGRATION_STATUS.md')
+              ? fs.readFileSync('docs/PHASE15_2_MIGRATION_STATUS.md','utf8')
+              : '(no status)';
+            const failed = '${{ steps.verify.outputs.verify_failed }}' === 'true';
+            const body = `## 🔍 Migration Verify\n\n- Integrity: ${failed ? '❌ FAILED' : '✅ PASSED'}\n\n---\n${status}`;
+            github.rest.issues.createComment({ 
+              issue_number: context.issue.number, 
+              owner: context.repo.owner, 
+              repo: context.repo.repo, 
+              body 
+            });
+
+      - name: Fail if integrity compromised
+        if: steps.verify.outputs.verify_failed == 'true'
+        run: |
+          echo "❌ Checksum mismatch → failing the build"
+          exit 1

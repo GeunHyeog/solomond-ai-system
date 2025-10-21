@@ -1,8 +1,9 @@
 [server]
-maxUploadSize = 5000
-maxMessageSize = 1000
+maxUploadSize = 10000
+maxMessageSize = 10000
 enableCORS = false
 enableXsrfProtection = false
+enableWebsocketCompression = false
 
 [global]
 developmentMode = false

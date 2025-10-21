@@ -1,0 +1,21 @@
+{
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node"
+    }
+  },
+  "env": {
+    "NOTION_API_KEY": "@notion_api_key",
+    "GOOGLE_CLIENT_ID": "@google_client_id",
+    "GOOGLE_CLIENT_SECRET": "@google_client_secret",
+    "GOOGLE_REFRESH_TOKEN": "@google_refresh_token",
+    "PERPLEXITY_API_KEY": "@perplexity_api_key"
+  },
+  "regions": ["icn1"],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    }
+  ]
+}

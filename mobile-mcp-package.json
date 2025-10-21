@@ -1,0 +1,21 @@
+{
+  "name": "mobile-mcp-server",
+  "version": "1.0.0",
+  "description": "모바일 Claude용 외부 MCP 서버",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod",
+    "test": "node test/test-endpoints.js"
+  },
+  "dependencies": {
+    "@notionhq/client": "^2.2.3",
+    "googleapis": "^118.0.0",
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "vercel": "^31.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
