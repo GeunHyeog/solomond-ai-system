@@ -1,0 +1,260 @@
+# Phase 15-1-O: Comet QA v9 Runbook
+# Smoke Test Suite for Operational Stability
+
+## Metadata
+version: "9.0"
+phase: "15-1-O"
+type: "smoke-test"
+priority: "critical"
+owner: "QA Team"
+created: "2025-11-03"
+updated: "2025-11-03"
+
+## Overview
+description: |
+  5 critical smoke tests to verify operational stability of the Jewelry Master System.
+  These tests ensure basic functionality is working before deeper integration testing.
+
+target_environment: "production"
+base_url: "https://jewelry-master-system.pages.dev"
+
+## Prerequisites
+required_credentials:
+  - E2E_ADMIN_EMAIL
+  - E2E_ADMIN_PASSWORD
+
+dependencies:
+  - Playwright (installed with --with-deps)
+  - Chromium browser
+  - Active Supabase instance
+  - Deployed Edge Functions
+
+## Test Scenarios
+
+### Scenario 1: Login Persistence
+**ID**: smoke-01-login-persistence
+**Priority**: Critical
+**Estimated Duration**: 30s
+
+**Description**: Verify that user sessions persist across page reloads
+
+**Steps**:
+1. Navigate to login page
+2. Enter valid credentials
+3. Verify successful login (redirect to dashboard)
+4. Take screenshot (before reload)
+5. Reload the page
+6. Verify session still active (no redirect to login)
+7. Verify user email or username is displayed
+8. Take screenshot (after reload)
+
+**Expected Results**:
+- User remains logged in after page reload
+- No redirect to login page
+- User email/username visible in UI
+
+**Evidence**:
+- Screenshot: `test-results/smoke-01-before.png`
+- Screenshot: `test-results/smoke-01-after.png`
+
+---
+
+### Scenario 2: Dashboard Rendering
+**ID**: smoke-02-dashboard-render
+**Priority**: Critical
+**Estimated Duration**: 30s
+
+**Description**: Verify that dashboard page renders with all critical components
+
+**Steps**:
+1. Login with valid credentials
+2. Navigate to dashboard
+3. Verify header/navigation element exists
+4. Verify main content area exists
+5. Take full-page screenshot
+6. Monitor console for errors
+7. Wait 2 seconds for async operations
+8. Verify no critical console errors
+
+**Expected Results**:
+- Header/navigation renders
+- Main content area renders
+- No critical console errors (warnings acceptable)
+
+**Evidence**:
+- Screenshot: `test-results/smoke-02-dashboard.png`
+- Console error count logged
+
+---
+
+### Scenario 3: Activity Log Loading
+**ID**: smoke-03-activity-log
+**Priority**: High
+**Estimated Duration**: 30s
+
+**Description**: Verify that activity log or data loading mechanisms work
+
+**Steps**:
+1. Login with valid credentials
+2. Navigate to dashboard
+3. Wait 3 seconds for data to load
+4. Verify page body exists (basic render check)
+5. Take screenshot
+6. Verify no 500 errors in network
+
+**Expected Results**:
+- Page loads successfully
+- Body content exists
+- No 5xx server errors
+
+**Evidence**:
+- Screenshot: `test-results/smoke-03-activity.png`
+
+---
+
+### Scenario 4: Refresh State Preservation
+**ID**: smoke-04-refresh-state
+**Priority**: High
+**Estimated Duration**: 30s
+
+**Description**: Verify that critical state (e.g., MFA status) is preserved after browser refresh
+
+**Steps**:
+1. Login with valid credentials
+2. Navigate to Settings page
+3. Wait 1 second for state to load
+4. Capture MFA status text (Enabled/Disabled)
+5. Take screenshot (before refresh)
+6. Perform hard refresh (waitUntil: 'networkidle')
+7. Capture MFA status text again
+8. Take screenshot (after refresh)
+9. Verify status matches before and after
+
+**Expected Results**:
+- MFA status preserved across refresh
+- Screenshots show identical state
+
+**Evidence**:
+- Screenshot: `test-results/smoke-04-before.png`
+- Screenshot: `test-results/smoke-04-after.png`
+- Status comparison logged
+
+---
+
+### Scenario 5: Network Stability
+**ID**: smoke-05-network-stable
+**Priority**: Medium
+**Estimated Duration**: 60s
+
+**Description**: Verify no 5xx server errors during basic navigation
+
+**Steps**:
+1. Set up network request monitor
+2. Track all 5xx status codes
+3. Login with valid credentials
+4. Navigate to dashboard, wait 1s
+5. Navigate to settings, wait 1s
+6. Navigate back to dashboard, wait 1s
+7. Collect all failed requests (status >= 500)
+8. Verify failed request count is 0
+
+**Expected Results**:
+- Zero 5xx errors during navigation
+- All requests return 2xx, 3xx, or 4xx status
+
+**Evidence**:
+- Failed request count: 0
+- If failures: JSON log of failed requests
+
+---
+
+## Test Execution
+
+### Command
+```bash
+cd app
+npx playwright test e2e/smoke.spec.ts --project=chromium
+```
+
+### Environment Variables
+```bash
+export E2E_BASE_URL="https://jewelry-master-system.pages.dev"
+export E2E_ADMIN_EMAIL="<admin-email>"
+export E2E_ADMIN_PASSWORD="<admin-password>"
+```
+
+### Success Criteria
+- All 5 tests PASS
+- No test skipped (credentials must be provided)
+- All evidence files generated
+
+### Failure Handling
+- Capture screenshots on failure
+- Log console errors
+- Log network requests
+- Report to COF system
+
+---
+
+## COF Integration
+
+### Evidence Collection
+- All screenshots saved to `test-results/`
+- Test results in `playwright-report/`
+- Console logs captured in test output
+
+### Report Generation
+After test execution, generate COF report:
+```bash
+node scripts/ci/generate-cof.js
+```
+
+Expected output:
+- `cof/reports/<SHA>/comet.json`
+- `cof/reports/<SHA>/gemini.json`
+
+### Required Fields (comet.json)
+```json
+{
+  "suite": "phase15-1-o-smoke",
+  "deploy_sha": "<commit-sha>",
+  "test_date": "YYYY-MM-DD",
+  "scenarios": [
+    {"id": "smoke-01-login-persistence", "status": "PASS|FAIL"},
+    {"id": "smoke-02-dashboard-render", "status": "PASS|FAIL"},
+    {"id": "smoke-03-activity-log", "status": "PASS|FAIL"},
+    {"id": "smoke-04-refresh-state", "status": "PASS|FAIL"},
+    {"id": "smoke-05-network-stable", "status": "PASS|FAIL"}
+  ],
+  "tests": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "total": 5
+  },
+  "evidence": [
+    "artifacts/<SHA>/playwright-report/",
+    "artifacts/<SHA>/test-results/"
+  ],
+  "repoGuard": {
+    "sentinel_check": "PASS|FAIL",
+    "preflight_check": "PASS|FAIL",
+    "ci_guard_check": "PASS|FAIL"
+  }
+}
+```
+
+---
+
+## Notes
+- Tests are guarded: will skip if credentials not provided
+- Tests target production URL by default
+- All tests include screenshot evidence
+- Network monitoring includes request/response tracking
+- State preservation tests verify React/Supabase sync
+
+---
+
+**Last Updated**: 2025-11-03
+**Reviewer**: Phase 12-2 team
+**Approval**: Pending QA v9 rehearsal
